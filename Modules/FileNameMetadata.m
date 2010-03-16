@@ -41,12 +41,13 @@ function handles=FileNameMetadata(handles, varargin)
 %  9. "[0-9]+"      Capture as many digits as follow
 %
 % When entering fields for the pathname, because slashs are platform-
-% dependdent and are escape characters in regexp, use a vertical line ('|')
+% dependdent and are escape characters in regexp, you can use '[\\/]' to 
+% capture both slashes or use a vertical line ('|') as shorthand
 % to separate the direcrories, like this:
 %   (?<rootdir>)|(?<subdir1>)|(?<subdir2>)....
 % For instance, if an experimental run is given a unique directory name,
 % the following expression will capture the directory name from the path:
-%   .*|(?<Run>.*)$
+%   .*|(?<Run>.*)$ or .*[\\/](?<Run>.*)$
 % This captures the immediate directory containing the image file in the 
 % token "Run", ignoring earlier directories in the path.
 %
@@ -116,7 +117,7 @@ else
     FileFieldNames = [];
 end
 
-%textVAR03 = For the pathname, enter the regular expression to use to capture the fields. Separate each directory-specific field using vertical lines (i.e, | ). Type "Do not use" to ignore.
+%textVAR03 = For the pathname, enter the regular expression to use to capture the fields. Type "Do not use" to ignore.
 %defaultVAR03 = Do not use
 RegularExpressionPathname = char(handles.Settings.VariableValues{CurrentModuleNum,3});
 
