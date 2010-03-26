@@ -5,10 +5,10 @@
 # the specified command.
 #
 
+#########################################
 ## ** Assuming default location of MCR -- Change if you have a non-standard MCR install **
 MCRROOT=/Applications/MATLAB/MATLAB_Compiler_Runtime/v711
 
-#########################################
 ## Added for OS X version checking.  
 ## DISPLAY variable needs to be set for OS < 10.5
 sysver=`sw_vers -productVersion | cut -c 1-4`
@@ -27,22 +27,21 @@ fi
 
 exe_name=$0
 exe_dir=`dirname $0`
-echo "Launching CellProfiler"
 echo "------------------------------------------"
 echo Setting up environment variables
 echo ---
-MWE_ARCH="maci64" ;
+MWE_ARCH="maci" ;
 if [ "$MWE_ARCH" = "sol64" ] ; then
-	LD_LIBRARY_PATH=.:/usr/lib/lwp:${MCRROOT}/runtime/maci64 ; 
+	LD_LIBRARY_PATH=.:/usr/lib/lwp:${MCRROOT}/runtime/maci ; 
 else
- 	DYLD_LIBRARY_PATH=.:${MCRROOT}/runtime/maci64 ;
+  	DYLD_LIBRARY_PATH=.:${MCRROOT}/runtime/maci ;
 fi
-DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${MCRROOT}/bin/maci64 ;
-DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${MCRROOT}/sys/os/maci64;
+DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${MCRROOT}/bin/maci ;
+DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:${MCRROOT}/sys/os/maci;
 if [ "$MWE_ARCH" = "maci" -o "$MWE_ARCH" = "maci64" ]; then
 	DYLD_LIBRARY_PATH=${DYLD_LIBRARY_PATH}:/System/Library/Frameworks/JavaVM.framework/JavaVM:/System/Library/Frameworks/JavaVM.framework/Libraries;
 else
-	MCRJRE=${MCRROOT}/sys/java/jre/maci64/jre/lib/ ;
+	MCRJRE=${MCRROOT}/sys/java/jre/maci/jre/lib/ ;
 	LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRJRE}/native_threads ; 
 	LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRJRE}/server ;
 	LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${MCRJRE}/client ;
@@ -53,5 +52,5 @@ export DYLD_LIBRARY_PATH;
 export XAPPLRESDIR;
 echo DYLD_LIBRARY_PATH is ${DYLD_LIBRARY_PATH};
 shift 1
-${exe_dir}/CellProfiler.app/Contents/MacOS/CellProfiler $*
+${exe_dir}/CellProfiler $*
 exit
