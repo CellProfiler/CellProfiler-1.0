@@ -1,4 +1,6 @@
-#!/util/bin/python
+#!/usr/bin/env /imaging/analysis/People/imageweb/batchprofiler/cgi-bin/python-2.6.sh
+## Note that /util/bin/python is no longer working on Broad's LSF, so we are co-opting CP2.0's python shell scripts.
+## It should work for now. 
 
 # This is a wrapper around the compiled Matlab CPCluster program,
 # which has a tendency to hang on the cluster.  We wrap it in a script
