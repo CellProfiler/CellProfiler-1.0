@@ -1,4 +1,4 @@
-#!/broad/tools/Linux/x86_64/pkgs/python_2.6.1/bin/python
+#!/usr/bin/env /imaging/analysis/People/imageweb/batchprofiler/cgi-bin/python-2.6.sh
 from sys import argv,exit,path
 from subprocess import Popen, PIPE, STDOUT
 from scipy.io.matlab import loadmat
@@ -17,7 +17,7 @@ timeout = int(argv[5])
 CPCluster=path[0]
 
 # Load Batch_data and figure out the sets that need running
-batch_info = loadmat("%(datadir)s/Batch_data.mat"%(locals()))
+batch_info = loadmat("%(datadir)s/Batch_data.mat"%(locals()),struct_as_record=False)
 num_sets = batch_info['handles'][0,0].Current[0,0].NumberOfImageSets[0,0]
 
 # Loop over batches, check status file, print out commands for those that need it
@@ -27,9 +27,9 @@ for start in range(1, num_sets + 1, batch_size):
         end = num_sets
     status_file_name = "%(datadir)s/status/Batch_%(start)d_to_%(end)d_DONE.mat"%(locals())
     if not exists(status_file_name):
-        print "bsub -q %(queue)s -o %(datadir)s/txt_output/%(start)s_to_%(end)s.txt %(CPCluster)s/CPCluster.py %(datadir)s/Batch_data.mat %(start)s %(end)s %(datadir)s/status Batch_ %(write_data)s %(timeout)d"%(locals())
+        print "bsub -P imaging -q %(queue)s -o %(datadir)s/txt_output/%(start)s_to_%(end)s.txt %(CPCluster)s/CPCluster.py %(datadir)s/Batch_data.mat %(start)s %(end)s %(datadir)s/status Batch_ %(write_data)s %(timeout)d"%(locals())
 
 
 #  for i in `; do
-#      echo bsub -q $QueueType -o ${BatchTxtOutputDir}/${i}.txt $CPCluster/CPCluster.sh ${BatchDataDir}/${BatchPrefix}data.mat $i $BatchStatusDir $BatchPrefix
+#      echo bsub -P imaging -q $QueueType -o ${BatchTxtOutputDir}/${i}.txt $CPCluster/CPCluster.sh ${BatchDataDir}/${BatchPrefix}data.mat $i $BatchStatusDir $BatchPrefix
 #  done
