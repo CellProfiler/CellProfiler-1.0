@@ -92,7 +92,7 @@ switch lower(usage),
         %  -C: generate separate CTF archive
         %  -a: Needed to add non-matlab .jpg file
         version_info = ver('matlab');
-        if str2double(version_info.Version) >= 7.6, %Must include -C to produce separate CTF file
+        if str2double(version_info.Version(3:end)) >= 6, %Must include -C to produce separate CTF file
             if ispc  % Add icon to argument list
                mcc -m -C CellProfiler -I ./Modules -I ./DataTools -I ./ImageTools ...
                  -I ./CPsubfunctions -I ./Help -a './CPsubfunctions/CPsplash.jpg' -a './CPsubfunctions/CPcellomicsdata.class' -M './IconForWindows.res';

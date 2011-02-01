@@ -273,7 +273,17 @@ end
 handles = CPaddmeasurements(handles,'Image',CPjoinstrings('ModuleError',[CPtwodigitstring(CurrentModuleNum),ModuleName]),0);
 
 % Python can't load function pointers
+%
+% Mario Emmenlauer, 2010.06.01
+% Added condition, to better run on the Cluster. Original
+% idea from Vincent Rouilly. To avoid the error, one has
+% to comment the call to rmfield(handles, 'FunctionHandles').
+% To avoid the inverse problem, here is a test-line, which
+% calls 'rmfield' if and only if FunctionHandles exists.
+%
+if isfield(handles, 'FunctionHandles')
 handles = rmfield(handles, 'FunctionHandles');
+end
 
 % The website just needs the # of image sets, so we make a global
 % variable here to save
