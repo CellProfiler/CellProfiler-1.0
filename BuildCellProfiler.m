@@ -56,6 +56,19 @@ for i = 1:length(directory_str),
     assert(exist(['./',directory_str{i}],'dir') == 7, err_txt);
 end
 
+% temporarily move away the preferences directory
+RandStream.setDefaultStream(RandStream('mt19937ar','seed',sum(100*clock)));
+tmpprefdir=[prefdir '.' char(round(23*rand(1,8))+'A')];
+if exist(tmpprefdir,'file')~=0
+    rmdir(tmpprefdir,'s');
+end
+movefile(prefdir,tmpprefdir);
+mkdir(prefdir);
+
+% all the following code is in a try-catch-block that restores the
+% preferences directory in case of errors
+try
+
 % Get svn version number
 current_search_path = pathdef;
 addpath Modules CPsubfunctions DataTools ImageTools Help
@@ -147,6 +160,7 @@ switch lower(usage),
         else
             disp('Expansion successful');
         end
+        mkdir(['../' output_dir '/CellProfiler_mcr/.matlab']);
 
         % Set permissions on scripts (on unix and Mac systems)
         disp('Setting permissions...');
@@ -229,6 +243,7 @@ switch lower(usage),
         else
             disp('Expansion successful');
         end
+        mkdir(['CPCluster_mcr/.matlab']);
 
         % Delete unneccesary files
         delete('CPCluster_main.c');
@@ -257,3 +272,14 @@ switch lower(usage),
     otherwise
         error('Unrecognized arguments. Please use either ''cluster'' or ''single''.');
 end
+
+% this is the end of the try-catch-block that restores
+% the preferences directory in case of errors (and also
+% restores it in case of no errors).
+catch ME
+    rmdir(prefdir,'s');
+    movefile(tmpprefdir,prefdir);
+    rethrow(ME);
+end
+rmdir(prefdir,'s');
+movefile(tmpprefdir,prefdir);
