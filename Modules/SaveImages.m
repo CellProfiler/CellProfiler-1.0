@@ -395,11 +395,19 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             end
         end
         Image = CPretrieveimage(handles,ImageName,ModuleName);
-        if max(Image(:)) > 1 || min(Image(:)) < 0
-            % Warn the users that the value is being changed.
-            % Outside 0-1 RangeWarning Box
-            if isempty(findobj('Tag',['Msgbox_' ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Outside 0-1 Range']))
-                CPwarndlg(['The images you have loaded in the ', ModuleName, ' module are outside the 0-1 range, and you may be losing data.  Note, however that Illumination Functions are often in the range 1 to Inf, and in this case the warning can be ignored.'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Outside 0-1 Range'],'replace');
+	% Mario Emmenlauer, 2011-08-19
+	% The following code originally checked for all images, if the min/max
+	% values are in [0,1] range. This is not ideal for segmentations, which
+	% are integer images.
+	if isa(Image, 'float')
+            ImageMax=max(Image(:));
+            ImageMin=min(Image(:));
+            if (ImageMax > 1 || ImageMin < 0)
+                % Warn the users that the value is being changed.
+                % Outside 0-1 RangeWarning Box
+                if isempty(findobj('Tag',['Msgbox_' ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Outside 0-1 Range']))
+                    CPwarndlg(['The image (class ' class(Image) ') you are saving in the ', ModuleName, ' module is in the range [' num2str(ImageMin) ',' num2str(ImageMax) '] (outside the 0-1 range), and you may be losing data.  Note, however that Illumination Functions are often in the range 1 to Inf, and in this case the warning can be ignored.'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Outside 0-1 Range'],'replace');
+                end
             end
         end
 
