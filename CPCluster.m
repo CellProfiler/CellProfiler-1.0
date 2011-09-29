@@ -7,6 +7,20 @@ function CPCluster(batchfile,StartingSet,EndingSet,OutputFolder,BatchFilePrefix,
 
 tic
 
+% Mario Emmenlauer, 2011.08.19
+% This code is copied from CellProfiler.m. It enables CPCluster
+% to run from Matlab shell in interactive mode (non-deployed needs
+% the paths to be added).
+% Begin initialization code - DO NOT EDIT
+if ~isdeployed
+    try
+        subdirs = strread(genpath(fileparts(which('CPCluster'))), '%s','delimiter',pathsep);
+        subdirs = subdirs(cellfun('isempty', strfind(subdirs, '.svn')));
+        addpath(subdirs{:});
+    catch
+    end
+end
+
 try
     state = warning('off', 'all'); % necessary to get around pipelines that complain about missing functions.
     load(batchfile);
