@@ -1,0 +1,7 @@
+Cloned from SVN via:
+
+mkdir CP1.0-from-git
+cd CP1.0-from-git
+git svn init --ignore-paths="(^|.*/)(.*\.jar|2005_01_12_test3OUT.mat|CPAnalayst/src/build/.*|DeveloperDrop[Bb]ox.*|Outdated/.*|Promotional/.*|packages/.*|ffmpeg/.*|CellProfiler_?Manual.p.*|ExampleImages/.*|ImagesForManual/.*|Promotional/.*|Website_CellProfiler/|windows/vcredist_....exe|ForMikeToCompile/.*|.*.mexmac|CellProfilerManual.tex.*|pyCellProfiler/.*)" https://svn.broadinstitute.org/CellProfiler/trunk/CellProfiler_old_matlab/
+(while ! git svn fetch ; do echo RETRY; done ) > ../gitlog.txt   # SSL can fail fetching large commits
+ 
