@@ -111,7 +111,8 @@ end
 OutputFileName = sprintf('%s/%s%d_to_%d_DONE.mat',OutputFolder,BatchFilePrefix,StartingSet,EndingSet);
 save(OutputFileName,'BatchSetBeingAnalyzed');
 disp(sprintf('Created %s',OutputFileName));
-quit;
+fprintf('Module CPCluster finished successfully\n')
+end
 
 function reportBatchError(errorstring)
 errorinfo = lasterror;
@@ -128,4 +129,5 @@ if isfield(errorinfo, 'stack'),
 end
 disp([errorstring ': ' lasterr]);
 disp(ExtraInfo);
-quit;
+error('Error in execution');
+end
