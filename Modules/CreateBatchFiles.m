@@ -296,7 +296,12 @@ save(PathAndFileName, 'handles','number_of_image_sets');
 % Reverts to the preserved handles.  (Probably not necessary, but simpler.)
 handles = PreservedHandles;
 
-CPhelpdlg('Batch files have been written.  This analysis pipeline will now stop.  You should submit the batch files for processing on your cluster. See Help > General Help > BatchProcessing for more information.', 'BatchFilesDialog');
+% Mario Emmenlauer, 2010.06.01
+% Commented out the call to the dialog window, to be able to execute
+% the module CreateBatchFiles on the Cluster without GUI interaction:
+if ~isempty(findobj('tag','figure1'))
+    CPhelpdlg('Batch files have been written.  This analysis pipeline will now stop.  You should submit the batch files for processing on your cluster. See Help > General Help > BatchProcessing for more information.', 'BatchFilesDialog');
+end
 
 % This is the first cycle, so this is the first time seeing this
 % module.  It should cause a cancel so no further processing is done
