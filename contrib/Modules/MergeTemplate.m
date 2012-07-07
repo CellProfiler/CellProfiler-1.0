@@ -205,7 +205,8 @@ end
 if ~strcmpi(SaveOutlines,'Do not save')
     FinalOutline = bwperim (FinalSegmentedImage);
     try    handles.Pipeline.(SaveOutlines) = FinalOutline;
-    catch error(['The object outlines were not calculated by the ', ModuleName, ' module, so these images were not saved to the handles structure. The Save Images module will therefore not function on these images. This is just for your information - image processing is still in progress, but the Save Images module will fail if you attempted to save these images.'])
+    catch
+        error(['The object outlines were not calculated by the ', ModuleName, ' module, so these images were not saved to the handles structure. The Save Images module will therefore not function on these images. This is just for your information - image processing is still in progress, but the Save Images module will fail if you attempted to save these images.'])
     end
 end
 drawnow         

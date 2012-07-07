@@ -229,7 +229,8 @@ if strcmp(FailedGridChoice,'Any Previous') || strcmp(FailedGridChoice,'The First
                 while FailCheck
                     try
                         FailCheck = handles.Measurements.Image.(['DefinedGrid_',GridName,'_GridFailed']){handles.Current.SetBeingAnalyzed - SetNum};
-                    catch %%% If the data isn't stored there, then something is really wrong (something more than just the grid not being found).
+                    catch
+                        %%% If the data isn't stored there, then something is really wrong (something more than just the grid not being found).
                         error(['Image processing was canceled in the ', ModuleName, ' module because the module went looking for previous functioning grid(s) and could not find it, please check the pipeline.']);
                     end
                     if FailCheck

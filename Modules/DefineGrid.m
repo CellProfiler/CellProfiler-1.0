@@ -244,7 +244,8 @@ try
     HorizVertSpacingNumerical = str2num(HorizVertSpacing);%#ok We want to ignore MLint error checking for this line.
     XSpacing = HorizVertSpacingNumerical(1);
     YSpacing = HorizVertSpacingNumerical(2);
-catch error(['Image processing was canceled in the ', ModuleName, ' module because your entry for the spacing between columns, rows (horizontal spacing, vertical spacing) was not understood.']);
+catch
+    error(['Image processing was canceled in the ', ModuleName, ' module because your entry for the spacing between columns, rows (horizontal spacing, vertical spacing) was not understood.']);
 end
 
 %textVAR14 = For MANUAL + ONCE + COORDINATES, where is the center of the control spot (X,Y pixel location)?
@@ -291,7 +292,8 @@ if strcmp(AutoOrManual,'Automatic')
 %%% For automatic mode, the previously identified objects are
 %%% retrieved from the handles structure.
     try OrigImage = CPretrieveimage(handles,['Segmented' ObjectName],ModuleName);
-    catch error(['Image processing was canceled in the ', ModuleName, ' module because you specified automatic mode using the objects you called "', ObjectName, '" and these objects were not found by CellProfiler. Please adjust your pipeline to produce the objects "', ObjectName, '" prior to this ', ModuleName, ' module.']);
+    catch
+        error(['Image processing was canceled in the ', ModuleName, ' module because you specified automatic mode using the objects you called "', ObjectName, '" and these objects were not found by CellProfiler. Please adjust your pipeline to produce the objects "', ObjectName, '" prior to this ', ModuleName, ' module.']);
     end
 elseif strcmp(AutoOrManual,'Manual')
     OrigImage = CPretrieveimage(handles,ImageName,ModuleName);
@@ -375,7 +377,8 @@ else
                 while FailCheck
                     try
                         FailCheck = handles.Measurements.Image.(['DefinedGrid_',GridName,'_GridFailed']){handles.Current.SetBeingAnalyzed - SetNum};
-                    catch %%% If the data isn't stored there, then something is really wrong (something more than just the grid not being found).
+                    catch
+                        %%% If the data isn't stored there, then something is really wrong (something more than just the grid not being found).
                         error(['Image processing was canceled in the ', ModuleName, ' module because the module went looking for previous functioning grid(s) and could not find it, please check the pipeline.']);
                     end
                     if FailCheck

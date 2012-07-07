@@ -250,7 +250,8 @@ handles = CPaddimages(handles,fieldname,NewSegmentedObjectImage);
 %%% drive, if the user requested.
 if ~strcmp(SaveOutlines,'Do not use')
     try    handles = CPaddimages(handles,SaveOutlines,PrimaryObjectOutlines);
-    catch error(['The object outlines were not calculated by the ', ModuleName, ' module, so these images were not saved to the handles structure. The Save Images module will therefore not function on these images. This is just for your information - image processing is still in progress, but the Save Images module will fail if you attempted to save these images.'])
+    catch
+        error(['The object outlines were not calculated by the ', ModuleName, ' module, so these images were not saved to the handles structure. The Save Images module will therefore not function on these images. This is just for your information - image processing is still in progress, but the Save Images module will fail if you attempted to save these images.'])
     end
 end
 

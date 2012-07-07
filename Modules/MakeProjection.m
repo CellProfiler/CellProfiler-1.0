@@ -139,7 +139,8 @@ if strcmpi(ProjectionType,'Average')
         else
             error(['Image processing was canceled in the ', ModuleName, ' module because you must choose either "Load images" or "Pipeline".']);
         end
-    catch [ErrorMessage, ErrorMessage2] = lasterr;
+    catch
+        [ErrorMessage, ErrorMessage2] = lasterr;
         error(['An error occurred in the ', ModuleName, ' module. Matlab says the problem is: ', ErrorMessage, ErrorMessage2])
     end
 elseif strcmpi(ProjectionType, 'Maximum')
@@ -147,7 +148,8 @@ elseif strcmpi(ProjectionType, 'Maximum')
         if strncmpi(SourceIsLoadedOrPipeline,'L',1)
         fieldname = ['Pathname', ImageName];
         try Pathname = handles.Pipeline.(fieldname);
-        catch error(['Image processing was canceled because CellProfiler could not find the input image.CellProfiler expected to find an image named "', ImageName, '" but that image has not been created by the pipeline. Please adjust your pipeline to produce the image "', ImageName, ''])
+        catch
+            error(['Image processing was canceled because CellProfiler could not find the input image.CellProfiler expected to find an image named "', ImageName, '" but that image has not been created by the pipeline. Please adjust your pipeline to produce the image "', ImageName, ''])
         end
         fieldname = ['FileList', ImageName];
         try FileList = handles.Pipeline.(fieldname);
@@ -185,7 +187,8 @@ elseif strcmpi(ProjectionType, 'Maximum')
         else
             error(['Image processing was canceled in the ', ModuleName, ' module because you must choose either "Load images" or "Pipeline".']);
         end
-    catch [ErrorMessage, ErrorMessage2] = lasterr;
+    catch
+        [ErrorMessage, ErrorMessage2] = lasterr;
         error(['An error occurred in the ', ModuleName, ' module. Matlab says the problem is: ', ErrorMessage, ErrorMessage2])
     end
 end

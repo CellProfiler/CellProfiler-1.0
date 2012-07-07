@@ -242,7 +242,8 @@ try
             img = hardcopy( varargin{:} );      % Insist
         end
     end
-catch                                   % If it screws, restore original Fig properties anyway
+catch
+    % If it screws, restore original Fig properties anyway
     set(hAxes,'Units',axUnit,'pos',axPos,'Visible','on')
     set(h,'paperposition',pp,'paperunits',PU,'PaperPositionMode',PPM,'Color',fig_c)
     msg = lasterr;      img = [];

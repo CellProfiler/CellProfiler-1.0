@@ -139,7 +139,8 @@ fieldname=['FileList',ImageName];
 FileNames = handles.Pipeline.(fieldname);
 if ~ischar(TextToAdd)
     try TextToAdd = num2str(TextToAdd);
-    catch error(['Image processing was canceled in the ', ModuleName, ' module because the text you tried to add could not be converted into text for some reason.'])
+    catch
+        error(['Image processing was canceled in the ', ModuleName, ' module because the text you tried to add could not be converted into text for some reason.'])
     end
 end
 

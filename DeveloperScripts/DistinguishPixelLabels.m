@@ -172,11 +172,13 @@ if handles.Current.SetBeingAnalyzed == 1
         %%% the handles structure, looking in fields set by LoadImages
         fieldname = ['Pathname', NucleiImageName];
         try NucleiPathname = handles.Pipeline.(fieldname);
-        catch error(['Image processing was canceled in the ', ModuleName, ' module because all the images must exist prior to processing the first cycle through the pipeline.  This means that the ',ModuleName, ' module must be run immediately after a Load Images module.'])
+        catch
+            error(['Image processing was canceled in the ', ModuleName, ' module because all the images must exist prior to processing the first cycle through the pipeline.  This means that the ',ModuleName, ' module must be run immediately after a Load Images module.'])
         end
         fieldname = ['Pathname', CellsImageName];
         try CellsPathname = handles.Pipeline.(fieldname);
-        catch error(['Image processing was canceled in the ', ModuleName, ' module because all the images must exist prior to processing the first cycle through the pipeline.  This means that the ',ModuleName, ' module must be run immediately after a Load Images module.'])
+        catch
+            error(['Image processing was canceled in the ', ModuleName, ' module because all the images must exist prior to processing the first cycle through the pipeline.  This means that the ',ModuleName, ' module must be run immediately after a Load Images module.'])
         end
         %%% Retrieves the lists of all cell and nuclei image filenames
         %%% by looking in the handles structure to fields set by the

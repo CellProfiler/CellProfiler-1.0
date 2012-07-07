@@ -164,7 +164,8 @@ for n = 1:2:5
         try
             %%% run the header info function on the loaded image
             [ExpTime, ExpNum, WorldXYZ, TimeDate] = ExtractHeaderInfoSub(fullfile(PathName,char(CurrentFileName)));
-        catch error(['You encountered an error during the subfunction "ExtractHeaderInfo".  Not a good thing.'])
+        catch
+            error(['You encountered an error during the subfunction "ExtractHeaderInfo".  Not a good thing.'])
         end
         %%% Converts the WorldXYZ data into three separate variables
         WorldXYZChar = char(WorldXYZ);
@@ -194,7 +195,8 @@ for n = 1:2:5
         handles.(fieldname)(SetBeingAnalyzed) = {(WorldZ)};
         fieldname = ['dMTTimeDate',ImageName{n}];
         handles.(fieldname)(SetBeingAnalyzed) = {(TimeDate)};
-    catch ErrorMessage = lasterr;
+    catch
+        ErrorMessage = lasterr;
         ErrorNumber(1) = {'first'};
         ErrorNumber(2) = {'second'};
         ErrorNumber(3) = {'third'};

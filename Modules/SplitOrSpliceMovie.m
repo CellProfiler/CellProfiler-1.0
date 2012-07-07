@@ -126,7 +126,8 @@ if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
             LastFrameToReadForThisFile = min(i*FramesPerSplitMovie,AviMovieInfo.NumFrames);
             LoadedRawImages = aviread(fullfile(ExistingPath,TargetMovieFileName),LastFrameRead+1:LastFrameToReadForThisFile);
             try movie2avi(LoadedRawImages,NewFileAndPathName)
-            catch error(['Image processing was canceled in the ', ModuleName, ' module because a problem was encountered during save of ',NewFileAndPathName,'.'])
+            catch
+                error(['Image processing was canceled in the ', ModuleName, ' module because a problem was encountered during save of ',NewFileAndPathName,'.'])
                 return
             end
             LastFrameRead = i*FramesPerSplitMovie;
@@ -145,7 +146,8 @@ if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         for i = 1:NumMovies
             LoadedRawImages = aviread(fullfile(ExistingPath,char(Filenames(i))));
             try NewAviMovie = addframe(NewAviMovie,LoadedRawImages);
-            catch error(['Image processing was canceled in the ', ModuleName, ' module because a problem was encountered during save of ',NewFileAndPathName,'.'])
+            catch
+                error(['Image processing was canceled in the ', ModuleName, ' module because a problem was encountered during save of ',NewFileAndPathName,'.'])
                 return
             end
         end

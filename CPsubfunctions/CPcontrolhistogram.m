@@ -52,7 +52,8 @@ TextTotalNumberImageSets = num2str(TotalNumberImageSets);
 %%% This function returns a UserAnswers structure with the
 %%% information required to carry out the calculations.
 try UserAnswers = UserAnswersWindow(handles);
-catch CPerrordlg(lasterr)
+catch
+    CPerrordlg(lasterr)
     return
 end
 

@@ -26,7 +26,7 @@ try
     axFontSize = handles.Preferences.FontSize;
     set(ax, 'FontSize', axFontSize);
     set(ttl, 'FontSize', axFontSize);
-catch     
+catch
     set(ax, 'FontSize', 12);
     set(ttl, 'FontSize', 12);
 end

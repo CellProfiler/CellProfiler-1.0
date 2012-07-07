@@ -75,7 +75,8 @@ elseif strncmpi(RescaleOption,'E',1) == 1
                 %%% structure.
                 fieldname = ['Pathname', ImageName];
                 try Pathname = handles.Pipeline.(fieldname);
-                catch error('Image processing was canceled because the Rescale Intensity module must be run using images straight from a load images module (i.e. the images cannot have been altered by other image processing modules). This is because you have asked the Rescale Intensity module to calculate a threshold based on all of the images before identifying objects within each individual image as CellProfiler cycles through them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this Rescale Intensity module onward.')
+                catch
+                    error('Image processing was canceled because the Rescale Intensity module must be run using images straight from a load images module (i.e. the images cannot have been altered by other image processing modules). This is because you have asked the Rescale Intensity module to calculate a threshold based on all of the images before identifying objects within each individual image as CellProfiler cycles through them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this Rescale Intensity module onward.')
                 end
                 %%% Retrieves the list of filenames where the images are stored from the
                 %%% handles structure.
@@ -97,7 +98,8 @@ elseif strncmpi(RescaleOption,'E',1) == 1
                     end
                     drawnow
                 end
-            catch [ErrorMessage, ErrorMessage2] = lasterr;
+            catch
+                [ErrorMessage, ErrorMessage2] = lasterr;
                 error(['An error occurred in the Rescale Intensity module. Matlab says the problem is: ', ErrorMessage, ErrorMessage2])
             end
             HighestPixelOrig = double(maxPixelValue);

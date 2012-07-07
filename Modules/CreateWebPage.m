@@ -251,7 +251,8 @@ if ((SetBeingAnalyzed == 1) && strcmp(CreateBA,'Before')) || ((SetBeingAnalyzed 
         OrigImageFileNames = handles.Pipeline.(['FileList' OrigImage]);
         OrigImagePathName = handles.Pipeline.(['Pathname' OrigImage]);
         ZipImagePathName = OrigImagePathName;
-    catch error(['Image processing was canceled in the ', ModuleName, ' module because there was an error finding your images. You must specify images directly loaded by the Load Images module.']);
+    catch
+        error(['Image processing was canceled in the ', ModuleName, ' module because there was an error finding your images. You must specify images directly loaded by the Load Images module.']);
     end
 
     CurrentImage = 1;

@@ -270,7 +270,8 @@ while i < abs(length)                                      % while not finished
                 [f3 df3] = feval(f, X+x3*s, varargin{:});
                 if isnan(f3) | isinf(f3) | any(isnan(df3)+isinf(df3)), error, end
                 success = 1;
-            catch                                % catch any error which occured in f
+            catch
+                % catch any error which occured in f
                 x3 = (x2+x3)/2;                                  % bisect and try again
             end
         end

@@ -305,7 +305,8 @@ elseif strcmp(Threshold,'All')
             %%% handles structure.
             fieldname = ['Pathname', ImageName];
             try Pathname = handles.Pipeline.(fieldname);
-            catch error(['Image processing was canceled in the ', ModuleName, ' module because it must be run using images straight from a load images module (i.e. the images cannot have been altered by other image processing modules). This is because you have asked the Identify Primary Threshold module to calculate a threshold based on all of the images before identifying objects within each individual image as CellProfiler cycles through them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this Identify Primary Threshold module onward.'])
+            catch
+                error(['Image processing was canceled in the ', ModuleName, ' module because it must be run using images straight from a load images module (i.e. the images cannot have been altered by other image processing modules). This is because you have asked the Identify Primary Threshold module to calculate a threshold based on all of the images before identifying objects within each individual image as CellProfiler cycles through them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this Identify Primary Threshold module onward.'])
             end
             %%% Retrieves the list of filenames where the images are stored
             %%% from the handles structure.
@@ -344,7 +345,8 @@ elseif strcmp(Threshold,'All')
             else
                 Threshold = 0.0;
             end
-        catch [ErrorMessage, ErrorMessage2] = lasterr;
+        catch
+            [ErrorMessage, ErrorMessage2] = lasterr;
             error(['An error occurred in the ', ModuleName, ' module. Matlab says the problem is: ', ErrorMessage, ErrorMessage2])
         end
         fieldname = ['Threshold', ImageName];

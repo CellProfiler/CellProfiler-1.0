@@ -229,7 +229,8 @@ if RecalculateFlag == 1
                 catch
                     fieldname = ['Cropping',Shape];
                     try BinaryCropImage = CPretrieveimage(handles,fieldname,ModuleName);
-                    catch error(['Image processing was canceled in the ', ModuleName, ' module because the image to be used for cropping cannot be found.']);
+                    catch
+                        error(['Image processing was canceled in the ', ModuleName, ' module because the image to be used for cropping cannot be found.']);
                     end
                 end
             end
@@ -318,7 +319,8 @@ if RecalculateFlag == 1
                 catch
                     try [handles, CroppedImage, BinaryCropImage,BinaryCropMaskImage] = CropImageBasedOnMaskInHandles(handles,OrigImage,['Cropping',Shape],ModuleName,RemoveRowsAndColumns);
                         handles = CPaddimages(handles,['CropMask' CroppedImageName],BinaryCropMaskImage);
-                    catch error(['Image processing was canceled in the ', ModuleName, ' module because the image to be used for cropping cannot be found.']);
+                    catch
+                        error(['Image processing was canceled in the ', ModuleName, ' module because the image to be used for cropping cannot be found.']);
                     end
                 end
             end

@@ -577,7 +577,8 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
         %%% appropriate cycle.
         try MovieSavingIncrement = str2double(SaveMovieWhen);
             MovieIsNumber = 1;
-        catch MovieIsNumber = 0;
+        catch
+            MovieIsNumber = 0;
         end
         %%% Initializes this value in order to determine whether it's
         %%% time to save the movie file.

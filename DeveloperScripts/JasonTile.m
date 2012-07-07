@@ -139,7 +139,8 @@ if handles.Current.SetBeingAnalyzed == 1
     %%% structure.
     fieldname = ['Pathname', OrigImageName];
     try Pathname = handles.Pipeline.(fieldname); %#ok Ignore MLint
-    catch error(['Image processing was canceled in the ', ModuleName, ' module because it must be run using images straight from a Load Images module (i.e. the images cannot have been altered by other image processing modules). This is because this module needs all of the images before tiling them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this module onward.'])
+    catch
+        error(['Image processing was canceled in the ', ModuleName, ' module because it must be run using images straight from a Load Images module (i.e. the images cannot have been altered by other image processing modules). This is because this module needs all of the images before tiling them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this module onward.'])
     end
     %%% Retrieves the list of filenames where the images are stored from the
     %%% handles structure.

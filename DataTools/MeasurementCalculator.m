@@ -47,7 +47,8 @@ end
 %%% This function returns a UserInput structure with the
 %%% information required to carry of the calculations.
 try UserInput = UserInputWindow(handles);
-catch CPerrordlg(lasterr)
+catch
+    CPerrordlg(lasterr)
     return
 end
 

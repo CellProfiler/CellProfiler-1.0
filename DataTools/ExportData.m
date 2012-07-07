@@ -53,7 +53,8 @@ while DataExists == 0
 
     %%% Opens a window that lets the user choose what to export
     try ExportInfo = ObjectsToExport(handles,RawFileName);
-    catch CPerrordlg(lasterr)
+    catch
+        CPerrordlg(lasterr)
         return
     end
 
@@ -72,7 +73,8 @@ while DataExists == 0
             try
                 DataExists=1;
                 CPtextpipe(handles,ExportInfo,RawFileName,RawPathname);
-            catch CPerrordlg(lasterr)
+            catch
+                CPerrordlg(lasterr)
                 return
             end
         else
@@ -86,7 +88,8 @@ if isfield(ExportInfo, 'ExportProcessInfo')
     %%% Export process info
     if strcmp(ExportInfo.ExportProcessInfo,'Yes')
         try CPtextpipe(handles,ExportInfo,RawFileName,RawPathname);
-        catch CPerrordlg(lasterr)
+        catch
+            CPerrordlg(lasterr)
             return
         end
     end
@@ -112,7 +115,8 @@ if isfield(ExportInfo, 'ExportProcessInfo')
             end
         end
         try CPwritemeasurements(handles,ExportInfo,RawPathname);
-        catch CPerrordlg(lasterr)
+        catch
+            CPerrordlg(lasterr)
             return
         end
     end

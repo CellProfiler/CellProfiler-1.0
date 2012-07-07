@@ -46,7 +46,8 @@ else
     try
         %%% Reads the image.
         Image = CPimread(fullfile(Pathname, FileName));
-    catch CPerrordlg(lasterr)
+    catch
+        CPerrordlg(lasterr)
         return
     end
     %%% Opens a new figure window.

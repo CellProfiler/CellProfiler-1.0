@@ -27,7 +27,8 @@ NumMovies = length(Filenames);
 for i = 1:NumMovies
     LoadedRawImages = aviread(fullfile(Pathname,char(Filenames(i))));
     try NewAviMovie = addframe(NewAviMovie,LoadedRawImages);
-    catch error(['Problem encountered during save of ',NewFileAndPathName])
+    catch
+        error(['Problem encountered during save of ',NewFileAndPathName])
         return
     end
     Status = ['Added frames from the movie: ', char(Filenames(i))]
@@ -35,5 +36,6 @@ end
 
 Status = ['Writing the spliced movie: ', NewFilename]
 try NewAviMovie = close(NewAviMovie)
-    catch error(['Problem encountered during save of ',NewFileAndPathName])
+    catch
+        error(['Problem encountered during save of ',NewFileAndPathName])
 end

@@ -515,7 +515,8 @@ if SetBeingAnalyzed == 1
                     CurrentMovieFileName = char(FileList(MovieFileNumber));
                     if strcmpi(FileFormat,'avi movies') == 1
                         try MovieAttributes = aviinfo(fullfile(Pathname, CurrentMovieFileName));
-                        catch error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as an uncompressed avi file.'])
+                        catch
+                            error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as an uncompressed avi file.'])
                         end
                         NumFrames = MovieAttributes.NumFrames;
                         for FrameNumber = 1:NumFrames
@@ -541,11 +542,13 @@ if SetBeingAnalyzed == 1
                                 %%% Puts the movie length into the FrameByFrameFileList in the third row.
                                 FrameByFrameFileList{n}(3,StartingPositionForThisMovie + FrameNumber) = {NumFrames};
                             end
-                        catch error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as a stk file.'])
+                        catch
+                            error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as a stk file.'])
                         end
                     elseif (strcmpi(FileFormat,'tif,tiff,flex movies') == 1)
                         try MultiTifAttributes = imfinfo(fullfile(Pathname, CurrentMovieFileName));
-                        catch error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as a tif, tiff, or flex file.']);
+                        catch
+                            error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as a tif, tiff, or flex file.']);
                         end
                         NumFrames = length(MultiTifAttributes);
                         for FrameNumber = 1:NumFrames
@@ -662,7 +665,8 @@ if SetBeingAnalyzed == 1
                     CurrentMovieFileName = char(FileList(MovieFileNumber));
                     if strcmpi(FileFormat,'avi movies') == 1
                         try MovieAttributes = aviinfo(fullfile(Pathname, CurrentMovieFileName));
-                        catch error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as an uncompressed avi file.'])
+                        catch
+                            error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as an uncompressed avi file.'])
                         end
                         NumFrames = MovieAttributes.NumFrames;
                         for FrameNumber = 1:NumFrames
@@ -688,7 +692,8 @@ if SetBeingAnalyzed == 1
                         end
                     elseif (strcmpi(FileFormat,'tif,tiff,flex movies') == 1)
                         try MultiTifAttributes = imfinfo(fullfile(Pathname, CurrentMovieFileName));
-                        catch error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as a tif, tiff, or flex file.']);
+                        catch
+                            error(['Image processing was canceled in the ', ModuleName, ' module because the file ',fullfile(Pathname, CurrentMovieFileName),' was not readable as a tif, tiff, or flex file.']);
                         end
                         NumFrames = length(MultiTifAttributes);
                         for FrameNumber = 1:NumFrames
@@ -887,7 +892,7 @@ for n = 1:length(ImageName)
             %%% substructure so it will be deleted at the end of the analysis batch.
             handles.Pipeline.(fieldname)(SetBeingAnalyzed) = {CurrentFileNameWithFrame};
             handles = CPaddimages(handles,ImageName{n},LoadedImage);
-        catch 
+        catch
             CPerrorImread(ModuleName, n);
         end % Goes with: catch
         FileNames(n) = {CurrentFileNameWithFrame};

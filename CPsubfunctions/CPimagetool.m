@@ -60,7 +60,8 @@ if ~isempty(varargin)
             case {'MatlabWS'}                                 % Store image in Matlab base work space
                 assignin('base','Image',get(ImageHandle,'Cdata'));
                 try CPmsgbox('The image is now saved as the variable ''Image'' in the Matlab workspace.');
-                catch msgbox('The image is now saved as the variable ''Image'' in the Matlab workspace.');
+                catch
+                    msgbox('The image is now saved as the variable ''Image'' in the Matlab workspace.');
                 end
             case {'MeasureLength'}
                 %%% Places the measure length tool onto the axis containing the image.

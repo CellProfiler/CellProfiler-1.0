@@ -16,7 +16,8 @@ for i = 1:NumSplitMovies
     LastFrameToReadForThisFile = min(i*FramesPerSplitMovie,AviMovieInfo.NumFrames);
     LoadedRawImages = aviread(fullfile(Pathname,Filename), LastFrameRead+1:LastFrameToReadForThisFile);
     try movie2avi(LoadedRawImages,NewFileAndPathName)
-    catch error('problem encountered during save')
+    catch
+        error('problem encountered during save')
         return
     end
     LastFrameRead = i*FramesPerSplitMovie;

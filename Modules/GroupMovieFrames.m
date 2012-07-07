@@ -178,7 +178,7 @@ for n = 1:length(ImageName)
         % substructure so it will be deleted at the end of the analysis batch.
         handles.Pipeline.(fieldname)(SetBeingAnalyzed) = {CurrentFileNameWithFrame};
         handles = CPaddimages(handles,ImageName{n},LoadedImage);
-    catch 
+    catch
         ErrorInfo = lasterror;
         ErrorInfo.message = ['Error occurred when trying to extract frame #', num2str(n),' (', ErrorInfo.message,')'];
         rethrow(ErrorInfo);

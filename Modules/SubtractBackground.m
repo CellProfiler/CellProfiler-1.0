@@ -117,7 +117,8 @@ if handles.Current.SetBeingAnalyzed == 1
         % structure.
         fieldname = ['Pathname', ImageName];
         try Pathname = handles.Pipeline.(fieldname);
-        catch error(['Image processing was canceled in the ', ModuleName, ' module because it must be run using images straight from a load images module (i.e. the images cannot have been altered by other image processing modules). This is because the Subtract Background module calculates an illumination correction image based on all of the images before correcting each individual image as CellProfiler cycles through them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from the ', ModuleName,' module onward.'])
+        catch
+            error(['Image processing was canceled in the ', ModuleName, ' module because it must be run using images straight from a load images module (i.e. the images cannot have been altered by other image processing modules). This is because the Subtract Background module calculates an illumination correction image based on all of the images before correcting each individual image as CellProfiler cycles through them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from the ', ModuleName,' module onward.'])
         end
         % Retrieves the list of filenames where the images are stored from the
         % handles structure.
@@ -172,7 +173,8 @@ if handles.Current.SetBeingAnalyzed == 1
             drawnow
         end
         close(WaitbarHandle)
-    catch [ErrorMessage, ErrorMessage2] = lasterr;
+    catch
+        [ErrorMessage, ErrorMessage2] = lasterr;
         error(['Image processing was canceled in the ', ModuleName, '. Matlab says the problem is: ', ErrorMessage, ErrorMessage2])
     end
 else

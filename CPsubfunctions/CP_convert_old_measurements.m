@@ -17,7 +17,8 @@ for i = 1:length(ObjectFields)
     try
         %%% Get all fieldnames in Measurements.(ObjectName)
         MeasureFields = fieldnames(handles.Measurements.(ObjectName));
-    catch %%% Must have been text field and ObjectName is class 'cell'
+    catch
+        %%% Must have been text field and ObjectName is class 'cell'
         CPwarndlg(['CP programming weirdness: Non-struct in Measurements.', ObjectName]);
         continue
     end

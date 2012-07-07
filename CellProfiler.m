@@ -34,7 +34,8 @@ if ~nargin
             subdirs = subdirs(cellfun('isempty', strfind(subdirs, '.svn')));
             addpath(subdirs{:});
             savepath;
-        catch CPerrordlg('You changed the name of CellProfiler.m file. Consequences of this are unknown.');
+        catch
+            CPerrordlg('You changed the name of CellProfiler.m file. Consequences of this are unknown.');
         end
     end
 end
@@ -606,7 +607,7 @@ function call_data_tool(tool_name, foo)
 try
     eval([tool_name '(guidata(gcbo));']);
     clear ans;
-catch 
+catch
     ErrorMessage = lasterr;
     CPerrordlg(['An error occurred in the ' tool_name ' Data Tool: ' ErrorMessage]);
 end
@@ -1369,7 +1370,8 @@ try choices = RunMultiplePipelines_Dialog(handles,PipelineFilenames);
     else                                % Otherwise, continue
         IndicesOfPipelinesToRun = choices.Indices;
     end
-catch CPerrordlg(lasterr)
+catch
+    CPerrordlg(lasterr)
     return;
 end
     
@@ -1452,7 +1454,8 @@ for i = 1:length(PipelineFilenames);
         
         %%% Now run the pipeline by invoking AnalyzeImagesButton_Callback
         AnalyzeImagesButton_Callback(hObject, eventdata, guidata(FrontEndFigure));
-    catch       %%% If something goes wrong, throw an error
+    catch
+        %%% If something goes wrong, throw an error
         errFlg = 1;
     end
 
@@ -2342,12 +2345,14 @@ if ModuleNamedotm ~= 0,
     end
 
     try Contents = handles.Settings.VariableRevisionNumbers(str2double(ModuleNumber));
-    catch handles.Settings.VariableRevisionNumbers(str2double(ModuleNumber)) = 0;
+    catch
+        handles.Settings.VariableRevisionNumbers(str2double(ModuleNumber)) = 0;
     end
 
     %blah
     try ModuleRevContents = handles.Settings.ModuleRevisionNumbers(str2double(ModuleNumber));
-    catch handles.Settings.ModuleRevisionNumbers(str2double(ModuleNumber)) = 0;
+    catch
+        handles.Settings.ModuleRevisionNumbers(str2double(ModuleNumber)) = 0;
     end
 
     %%% 5. Saves the ModuleName to the handles structure.
@@ -3997,7 +4002,8 @@ if strcmp(get(gcf,'SelectionType'),'open')
                 [hImage,hAx] = CPimagesc(Image,handles,hFig);
                 colormap(hAx,gray); % is this needed/correct? CPfigure sets the default intensity colormap. CPimagesc does too. What if it's a label image?
                 title(FileName,'Parent',hAx);
-            catch CPerrordlg('There was an error opening this file. It is possible that it is not an image, figure, pipeline file, or output file.');
+            catch
+                CPerrordlg('There was an error opening this file. It is possible that it is not an image, figure, pipeline file, or output file.');
             end
         elseif isfield(test,'SavedPreferences')
             EnteredPreferences = test.SavedPreferences;
@@ -4015,7 +4021,8 @@ if strcmp(get(gcf,'SelectionType'),'open')
             [hImage,hAx] = CPimagesc(Image,handles,hFig);
             colormap(hAx,gray); % is this needed/correct? CPfigure sets the default intensity colormap. CPimagesc does too. What if it's a label image?
             title(FileName,'Parent',hAx);
-        catch CPerrordlg('There was an error opening this file. It is possible that it is not an image, figure, pipeline file, or output file.');
+        catch
+            CPerrordlg('There was an error opening this file. It is possible that it is not an image, figure, pipeline file, or output file.');
         end
     end
 end
@@ -4749,7 +4756,8 @@ else
                         if ~strcmp(id_orig,id_new) && ~isempty(strfind(msg_new,'use the -v7.3 switch'))
                             save(fullfile(handles.Current.DefaultOutputDirectory,get(handles.OutputFileNameEditBox,'string')),'handles','-v7.3');
                         end
-                    catch CPerrordlg('There was an error saving the output file. Please check whether you have permission and space to write to that location.');
+                    catch
+                        CPerrordlg('There was an error saving the output file. Please check whether you have permission and space to write to that location.');
                         break;
                     end
                     if strcmp(handles.Preferences.StripPipeline,'Yes')

@@ -112,6 +112,7 @@ if SizeFlag ~= 0
     try if any(SizeFlag(1:2) ~= size(Image(:,:,1)))
             error(['Image processing was canceled in the ', ModuleName, ' module. The incoming images are not all of equal size.']);
         end
-    catch error(['Image processing was canceled in the ', ModuleName, ' module. The incoming images are not all of equal size.']);
+    catch
+        error(['Image processing was canceled in the ', ModuleName, ' module. The incoming images are not all of equal size.']);
     end
 end
