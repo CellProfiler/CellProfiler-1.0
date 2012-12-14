@@ -736,9 +736,9 @@ if isempty(LabelMatrixColormap),
     cmap = [0 0 0; colormap_fxnhdl(NumberOfColors-1)];
     is2008b_or_greater = ~CPverLessThan('matlab','7.7');
     if is2008b_or_greater,
-        defaultStream = RandStream.getDefaultStream;
+        defaultStream = RandStream.getGlobalStream;
         savedState = defaultStream.State;
-        RandStream.setDefaultStream(RandStream('mt19937ar','seed',0));
+        RandStream.setGlobalStream(RandStream('mt19937ar','seed',0));
     else
         rand('seed',0);
     end
