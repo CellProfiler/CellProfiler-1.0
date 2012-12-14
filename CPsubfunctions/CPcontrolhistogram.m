@@ -24,7 +24,7 @@ handles = tempData.handles;
 [RawFileName, RawPathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 %%% Allows canceling.
 if RawFileName == 0
-    return
+    return;
 end
 load(fullfile(RawPathname, RawFileName));
 
@@ -54,12 +54,12 @@ TextTotalNumberImageSets = num2str(TotalNumberImageSets);
 try UserAnswers = UserAnswersWindow(handles);
 catch
     CPerrordlg(lasterr)
-    return
+    return;
 end
 
 % If Cancel button pressed, return
 if ~isfield(UserAnswers, 'FirstSample')
-    return
+    return;
 end
 
 FirstImage=UserAnswers.FirstSample;
@@ -143,7 +143,7 @@ elseif strcmpi(Logical,'<')
     OutputMeasurements{1,1} = OutputMeasurements{1,1}(OutputMeasurements{1,2} < ThresholdVal);
 elseif strcmpi(Logical,'<=')
     OutputMeasurements{1,1} = OutputMeasurements{1,1}(OutputMeasurements{1,2} <= ThresholdVal);
-else 
+else
     OutputMeasurements{1,1} = OutputMeasurements{1,1}(OutputMeasurements{1,2} == ThresholdVal);
 end
 
@@ -190,7 +190,7 @@ end
 function UserAnswers = UserAnswersWindow(handles)
 % This function displays a window for user input. If the return variable 'UserAnswers' is empty
 % it means that either no measurements were found or the user pressed
-% the Cancel button (or the window was closed). 
+% the Cancel button (or the window was closed).
 
 
 % Store font size
@@ -293,12 +293,12 @@ while 1
                     UserAnswers.Color='CellProfiler background';
             end
             delete(UserWindow);
-            return
+            return;
         end
     else
         UserAnswers = [];
         if ishandle(UserWindow),delete(UserWindow);end
-        return
+        return;
     end
 end
-        
+

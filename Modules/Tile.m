@@ -51,13 +51,13 @@ function handles = Tile(handles)
 % that have been processed or not (since we ask them what they were called
 % when they were originally loaded). Since we throw this error:
 %
-% error(['Image processing was canceled in the ', ModuleName, ' module because 
-% it must be run using images straight from a Load Images module (i.e. the images 
-% cannot have been altered by other image processing modules). This is because this 
+% error(['Image processing was canceled in the ', ModuleName, ' module because
+% it must be run using images straight from a Load Images module (i.e. the images
+% cannot have been altered by other image processing modules). This is because this
 % module needs all of the images before tiling them. One solution is to process the
-% entire batch of images using the image 
-% analysis modules preceding this module and save the resulting images to the hard drive, 
-% then start a new stage of processing from this module onward.'])  
+% entire batch of images using the image
+% analysis modules preceding this module and save the resulting images to the hard drive,
+% then start a new stage of processing from this module onward.'])
 %
 % That makes me think that there is no reason that Vars01 & 02 should be
 % different, and we should make it clearer that this is how the module
@@ -198,7 +198,7 @@ if SetBeingAnalyzed == 1
     %%% Retrieves the path where the images are stored from the handles
     %%% structure.
     fieldname = ['Pathname', OrigImageName];
-    try 
+    try
         Pathname = handles.Pipeline.(fieldname); %#ok Ignore MLint
     catch
         error(['Image processing was canceled in the ', ModuleName, ' module because it must be run using images straight from a Load Images module (i.e. the images cannot have been altered by other image processing modules). This is because this module needs all of the images before tiling them. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this module onward.'])
@@ -227,13 +227,13 @@ if SetBeingAnalyzed == 1
     if NumberRows*NumberColumns > NumberOfImages;
         Answer = CPquestdlg(['You have specified ', num2str(NumberRows), ' rows and ', num2str(NumberColumns), ' columns (=',num2str(NumberRows*NumberColumns),' images), but there are ', num2str(length(FileList)), ' images loaded. The image locations at the end of the grid for which there is no image data will be displayed as black. Do you want to continue?'],'Continue?','Yes','No','Yes');
         if strcmp(Answer,'No') == 1
-            return
+            return;
         end
         FileList(length(FileList)+1:NumberRows*NumberColumns) = {'none'};
     elseif NumberRows*NumberColumns < NumberOfImages;
         Answer = CPquestdlg(['You have specified ', num2str(NumberRows), ' rows and ', num2str(NumberColumns), ' columns (=',num2str(NumberRows*NumberColumns),' images), but there are ', num2str(length(FileList)), ' images loaded. Images at the end of the list will not be displayed. Do you want to continue?'],'Continue?','Yes','No','Yes');
         if strcmp(Answer,'No') == 1
-            return
+            return;
         end
         FileList(NumberRows*NumberColumns+1:NumberOfImages) = [];
     end

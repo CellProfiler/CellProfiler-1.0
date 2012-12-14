@@ -18,14 +18,14 @@ function handles = ExportToExcel(handles)
 %
 % Settings:
 %
-% Enter the directory where the Excel files are to be saved. 
-% If you used the FileNameMetadata module, metadata tokens may be used 
+% Enter the directory where the Excel files are to be saved.
+% If you used the FileNameMetadata module, metadata tokens may be used
 % here. If the directory does not exist, it will be created.
 %
-% What prefix should be used to name the Excel files? 
-% Here you can choose what to prepend to the output file. If you choose 
+% What prefix should be used to name the Excel files?
+% Here you can choose what to prepend to the output file. If you choose
 % "Do not use", the output filename will be prepended. If you choose
-% a prefix, the file will become PREFIX_<ObjectName>.xls. If you used 
+% a prefix, the file will become PREFIX_<ObjectName>.xls. If you used
 % FileNameMetadata, metadata tokens may be used here.
 
 % CellProfiler is distributed under the GNU General Public License.
@@ -187,7 +187,7 @@ else
 end
 
 if SetBeingAnalyzed == NumberOfImageSets
-    
+
     FileDirectory = CPreplacemetadata(handles,FileDirectory);
     if strncmp(FileDirectory,'.',1)
         PathName = fullfile(handles.Current.DefaultOutputDirectory, strrep(strrep(FileDirectory(2:end),'/',filesep),'\',filesep),'');
@@ -197,7 +197,7 @@ if SetBeingAnalyzed == NumberOfImageSets
     else
         PathName = FileDirectory;
     end
-    
+
     if ~isdir(PathName)
         success = mkdir(PathName);
         if ~success
@@ -222,7 +222,7 @@ if SetBeingAnalyzed == NumberOfImageSets
         % Get the relevant indices for the filelist
         idx = handles.Pipeline.GroupFileListIDs == handles.Pipeline.CurrentImageGroupID;
         idx = idx(1:handles.Current.SetBeingAnalyzed);  % Truncate to appropriate length
-        
+
         % Extract only those Measurements for the current group
         handles_MeasurementsOnly.Measurements = handles.Measurements;
         ObjectName = fieldnames(handles_MeasurementsOnly.Measurements);
@@ -233,7 +233,7 @@ if SetBeingAnalyzed == NumberOfImageSets
 					if isempty(regexp(FeatureName{k},'^ModuleError','once'))
 						handles_MeasurementsOnly.Measurements.(ObjectName{j}).(FeatureName{k})(~idx) = [];
 					else
-						% The ModuleError field hasn't filled in all the 
+						% The ModuleError field hasn't filled in all the
 						% element yet, so we have to fill it in ourselves
                         handles_MeasurementsOnly.Measurements.(ObjectName{j}).(FeatureName{k}) = repmat({0},[1 length(find(idx))]);
 					end

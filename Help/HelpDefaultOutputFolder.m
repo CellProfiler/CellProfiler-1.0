@@ -5,7 +5,7 @@ function HelpDefaultOutputFolder
 % Use the Browse button to select the folder, or carefully type the full
 % pathname in the box. You can change the folder which appears upon
 % CellProfiler startup by using File > Set Preferences.
-% 
+%
 % You will have the option to save output to other locations: for example,
 % the output file can be saved elsewhere by typing a full pathname in the
 % 'Name the output file' box, and many modules (like Save Images) allow you

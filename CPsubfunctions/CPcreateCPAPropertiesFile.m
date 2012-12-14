@@ -39,7 +39,7 @@ channel_names = names(idx_file);
 channel_names = cellfun(@(x) x(2:end),channel_names,'UniformOutput',0);
 
 % Take a stab at guessing the primary object (the first Measurement object
-% that's not an Image, Experiment, or Neighbor).  The last object created 
+% that's not an Image, Experiment, or Neighbor).  The last object created
 % is used, as it might have been filtered.
 objs = fieldnames(handles.Measurements);
 objs(strcmp(objs,'Image') | strcmp(objs,'Experiment') | strcmp(objs,'Neighbors')) = [];
@@ -97,7 +97,7 @@ if ~strcmp(ModuleName,'ExportToDatabase')
     try ExportInfo = PropertiesFileWindow(ExportInfo);
     catch
         CPerrordlg(lasterr)
-        return
+        return;
     end
 end
 
@@ -290,7 +290,7 @@ else
             [],...
             '# ==== Meta data ====',...
             '# What are your objects called? (e.g. cells, worms, etc.)',...
-            '# This is used to provide the correct syntax for the GUI.',... 
+            '# This is used to provide the correct syntax for the GUI.',...
             '# FORMAT:  object_name  =  singular name, plural name',...
             'object_name  =  cell, cells,',...
             [],...
@@ -728,8 +728,8 @@ function result=CommaDelimitedList(x)
 
 if isempty(x)
     result=[];
-    return
+    return;
 end
 y = cellfun(@(x)[x,','],x(:),'UniformOutput',0);
 result = [ y{:}];
-return
+return;

@@ -118,7 +118,7 @@ if ~strcmp(InnerFigureShape, 'none')
     mask = and(mask, not(temp));
 end
 
-% this mask marks the area outside the Ring, the "Cell" for future calculations of the Z-Score and the difference score  
+% this mask marks the area outside the Ring, the "Cell" for future calculations of the Z-Score and the difference score
 CellMask = getnhood(strel('disk', 48));
 CellMask = imresize (CellMask, [AreaExtractionSize, AreaExtractionSize]);
 CellMask ( round(length(CellMask)/2)- round(length(mask)/2)+1 : round(length(CellMask)/2)- round(length(mask)/2) + length(mask),...
@@ -193,12 +193,12 @@ CorrelationImage      = StandardCorrelation(OrigImage, mask, 1);
 % we extract local maxima from the crrelation image
 [MaximaRow MaximaCol] = localMaximum(CorrelationImage, MaximaSuppressionSize, true);
 
-% we need to work with an enlarged image. Some objects might be at the 
+% we need to work with an enlarged image. Some objects might be at the
 % border of the image and the CellMask would be out of the image
 EnlFactor = max(AreaExtractionSize, OuterDiameter);
 EnlObjectImage   = zeros (2*EnlFactor + YLength, 2*EnlFactor + XLength);
 
-% problem region: % in this region CP spends most of its time. 
+% problem region: % in this region CP spends most of its time.
 % we preallocate the variables for speed
 PrimaryObjectCount = length(MaximaRow);
 Difference      = zeros(1, PrimaryObjectCount);
@@ -222,13 +222,13 @@ MH = EnlFactor - round(0.5*OuterDiameter) + OuterDiameter;
 CL = EnlFactor - round(0.5*AreaExtractionSize) + 1;
 CH = EnlFactor - round(0.5*AreaExtractionSize) + AreaExtractionSize;
 
-% we loop over the objects and calculate the difference, the z-score and the percent overlap 
+% we loop over the objects and calculate the difference, the z-score and the percent overlap
 for f=1 : PrimaryObjectCount
     % we first test, whether the correlation value is above the threshold,
     % if not we can skip the other calculations
     Correlation(f)= CorrelationImage(MaximaRow(f), MaximaCol(f));
     if Correlation(f) > ThresholdCorrelation
-        
+
         % we first generate an enlarged mask image,
         temp = ZeroImage;
         temp(ML + MaximaRow(f) : MH + MaximaRow(f), ML + MaximaCol(f) : MH + MaximaCol(f)) = mask;
@@ -294,7 +294,7 @@ for f=1 : PrimaryObjectCount
         FinalSegmentedImage(PrimaryObjectImage == f) = ObjectCount;
     end
 end
-FinalOutline = bwperim (FinalSegmentedImage); 
+FinalOutline = bwperim (FinalSegmentedImage);
 
 % for some later modules of CP we need the following images, even though
 % they do not make sense in the context of the MatchTemplate module
@@ -372,11 +372,11 @@ if any(findobj == ThisModuleFigureNumber);
     % ORIGINAL IMAGE
     subplot (2,3,1);
     CPimagesc(OrigImage, handles); title ('OrigImage')
-    
+
     % CORRELATTION IMAGE
     subplot (2,3,2);
     imagesc(CorrelationImage); colormap ('jet'), colorbar ('location', 'southoutside'), title ('Correlation Image')
-    
+
     % MAXIMA IMAGE
     subplot (2,3,3);
     MaxImage = max(OrigImage(:));
@@ -401,14 +401,14 @@ if any(findobj == ThisModuleFigureNumber);
     PointOrigImage = OrigImage;
     PointOrigImage(MaskPointImage)=MaxImage;
     CPimagesc(PointOrigImage, handles); title('Maxima Overlay')
-    
+
     % EXCLUDED OBJECTS
     tmp = OrigImage/max(OrigImage(:));
     CorrelExclImage  = zeros(size(OrigImage));
     DiffExclImage    = zeros(size(OrigImage));
     ZscoreExclImage  = zeros(size(OrigImage));
     OverlapExclImage = zeros(size(OrigImage));
-    
+
     % we extract the respective objects out of the PrimaryObjectImage
     for f=1:PrimaryObjectCount
         if  CorrelExcl(f)
@@ -421,17 +421,17 @@ if any(findobj == ThisModuleFigureNumber);
             OverlapExclImage(PrimaryObjectImage==f) = f;
         end
     end
-    
+
     % we calculate the outlines
     PerimCorrExcl = bwperim (CorrelExclImage);
     PerimDiffExcl = bwperim (DiffExclImage);
     PerimZScExcl  = bwperim (ZscoreExclImage);
     PerimOverlExcl = bwperim (OverlapExclImage);
-    
+
     OutlinedObjectsR = tmp;
     OutlinedObjectsG = tmp;
     OutlinedObjectsB = tmp;
-    
+
     % correlation excluded in red
     OutlinedObjectsR(PerimCorrExcl)  = 1; OutlinedObjectsG(PerimCorrExcl) = 0; OutlinedObjectsB(PerimCorrExcl) = 0;
     % difference excluded in blue
@@ -442,18 +442,18 @@ if any(findobj == ThisModuleFigureNumber);
     OutlinedObjectsR(PerimOverlExcl) = 1; OutlinedObjectsG(PerimOverlExcl)= 1; OutlinedObjectsB(PerimOverlExcl)= 0;
     % the good objects in white!!
     OutlinedObjectsR(FinalOutline)   = 1; OutlinedObjectsG(FinalOutline)  = 1; OutlinedObjectsB(FinalOutline)  = 1;
-    
+
     subplot (2,3,5);
     OutlinedObjects = cat(3,OutlinedObjectsR,OutlinedObjectsG,OutlinedObjectsB);
-    CPimagesc(OutlinedObjects, handles); title('Excluded objects')    
-    
+    CPimagesc(OutlinedObjects, handles); title('Excluded objects')
+
     % FINAL OBJECTS
     subplot (2,3,6);
     imagesc (FinalSegmentedImage);
     title ('Final Objects');
     colormap ('jet')
 end
-return
+return;
 
 function ima = StandardCorrelation(ima1,ima2, avgI) %#ok<INUSD>
 % this function calculates the correlation between two images.

@@ -43,7 +43,7 @@ function handles = ConvertToImage(handles)
 % Variable settings for PyCp
 % Var4 should be context-dependent and only appear if the user selects
 % 'color' as their option.
-% 
+%
 % Anne 4-9-09: We should consider why this module exists at all... the user
 % can't be expected to understand the difference between a label matrix and
 % a regular image, so this module has always been a bit confusing. Perhaps

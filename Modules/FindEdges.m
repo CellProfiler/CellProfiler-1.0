@@ -107,7 +107,7 @@ function handles = FindEdges(handles)
 % filter available in CP to be in one module, with the first setting being
 % a choice between "enhance edges", "enhance bright round speckles", etc.?
 % This would encompass the SmoothOrEnhance module (and maybe DICtransform?), though I'm not sure what
-% name to give the final super-module. 
+% name to give the final super-module.
 %
 % Also, it seems that this module should output grayscale images only, leaving the
 % task of turning grayscale to binary to IdentifyPrimAutomatic (or
@@ -368,7 +368,7 @@ drawnow
 handles = CPaddimages(handles,OutputName,double(EdgedImage));
 
 if ~strcmpi(Method,'ratio') || ~strcmpi(BinaryOrGray,'Grayscale')
-    if strcmpi(Method,'canny')        
+    if strcmpi(Method,'canny')
         handles = CPaddmeasurements(handles,'Image',CPjoinstrings('Edges','OrigThreshold',OutputName),ThresholdUsed(1));
         handles = CPaddmeasurements(handles,'Image',CPjoinstrings('Edges','OrigCannyLowThreshold',OutputName),ThresholdUsed(2));
     else

@@ -26,15 +26,15 @@ function handles = DefineGrid(handles)
 % from one image to the next, this allows the plates to be identified
 % automatically and then cropped so that the interior of the plates, upon
 % which the grids will be defined, are always in precise alignment with
-% each other. 
+% each other.
 %
 % Features measured:      Feature Number:
 % XLocationOfLowestXSpot |      1
 % YLocationOfLowestYSpot |      2
-% XSpacing               |      3 
-% YSpacing               |      4 
+% XSpacing               |      3
+% YSpacing               |      4
 % Rows                   |      5
-% Columns                |      6 
+% Columns                |      6
 % TotalHeight            |      7
 % TotalWidth             |      8
 % LeftOrRightNum         |      9 (left = 1, right = 0)
@@ -45,7 +45,7 @@ function handles = DefineGrid(handles)
 %
 %
 % Settings: Most are self-explanatory.
-% 
+%
 % EACH CYCLE or ONCE: If all of your images are perfectly aligned with each
 % other (due to very consistent image acquisition, consistent grid location
 % within the plate, and/or automatic cropping precisely within each plate),
@@ -116,7 +116,7 @@ function handles = DefineGrid(handles)
 % Var07: How would you like to define the grid?
 % automatically, based on previously identified objects (-> var08 pops up)
 % manually (-> var09 appears)
-% 
+%
 % and it would be great if all the post-var09 variables were context
 % dependant as well, which would reduce the clutter on this module and also
 % eliminate all the 'for COORDINATES + MOUSE' etc.
@@ -480,14 +480,14 @@ else
     GridYLocations = Grid.GridYLocations;
     YLocations = Grid.YLocations;
     XLocations = Grid.XLocations;
-    
+
     if ~strcmp(RGBname,'Do not use')
-        
+
         tempfig = figure('Color','black','CloseRequestFcn','','visible','off');
         colormap(gray);
         imagesc(OrigImage);  %makes sure the axes are right
         delete(findobj(tempfig,'type','image'));
-        
+
         line(VertLinesX,VertLinesY,'Color','white');
         line(HorizLinesX,HorizLinesY,'Color','white');
         set(gca,'color','black');
@@ -499,7 +499,7 @@ else
         imageG = imresize(imageG,size(OrigImage));
         imageG = im2bw(imageG,graythresh(imageG));
         imageG = ~imageG;
-        
+
         delete(get(gca,'children'));
         TextHandles = text((floor(XLocations+XSpacing/6)),(YLocations+floor(YSpacing/2)),cellstr(num2str(reshape(SpotTable,1,[])'))','color','white','fontsize',handles.Preferences.FontSize);
         set(gca,'visible','off');
@@ -513,14 +513,14 @@ else
         imageB = imresize(imageB,size(OrigImage));
         imageB = im2bw(imageB,graythresh(imageB));
         imageB = ~imageB;
-        
+
         imageR = sum(OrigImage,3);
-        
+
         ColorImage(:,:,1) = imageR;
         ColorImage(:,:,2) = imageG;
-        ColorImage(:,:,3) = imageB;    
+        ColorImage(:,:,3) = imageB;
     end
-   
+
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%

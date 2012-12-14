@@ -78,12 +78,12 @@ path(current_search_path);
 
 switch lower(usage),
     case 'single',
-        
+
         output_dir = ['CompiledCellProfiler_' svn_ver];
 
         % Move files and cleanup
         if ~exist(['../' output_dir],'dir')
-            mkdir('..', output_dir)
+            mkdir('..', output_dir);
         end
 
         CompileWizard
@@ -114,31 +114,31 @@ switch lower(usage),
                  -I ./CPsubfunctions -I ./Help -a './CPsubfunctions/CPsplash.jpg' -a './CPsubfunctions/CPcellomicsdata.class';
            end
         else
-            error('You need to have MATLAB version 7.6 (2008a) or above to run this command.')
+            error('You need to have MATLAB version 7.6 (2008a) or above to run this command.');
         end
 
         if ~exist(['../' output_dir '/Modules'],'dir')
-            mkdir(['../' output_dir '/Modules'])
+            mkdir(['../' output_dir '/Modules']);
         end
 
-        movefile('CellProfiler*.*',['../' output_dir])
+        movefile('CellProfiler*.*',['../' output_dir]);
 		% Move the preferences file back if exists in the output dir
 		if exist(['../' output_dir '/CellProfilerPreferences.mat'],'file')
-			movefile(['../' output_dir '/CellProfilerPreferences.mat'],'./')
+			movefile(['../' output_dir '/CellProfilerPreferences.mat'],'./');
 		end
-        movefile('./Modules/*.txt', ['../' output_dir '/Modules'])
-        movefile('readme.txt',['../' output_dir])
-        copyfile('version.txt',['../' output_dir])
+        movefile('./Modules/*.txt', ['../' output_dir '/Modules']);
+        movefile('readme.txt',['../' output_dir]);
+        copyfile('version.txt',['../' output_dir]);
         movefile('Old_CellProfiler.m', 'CellProfiler.m');
-        movefile('mccExcludedFiles.log',['../' output_dir])
+        movefile('mccExcludedFiles.log',['../' output_dir]);
         if ~ ispc
-            movefile('run_CellProfiler.sh',['../' output_dir])
+            movefile('run_CellProfiler.sh',['../' output_dir]);
         end
 
         % Copy some useful scripts and files back into the CP root folder
         % that are in the SVN repository
-        copyfile(['../' output_dir '/CellProfilerManual.pdf'],'.')
-        copyfile(['../' output_dir '/CellProfiler*.command'],'.')
+        copyfile(['../' output_dir '/CellProfilerManual.pdf'],'.');
+        copyfile(['../' output_dir '/CellProfiler*.command'],'.');
 
         % Delete unneccesary files
         delete(['../' output_dir '/CellProfiler_main.c']);
@@ -173,17 +173,17 @@ switch lower(usage),
         path(current_search_path);
 
     case 'cluster',
-        
+
         output_dir = svn_ver;
 
         % Move files and cleanup
         if ~exist(['../' output_dir],'dir')
-            mkdir('..', output_dir)
+            mkdir('..', output_dir);
         end
 
         % Attempt to build CPCluster.m
         assert(exist('CPCluster.m','file') == 2,...
-            'CPCluster.m is not present in the current directory. Please check to see if it exists and try again.')
+            'CPCluster.m is not present in the current directory. Please check to see if it exists and try again.');
 
         %%%% Repopulate functions in the #function list
 
@@ -255,15 +255,15 @@ switch lower(usage),
         movefile('Old_CPCluster.m','CPCluster.m');
 
         % Move necessary files to output directory
-%         movefile('readme.txt',['../' output_dir])
-%         copyfile('version.txt',['../' output_dir])
-%         movefile('mccExcludedFiles.log',['../' output_dir])
+%         movefile('readme.txt',['../' output_dir]);
+%         copyfile('version.txt',['../' output_dir]);
+%         movefile('mccExcludedFiles.log',['../' output_dir]);
 %         if ~ ispc
-%             movefile('run_CPCluster.sh',['../' output_dir])
+%             movefile('run_CPCluster.sh',['../' output_dir]);
 %         end
-%         movefile('CPCluster.ctf',['../' output_dir])
-%         movefile('CPCluster',['../' output_dir])
-%         movefile('CPCluster_mcr',['../' output_dir '/'])
+%         movefile('CPCluster.ctf',['../' output_dir]);
+%         movefile('CPCluster',['../' output_dir]);
+%         movefile('CPCluster_mcr',['../' output_dir '/']);
 
         % Change the permissions
         disp('Setting permissions...');

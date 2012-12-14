@@ -1,6 +1,6 @@
 function parse_filenames(varargin)
 %PARSE_FILENAMES Parse image numbers and filenames from *_image.CSV files
-%   into a file with well, site, and wavelength info.  
+%   into a file with well, site, and wavelength info.
 % NOTE: There is no need to create concatented image.CSV files for this to
 % work.
 %
@@ -9,14 +9,14 @@ function parse_filenames(varargin)
 %
 %   OUTPUT: '<PATH to *_image.CSV files>/image_well_info.csv'
 %
-% User can subseqeuntly add columns indicating treatment conditions manually, 
+% User can subseqeuntly add columns indicating treatment conditions manually,
 % and subsequently upload to a database meta-data table.
 
 error(nargchk(0, 1, nargin, 'string'))
 if nargin < 1
 	image_dir = CPuigetdir('HOME', 'Choose the directory where your *_image.CSV files are located');
     if image_dir == 0
-        return
+        return;
     end
 else
     image_dir = varargin{1};
@@ -84,7 +84,7 @@ switch choice
         [WellFieldChannel, remain] = strtok(remain,'_');
         [well, remain] = strtok(WellFieldChannel,'f');
         [site, wavelength] = strtok(remain,'d');
-        
+
 end
 
 %% Split off WELL into 2 columns (e.g. 'A01' -> 'A' and '01')
@@ -104,7 +104,7 @@ well_file = fullfile(image_dir, 'image_well_info.csv');
 if ~exist(well_file,'file')
     %% Note: cannot use xlswrite, because Mac's can't run Excel COM server
     %%  nor dlmwrite because it outputs one character at a time
-    
+
     if choice == 1
         M = [rowCellArray, colCellArray, site];
     else
@@ -126,6 +126,6 @@ if ~exist(well_file,'file')
     end
     fclose(fid);
     disp('DONE!  An image_well_info.csv file was written to the same directory a your *_image.CSV files')
-else 
+else
     disp(['Cannot write ' well_file ' since it already exists'])
 end

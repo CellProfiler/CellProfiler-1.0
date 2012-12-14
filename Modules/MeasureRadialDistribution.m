@@ -19,9 +19,9 @@ function handles = MeasureRadialDistribution(handles,varargin)
 %
 % Three features are measured for each object:
 % - Fraction of total stain in an object at a given radius.
-% - Mean fractional intensity at a given radius (Fraction of total 
+% - Mean fractional intensity at a given radius (Fraction of total
 %    intenstiy normalized by fraction of pixels at a given radius).
-% - Coefficient of variation of intensity within a ring, calculated 
+% - Coefficient of variation of intensity within a ring, calculated
 %   over 8 slices.
 %
 % Features measured:      Feature Number:
@@ -51,13 +51,13 @@ function handles = MeasureRadialDistribution(handles,varargin)
 %
 % (i) User should be permitted to specify a range of values in (4) so they
 % don't have to add a separate module for each
-% (ii) A button should be added after (4) allowing the user to add more 
+% (ii) A button should be added after (4) allowing the user to add more
 % images, associated objects, and binning to specify other object radial
 % distributions.
 %
 % Anne 4-9-09: Can we add these features to MeasureObjectIntensity? I think
 % it would only add a few options. At the very least we should rename this
-% module to MeasureObjectIntensityDistributions. But that's just awkward. 
+% module to MeasureObjectIntensityDistributions. But that's just awkward.
 %
 % We also need to re-word Variable 4. I think it's saying how many
 % concentric rings do you want to divide the object into (?).
@@ -95,7 +95,7 @@ BinCount = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,4}))
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -167,12 +167,12 @@ else
         props = regionprops(double(LabelMatrixImage == k),'Centroid');
         Centroids(:,k) = round([props(:).Centroid]);
     end
-    %% Remove objects 
+    %% Remove objects
 %     while length(Points) ~= size(Centroids,2)
 %         CPwarndlg(['There is a mismatch in the number of input objects and centroids calculated in ' ...
 %                     ModuleName ' Module #' CurrentModuleNum '.  Attempting to fix.'])
 %         %% Remove Centroids entries with zeros in both rows.  This happens in the rare case that the number of IDSecondary
-%         %% objects is different than the IDPrimary they were generated with, likely because they were too small and 
+%         %% objects is different than the IDPrimary they were generated with, likely because they were too small and
 %         %% edited out.
 %         idx_zeros = Centroids(1,:) == 0 & Centroids(2,:) == 0;
 %         Centroids(:,idx_zeros) = [];

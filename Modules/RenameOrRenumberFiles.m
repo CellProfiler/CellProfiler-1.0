@@ -7,7 +7,7 @@ function handles = RenameOrRenumberFiles(handles)
 % Renames or renumbers files on the hard drive.
 % *************************************************************************
 %
-% This file renaming utility adjusts text within image file names. 
+% This file renaming utility adjusts text within image file names.
 % Be very careful with this module because its purpose is to rename (=
 % overwrite) files!! You will have the opportunity to confirm the name
 % change for the first cycle only. The folder containing the files must not
@@ -25,7 +25,7 @@ function handles = RenameOrRenumberFiles(handles)
 %
 %
 % Examples:
-% 
+%
 % Renumber:
 % DrosDAPI_1.tif    -> DrosDAPI_001.tif
 % DrosDAPI_10.tif   -> DrosDAPI_010.tif
@@ -73,14 +73,14 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-% 
+%
 %
 % Klmadden 2009_03_20 I think this warning should be moved to a header
 % position in the variable settings:
 % This module allows you to rename (overwrite) your files. Please see the help for this module for warnings.
 % So then the first variable should just say:
 % What did you call the images you want to rename/renumber?
-% 
+%
 % See additional PyCP settings below...
 
 

@@ -31,7 +31,7 @@ hImageParent = get(hImage,'Parent');
 hFig = ancestor(hImage,'Figure');
 
 % an array of images must belong to the same figure.
-if iscell(hFig) 
+if iscell(hFig)
   if any(diff([hFig{:}]))
     eid = sprintf('Images:%s:invalidImageArray',mfilename);
     msg = 'HIMAGE must belong to the same figure.';
@@ -53,7 +53,7 @@ childRemovedListener = handle.listener(handleParent,'ObjectChildRemoved', ...
 storeListener(handleParent,childRemovedListener);
 
 if ~isempty(recreateFcn)
-  childAddedListener = handle.listener(hFig,'ObjectChildAdded', ... 
+  childAddedListener = handle.listener(hFig,'ObjectChildAdded', ...
                                        @childAddedToFig);
   storeListener(hFig,childAddedListener);
 end
@@ -62,7 +62,7 @@ end
    function childAddedToFig(obj,eventData)
    % This function is called if a
    % child is added to hFig
-      
+
       if isa(eventData.Child,'axes')
         hAxes = eventData.Child;
         childAddedListener = handle.listener(hAxes,'ObjectChildAdded', ...
@@ -74,28 +74,28 @@ end
        function childAddedToAxes(obj,eventData)
        % This function is called if a
        % child is added to hFig
-      
+
           if isa(eventData.Child,'image')
             setPropertyListenerOnImage;
-          
+
           elseif isa(eventData.Child,'hggroup')
             hHGGroup = eventData.Child;
             childAddedListener = handle.listener(hHGGroup,'ObjectChildAdded', ...
                                              @childAddedToHGgroup);
             storeListener(hHGGroup,childAddedListener);
           end
-       
+
           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
           function childAddedToHGgroup(obj,eventData)
-      
+
              if isa(eventData.Child,'image')
                setPropertyListenerOnImage;
              end
           end
-      
+
           %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
           function setPropertyListenerOnImage
-             
+
              hIm = eventData.Child;
              prop = hIm.findprop('CData');
              propListener = handle.listener(hIm, prop, ...
@@ -105,13 +105,13 @@ end
 
              %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
              function propDone(obj,eventData)
-                
+
                 recreateFcn();
-             
+
              end %propDone
           end %setPropertyListenerOnImage
-       end %childAddedToAxes           
-   end %childAdded     
+       end %childAddedToAxes
+   end %childAdded
 
 
 end %main
@@ -131,7 +131,7 @@ deletefcn = varargin{2};
 if nargin == 3
   recreatefcn = varargin{3};
 end
-  
+
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,9 +151,9 @@ function childRemoved(obj,eventData,deleteFcn)
 % This function is called if any child in hImageParent in hFig is
 % deleted (e.g., you delete a handle to an image, you call imshow again
 % using the same figure, etc.)
-  
+
 if isa(eventData.Child,'image')
   deleteFcn();
 end
-   
+
 end

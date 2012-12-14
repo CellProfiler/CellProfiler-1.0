@@ -42,12 +42,12 @@ function handles = LoadText(handles)
 % Gene X
 % Gene Y
 % Gene Z
-% 
+%
 % Be sure that the file is saved in plain text format (.txt), not Rich Text
 % Format (.rtf).
 %
-% Path Name: 
-% Type period (.) for the default image folder, or ampersand (&) for the 
+% Path Name:
+% Type period (.) for the default image folder, or ampersand (&) for the
 % default output folder.
 % NOTE: this nomenclature is opposite that in SaveImages for historical purposes.
 %
@@ -158,13 +158,13 @@ if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
 	Description = regexp(s{1},'^DESCRIPTION(\s*)(?<Description>.*)','tokens','once');
 	Description = Description{2};
 	s = s(2:end);	% Skip to next line
-	
+
 	Text = cellfun(@strrep,s,repmat({sprintf('\t')},size(s)),repmat({' '},size(s)),'UniformOutput',false);
 	fclose(fid);
-	
+
     %%% Add the data
 	handles = CPaddmeasurements(handles,'Image',CPjoinstrings('LoadedText',FieldName),Text,1:length(Text));
-    
+
     %%%%%%%%%%%%%%%%%%%%%%%
     %%% DISPLAY RESULTS %%%
     %%%%%%%%%%%%%%%%%%%%%%%

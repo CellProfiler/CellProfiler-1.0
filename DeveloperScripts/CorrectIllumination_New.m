@@ -148,7 +148,7 @@ end
 [params, fX, iters] = minimize(start, 'sampleBaseEntropy', 50, D(:,idx), IB)
 
 
-%%% Although the arguments are called "X, Y" they actually correspond to "I, J" when called above.  
+%%% Although the arguments are called "X, Y" they actually correspond to "I, J" when called above.
 %%% It doesn't really affect things, as long as all values for X,Y are in [0,1]
 function B = illumBases(idx, X, Y)
 

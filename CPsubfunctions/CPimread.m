@@ -21,18 +21,18 @@ function LoadedImage = CPimread(CurrentFileName, flex_idx)
 if nargin == 0 %returns the vaild image extensions
     formats = imformats;
     LoadedImage = [cat(2, formats.ext) {'dib'} {'mat'} {'fig'} {'zvi'} {'raw'},{'flex'},{'c01'}]; %LoadedImage is not a image here, but rather a set
-    return
+    return;
 elseif nargin == 1,
     % The following lines make sure that all directory separation
     % characters follow the platform format
     CurrentFileName = char(CurrentFileName);
     CurrentFileName = strrep(strrep(CurrentFileName,'\',filesep),'/',filesep);
-    
+
     %%% Handles a non-Matlab readable file format.
     [Pathname, FileName, ext] = fileparts(CurrentFileName);
-    
-    
-    
+
+
+
     if strcmpi('.DIB', ext),
         %%% Opens this non-Matlab readable file format.  Compare to
         %%% Matlab Central file id 11096, which does the same thing.
@@ -98,7 +98,7 @@ elseif nargin == 1,
         % Skip the rest of the header
         %
         [Data, Count] = fread(fid, HeaderLength-52,'uint8',0,'l');
-	
+
 	  % The 'l' causes convertion from little-endian byte order.
 	  [Data, Count] = fread(fid, Width * Height, 'uint16', 0, 'l');
 	  if Count < (Width * Height),
@@ -107,7 +107,7 @@ elseif nargin == 1,
 	  end
 	  LoadedImage(:,:,1) = reshape(Data, [Width Height])' / (2^BitDepth - 1);
     fclose(fid);
-    
+
     elseif strcmpi('.MAT',ext)
         load(CurrentFileName);
         if exist('Image','var')
@@ -330,7 +330,7 @@ function ScaledImage = CPimread_flex(imname, flex_idx)
 %%% documentation is available, as far as I know.  Most of what is
 %%% below is based on experiments, looking at the plaintext XML in the
 %%% .flex files, and by reference to FlexReader.java in the LOCI
-%%% Bio-Formats project.  
+%%% Bio-Formats project.
 
 
 % First load the image...
@@ -350,7 +350,7 @@ try
 
     % Find the Factors
     factor_locations = findstr('Factor="', ArrayString);
-    
+
     % determine maximum factor value, as it decides the number of bits to convert to, below.
     for i = 1:length(factor_locations),
         % get the ith factor string, and extract the value
@@ -396,20 +396,20 @@ try
         ByteOrder = 'ieee-be';
     else
         fclose(fid);
-        return
+        return;
     end
     % Bytes 2-3 identify the file as a TIFF file. They always
     % have the value 42.
     TiffCookie = fread(fid,1,'int16',0,ByteOrder);
     if TiffCookie ~= 42
         fclose(fid);
-        return
+        return;
     end
     % Bytes 4-7 have an offset to the first IFD
     Offset = fread(fid,1,'uint32',0,ByteOrder);
     if fseek(fid,Offset,'bof') ~= 0
         fclose(fid);
-        return
+        return;
     end
     % An IFD has a 2-byte record count
     RecordCount = fread(fid,1,'uint16',0,ByteOrder);
@@ -426,7 +426,7 @@ try
         if Tag == 272 && Type == 2
             if fseek(fid,Offset,'bof') ~= 0
                 fclose(fid);
-                return
+                return;
             end
             % ASCII strings are null-terminated, so we don't
             % read the null (Count-1)
@@ -435,11 +435,11 @@ try
                 is_gene_pix = 1;
             end
             fclose(fid);
-            return
+            return;
         end
     end
     fclose(fid);
 catch
     fclose(fid);
-    return
+    return;
 end

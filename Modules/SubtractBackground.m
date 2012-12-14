@@ -27,8 +27,8 @@ function handles = SubtractBackground(handles)
 %
 % If images have already been quantified and you want to apply the concept
 % of this module without reprocessing your images, then multiply the
-% background threshold calculated by this module during the first image 
-% cycle by the number of pixels in the image to get the number that should 
+% background threshold calculated by this module during the first image
+% cycle by the number of pixels in the image to get the number that should
 % be subtracted from the intensity measurements.
 %
 % If you want to run this module only to calculate the proper threshold to
@@ -39,11 +39,11 @@ function handles = SubtractBackground(handles)
 % Sort each image's pixel values and pick the 10th lowest pixel value as
 % the minimum. Typical images have a million pixels. The lowest pixel value
 % is chosen because it might be zero if it is a stuck pixel. It is quite
-% certain that there will not be 10 stuck pixels so this should be safe. 
-% Then, take the minimum of these values from all the images. This scalar 
+% certain that there will not be 10 stuck pixels so this should be safe.
+% Then, take the minimum of these values from all the images. This scalar
 % value should be subtracted from every pixel in the image. CellProfiler is
-% not calculating a different value for each pixel position in the image 
-% because in a small image set, that position may always be occupied by 
+% not calculating a different value for each pixel position in the image
+% because in a small image set, that position may always be occupied by
 % real staining.
 %
 % Features measured:    Feature Number:
@@ -110,7 +110,7 @@ drawnow
 % The first time the module is run, the threshold shifting value must be
 % calculated.
 if handles.Current.SetBeingAnalyzed == 1
-    CPwarndlg(['The functionality performed by ', ModuleName, ' can be performed by CorrectIllumination_Calculate and CorrectIllumination_Apply. You may want to consider using those modules instead.'],'Obsolete module','replace');    
+    CPwarndlg(['The functionality performed by ', ModuleName, ' can be performed by CorrectIllumination_Calculate and CorrectIllumination_Apply. You may want to consider using those modules instead.'],'Obsolete module','replace');
     try
         drawnow
         % Retrieves the path where the images are stored from the handles
@@ -153,7 +153,7 @@ if handles.Current.SetBeingAnalyzed == 1
             if TenthMinimumPixelValue == 0
                 CPmsgbox([ImageName , ' image number ', num2str(i), ', and possibly others in the set, has the 10th dimmest pixel equal to zero, which means there is no camera background to subtract, either because the exposure time was very short, or the camera has 10 or more pixels stuck at zero, or that images have been rescaled such that at least 10 pixels are zero, or that for some other reason you have more than 10 pixels of value zero in the image.  This means that the ', ModuleName, ' module will not alter the images in any way, although image processing has not been aborted.'], 'Warning', 'warn','replace')
                 MinimumTenthMinimumPixelValue = 0;
-                
+
                 % Determines the figure number to close, because no
                 % processing will be performed.
                 ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule]);
@@ -206,14 +206,14 @@ if MinimumTenthMinimumPixelValue ~= 0
         end
         % A subplot of the figure window is set to display the original
         % image, some intermediate images, and the final corrected image.
-        hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber); 
+        hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
         CPimagesc(OrigImage,handles,hAx);
         title(hAx,['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
         % The mean image does not absolutely have to be present in order to
         % carry out the calculations if the illumination image is provided,
         % so the following subplot is only shown if MeanImage exists in the
         % workspace.
-        hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber); 
+        hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber);
         CPimagesc(CorrectedImage,handles,hAx);
         title(hAx,'Corrected Image');
         % Displays the text.

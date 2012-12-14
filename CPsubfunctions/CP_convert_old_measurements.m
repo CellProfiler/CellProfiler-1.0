@@ -30,7 +30,7 @@ for i = 1:length(ObjectFields)
 
     for j = 1:length(MeasureFields)
         Offset = 0;
-        
+
         if regexp(MeasureFields{j}, 'Features$'),
             Offset = 8;
         end
@@ -50,16 +50,16 @@ for i = 1:length(ObjectFields)
                 return;
             end
         end
-        
+
         % Extract the values
         SubFeatureNames = handles.Measurements.(ObjectName).(MeasureFields{j});
         BaseFeatureName = MeasureFields{j}(1:end-Offset);
         Values = handles.Measurements.(ObjectName).(BaseFeatureName);
-        
+
         % Drop the names and values from the handles
         handles.Measurements.(ObjectName) = rmfield(handles.Measurements.(ObjectName), MeasureFields{j});
         handles.Measurements.(ObjectName) = rmfield(handles.Measurements.(ObjectName), BaseFeatureName);
-        
+
         % Write them back with new names
         for k = 1:length(SubFeatureNames),
             NewName = CPjoinstrings(BaseFeatureName, SubFeatureNames{k});

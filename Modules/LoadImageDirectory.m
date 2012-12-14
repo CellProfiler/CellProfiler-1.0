@@ -10,8 +10,8 @@ function handles = LoadImageDirectory(handles)
 % *************************************************************************
 %
 % This module combines a set of images by averaging or by taking the maximum
-% pixel intensity at each pixel position. When this module is used to 
-% average a Z-stack (3-D image stack), this process is known as making 
+% pixel intensity at each pixel position. When this module is used to
+% average a Z-stack (3-D image stack), this process is known as making
 % a projection.
 %
 % Settings:
@@ -31,7 +31,7 @@ function handles = LoadImageDirectory(handles)
 %   If yes, the module will read image files in subfolders of each
 %   folder it looks at. If no, it will only read image files out of
 %   the named folder.
-% 
+%
 % * How do you want to load these files:
 %   Exact match - if the text below matches some part of the text in the
 %                 image file name, the file will be accepted.
@@ -93,7 +93,7 @@ drawnow
 % I think this module is two in one, a combination of LoadImages and
 % MakeProjection. The functionality which allows groups of images to be
 % created should be part of LoadImages, and the ability to aggregate images
-% should be part of MakeProjection. The one unique function it can add is 
+% should be part of MakeProjection. The one unique function it can add is
 % the QC flag portion, which might be part of LoadImages? In any case, this
 % module should probably disappear.
 
@@ -170,7 +170,7 @@ if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
     %%%
     %%% First time through - collect all directory names
     %%%
-    
+
     %%% Get the pathname and check that it exists
     if strncmp(Pathname,'.',1)
         if length(Pathname) == 1
@@ -239,7 +239,7 @@ switch CheckForQC
         if strcmp(ProjectionType,'Average')
             ProjectionImage = ProjectionImage / length(FileList);
         end
-    case 'Yes' 
+    case 'Yes'
         for i = 1:handles.Current.NumberOfImageSets
             QCFlagDataName = CPjoinstrings('LoadedText',QCFileName);
             if ~isfield(handles.Measurements.Image,QCFlagDataName)
@@ -262,7 +262,7 @@ switch CheckForQC
                 ImageSize = CPimread(fullfile(DirPath,char(FileList(i))));
                 Image = zeros(size(ImageSize));
             end
-            if i == 1 
+            if i == 1
                 ProjectionImage = zeros(size(Image));
                 ImageNumSkipped = 0;
             end
@@ -275,7 +275,7 @@ switch CheckForQC
             end
             if strcmp(ProjectionType,'Average')
                 ProjectionImage = ProjectionImage + Image;
-            else 
+            else
                 ProjectionImage = max(ProjectionImage,Image);
             end
         end

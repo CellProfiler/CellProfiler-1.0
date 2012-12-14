@@ -24,8 +24,8 @@ function handles = ProbabilisticSegmentation(handles)
 %   For many images it is necessary to provide a seed for the background.
 %   This module will identify a secondary object based on that seed.  To
 %   remove this spurious object, use the FilterByObjectMeasurement module.
-% 
-%   See Grady's publications [doi:10.1109/TPAMI.2006.233, 
+%
+%   See Grady's publications [doi:10.1109/TPAMI.2006.233,
 %   doi:10.1109/CVPR.2005.239] for details of the method.
 %
 % * Ljosa and Singh: XXX

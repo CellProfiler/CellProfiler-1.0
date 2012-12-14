@@ -292,29 +292,29 @@ if strcmp(TryOtherMethodToo,'Yes')
     BlurredImage = conv2(OrigImage,f,'same') ./ conv2(ones(size(OrigImage)),f,'same');
     %%% Threshold image
     PrelimObjects = BlurredImage > Threshold;
-    
+
     %%% Get skeletons of traditional masking
     SkelTrad = bwmorph(PrelimObjects,'skel',Inf);
     %%% Get skeletons of new masking
     SkelNew = bwmorph(Objects,'skel',Inf);
-    
+
     %%% Superimpose them and get common points
     BothSkels = SkelTrad & SkelNew;
-    
+
     %%% Process these new 'midlines'
     BothSkels = bwmorph(BothSkels,'bridge');
     BothSkels = imdilate(BothSkels,StructEl2);
-	
+
     %%% Put together with outlines
     PrelimObjects = BothSkels | EdgedImage;
-    
+
     %%% Clean up
     Objects2 = imfill(PrelimObjects,'holes');
     Objects2 = imclose(Objects2,StructEl2);
     Objects2 = imfill(Objects2,'holes');
     StructEl4 = strel('disk',round(MinWidth/5));
     Objects2 = imerode(Objects2,StructEl4);
-    
+
     %%% Estimate number of objects
     props = regionprops(double(Objects2),'Area');
     Area2 = cat(1,props.Area);
@@ -376,12 +376,12 @@ if any(findobj == ThisModuleFigureNumber)
             'HorizontalAlignment','left','BackgroundColor',[.7 .7 .9],'fontname','Helvetica',...
             'fontsize',FontSize,'string',sprintf('Estimated number of objects: %.0f',round(EstimatedNumberOfObjects2)),'UserData',SetBeingAnalyzed);
     end
-    
+
     % Text for Mean Area used
     uicontrol(ThisModuleFigureNumber,'style','text','units','normalized', 'position', [0.52 0.42 0.45 0.03],...
         'HorizontalAlignment','left','BackgroundColor',[.7 .7 .9],'fontname','Helvetica',...
         'fontsize',FontSize,'string',sprintf('Mean Area: %.0f',MeanArea),'UserData',SetBeingAnalyzed);
-    
+
     % Text for Total Area in masked image
     uicontrol(ThisModuleFigureNumber,'style','text','units','normalized', 'position', [0.52 0.36 0.45 0.03],...
         'HorizontalAlignment','left','Backgroundcolor',[.7 .7 .9],'fontname','Helvetica',...
@@ -391,7 +391,7 @@ if any(findobj == ThisModuleFigureNumber)
     uicontrol(ThisModuleFigureNumber,'style','text','units','normalized', 'position', [0.52 0.32 0.45 0.03],...
         'HorizontalAlignment','left','BackgroundColor',[.7 .7 .9],'fontname','Helvetica',...
         'fontsize',FontSize,'string',sprintf('Area is equivalent to that of %.2f %s',EstimatedNumberOfObjects,lower(ObjectName)),'UserData',SetBeingAnalyzed);
-    
+
     % Text for Estimated number of objects
     uicontrol(ThisModuleFigureNumber,'style','text','units','normalized', 'position', [0.52 0.28 0.45 0.03],...
         'HorizontalAlignment','left','BackgroundColor',[.7 .7 .9],'fontname','Helvetica',...

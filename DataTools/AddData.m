@@ -15,7 +15,7 @@ function AddData(handles)
 % helping you to keep track of your samples. You can also run the LoadText
 % module in your pipeline so this step happens automatically during
 % processing; its function is the same. Once the data is added to the
-% output file, you can view the text file within the output file by using 
+% output file, you can view the text file within the output file by using
 % the ViewData data tool and selecting "Image". To delete the text file
 % from the output file, use the ClearData data tool.
 %
@@ -42,7 +42,7 @@ function AddData(handles)
 % Gene X
 % Gene Y
 % Gene Z
-% 
+%
 % While not thoroughly tested, most likely you can load numerical data too.
 %
 % See also the LoadText module, ViewData and ClearData data tools.
@@ -70,7 +70,7 @@ end
 
 %%% Check if cancel button pressed
 if ~iscellstr(SelectedFiles)
-    return
+    return;
 end
 
 FieldName = inputdlg('What name would you like to give this data (what heading)?');
@@ -96,10 +96,10 @@ for FileNbr = 1:length(SelectedFiles)
 
     handles = temp_handles.handles;
 
-    %% Save temp values that LoadText needs 
+    %% Save temp values that LoadText needs
     tempVarValues=handles.Settings.VariableValues;
     tempCurrentField = handles.Current;
-    %% Change handles that LoadText requires 
+    %% Change handles that LoadText requires
     handles.Settings.VariableValues{1,1}=filename;
     handles.Settings.VariableValues{1,2}=FieldName;
     handles.Settings.VariableValues{1,3}=pathname;
@@ -107,7 +107,7 @@ for FileNbr = 1:length(SelectedFiles)
     handles.Current.SetBeingAnalyzed=1;
     %% Load Text
     handles = LoadText(handles);
-    %% Return previous values 
+    %% Return previous values
     handles.Settings.VariableValues=tempVarValues;
     handles.Current=tempCurrentField;
 

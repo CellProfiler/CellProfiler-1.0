@@ -23,7 +23,7 @@ function handles = CreateBatchFiles(handles)
 %
 % Other Paths: The last two settings allow changing the paths between
 % local and cluster computers. For example, when starting with a local PC
-% computer and setting a batch to run on a Linux-based cluster, 
+% computer and setting a batch to run on a Linux-based cluster,
 % the path may be essentially the same except the first notation:
 %
 % PC:    \\remoteserver1\cluster\project
@@ -33,8 +33,8 @@ function handles = CreateBatchFiles(handles)
 % for the remote machine you would type "/remoteserver2". As of now, this
 % is hardcoded to always use Linux and Macintosh style slashes (/).
 %
-% If your input image folder and output folder are located on different 
-% machines, you can specify the input image paths followed by the output 
+% If your input image folder and output folder are located on different
+% machines, you can specify the input image paths followed by the output
 % path separated by a comma.
 %
 % Note: This module produces a Batch_data.mat file. This contains the
@@ -45,7 +45,7 @@ function handles = CreateBatchFiles(handles)
 % different configurations for batch control, compiled versus
 % interpreted Matlab, access paths, etc. it will probably be necessary
 % to use those files as guides for a locally customized solution.
-% BatchRunner.py requires Python 2.5.2 and the module scipy 0.6 to be installed. 
+% BatchRunner.py requires Python 2.5.2 and the module scipy 0.6 to be installed.
 %
 % See also MergeOutputFiles, GSBatchProcessing.
 
@@ -71,21 +71,21 @@ function handles = CreateBatchFiles(handles)
 % useful. First thing is that we should ask whether the local and cluster
 % machines use the same pathnames (or something like that) and skip the
 % rest if the answer is Yes.
-% The questions have 1 or 2 inputs, for default image and ouput folders, but this 
-% should be more explicit.  And it's possible that more than 2 translations 
+% The questions have 1 or 2 inputs, for default image and ouput folders, but this
+% should be more explicit.  And it's possible that more than 2 translations
 % could be necessary (if images were on two different servers and the output was
-% on a third), so there should be no limitation on the number of translations.  
+% on a third), so there should be no limitation on the number of translations.
 % It would be nice if initially two boxes were presented
-% on the left and right that were labeled LOCAL ROOT PATH and CLUSTER ROOT PATH.  A button 
-% labeled "Do you want to add another set of paths?", if clicked, would display another pair 
-% of text boxes below the first set, to be filled in.  
-% Further, it would be good (if possible) to show an example fully-constructed 
-% path as the user types in the root path. 
-% Maybe pie-in-the-sky, but a test mode would be really cool, 
-% to make a simple (webserver?) call to see if the cluster's path existed, 
-% which would head off a lot of errors.  We should also prevent PC users from 
-% entering UNC paths ('\\...') and stick to mapped drives (or pick one), since 
-% we don't want to map all possible network naming schemes. 
+% on the left and right that were labeled LOCAL ROOT PATH and CLUSTER ROOT PATH.  A button
+% labeled "Do you want to add another set of paths?", if clicked, would display another pair
+% of text boxes below the first set, to be filled in.
+% Further, it would be good (if possible) to show an example fully-constructed
+% path as the user types in the root path.
+% Maybe pie-in-the-sky, but a test mode would be really cool,
+% to make a simple (webserver?) call to see if the cluster's path existed,
+% which would head off a lot of errors.  We should also prevent PC users from
+% entering UNC paths ('\\...') and stick to mapped drives (or pick one), since
+% we don't want to map all possible network naming schemes.
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%
@@ -123,11 +123,11 @@ end
 
 isImageGroups = isfield(handles.Pipeline,'ImageGroupFields');
 if ~isImageGroups
-    if handles.Current.NumberOfImageSets == 1 
+    if handles.Current.NumberOfImageSets == 1
        CPwarndlg(['Warning: No batch scripts have been written because ',...
            'you have scheduled only one cycle to be processed and that cycle is already complete.']);
        return;
-    end  
+    end
 end
 
 if strncmp(BatchSavePath, '.',1)
@@ -144,11 +144,11 @@ if exist(PathAndFileName,'file') == 2
     button = CPquestdlg('Batch_data.mat already exists in the output directory.  Are you sure you want to overwrite Batch_data.mat?',...
         'Overwrite Batch_data');
     if ~strcmp(button,'Yes')
-        
+
         set(handles.timertexthandle,'string','Canceling after current module')
         CPmsgbox(['Image processing was canceled in the ', ModuleName, ' module at your request.'])
         CPclosefigure(handles,CurrentModule)
-        return
+        return;
 
     end
 end
@@ -164,7 +164,7 @@ end
 % because the save function will not allow us to save a variable
 % under a different name.
 PreservedHandles = handles;
- 
+
 % Changes parts of several pathnames if the user has
 % specified that parts of the pathname are named differently from
 % the perspective of the local computer vs. the cluster
@@ -194,11 +194,11 @@ if ~any(strcmp(OldPathname, '.'))
     for i = 1:length(OldPathname)
 		NewDefaultImageDirectory = strrep(strrep(handles.Current.DefaultImageDirectory,OldPathname{i},NewPathname{i}),'\','/');
 		handles.Current.DefaultImageDirectory = NewDefaultImageDirectory;
-		
+
 		NewDefaultOutputDirectory = strrep(strrep(handles.Current.DefaultOutputDirectory,OldPathname{i},NewPathname{i}),'\','/');
 		handles.Current.DefaultOutputDirectory = NewDefaultOutputDirectory;
 	end
-    
+
     % Replaces \ with / in all image filenames (only relevant for PCs)
     % (a) handles.Pipelines
     Fieldnames = fieldnames(handles.Pipeline);
@@ -232,7 +232,7 @@ if ~any(strcmp(OldPathname, '.'))
             end
         end
     end
-    
+
     % Deal with input paths that have already been saved to the handles
     % (a) handles.Pipelines
     for k = 1:length(OldPathname)

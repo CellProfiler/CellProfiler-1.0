@@ -76,16 +76,16 @@ if any(ParentChildLabelHistogram(:)),
     %%% the child's column in the histogram.  sort() will give us the
     %%% necessary parent (row) index as its second return argument.
     [OverlapCounts, ParentIndexes] = sort(ParentChildLabelHistogram,1);
-    
+
     % Get the parent list.
     ParentList = ParentIndexes(end, :);
-    
+
     % handle the case of a zero overlap -> no parent
     ParentList(OverlapCounts(end, :) == 0) = 0;
-    
+
     % transpose to a column vector
     ParentList = ParentList';
-    
+
     %%% Now we need the number of children for each parent.  We can get
     %%% this as a histogram, again.  Must only use children that actually
     %%% have a parent.

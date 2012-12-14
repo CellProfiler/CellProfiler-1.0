@@ -17,10 +17,10 @@ function handles = ExtractHeaderInfo(handles)
 
 % CellProfiler is distributed under the GNU General Public License.
 % See the accompanying file LICENSE for details.
-% 
+%
 % Developed by the Whitehead Institute for Biomedical Research.
 % Copyright 2003,2004,2005.
-% 
+%
 % Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
@@ -124,7 +124,7 @@ if SetBeingAnalyzed == 1
                     NumberOfImageSets = fix(length(FileNames)/ImagesPerSet);
                     handles.Current.NumberOfImageSets = NumberOfImageSets;
                 else NumberOfImageSets = handles.Current.NumberOfImageSets;
-                end 
+                end
                 %%% Loops through the names in the FileNames listing,
                 %%% creating a new list of files.
                 for i = 1:NumberOfImageSets
@@ -139,10 +139,10 @@ if SetBeingAnalyzed == 1
                 clear FileList
             end
         end
-        
+
     end  % Goes with: for n = 1:2:5
     %%% Update the handles structure.
-    guidata(gcbo, handles);    
+    guidata(gcbo, handles);
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -152,7 +152,7 @@ drawnow
 
 for n = 1:2:5
     %%% This try/catch will catch any problems.
-    try 
+    try
         %%% Determine which image to analyze.
         fieldname = ['dOTFileList', ImageName{n}];
         FileList = handles.(fieldname);
@@ -292,7 +292,7 @@ else
         DiscardLogical5 = cellfun('prodofsize',DiscardLogical5Pre);
     else DiscardLogical5 = [];
     end
-    
+
     %%% Combines all of the DiscardLogical arrays into one.
     DiscardLogical = DiscardLogical1 | DiscardLogical2 | DiscardLogical3 | DiscardLogical4 | DiscardLogical5;
     %%% Eliminates filenames to be discarded.

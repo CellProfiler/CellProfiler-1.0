@@ -85,14 +85,14 @@ function handles = ClassifyObjects(handles)
 % the number of middle bins is user-defined, but perhaps in the gui the
 % user could click a button to 'Add another custom bin'.  For 'single
 % threshold', just one box should appear for them to input 'Single
-% Threshold'.  
+% Threshold'.
 % Var08 - for naming each class, it seems like now we don't do any checking
 % up front if the user has even entered the correct number of names.  What
 % would be great is if their defined limits or custom classes worked out to
 % x bins, x boxes would show up for them to type in the class names.  I"m
 % not sure how feasible this is to implement; I think it's more intuitive
 % to enter comma separated names than to enter "number of bins,lower limit,
-% etc" so leaving it as is would be ok.  
+% etc" so leaving it as is would be ok.
 % Var09: change to: "Downstream in the pipeline, do you want to use the
 % image where each object is color-coded according to its class?" (Yes/no,
 % and if yes then ask what do you want to call that image?)
@@ -205,8 +205,8 @@ end
 drawnow
 
 ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule]);
-    
-try 
+
+try
     NumericalBinSpecifications = str2num(BinSpecifications);
     if isempty(NumericalBinSpecifications)
         error(['Image processing was canceled in the ', ModuleName, ...
@@ -324,12 +324,12 @@ if any(findobj == ThisModuleFigureNumber) || ~strcmpi(SaveColoredObjects,'Do not
 end
 
 % Calculate the percentage of objects per bin
-if ~isempty(PercentageOfObjectsPerBin), 
+if ~isempty(PercentageOfObjectsPerBin),
     warning('off','MATLAB:divideByZero');
     PercentageOfObjectsPerBin = ObjectsPerBin/length(Measurements);
     warning('on','MATLAB:divideByZero');
 else
-    PercentageOfObjectsPerBin = 0; 
+    PercentageOfObjectsPerBin = 0;
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -364,11 +364,11 @@ if any(findobj == ThisModuleFigureNumber)
         colormap(hAx,cmap);
         NonQuantizedImage(LabelMatrixImage == 0) = -inf;
         CPimagesc(NonQuantizedImage,handles,hAx);
-        clim = caxis(hAx); 
-        if ~isempty(Measurements), 
-            offset = (clim(2)-clim(1))/length(Measurements); 
+        clim = caxis(hAx);
+        if ~isempty(Measurements),
+            offset = (clim(2)-clim(1))/length(Measurements);
         else
-            offset = 0; 
+            offset = 0;
         end
         caxis(hAx,[clim(1)-offset clim(2)]);
         title([ObjectName,' shaded according to ',FeatureName],'Parent',hAx)
@@ -391,7 +391,7 @@ if any(findobj == ThisModuleFigureNumber)
         hAx = subplot(2,2,3,'Parent',ThisModuleFigureNumber);
         CPimagesc(QuantizedRGBimage,handles,hAx);
         title(hAx,['Classified ', ObjectName]);
-        
+
         % Add legend to image
         for BinNum = 1:NumberOfBins
             if strcmpi(Labels,'Do not use'),
@@ -401,7 +401,7 @@ if any(findobj == ThisModuleFigureNumber)
                 LegLabels{BinNum} = LegLabels{BinNum}(2:end);
             end
         end
-        % Legend requires patch/line objects to work and can't do images. 
+        % Legend requires patch/line objects to work and can't do images.
         % So we trick it by plotting invisible patches with RGB values
         % from the quantized image and key off those
         hold(hAx,'on');
@@ -409,7 +409,7 @@ if any(findobj == ThisModuleFigureNumber)
         for i = 1:length(c),
             [row,col] = find(QuantizedImage == c(i),1);
             rgbval = squeeze(QuantizedRGBimage(row,col,:))';
-            h(i) = patch([0 0 1],[0 1 1],rgbval,'visible','off','parent',hAx); 
+            h(i) = patch([0 0 1],[0 1 1],rgbval,'visible','off','parent',hAx);
         end
         hold(hAx,'off');
         warning('off','MATLAB:legend:IgnoringExtraEntries'); warning('off','MATLAB:legend:PlotEmpty');

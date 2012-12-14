@@ -28,14 +28,14 @@ function DataLayout(handles)
 %%% Ask the user to choose the file from which to extract measurements.
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the measurements file',handles.Current.DefaultOutputDirectory);
 if FileName == 0
-    return
+    return;
 end
 try
     temp = load(fullfile(Pathname, FileName));
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fullfile(Pathname, FileName), ''' (possibly not a CellProfiler output file).'])
-    return
+    return;
 end
 
 % Ask the user for the feature
@@ -44,7 +44,7 @@ try
 catch
     ErrorMessage = lasterr;
     CPerrordlg(['An error occurred in the DataLayout Data Tool. ' ErrorMessage(30:end)]);
-    return
+    return;
 end
 if isempty(ObjectName),return,end
 
@@ -60,7 +60,7 @@ try
 catch
     ErrorMessage = lasterr;
     CPerrordlg(['An error occurred in the DataLayout Tool, while taking the mean of measurements for display. ' ErrorMessage(30:end)]);
-    return
+    return;
 end
 
 % Ask for the dimensions of the image
@@ -68,7 +68,7 @@ Prompts = {'Enter the number of rows','Enter the number of columns'};
 Defaults = {'24','16'};
 Answers = inputdlg(Prompts,'Describe Array/Slide Format',1,Defaults);
 if isempty(Answers)
-    return
+    return;
 end
 
 % Pad or remove measurements to fit the entered image size

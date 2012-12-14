@@ -1,5 +1,5 @@
 function TruncatedName = CPtruncatefeaturename(FeatureName,dlmtr)
-% CPtruncatefeaturename 
+% CPtruncatefeaturename
 % Reduce length of delimited text strings to overcome Matlab's 63 character limit
 % Finds max length for each substring which will still allow a Matlab aceptable string
 
@@ -16,7 +16,7 @@ if isempty(FeatureName)
     error('FeatureName cannot be an empty string')
 end
 
-% Loop through Minimum String Length, from large to small, and stop when 
+% Loop through Minimum String Length, from large to small, and stop when
 % length < 64
 for MinStrLen = MinStrLenInit:-1:1
     TruncatedName = '';
@@ -25,11 +25,11 @@ for MinStrLen = MinStrLenInit:-1:1
         Str = FeatureNameSubstrings{1}{idxStr};
         TruncatedName = CPjoinstrings(TruncatedName,Str(1:min(length(Str),MinStrLen)));
     end
-  
+
     if length(TruncatedName) <= namelengthmax
         if length(TruncatedName) ~= length(FeatureName)
             msgboxtitle = 'Truncation of feature name';
-            
+
             hdl_dlg = findobj(allchild(0),'name',msgboxtitle);
             if isempty(hdl_dlg)
                 warningtextstr = {['The following feature names have exceeded Matlab''s ' num2str(namelengthmax) ' character limit.'],...
@@ -39,7 +39,7 @@ for MinStrLen = MinStrLenInit:-1:1
                                 [FeatureName,': ',TruncatedName]};
                 hdl_dlg = CPwarndlg(warningtextstr,msgboxtitle,'replace');
                 hdl_text = findobj(hdl_dlg,'type','text','-depth',inf);
-                set(hdl_text,'visible','off','units','normalized'); 
+                set(hdl_text,'visible','off','units','normalized');
                 p = get(hdl_text,'extent');
                 uicontrol('parent',hdl_dlg,'style','edit','string',warningtextstr,'tag',msgboxtitle,...
                     'units','normalized','position',[p(1:2) 1-p(1) p(4)],'enable','inactive','max',1.001,'min',0);
@@ -50,6 +50,6 @@ for MinStrLen = MinStrLenInit:-1:1
                 set(hdl_uitext,'string',warningtextstr);
             end
         end
-        return
+        return;
     end
 end

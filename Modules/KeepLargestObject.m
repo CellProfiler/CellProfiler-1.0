@@ -27,7 +27,7 @@ function handles = KeepLargestObject(handles)
 %%%%%%%%%%%%%%%%%
 drawnow
 
-% PyCP Notes: 
+% PyCP Notes:
 % Anne 3-26-09: I think this module should be a new option within
 % FilterByObjectMeasurement. We could add this one simple case, or we could
 % add the more flexible "Keep the single object with the lowest or highest

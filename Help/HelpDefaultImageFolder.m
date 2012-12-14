@@ -13,16 +13,16 @@ function HelpDefaultImageFolder
 % Doubleclicking on PIPE or OUT files will ask if you want to load a
 % pipeline from the file. To refresh the contents of this window, press
 % enter in the default image directory edit box.
-% 
+%
 % You will have the option within the Load Images module to retrieve images
 % from other folders, but the folder selected here will be the default.
 %
 % Be careful that files other than your images of interest are not stored
 % within the folder you have selected.  The following file extensions are
 % ignored by CellProfiler, so these are the only types which can be left in
-% the folder with the images you want to analyze:  
+% the folder with the images you want to analyze:
 %   m, m~, frk~, xls, doc, rtf, txt, csv, or any file beginning with a dot.
-% 
+%
 %
 %
 % CellProfiler Developer's version note: If you would like to add a

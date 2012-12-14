@@ -148,7 +148,7 @@ GranularSpectrumLength = str2double(char(handles.Settings.VariableValues{Current
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'

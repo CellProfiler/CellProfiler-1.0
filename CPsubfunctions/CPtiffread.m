@@ -310,7 +310,7 @@ switch (tifftypecode)
     otherwise
         error('tiff type not supported')
 end
-return
+return;
 
 
 function  entry = readIFDentry(TIF)

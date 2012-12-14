@@ -4,7 +4,7 @@ function handles=SubmitBatch(handles)
 % Category: Data Tools
 %
 % SHORT DESCRIPTION:
-% Submits batches made by the CreateBatchFiles module to the cluster 
+% Submits batches made by the CreateBatchFiles module to the cluster
 % via webserver.
 % ************************************************************************
 % This tool makes a webserver call to the URL,
@@ -112,7 +112,7 @@ function resultdir=browsedir_cb(textctl,dlgcaption)
         tempdir=pwd;
     end;
     resultdir = CPuigetdir(tempdir,dlgcaption);
-    if resultdir ~= 0 
+    if resultdir ~= 0
         set(textctl,'String', resultdir);
     end;
 end

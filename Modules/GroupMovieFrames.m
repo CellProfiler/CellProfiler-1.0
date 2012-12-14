@@ -7,7 +7,7 @@ function handles = GroupMovieFrames(handles)
 %
 % GroupMovieFrames handle a movie to group movie frames to be processed
 % within a cycle. The position of a frame within a group can be specified
-% with its ImageName to be used downstream. 
+% with its ImageName to be used downstream.
 %
 % Each loaded movie frame will be treated as an individual image with its
 % own ImageName.
@@ -91,7 +91,7 @@ SetBeingAnalyzed = handles.Current.SetBeingAnalyzed;
 %
 % Reset the max number of cycles here
 % Do this only once -- on the first cycle, and only for the first GroupMovieFrames instance
-% 
+%
 if SetBeingAnalyzed == 1
     if (str2num(handles.Current.CurrentModuleNumber) == min(strmatch('GroupMovieFrames',handles.Settings.ModuleNames)))
         handles.Current.NumberOfImageSets = floor(handles.Current.NumberOfImageSets/NumGroupFrames);
@@ -117,7 +117,7 @@ GroupNumberInMovie = (CurrentOffset - CurrentMovieStart) / NumGroupFrames;
 MovieFrames = FileList{3, CurrentOffset};
 
 
-for n = 1:length(ImageName) 
+for n = 1:length(ImageName)
     if strcmp(ImageName{n}, 'Do not use'),
         continue
     end
@@ -141,12 +141,12 @@ for n = 1:length(ImageName)
         fieldname = ['Pathname', MovieName];
         Pathname = handles.Pipeline.(fieldname);
         fieldname = ['FileFormat', MovieName];
-        FileFormat = handles.Pipeline.(fieldname);         
+        FileFormat = handles.Pipeline.(fieldname);
 
         if strcmpi(FileFormat,'avi movies') == 1
-            % If you do not subtract 1 from the index, as specified 
+            % If you do not subtract 1 from the index, as specified
             % in aviread.m, the  movie will fail to load.  However,
-            % the first frame will fail if the index=0.  
+            % the first frame will fail if the index=0.
             IndexLocation=(cell2mat(CurrentFileName(2)));
             NumberOfImageSets = handles.Current.NumberOfImageSets;
             if (cell2mat(CurrentFileName(2)) ~= NumberOfImageSets)
@@ -161,7 +161,7 @@ for n = 1:length(ImageName)
             LoadedImage = im2double(LoadedRawImage.data);
         elseif (strcmpi(FileFormat,'tif,tiff,flex movies') == 1)
             LoadedRawImage = CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
-            LoadedImage = im2double(LoadedRawImage);                
+            LoadedImage = im2double(LoadedRawImage);
         end
         % Saves the original movie file name to the handles
         % structure.  The field is named appropriately based on
@@ -172,7 +172,7 @@ for n = 1:length(ImageName)
         [SubdirectoryPathName,BareFileName,ext] = fileparts(char(CurrentFileName(1))); %#ok Ignore MLint
         CurrentFileNameWithFrame = [BareFileName, '_', num2str(cell2mat(CurrentFileName(2))),ext];
         CurrentFileNameWithFrame = fullfile(SubdirectoryPathName, CurrentFileNameWithFrame);
-        
+
         % Saves the loaded image to the handles structure.  The field is named
         % appropriately based on the user's input, and put into the Pipeline
         % substructure so it will be deleted at the end of the analysis batch.
@@ -185,7 +185,7 @@ for n = 1:length(ImageName)
     end % Goes with: catch
     FileNames(n) = {CurrentFileNameWithFrame};
 end
-       
+
 %%%%%%%%%%%%%%%%%%%
 % DISPLAY RESULTS %
 %%%%%%%%%%%%%%%%%%%

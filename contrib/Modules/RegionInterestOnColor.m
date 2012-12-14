@@ -4,7 +4,7 @@ function handles = RegionInterestOnColor(handles)
 % Category: Contributed
 %
 % SHORT DESCRIPTION:
-% 
+%
 % *************************************************************************
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -24,23 +24,23 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-%textVAR01 = What did you call the image to be corrected? 
+%textVAR01 = What did you call the image to be corrected?
 %infotypeVAR01 = imagegroup
 ImageName = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
 
-%textVAR02 = What do you want to call the corrected image? 
+%textVAR02 = What do you want to call the corrected image?
 %defaultVAR02 = RegionInterestOnColorImage
 %infotypeVAR02 = imagegroup indep
 CorrectedImageName = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 
-%textVAR03 = Colormap range: 
+%textVAR03 = Colormap range:
 
-%textVAR04 = low: 
+%textVAR04 = low:
 %defaultVAR04 = 128
 low = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,4}));
 
-%textVAR05 = high: 
+%textVAR05 = high:
 %defaultVAR05 = 256
 high = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,5}));
 

@@ -1,12 +1,12 @@
 function CP_OrigNewImage_Callback(hObject,eventdata)
 
-%% Callback used to show "Before" and "After" figures.  
+%% Callback used to show "Before" and "After" figures.
 %% An on/off button controls the display
 %%
 %% Originally used in OverlayOutlines.m.
-%% 
-%% An example uicontrol object to put in the calling function, 
-%% after the CPfigure and CPimagesc functions is below.  It will 
+%%
+%% An example uicontrol object to put in the calling function,
+%% after the CPfigure and CPimagesc functions is below.  It will
 %% place  the on/off button on the left side of the axis:
 %%
 %%     uicontrol(FigHandle,'units','normalized','position',[.01 .5 .06 .04],'string','off',...
@@ -16,7 +16,7 @@ function CP_OrigNewImage_Callback(hObject,eventdata)
 % $Revision$
 
 string = lower(get(hObject,'string'));
-UserData = get(hObject,'UserData'); 
+UserData = get(hObject,'UserData');
 h_image = findobj(gcbf,'type','image');
 
 switch string,
@@ -29,4 +29,4 @@ switch string,
     otherwise
         set(hObject,'string','on');
 end
-    
+

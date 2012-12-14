@@ -55,11 +55,11 @@ for loopcount = 1:40,
         title(sprintf('%d loop of %d', loopcount, 20));
         drawnow;
     end
-    
+
     %%%%%%%%%%%%%%%%%%%%
     %%% First pass: estimate means/covariances of components using bias field
     %%%%%%%%%%%%%%%%%%%%
-    
+
     %%% Correct data by bias field
     for i = 1:NumberOfChannels,
         Correction = IlluminationField(:, :, i);
@@ -78,7 +78,7 @@ for loopcount = 1:40,
     %%% Recompute Class Priors
     ClassPriors = sum(Weights) / NumberOfSamples;
     ClassPriors = ClassPriors / sum(ClassPriors);
-    
+
     %%% remove anything that drops below a threshold of 0.01
     ToRemove = find(ClassPriors < 0.01);
     ClassPriors(ToRemove) = [];
@@ -129,7 +129,7 @@ for loopcount = 1:40,
     %%% unit field as a normalizer.  The actual normalization has to
     %%% be done per-channel, due to the cross-talk from the
     %%% weighted-inverse-covariance transform.
-    
+
     %%% Find the weighted residuals.
     WeightedResiduals = zeros(size(CorrectedSamples));
     for i = 1:NumberOfComponents,

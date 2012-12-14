@@ -138,7 +138,7 @@ if ~strcmp(ObjectName3, 'do not use')
             FeatureMatrixImage3{x1}(LabelMatrixImage3==x2) = handles.Measurements.(ObjectName3).(FeaturesName3){z}(x2, x1);
         end
     end
-end 
+end
 drawnow
 
 % now we test for overlap
@@ -148,7 +148,7 @@ BinMatrixImage2 = LabelMatrixImage2 > 0;
 TestLabelMatrixImage2 = LabelMatrixImage2;
 % we delete all non overlapping areas, the resulting image only contains
 % the respective number if the images had overlapped
-TestLabelMatrixImage2(not(BinMatrixImage1)) = 0; 
+TestLabelMatrixImage2(not(BinMatrixImage1)) = 0;
 for x1 = 1:max(max(LabelMatrixImage2))
     if max(max(TestLabelMatrixImage2==x1))
         BinMatrixImage2(LabelMatrixImage2==x1)=0;
@@ -169,7 +169,7 @@ if ~strcmp(ObjectName3, 'do not use')
     TestLabelMatrixImage3 = LabelMatrixImage3;
     % we delete all non overlapping areas, the resulting image only contains
     % the respective number if the images had overlapped
-    TestLabelMatrixImage3(not(BinMatrixImage1)) = 0; 
+    TestLabelMatrixImage3(not(BinMatrixImage1)) = 0;
     for x1 = 1:max(max(LabelMatrixImage3))
         if max(max(TestLabelMatrixImage3==x1))
             BinMatrixImage3(LabelMatrixImage3==x1)=0;
@@ -209,7 +209,7 @@ if ~strcmpi(SaveOutlines,'Do not save')
         error(['The object outlines were not calculated by the ', ModuleName, ' module, so these images were not saved to the handles structure. The Save Images module will therefore not function on these images. This is just for your information - image processing is still in progress, but the Save Images module will fail if you attempted to save these images.'])
     end
 end
-drawnow         
+drawnow
 
 % for some later modules of CP we need the following images, even though
 % they do not make sense in the context of the MatchTemplate module
@@ -265,4 +265,4 @@ end
 handles.Measurements.(ObjectName).('MatchTempl_MergedImageFeatures') = BasicFeatures;
 handles.Measurements.(ObjectName).('MatchTempl_MergedImage')(handles.Current.SetBeingAnalyzed) = {Features};
 
-return
+return;

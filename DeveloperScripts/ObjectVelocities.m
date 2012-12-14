@@ -28,14 +28,14 @@ V = NaN .* ones(HighestObjNum,length(Objects)-1);
 
 for iObjNum = 1:HighestObjNum
 % for iObjNum = 78
-    
+
 %     STEP = (length(Objects)-1)-1; %% first and last frames
     STEP = 1; %% every frame
-    
+
     thisFrameLocationAll = NaN .* ones(length(Objects)-1,2);
 %     nextFrameLocation = NaN .* ones(length(Objects)-1,2);
     for iFrm = 1:STEP:length(Objects)
-        
+
         thisFrameLocation = Locations{iFrm}(Objects{iFrm} == iObjNum,:);
 %         thisFrameLocation = Locations(Objects(iFrm) == iObjNum,:);
         %% If object does not exist in one frame, then skip it
@@ -45,16 +45,16 @@ for iObjNum = 1:HighestObjNum
             %% Keep track of good objects' position
             thisFrameLocationAll(iFrm,:) = thisFrameLocation;
         end
-        
+
         %% If we made it here on the last iteration, then this object exists on all frames
         if iFrm == length(Objects)
             D = diff(thisFrameLocationAll);
-            
+
             %% Regard any large pixel jump in a single frame as an error in TrackObjects labeling -> discard
             if any(abs(D(:))>MAX_JUMP)
                 break
             end
-            
+
             %% Require that the total distance travelled must be at least
             %% MIN_TOTAL_DIST
             TotalDist = thisFrameLocationAll(end,:) - thisFrameLocationAll(1,:);
@@ -65,7 +65,7 @@ for iObjNum = 1:HighestObjNum
             h = quiver(thisFrameLocationAll(1:end-1,1),thisFrameLocationAll(1:end-1,2),D(:,1),D(:,2),0);
             set(h,'Linewidth',1)
         end
-        
+
     end
 end
 

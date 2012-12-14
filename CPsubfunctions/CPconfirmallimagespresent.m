@@ -1,7 +1,7 @@
 function handles = CPconfirmallimagespresent(handles,TextToFind,ImageName,ExactOrRegExp,SaveOutputFile)
 
 % Given a directory (or subdirectory structure) of input images, find which
-% images (or directories) for a representative channel are not matched up 
+% images (or directories) for a representative channel are not matched up
 % with the other channels. The output is (currently) a revised
 % handles.Pipeline.FileList* structure with the missing filenames replaced with
 % an empty string.
@@ -54,7 +54,7 @@ for n = 1:numel(TextToFind)
     % Unnamed tokens
     token = regexp(TextToFind{n},'\(\?[<](?<token>.+?)[>]','tokens','once');
     if ~isempty(token), namedToken(n)= token; end
-    
+
     isTokenPresent = isTokenPresent & ~(isempty(unnamedToken{n}) && isempty(namedToken{n}));
 end
 if ~isTokenPresent   % No tokens are present
@@ -114,7 +114,7 @@ NewFileList = cell(length(uniquePaths),1);
 [UnmatchedFilenames,DuplicateFilenames,idxUnmatchedFiles,idxDuplicateFiles] = deal(cell(1,length(uniquePaths)));
 for m = 1:length(uniquePaths)
     FileNamesForChannelN = cell(1,length(idxIndivPaths));
-    
+
     for n = 1:length(ImageName)
         % FileNamesForEachChannel{channel}{subdirectory}: Cell array of strings
         FileNamesForEachChannel{n}{m} = IndivFileNames{n}(idxIndivPaths{n} == m);
@@ -124,14 +124,14 @@ for m = 1:length(uniquePaths)
         [tokens,tokenExtents] = regexpi(FileNamesForEachChannel{n}{m},TextToFind{n},'tokens','tokenExtents','once');
         tokenExtents = cat(1,tokenExtents{:});
         StartingIndex = unique(tokenExtents(:,1)); EndingIndex = unique(tokenExtents(:,2));
-        
+
         % If the position is the same for all...
         if isscalar(StartingIndex)
-            %... drop the filename text after the token text and use the 
+            %... drop the filename text after the token text and use the
             % remainder for comparision.
             % The token can be used to distinguish filename irregualrities.
             % For multichannel images, the token is used to
-            % distinguish the channel, so the token must be removed to 
+            % distinguish the channel, so the token must be removed to
             % identify mismatches and duplicates. Filename mismatches
             % are not defined for single-channel images but duplicates are
             % identified based on the token, so it must be retained.
@@ -139,7 +139,7 @@ for m = 1:length(uniquePaths)
             % we capture the string up and/or including the token. If the
             % filename metadata is incorporated, this operation can be made
             % more general and this assumption can be dropped
-            if numel(ImageName) > 1         % Multi-channel: 
+            if numel(ImageName) > 1         % Multi-channel:
                 idx = StartingIndex - 1;    % Up to the beginning of the token
             else                            % Single-channel:
                 idx = EndingIndex;          % Include the token
@@ -151,17 +151,17 @@ for m = 1:length(uniquePaths)
             error(['The specified text for ',ImageName{n},' is not located at a consistent position within the filenames in directory ',uniquePaths{m}]);
         end
     end
-    
+
     % TODO: How should this information be used downstream?
     % Three ways to handle this:
     % (1) Trim the images from the FileList structure. However, the user might
     %   want to know that that images have gone "missing"
     % (2) Keep the images in the FileList structure and set the siblings in the
     %   corresponding FileLists to []. This will insure the FileList lengths
-    %   match. However, the downstream modules will need to check for this, 
+    %   match. However, the downstream modules will need to check for this,
     %   probably by modifying CPretrieveimages to return a 0 or NaN image for
     %   the missing one.
-    % (3) Set a QC flag for the images w/o siblings to be used for filtering 
+    % (3) Set a QC flag for the images w/o siblings to be used for filtering
     %   later. Still have the problem of the FileList being different lengths
     %
     % Right now, I've decided on (2), with the option of outputing a text file.
@@ -173,7 +173,7 @@ for m = 1:length(uniquePaths)
     for n = 1:length(ImageName),
         cellFileNamesForChannelN = cellstr(FileNamesForChannelN{n});
         AllFileNamesForChannelN = union(cellFileNamesForChannelN,AllFileNamesForChannelN);
-        
+
         % Look for images with duplicate prefixes, and if so, keep the first
         [ignore,idx] = unique(cellFileNamesForChannelN);
         idxDuplicate = setdiff(1:length(cellFileNamesForChannelN),idx);
@@ -183,7 +183,7 @@ for m = 1:length(uniquePaths)
                                                 num2cell(repmat(n,[length(idxDuplicate) 1]))));
         end
     end
-    
+
     % Copy the filenames into the new list, leaving [] in place of missing
     % files....
     NewFileList{m} = cell(length(ImageName),length(AllFileNamesForChannelN));
@@ -194,10 +194,10 @@ for m = 1:length(uniquePaths)
         FullFilenames = cellfun(@fullfile,IndivPathnames{n}(idxPathlist),...
                                 cellfun(@strcat,IndivFileNames{n}(idxPathlist),IndivFileExtensions{n}(idxPathlist),...
                                         'UniformOutput',false),...
-                                'UniformOutput',false); 
+                                'UniformOutput',false);
         NewFileList{m}(n,idxFileList) = FullFilenames(locFileList(idxFileList));
     end
-    
+
     IsFileMissing = cellfun(@isempty,NewFileList{m});
     idxUnmatchedFiles{m} = double(any(IsFileMissing,1));
     for n = find(idxUnmatchedFiles{m})
@@ -210,7 +210,7 @@ for m = 1:length(uniquePaths)
     if ~isempty(UnmatchedFilenames{m}),
         NewFileList{m} = FindAndReplaceCorruptFilesInFilelist(handles,NewFileList{m},UnmatchedFilenames{m},m,FileNamesForChannelN,idxIndivPaths,IndivPathnames,IndivFileNames,IndivFileExtensions,fn,prefix);
     end
-    
+
     % ... and removing duplicate files, also by checking integrity.
     % ASSUMPTION: A duplicate file means that one of them is corrupted,
     % which seems to be the case on HCS systems
@@ -333,7 +333,7 @@ else
          hdl_dlg = CPwarndlg(TextString(headerLength+warningLength:end),WarningDlgBoxTitle,'replace');
          set(hdl_dlg,'visible','off');
          hdl_text = findobj(hdl_dlg,'type','text','-depth',inf);
-         set(hdl_text,'visible','off','units','normalized'); 
+         set(hdl_text,'visible','off','units','normalized');
          p = get(hdl_text,'extent');
          uicontrol('parent',hdl_dlg,'style','edit','string',TextString(3:end),'units','normalized','position',[p(1:2) 1-p(1) p(4)],'enable','inactive','max',1.001,'min',0);
          set(hdl_dlg,'visible','on');
@@ -341,13 +341,13 @@ else
          CPwarndlg(TextString(headerLength:end),WarningDlgBoxTitle,'replace');
      end
 end
-    
+
 % Output file if desired
 if strncmpi(SaveOutputFile,'y',1),
     OutputPathname = handles.Current.DefaultOutputDirectory;
     OutputFilename = [mfilename,'_output'];
     OutputExtension = '.txt';
-       
+
     fid = fopen(fullfile(OutputPathname,[OutputFilename OutputExtension]),'wt+');
     if fid > 0,
         for i = 1:length(TextString)
@@ -374,7 +374,7 @@ for n = 1:size(FlaggedFilenames,1)
                             cellfun(@strcat,IndivFileNames{channel}(idxPathlist),IndivFileExtensions{channel}(idxPathlist),...
                                     'UniformOutput',false),...
                             'UniformOutput',false);
-    FlaggedFileList = FullFilenames(idxFileList); 
+    FlaggedFileList = FullFilenames(idxFileList);
 
     % Check whether the mismatch is corrupt by attempting an imread
     isImageCorrupt = false(1,length(FlaggedFileList));
@@ -385,7 +385,7 @@ for n = 1:size(FlaggedFilenames,1)
             isImageCorrupt(k) = true;
         end
     end
-    
+
     % If dealing with duplicate files, and BOTH are fine, use the most
     % recent one
     if length(isImageCorrupt) > 1 && all(~isImageCorrupt)

@@ -47,19 +47,19 @@ function MergeOutputFiles(handles)
 %%% Let the user select one output file to indicate the directory
 [BatchFile, BatchPath] = CPuigetfile('*.mat', 'Select the first batch CellProfiler output file, which ends in data.mat', handles.Current.DefaultOutputDirectory);
 if ~BatchPath
-    return
+    return;
 end
 if ~strfind(BatchFile,'data.mat')
     msg = CPmsgbox('You must choose the first output file, ending in data.mat');
     uiwait(msg);
-    return
+    return;
 end
 
 valid = 0;
 while valid == 0
     Answers = inputdlg({'What is the Batch file prefix?','What do you want to call the merged output file?'},'Merge output files',1,{'Batch_','MergedOUT.mat'});
     if isempty(Answers)
-        return
+        return;
     end
     [junk,junk,extension] = fileparts(Answers{2});
     if ~strcmp(extension,'.mat'),
@@ -96,7 +96,7 @@ close(MsgBoxLoad)
 s = who;
 if ~any(strcmp(s, 'handles')),
     CPerrordlg(sprintf('The file %s does not seem to be a CellProfiler output file.',full_file))
-    return
+    return;
 end
 
 Fieldnames = fieldnames(handles.Measurements);
@@ -104,7 +104,7 @@ FileList = dir(BatchPath);
 Matches = ~cellfun('isempty', regexp({FileList.name}, ['^' BatchFilePrefix '[0-9]+_to_[0-9]+_OUT.mat$']));
 FileList = FileList(Matches);
 if ~any(Matches)
-   CPwarndlg('MergeOutputFiles cannot find any files that match [0-9]*_to_[0-9]*_OUT.mat.  Be sure that the ''...data.mat'' file is in the same directory as the ''...OUT.mat'' files') 
+   CPwarndlg('MergeOutputFiles cannot find any files that match [0-9]*_to_[0-9]*_OUT.mat.  Be sure that the ''...data.mat'' file is in the same directory as the ''...OUT.mat'' files')
 end
 
 waitbarhandle = CPwaitbar(0,'Merging files...');
@@ -113,11 +113,11 @@ for i = 1:length(FileList)
     LoadWarning = warning('off','MATLAB:dispatcher:UnresolvedFunctionHandle');
     SubsetData = load(fullfile(BatchPath,FileList(i).name));
     warning(LoadWarning)
-    
+
     if (isfield(SubsetData.handles, 'BatchError')),
         error(['Image processing was canceled in the ', ModuleName, ' module because there was an error merging batch file output.  File ' FileList(i).name ' encountered an error.  The error was ' SubsetData.handles.BatchError '.  Please re-run that batch file.']);
     end
-    
+
     % Try to convert features (if needed)
     SubsetData.handles = CP_convert_old_measurements(SubsetData.handles);
 

@@ -27,7 +27,7 @@ function ExportLocations(handles)
 [RawFileName, RawPathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 %%% Allows canceling.
 if RawFileName == 0
-    return
+    return;
 end
 %%% Load the specified CellProfiler output file
 try
@@ -35,13 +35,13 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fullfile(RawPathname, RawFileName), ''' (possibly not a CellProfiler output file).'])
-    return
+    return;
 end
 
 %%% Quick check
 if ~isfield(handles,'Measurements')
     CPerrordlg('The selected file does not contain any measurements.')
-    return
+    return;
 end
 
 %%% Extract the fieldnames of measurements from the handles structure.
@@ -52,7 +52,7 @@ for i=1:length(handles.Measurements)
     end
     if isempty(MeasFieldnames)
         CPerrordlg('The output file you have chosen does not have location measurements.');
-        return
+        return;
     end
 end
 
@@ -63,7 +63,7 @@ end
     'SelectionMode','single');
 
 if ok == 0
-    return
+    return;
 end
 
 ObjectTypename = MeasFieldnames{Selection};
@@ -73,7 +73,7 @@ if isfield(handles.Measurements.(ObjectTypename),'Location_Center_X')
     Locations_Y = handles.Measurements.(ObjectTypename).Location_Center_Y{1};
 else
     CPerrordlg('The object you have chosen does not have location measurements.');
-    return
+    return;
 end
 
 if length(handles.Measurements.(ObjectTypename).Location_Center_X) > 1,
@@ -289,7 +289,7 @@ filename = [ObjectTypename,'_Locations_Image_1.csv'];
 fid = fopen(fullfile(handles.Current.DefaultOutputDirectory,filename),'w');
 if fid == -1
     CPerrordlg(sprintf('Cannot create the output file %s.',filename));
-    return
+    return;
 end
 FixedLocations = [Locations_X*PixelUnits Locations_Y*PixelUnits];
 FixedLocations(:,1) = FixedLocations(:,1) - (FixedLocations(1,1)-FirstSpotX);

@@ -1,5 +1,5 @@
 function m = CPnanstd(x)
-%CPNANSTD Standard deviation, ignoring NaNs.  
+%CPNANSTD Standard deviation, ignoring NaNs.
 %   M = CPNANSTD(X) returns the sample standard deviation of X, treating
 %   NaNs as missing values.  For vector input, M is the standard
 %   deviation of the non-NaN elements in X.  For matrix input, M is a
@@ -25,7 +25,7 @@ function m = CPnanstd(x)
 
 
 assert(length(size(x)) <= 2, 'CPnanstd can only operate on vectors and 2D matrices.');
-    
+
 if isempty(x(:)),
     m = NaN;
 elseif ~any(isnan(x(:))),
@@ -35,11 +35,11 @@ else
     if size(x, 1) == 1,
         m = std(x(~isnan(x)));
     else
-        % 2D matrix 
+        % 2D matrix
 
         % preallocate
         m = zeros(1, size(x, 2));
-        
+
         % work by columns
         for i = 1:size(x, 2),
             col = x(:, i);

@@ -296,7 +296,7 @@ fclose(fid);
 
 
 
-%%% AUTOMATIC EDITING CHANGES 
+%%% AUTOMATIC EDITING CHANGES
 %%% Now we do the automatic edits and remove the temporary files.
 
 % read the current CellProfiler.m into memory

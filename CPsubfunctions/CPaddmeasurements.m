@@ -1,7 +1,7 @@
 function handles = CPaddmeasurements(handles, ObjectName, FeatureName, Data, ImageSetNumber)
 % Add measurements of a feature to the handles.Measurements structure.
 % Location will be "handles.Measurements.ObjectName.FeatureName".
-% ObjectName can be "Image".  
+% ObjectName can be "Image".
 %
 % Data can be multiple doubles, or a single string (only if ObjectName is "Image").
 

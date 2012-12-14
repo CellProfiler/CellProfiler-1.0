@@ -31,7 +31,7 @@ function MeasurementCalculator(handles)
 %%% Ask the user to choose the file from which to extract measurements.
 [RawFileName, RawPathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 if RawFileName == 0
-    return
+    return;
 end
 
 %%% Load the specified CellProfiler output file
@@ -40,7 +40,7 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fullfile(RawPathname, RawFileName), ''' (possibly not a CellProfiler output file).'])
-    return
+    return;
 end
 
 %%% Opens a window that lets the user choose what to export
@@ -49,12 +49,12 @@ end
 try UserInput = UserInputWindow(handles);
 catch
     CPerrordlg(lasterr)
-    return
+    return;
 end
 
 % If Cancel button pressed, return
 if ~isfield(UserInput, 'SaveLocation')
-    return
+    return;
 end
 
 % Get measurements
@@ -70,9 +70,9 @@ for ImageSetNbr = 1:length(Measurements1)
         tmp2 = Measurements2{ImageSetNbr};
     catch
         CPerrordlg('use the data tool MergeOutputFiles or ConvertBatchFiles to convert the data first');
-        return
+        return;
     end
-   
+
     % If Operation2 indicates mean, replace all entries in tmp2 with
     % the image average, and proceed by doing "objectwise" multiplication/division
     if strcmpi(UserInput.Operation2,'mean')
@@ -84,7 +84,7 @@ for ImageSetNbr = 1:length(Measurements1)
     % Check so tmp1 and tmp2 have the same size
     if length(tmp1) ~= length(tmp2)
         CPerrordlg('The selected measurements do not have the same number of objects.')
-        return
+        return;
     end
 
     % Do the calculation
@@ -94,7 +94,7 @@ for ImageSetNbr = 1:length(Measurements1)
         NewMeasurement = tmp1./tmp2;
     end
 
-    % Add the new measurement to the handles structure. 
+    % Add the new measurement to the handles structure.
     handles = CPaddmeasurements(handles, UserInput.SaveLocation, ['UserDefined_' UserInput.FeatureDescription], NewMeasurement, ImageSetNbr);
 end
 
@@ -106,7 +106,7 @@ function UserInput = UserInputWindow(handles)
 % This function displays a window so that lets the user choose which
 % measurements to export. If the return variable 'UserInput' is empty
 % it means that either no measurements were found or the user pressed
-% the Cancel button (or the window was closed). 
+% the Cancel button (or the window was closed).
 
 % Create window
 Window = CPfigure;
@@ -261,11 +261,11 @@ while 1
             end
 
             delete(Window);
-            return
+            return;
         end
     else                                                      % The user pressed the cancel button or closed the window.
         UserInput = [];
         if ishandle(Window),delete(Window);end
-        return
+        return;
     end
 end

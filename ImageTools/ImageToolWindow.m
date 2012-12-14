@@ -11,7 +11,7 @@ function ImageToolWindow(handles)
 % *************************************************************************
 %
 % The Image Tool Window contains these functions:
-% 
+%
 % Open in new window - Opens the image in its own, fresh window.
 %
 % Histogram - Shows a pixel intensity histogram for the image.
@@ -41,8 +41,8 @@ function ImageToolWindow(handles)
 % "Image". Be careful not to overwrite existing variables in your workspace
 % using this tool.
 %
-% Save to hard drive - Allows you to save the image to the hard drive. You 
-% can specify the file name, the directory where it will be saved, and a 
+% Save to hard drive - Allows you to save the image to the hard drive. You
+% can specify the file name, the directory where it will be saved, and a
 % few other options. See the help for the Save Images module.
 %
 %
@@ -73,8 +73,8 @@ function ImageToolWindow(handles)
 %   button should be grayed out if the module only has a single subplot displayed.
 % Show Intensity Histogram: Display a new window as done currently
 % Measure Length: In Matlab, imdistline has replaced this functionality.
-%   Note that in Matlab, imtool has the functionality of Measure Length 
-%   as well as the ShowOrHidePixelData Tool.  I liked the functionality of 
+%   Note that in Matlab, imtool has the functionality of Measure Length
+%   as well as the ShowOrHidePixelData Tool.  I liked the functionality of
 %   the old pixval since pointing gave you the coordinates and click-hold let
 %   you get distance information.
 % Change Colormap: Should be a drop-down menu in toolbar

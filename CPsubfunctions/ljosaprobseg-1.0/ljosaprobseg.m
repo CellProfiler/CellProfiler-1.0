@@ -9,7 +9,7 @@ function pmask = ljosaprobseg(image, restartprobability, nwalks, seed)
 % only affects the resolution of the result; 1000 is usually
 % sufficient.  The seed is a two-column matrix, with one row for each
 % pixel in the seed.  The first column contains x-coordinates and the
-% second column contains y-coordinates of the seed's pixels.  
+% second column contains y-coordinates of the seed's pixels.
 %
 % The resulting probabilistic mask is clipped at the lowest stationary
 % probability within the seed and scaled to [0, 1].

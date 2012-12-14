@@ -15,7 +15,7 @@ function handles = DistinguishPixelLabels(handles)
 % binary image produced in this module.
 %
 % Overview:
-%   The goal of this module is to find the most accurate binary images that 
+%   The goal of this module is to find the most accurate binary images that
 % specify where in the image cells and nuclei exist.  Typically this is
 % done by applying a threshold to input grayscale images, where every pixel
 % above the threshold value is considered foreground and every pixel below,
@@ -25,7 +25,7 @@ function handles = DistinguishPixelLabels(handles)
 % intensity value but also on the values of nearby pixels and a
 % predetermined set of probabilities that neighboring pixels of each type
 % share the same label.
-%   The belief propagation (BP) algorithm is used to solve inference 
+%   The belief propagation (BP) algorithm is used to solve inference
 % problems--in this case, to predict the best label (cell, nucleus, or
 % background) for a set of pixels.  Treating the field of view as a
 % pairwise markov random field, in which the observed pixel intensities
@@ -118,7 +118,7 @@ ActinScalingFactorString = char(handles.Settings.VariableValues{CurrentModuleNum
 PhiVersion = char(handles.Settings.VariableValues{CurrentModuleNum,11});
 %inputtypeVAR11 = popupmenu
 
-%textVAR12 = What did you call the illumination correction matrix for nuclei? (optional - leave as "none" if you do not wish to correct illumination) 
+%textVAR12 = What did you call the illumination correction matrix for nuclei? (optional - leave as "none" if you do not wish to correct illumination)
 %infotypeVAR12 = imagegroup
 %choiceVAR12 = none
 LoadedNIllumCorrName = char(handles.Settings.VariableValues{CurrentModuleNum,12});
@@ -132,7 +132,7 @@ LoadedCIllumCorrName = char(handles.Settings.VariableValues{CurrentModuleNum,13}
 
 %textVAR14 = For NUMERIC, enter the coordinates for the peak in nucleus, cell, and background pixel intensity values as (NucleiX,NucleiY,CellsX,CellsY,BGX,BGY).
 %defaultVAR14 = 100,100,150,150,200,200
-AllPeakInputValuesString = char(handles.Settings.VariableValues{CurrentModuleNum,14}); 
+AllPeakInputValuesString = char(handles.Settings.VariableValues{CurrentModuleNum,14});
 
 %textVAR15 = Do you want to run in test mode where beliefs are calculated after each direction of message passing during the final propagation? (see help for details)
 %choiceVAR15 = No
@@ -236,16 +236,16 @@ if handles.Current.SetBeingAnalyzed == 1
         handles.Pipeline.NucleiPeak = [NucleiFGCellAllMean;CellsAllNucFGMean];
         handles.Pipeline.CellsPeak = [NucleiBGCellFGMean;CellsFGNucBGMean];
         handles.Pipeline.BackgroundPeak = [NucleiBGCellBGMean;CellsBGNucBGMean];
-        
+
         %%% Finds secondary medians for each half of the actin stained image
         %%% (only used in non-normal phi)
         if ~strcmpi(PhiVersion,'normal')
             handles.Pipeline.SecCellThreshHigh = 256*median(AllCellsImages(AllCellsImages > CellThreshold));
             handles.Pipeline.SecCellThreshLow = 256*median(AllCellsImages(AllCellsImages <= CellThreshold));
         end
-        
+
     end
-    
+
     if strcmp(PeakSelectionMethod,'Automatic - Per Set') || strncmp(PeakSelectionMethod,'Numeric',7)
         %%% Determines image-wide bias along one axis--that is, if the range of
         %%% intensity for DNA-stained pixels is half that for actin-stained
@@ -255,7 +255,7 @@ if handles.Current.SetBeingAnalyzed == 1
         handles.Pipeline.NucleiMDiff = handles.Pipeline.NucleiPeak(1) - (handles.Pipeline.BackgroundPeak(1) + handles.Pipeline.CellsPeak(1))/2;
         handles.Pipeline.CellsMDiff = handles.Pipeline.CellsPeak(2) - handles.Pipeline.BackgroundPeak(2);
     end
-    
+
     drawnow
 end
 
@@ -283,16 +283,16 @@ if ~(strcmpi(LoadedNIllumCorrName,'none') || strcmpi(LoadedNIllumCorrName,'Do no
 end
 
 if strcmp(PeakSelectionMethod,'Automatic - Per Image')
-    
+
     %%% For each input image, sets to a valid scale, gets the log of each
     %%% pixel, rescales to 0-1, and stretches data to ideal range
     JLNucImage = imageLog(OrigNucleiImage);
     JLCellImage = imageLog(OrigCellsImage);
-    
+
     %%% Defaults to Otsu's method, ignores potential mask
     NucThreshold = graythresh(JLNucImage);
     CellThreshold = graythresh(JLCellImage);
-    
+
     %%% Gets the means in each section of the image that we believe to have
     %%% a certain pixel label
     NucleiBGCellBGMean = 256*mean(JLNucImage(JLNucImage <= NucThreshold & JLCellImage <= CellThreshold));
@@ -301,19 +301,19 @@ if strcmp(PeakSelectionMethod,'Automatic - Per Image')
     CellsFGNucBGMean = 256*mean(JLCellImage(JLCellImage > CellThreshold & JLNucImage < NucThreshold));
     NucleiFGCellAllMean = 256*mean(JLNucImage(JLNucImage > NucThreshold));
     CellsAllNucFGMean = 256*mean(JLCellImage(JLNucImage > NucThreshold));
-    
+
     %%% Save the interpolated peaks to the handles structure
     handles.Pipeline.NucleiPeak = [NucleiFGCellAllMean;CellsAllNucFGMean];
     handles.Pipeline.CellsPeak = [NucleiBGCellFGMean;CellsFGNucBGMean];
     handles.Pipeline.BackgroundPeak = [NucleiBGCellBGMean;CellsBGNucBGMean];
-    
+
     %%% Finds secondary medians for each half of the actin stained image
     %%% (only used in non-normal phi)
     if ~strcmpi(PhiVersion,'normal')
         handles.Pipeline.SecCellThreshHigh = 256*median(JLCellImage(JLCellImage > CellThreshold));
         handles.Pipeline.SecCellThreshLow = 256*median(JLCellImage(JLCellImage <= CellThreshold));
     end
-    
+
     %%% Determines image-wide bias along one axis--that is, if the range of
     %%% intensity for DNA-stained pixels is half that for actin-stained
     %%% pixels, then the messages for nuclei will be half as strong, which
@@ -321,7 +321,7 @@ if strcmp(PeakSelectionMethod,'Automatic - Per Image')
     %%% the axis with a smaller range of values.
     handles.Pipeline.NucleiMDiff = handles.Pipeline.NucleiPeak(1) - (handles.Pipeline.BackgroundPeak(1) + handles.Pipeline.CellsPeak(1))/2;
     handles.Pipeline.CellsMDiff = handles.Pipeline.CellsPeak(2) - handles.Pipeline.BackgroundPeak(2);
-    
+
 end
 
 %%% Log transforms the input images, if not already done, and pads them with
@@ -334,7 +334,7 @@ if ~exist('JLNucImage','var') || ~exist('JLCellImage','var')
 else
     LoggedPaddedImage(2:end-1,2:end-1,1) = 256*JLNucImage;
     LoggedPaddedImage(2:end-1,2:end-1,2) = 256*JLCellImage;
-end    
+end
 
 %%% Creates 4 message-holders for the updating message vectors
 Messages.Right = ones(numel(LoggedPaddedImage),3);
@@ -403,7 +403,7 @@ else
     %%% During testing mode, this module can be used normally, but you
     %%% should really only run it when saving or otherwise using the
     %%% intermediary belief calculations, since it slows the module down
-    %%% significantly.  
+    %%% significantly.
     for i = 1:NumberOfProps
         Messages = PassUp(LoggedPaddedImage,PsiFunction,AllPhiValues,IndicesArray,Messages);
         if i == NumberOfProps
@@ -630,11 +630,11 @@ actinsc = [1 0; 0 1/handles.Pipeline.ActinScalingFactor];
 %%% probability that a given pixel will be labeled in each of the three
 %%% categories based on only its pixel intensity values.
 for yind = 1:rows
-    
+
     %%% x is the array of pixel values, [DNA;actin], for each corresponding
     %%% pixel in padim, accounting for the pad of zeros
     x = [padim(yind+1,2:end-1,1);padim(yind+1,2:end-1,2)];
-    
+
     %%% Calculates probabilities of each label by finding distances, fixing
     %%% the actin staining data according to secondary means, and putting
     %%% this into a gaussian probability function for each label
@@ -644,7 +644,7 @@ for yind = 1:rows
     invdisB = exp(sum(-sdB.*sdB/sigma));
     invdisN = exp(sum(-sdN.*sdN/sigma));
     invdisC = exp(sum(-sdC.*sdC/sigma));
-    
+
     %%% Sums these values and normalizes so that they sum to 1
     z=invdisB+invdisC+invdisN;
     probB=invdisB./z;
@@ -653,7 +653,7 @@ for yind = 1:rows
     %%% stores the results (which are an Nx3 array) into a 1xNx3 slice of
     %%% the results array
     arr(yind,:,:) = permute([probN; probC; probB],[3 2 1]);
-    
+
 end
 
 function arr = phiH(padim,handles)
@@ -681,7 +681,7 @@ clo = handles.Pipeline.SecCellThreshLow;
 %%% probability that a given pixel will be labeled in each of the three
 %%% categories based on only its pixel intensity values.
 for yind = 1:rows
-    
+
     %%% x is the array of pixel values, [DNA;actin], for each corresponding
     %%% pixel in padim, accounting for the pad of zeros
     x = [padim(yind+1,2:end-1,1);padim(yind+1,2:end-1,2)];
@@ -690,7 +690,7 @@ for yind = 1:rows
     lowestlocs = find(x(2,:) < clo);
     highestlocs = find(x(2,:) > chi);
     restoflocs = find(x(2,:) > clo & x(2,:) < chi);
-    
+
     %%% Calculates probabilities of each label by finding distances, fixing
     %%% the actin staining data according to secondary means, and putting
     %%% this into a gaussian probability function for each label
@@ -706,7 +706,7 @@ for yind = 1:rows
     invdisB = exp(sum(-sdB.*sdB/sigma));
     invdisN = exp(sum(-sdN.*sdN/sigma));
     invdisC = exp(sum(-sdC.*sdC/sigma));
-    
+
     %%% Sums these values and normalizes so that they sum to 1
     z=invdisB+invdisC+invdisN;
     probB=invdisB./z;
@@ -715,14 +715,14 @@ for yind = 1:rows
     %%% stores the results (which are an Nx3 array) into a 1xNx3 slice of
     %%% the results array
     arr(yind,:,:) = permute([probN; probC; probB],[3 2 1]);
-    
+
 end
 
 function [allnormbeliefs, allbeliefs] = CalculateBeliefs(sizeOrig,sizePadded,indsarr,phivals,messages)
 %%% Calculates beliefs based on the current state of messages (at any
 %%% passing moment) and returns them as an array of 1-2-3 and as their
 %%% final probabilities
- 
+
 allnormbeliefs = zeros(sizeOrig(1),sizeOrig(2),3);
 allbeliefs = zeros(sizeOrig(1),sizeOrig(2));
 x = 2:sizePadded(2)-1;

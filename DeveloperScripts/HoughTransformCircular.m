@@ -132,13 +132,13 @@ if any(findobj == ThisModuleFigureNumber)
 %     end
     CPimagesc(OrigImage,handles, fig_h);
     title(['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
-    
+
     hold on
     plot(circen(:,1), circen(:,2), 'r+');
     for k = 1:size(circen, 1),
         DrawCircle(circen(k,1), circen(k,2), cirrad(k), 32, 'b-');
     end
-% 
+%
 %     %%% A subplot of the figure window is set to display the Thresholded
 %     %%% image.
 %     subplot(2,1,2);
@@ -146,8 +146,8 @@ if any(findobj == ThisModuleFigureNumber)
 %     title('Accumulation Array');
 
     %% Create circular objects
-    
-    
+
+
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -165,7 +165,7 @@ drawnow
 % handles.Measurements.(Object).(Measure){handles.Current.SetBeingAnalyzed} = Data;
 %
 % Examples
-% handles = CPaddmeasurements(handles,ObjectName{1},'SingleRatio',RatioName,FinalMeasurements); 
+% handles = CPaddmeasurements(handles,ObjectName{1},'SingleRatio',RatioName,FinalMeasurements);
 % handles = CPaddmeasurements(handles,'Image','OrigThreshold',['Edged_',ImageName],ThresholdUsed(1));
 % handles = CPaddmeasurements(handles,'Image',ObjectName,'HoughCenter',circen);
 

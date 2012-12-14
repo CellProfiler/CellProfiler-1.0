@@ -3,7 +3,7 @@ function ShowHelpForThisMenu(varargin)
 % Help for the Show Toolbox Help function:
 % Category: Image Tools
 %
-% 
+%
 % SHORT DESCRIPTION:
 % Shows Help menu for various Image Toolboxes.
 % **********************************************************
@@ -35,7 +35,7 @@ if ~isdeployed
         CPerrordlg('You changed the name of CellProfiler.m file. Consequences of this are unknown.');
     end
 end
-    
+
 if ~isdeployed
     CellProfilerPathname = fileparts(which('CellProfiler'));
     Pathname = fullfile(CellProfilerPathname,'ImageTools');
@@ -43,7 +43,7 @@ else
     Pathname = fullfile(ctfroot,'ImageTools');
 end
 ListOfTools{1} = 'Image tools: none loaded';
-try 
+try
     if ~isdeployed, addpath(Pathname); end
     %%% Lists all the contents of that path into a structure which includes the
     %%% name of each object as well as whether the object is a file or

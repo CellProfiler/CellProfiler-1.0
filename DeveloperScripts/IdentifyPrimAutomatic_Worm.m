@@ -178,12 +178,12 @@ function handles = IdentifyPrimAutomatic_Worm(handles)
 % standard deviation of the remaining pixels and calculates the threshold
 % as the mean + 2 times the standard deviation. The Ridler-Calvard method
 % is simple and its results are often very similar to Otsu's - according to
-% Sezgin and Sankur's paper (Journal of Electronic Imaging 2004), Otsu's 
-% overall quality on testing 40 nondestructive testing images is slightly 
-% better than Ridler's (Average error - Otsu: 0.318, Ridler: 0.401). 
-% It chooses an initial threshold, and then iteratively calculates the next 
-% one by taking the mean of the average intensities of the background and 
-% foreground pixels determined by the first threshold, repeating this until 
+% Sezgin and Sankur's paper (Journal of Electronic Imaging 2004), Otsu's
+% overall quality on testing 40 nondestructive testing images is slightly
+% better than Ridler's (Average error - Otsu: 0.318, Ridler: 0.401).
+% It chooses an initial threshold, and then iteratively calculates the next
+% one by taking the mean of the average intensities of the background and
+% foreground pixels determined by the first threshold, repeating this until
 % the threshold converges.
 %    You can also choose between Global, Adaptive, and Per object
 % thresholding:
@@ -595,7 +595,7 @@ end
 
 %%% Sets up loop for test mode.
 if strcmp(TestMode,'Yes')
-    LocalMaximaTypeList = {'Intensity' 'Shape'};    
+    LocalMaximaTypeList = {'Intensity' 'Shape'};
     WatershedTransformImageTypeList = {'Intensity' 'Distance' 'None'};
 else
     %%% Not looping, but use code for looping below.
@@ -639,11 +639,11 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
             else
                 Objects = BinaryInputImage;
             end
-            
+
             meanThreshold = mean(Threshold(:));
 
             figure(103), title('Thresholded'); imagesc(Objects);
-            
+
             fieldname = ['CropMask', ImageName];
             if isfield(handles.Pipeline,fieldname)
                 %%% Retrieves previously selected cropping mask from handles
@@ -654,10 +654,10 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     error('The image in which you want to identify objects has been cropped, but there was a problem recognizing the cropping pattern.');
                 end
             end
-            % Kyungnam  
+            % Kyungnam
             Threshold = mean(Threshold(:));            %% Use average threshold downstreams
             Threshold_SavedToHandleStructure = mean(Threshold(:));
-            
+
             if strcmp(FillHolesOption,'Yes')
                 Objects = imfill(double(Objects),'holes');                            % Fill holes
             end
@@ -686,7 +686,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                 %%% circular with local maxima in the center. In practice, the
                 %%% MinDiameter is divided by 1.5 because this allows the local
                 %%% maxima to be shifted somewhat from the center of the object.
-                                
+
                 if strcmp(UseLowRes,'Yes') && MinDiameter > 10
                     ImageResizeFactor = 10/MinDiameter;
                     if strcmpi(MaximaSuppressionSize,'Automatic')
@@ -705,7 +705,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                 MaximaMask = getnhood(strel('disk', MaximaSuppressionSize));
 
                 if strcmp(LocalMaximaType,'Intensity')
-                    
+
                     %%% kkim - Let's use OrientationMap for LocalMaxima finding
                     %%% for the 'Intensity' option.
 %                    [out_im, out_vec, binim, RidgeEnhancedMap, OrientationMap, orient_vec, ReliabilityMap] = Orientation(OrigImage);
@@ -723,7 +723,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     %%% Save only local maxima
                     MaximaImage(ResizedBlurredImage < ...
                         ordfilt2(ResizedBlurredImage,sum(MaximaMask(:)),MaximaMask)) = 0;
-                  
+
                     if strcmp(UseLowRes,'Yes')
                         %%% Restore image size
                         MaximaImage = imresize(MaximaImage,size(BlurredImage),'bilinear');
@@ -737,10 +737,10 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     end
                     %%% Shrink to points (needed because of the resizing)
                     MaximaImage = bwmorph(MaximaImage,'shrink',inf);
-                    
-                    figure; title('LocalMaxima'); imagesc(MaximaImage);              
-                    
-                    
+
+                    figure; title('LocalMaxima'); imagesc(MaximaImage);
+
+
                 elseif strcmp(LocalMaximaType,'Shape')
                     %%% Calculate distance transform
                     DistanceTransformedImage = bwdist(~Objects);
@@ -796,8 +796,8 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
 
                 %%% Label the objects
                 Objects = bwlabel(Objects);
-                
-                figure, title('After Wathershed'); imagesc(Objects); 
+
+                figure, title('After Wathershed'); imagesc(Objects);
 
                 %%% Remove objects with no marker in them (this happens occasionally)
                 %%% This is a very fast way to get pixel indexes for the objects
@@ -808,8 +808,8 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                         Objects(index) = 0;
                     end
                 end
-                
-                figure, title('Remove no marker'); imagesc(Objects); 
+
+                figure, title('Remove no marker'); imagesc(Objects);
 
             end
             drawnow
@@ -819,7 +819,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
 
             temp_im = CPlabel2rgb(handles,Objects);
             figure, title('Labeled Objects'); imagesc(temp_im);
-            
+
             %%% Merge small objects
 
             if strcmp(MergeChoice,'Yes')
@@ -1282,9 +1282,9 @@ while ~isempty(MergeIndex)
     cmin = max(1,min(c) - 3);
     ObjectsPatch = Objects(rmin:rmax,cmin:cmax);
     BinaryPatch = double(ObjectsPatch == CurrentObjectNbr);
-    
+
     figure(50),imagesc(BinaryPatch);
-    
+
     GrownBinaryPatch = conv2(BinaryPatch,double(getnhood(strel('disk',2))),'same') > 0;
     Neighbors = ObjectsPatch .*GrownBinaryPatch;
     NeighborsNbr = setdiff(unique(Neighbors(:)),[0 CurrentObjectNbr]);
@@ -1320,13 +1320,13 @@ while ~isempty(MergeIndex)
         OrigImagePatch = OrigImage(rmin:rmax,cmin:cmax);
         ReliabilityMapPatch = ReliabilityMap(rmin:rmax,cmin:cmax);
         RidgeEnhancedMapPatch = RidgeEnhancedMap(rmin:rmax,cmin:cmax);
-       
+
         %%% Identify object interiors, background and interface voxels
         BinaryNeighborPatch      = double(ObjectsPatch == CurrentNeighborNbr);
         BinaryObjectPatch        = double(ObjectsPatch == CurrentObjectNbr);
         GrownBinaryNeighborPatch = conv2(BinaryNeighborPatch,ones(3),'same') > 0;
         GrownBinaryObjectPatch   = conv2(BinaryObjectPatch,ones(3),'same') > 0;
-        Interface                = GrownBinaryNeighborPatch.*GrownBinaryObjectPatch;    
+        Interface                = GrownBinaryNeighborPatch.*GrownBinaryObjectPatch;
         Background               = ((GrownBinaryNeighborPatch + GrownBinaryObjectPatch) > 0) - BinaryNeighborPatch - BinaryObjectPatch - Interface;
         WithinObjectIndex        = find(BinaryNeighborPatch + BinaryObjectPatch);
         InterfaceIndex           = find(Interface);
@@ -1341,16 +1341,16 @@ while ~isempty(MergeIndex)
         LogLikelihoodObject     = -log(WithinObjectClassStd^2) - (InterfaceMean - WithinObjectClassMean)^2/(2*WithinObjectClassStd^2);
         LogLikelihoodBackground = -log(BackgroundClassStd^2) - (InterfaceMean - BackgroundClassMean)^2/(2*BackgroundClassStd^2);
         LikelihoodRatio(j)      =  LogLikelihoodObject; %KK - LogLikelihoodBackground;
-        
+
         %%% Calculate the orientation reliability of the interface, Ridge
         %%% Pattern, Area
-        OrientationReliability(j) = mean(ReliabilityMapPatch(InterfaceIndex));        
-        RidgeEnhancedScore(j) = mean(RidgeEnhancedMapPatch(InterfaceIndex));        
+        OrientationReliability(j) = mean(ReliabilityMapPatch(InterfaceIndex));
+        RidgeEnhancedScore(j) = mean(RidgeEnhancedMapPatch(InterfaceIndex));
         MergedArea(j) = Areas(CurrentObjectNbr) + Areas(CurrentNeighborNbr);
         if Areas(CurrentObjectNbr) < WormWidth*WormWidth || Areas(CurrentNeighborNbr) < WormWidth*WormWidth
             SmallObjects(j) = 1;
         end
-        
+
         %%% Welch's t-test
         x = OrigImagePatch(WithinObjectIndex);
         y = OrigImagePatch(InterfaceIndex);
@@ -1367,7 +1367,7 @@ while ~isempty(MergeIndex)
         if OrientationDiff(j) > 90
             OrientationDiff(j) = 180 - OrientationDiff(j);
         end
-        
+
         %%% Get indexes for the interface pixels in original image.
         %%% These indexes are required if we need to merge the object with
         %%% the current neighbor.
@@ -1402,13 +1402,13 @@ while ~isempty(MergeIndex)
 %        if (OrientationDiff(TotalRank(j)) < 30) && (LikelihoodRatio(TotalRank(j)) > 1.5)
 %        if (OrientationDiff(TotalRank(j)) < 30) && (NotEqual(TotalRank(j)) == 0)
 %        if (NotEqual(TotalRank(j)) == 0) && (OrientationReliability(TotalRank(j))>0.5)
-        
+
         %%% ==============================================================
         %%% Kyungnam: You need to adjust 'WormWidth' based on your worm image.
-        %%%           Also, change the threshold values below:        
+        %%%           Also, change the threshold values below:
         if  (OrientationReliability(TotalRank(j))  > 0.4 ) && ...
-            (RidgeEnhancedScore(TotalRank(j))      > 10.0 ) && ...            
-            (MergedArea(TotalRank(j)) < 11*WormWidth*WormWidth || SmallObjects(TotalRank(j)) == 1)        
+            (RidgeEnhancedScore(TotalRank(j))      > 10.0 ) && ...
+            (MergedArea(TotalRank(j)) < 11*WormWidth*WormWidth || SmallObjects(TotalRank(j)) == 1)
 %            (LikelihoodRatio(TotalRank(j))         > 2.0 ) && ...
 
 %             %% just for picture
@@ -1420,7 +1420,7 @@ while ~isempty(MergeIndex)
 %             ObjectsPatch = Objects(rmin:rmax,cmin:cmax);
 %             OrigImagePatch = OrigImage(rmin:rmax,cmin:cmax);
 %             figure(50),imagesc(OrigImagePatch);colorbar;
-            
+
             %%% OK, let's merge!
             %%% Assign the neighbor number to the current object
             Objects(props(CurrentObjectNbr).PixelIdxList) = CurrentNeighborNbr;
@@ -1432,8 +1432,8 @@ while ~isempty(MergeIndex)
             props(CurrentNeighborNbr).PixelIdxList = cat(1,...
                 props(CurrentNeighborNbr).PixelIdxList,...
                 props(CurrentObjectNbr).PixelIdxList,...
-                OrigInterfaceIndex{TotalRank(j)});        
-                    
+                OrigInterfaceIndex{TotalRank(j)});
+
             %%% Remove the neighbor from the list of objects to be merged (if it's there).
             MergeIndex = setdiff(MergeIndex,CurrentNeighborNbr);
 
@@ -1463,5 +1463,5 @@ for i = 1 : length(s)
 end
 figure,title('Live or Dead'); imagesc(solidity_img);
 
-        
-        
+
+

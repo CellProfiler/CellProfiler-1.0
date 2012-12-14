@@ -15,7 +15,7 @@ function [FigureIncrement, results] = CPec50(conc,responses,Logarithmic,PartialF
 %         results[m,2]=max
 %         results[m,3]=ec50
 %         results[m,4]=Hill coefficient
- 
+
 % $Revision$
 
 % Copyright 2004 Carlos Evangelista
@@ -81,11 +81,11 @@ init_params(2) = max(y);
 %% concentration (here denoted as x-value)
 %%
 %% Note: this was originally simply mean([max(x); min(x)]).  This does not
-%% take into account the y-values though, so it was changed to be the 
+%% take into account the y-values though, so it was changed to be the
 %% x-value that corresponded to the y-value closest to the mean([max(y); min(y)]).
 %% Unfortunately, for x-values with only two categories e.g. [0 1], this results in
-%% an initial EC50 of either 0 or 1 (min(x) or max(x)), which seems a bad estimate.  
-%5 We will take a two-pronged approach: Use the estimate from this latter approach, 
+%% an initial EC50 of either 0 or 1 (min(x) or max(x)), which seems a bad estimate.
+%5 We will take a two-pronged approach: Use the estimate from this latter approach,
 %% unless the parameter will equal either the max(x) or min(x).  In this case, we will use the
 %% former approach, namely (mean([max(x); min(x)]).  DL 2007.09.24
 YvalueAt50thPercentile = (min(y)+max(y))/2;

@@ -48,7 +48,7 @@ else
         Image = CPimread(fullfile(Pathname, FileName));
     catch
         CPerrordlg(lasterr)
-        return
+        return;
     end
     %%% Opens a new figure window.
     FigureHandle = figure;

@@ -8,7 +8,7 @@ function ExportDatabase(handles)
 % with column names.
 % *************************************************************************
 %
-% NOTE:   
+% NOTE:
 % This tool is not functional right now - use the ExportToDatabase module
 % within your pipeline instead. Sorry for the inconvenience!!
 %
@@ -86,7 +86,7 @@ StatisticsCalculated = {'Mean','Standard deviation','Median'};
 StatisticsCalculated = StatisticsCalculated([strncmpi(char(answer{5}),'y',1),strncmpi(char(answer{6}),'y',1),strncmpi(char(answer{7}),'y',1)]);
 if isempty(DatabaseName) || isempty(SQLScriptFileName)
     error('A database name and an SQL script name must be specified!');
-    return
+    return;
 end
 
 if strcmp(answer{8},'Yes'),
@@ -155,9 +155,9 @@ for FileNo = 1:length(CellProfilerDataFileNames)
 
     % for calling from data tool, no tableprefix is asked from user, leave
     % it as blank
-    
+
    CPconvertsql(handles, DataPath, SQLScriptFileName, DatabaseName,TablePrefix,FirstSet, LastSet, DatabaseType, StatisticsCalculated, ObjectTypes, WritePerWell, PlateMeasurement, WellMeasurement);
-   
+
 end % End loop over data files
 
 %%% Done, let the user know if this function was called as a data tool and restore the handles structure

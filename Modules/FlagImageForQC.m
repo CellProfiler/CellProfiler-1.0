@@ -5,7 +5,7 @@ function handles = FlagImageForQC(handles)
 %
 % SHORT DESCRIPTION:
 % This module allows you to flag an image if it fails some quality control
-% measurement you specify. 
+% measurement you specify.
 % *************************************************************************
 %
 % This module allows the user to assign a flag (a per-image measurement) if
@@ -21,10 +21,10 @@ function handles = FlagImageForQC(handles)
 %
 % By default, the measurements you are using to flag an image are
 % measurements from that image.
-% 
+%
 % This module requires the measurement modules be placed prior to this
 % module in the pipeline.
-% 
+%
 % See also FlagImageByMeasurement data tool.
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -70,10 +70,10 @@ drawnow
 % wants to have a single "BadImages" flag.
 % Another option is "Record this flag only if another measurement criterion
 % is met". This will have similar questions as above, but will function by
-% only placing a flag if BOTH criteria are true. 
+% only placing a flag if BOTH criteria are true.
 % Another option is "Add a separate, new flag", in which case the above
-% questions repeat, including a new name for the new flag. 
-% 
+% questions repeat, including a new name for the new flag.
+%
 % Hopefully, this reduces
 % some of the confusion surrounding the terms "append" & "overwrite".
 %
@@ -197,7 +197,7 @@ drawnow
 
 if MeasureInfo < MinValue1 || MeasureInfo > MaxValue1
     Flag = 1;
-else 
+else
     Flag = 0;
 end
 
@@ -214,7 +214,7 @@ if strcmpi(NewOrAppend,'Append existing flag')
     if Flag == 2
         Flag =1;
     end
-    
+
 end
 
 
@@ -232,7 +232,7 @@ if strcmpi(NewOrAppend,'Create a new flag')
     NewName = CPjoinstrings('QCFlag',NewName);
     handles = CPaddmeasurements(handles,'Image',NewName,Flag,SetBeingAnalyzed);
 end
-    
+
 
 %% display %%
 ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule]);
@@ -242,7 +242,7 @@ if any(findobj == ThisModuleFigureNumber)
     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         CPresizefigure('','NarrowText',ThisModuleFigureNumber)
     end
-    
+
     if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl'))
         displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text','units','normalized','position', [0.1 0.1 0.8 0.8],'fontname','helvetica','backgroundcolor',[.7 .7 .9],'horizontalalignment','left','FontSize',handles.Preferences.FontSize);
     else

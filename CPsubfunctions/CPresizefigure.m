@@ -20,7 +20,7 @@ if strcmp(Layout,'NarrowText') && (FigPos(3) ~= 280)
     FigPos(3) = 280;
     %%% Sets the figure position and size.
     set(FigHandle,'Position',FigPos);
-    return
+    return;
 end
 
 ImagePos = size(OrigImage);
@@ -55,7 +55,7 @@ elseif strcmp(Layout,'TwoByTwo')
     end
 %%% If the window is 2 rows x 1 column (narrow):
 elseif strcmp(Layout,'TwoByOne')
-    %%% Makes the figure half width.    
+    %%% Makes the figure half width.
     FigureWidth = .5*FigureWidth;
     %%% 2*ImageHeight is because there are two rows.
     if (FigureWidth/FigureHeight) < (ImageWidth/(2*ImageHeight))

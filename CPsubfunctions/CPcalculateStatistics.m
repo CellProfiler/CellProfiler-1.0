@@ -39,12 +39,12 @@ for i = 1:length(ObjectFields)
             CPwarndlg(['CP programming weirdness: feature ending in ''Feature'': Measurements.' ObjectName '.' MeasureFeatureName]);
             continue;
         end
-        
+
         if any(findstr(MeasureFeatureName,'Location')) || ...
                 any(findstr(MeasureFeatureName, 'FileName')) ||...
                 any(findstr(MeasureFeatureName, 'PathName')) ||...
                 any(findstr(MeasureFeatureName, 'LoadedText')) ||...
-                any(findstr(MeasureFeatureName, 'ModuleError')), 
+                any(findstr(MeasureFeatureName, 'ModuleError')),
             continue;
         end
 

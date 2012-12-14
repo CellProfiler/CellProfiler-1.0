@@ -22,7 +22,7 @@
 [RawFileName, RawPathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 %%% Allows canceling.
 if RawFileName == 0
-    return
+    return;
 end
 load(fullfile(RawPathname, RawFileName));
 
@@ -95,12 +95,12 @@ elseif strcmp(Display,'Line chart') == 1
     %%% the measurement of interest.
 
     for l = 1:1467
-        
+
         figure('Position',[1 500 792 813],'visible','off')
-        
+
         subplot('position',[0 0.75 1 0.25])
         imshow(mov(l).cdata)
-        
+
         subplot('position',[0.1 0.55 .8 0.18])
         hold on
         plot(1:1:length(MeasurementsMean), MeasurementsMean,'Color',[0 0 0],'LineWidth',1);
@@ -109,7 +109,7 @@ elseif strcmp(Display,'Line chart') == 1
         plot(1:1:length(MeasurementsMean), MeasurementsMean+MeasurementsStd,'Color',[0.7 0.7 0.7]);
         plot(l, MeasurementsMean(l),'rV');
         hold off
-        
+
 
         set(gca,'xtick',[0:100:length(MeasurementsMean)])
         FontSize = 10;
@@ -118,7 +118,7 @@ elseif strcmp(Display,'Line chart') == 1
         ylabel(gca,'Mean +/- standard deviation','fontname','times','fontsize',FontSize+2)
         title(titlestr,'Fontname','times','fontsize',FontSize+2)
         axis([0 length(MeasurementsMean)+1 0 600])
-        
+
         subplot('position',[0.1 0.3 .8 0.18])
         hold on
         plot(1:1:length(MeasurementsMean2), MeasurementsMean2,'Color',[0 0 0],'LineWidth',1);
@@ -127,8 +127,8 @@ elseif strcmp(Display,'Line chart') == 1
         plot(1:1:length(MeasurementsMean2), MeasurementsMean2+MeasurementsStd2,'Color',[0.7 0.7 0.7]);
         plot(l, MeasurementsMean2(l),'rV');
         hold off
-        
-        
+
+
         set(gca,'xtick',[0:100:length(MeasurementsMean2)])
         FontSize = 10;
         set(gca,'fontname','times','fontsize',FontSize)
@@ -136,8 +136,8 @@ elseif strcmp(Display,'Line chart') == 1
         ylabel(gca,'Mean +/- standard deviation','fontname','times','fontsize',FontSize+2)
         title(titlestr2,'Fontname','times','fontsize',FontSize+2)
         axis([0 length(MeasurementsMean2)+1 0 3500])
-        
-        
+
+
         subplot('position',[.1 .05 .8 0.18])
         hold on
         plot(1:1:length(MeasurementsMean3), MeasurementsMean3,'Color',[0 0 0],'LineWidth',1);
@@ -154,7 +154,7 @@ elseif strcmp(Display,'Line chart') == 1
         ylabel(gca,'Mean +/- standard deviation','fontname','times','fontsize',FontSize+2)
         title(titlestr3,'Fontname','times','fontsize',FontSize+2)
         axis([0 length(MeasurementsMean3)+1 0 1.5])
-        
+
         set(gcf,'Color','w')
 
         if l==1

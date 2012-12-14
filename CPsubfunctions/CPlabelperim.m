@@ -1,8 +1,8 @@
 function LabelBoundaryImage = CPlabelperim(LabelMatrixImage, conn)
 
-% A fast fuction to obtain the label boundary image from a label matrix image. 
+% A fast fuction to obtain the label boundary image from a label matrix image.
 % The Matlab function 'bwperim' only works for a binary image, i.e.,
-% bwperim ignores the labels. An exmaple of LabelBoundaryImage looks like this: 
+% bwperim ignores the labels. An exmaple of LabelBoundaryImage looks like this:
 %
 %   LabelBoundaryImage = 0     0     0     1     1     1
 %                        0     0     0     1     0     1
@@ -10,7 +10,7 @@ function LabelBoundaryImage = CPlabelperim(LabelMatrixImage, conn)
 %                        2     2     2     2     0     0
 %                        2     0     0     2     0     0
 %                        2     0     0     2     0     0
-%                        2     2     2     2     0     0      
+%                        2     2     2     2     0     0
 %
 % Second, optional argument is neghborhood connectivity, defaulting to 4.
 %
@@ -30,7 +30,7 @@ if nargin == 1,
     conn = 4;
 end
 
-[sr sc] = size(LabelMatrixImage);        
+[sr sc] = size(LabelMatrixImage);
 ShiftLeft = zeros(sr,sc);
 ShiftRight = zeros(sr,sc);
 ShiftUp = zeros(sr,sc);
@@ -59,6 +59,6 @@ else
         (ShiftRightUp~=LabelMatrixImage) | (ShiftRightDown~=LabelMatrixImage) | ...
         (ShiftLeftUp~=LabelMatrixImage) | (ShiftLeftDown~=LabelMatrixImage) | EdgeMask);
 end
-    
+
 BoundaryImage = LabelMatrixImage & InnerOuterBoundaryImage;
 LabelBoundaryImage = BoundaryImage .* LabelMatrixImage;

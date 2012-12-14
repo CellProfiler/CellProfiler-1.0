@@ -1,20 +1,20 @@
 function [v, z, z_one_tailed, OrderedUniqueDoses, OrderedAverageValues] = CP_VZfactors(xcol, ymatr)
 % xcol is (Nobservations,1) column vector of grouping values
 % (in terms of dose curve it may be Dose).
-% ymatr is (Nobservations, Nmeasures) matrix, where rows correspond to 
+% ymatr is (Nobservations, Nmeasures) matrix, where rows correspond to
 % observations and columns corresponds to different measures.
-% v, z and z_bwtn_mean are (1, Nmeasures) row vectors containing V-, Z- and 
+% v, z and z_bwtn_mean are (1, Nmeasures) row vectors containing V-, Z- and
 % between-mean Z-factors for the corresponding measures.
 %
 % The one-tailed Z' factor is an attempt to overcome the limitation of the
 % Z'-factor formulation used upon populations with moderate or high amounts
 % of skewness. In these cases, the tails opposite to the mid-range point
-% may lead to a high standard deviation for either population. This will 
+% may lead to a high standard deviation for either population. This will
 % give a low Z' factor even though the population means and samples between
-% the means are well-separated. Therefore, the one-tailed Z'factor is 
-% calculated with the same formula but using only those samples that lie 
-% between the population means. 
-% 
+% the means are well-separated. Therefore, the one-tailed Z'factor is
+% calculated with the same formula but using only those samples that lie
+% between the population means.
+%
 % NOTE: The statistical robustness of the one-tailed Z' factor has not been
 % determined, and hence should probably not be used at this time.
 %

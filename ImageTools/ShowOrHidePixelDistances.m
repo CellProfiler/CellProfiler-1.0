@@ -8,9 +8,9 @@ function ShowOrHidePixelDistances(handles)
 % *************************************************************************
 %
 % The Distance tool is a draggable, resizable line, superimposed on an
-% axes, that measures the distance between the two endpoints of the line. 
+% axes, that measures the distance between the two endpoints of the line.
 % The Distance tool displays the distance in a text label superimposed over
-% the line. The tools specifies the distance in data units determined by 
+% the line. The tools specifies the distance in data units determined by
 % the XData and YData properties, which is pixels, by default.
 %
 % Right-click the line to access the context menu. From here, the distance

@@ -7,7 +7,7 @@ if nargin == 3,
 else
     figurenumber = CPfigure;
 end
-   
+
 minx = min(xvals);
 maxx = max(xvals);
 xedges = linspace(minx, maxx, 100);

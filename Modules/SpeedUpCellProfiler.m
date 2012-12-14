@@ -29,9 +29,9 @@ function handles = SpeedUpCellProfiler(handles)
 % If yes, everything in temporary memory will be removed except for the
 % images you specify. Therefore, only the images you specify will be
 % accessible to modules downstream in the pipeline. This module can
-% therefore be used to clear space in the memory. 
-% Note: currently, this option will remove everything in the memory, which 
-% may not be compatible with some modules, which often store non-image 
+% therefore be used to clear space in the memory.
+% Note: currently, this option will remove everything in the memory, which
+% may not be compatible with some modules, which often store non-image
 % information in memory to be re-used during every cycle.
 
 % CellProfiler is distributed under the GNU General Public License.
@@ -65,7 +65,7 @@ function handles = SpeedUpCellProfiler(handles)
 %
 % (i) A button should be added that lets the user add/subtract images for
 %   (2a and b)
-% (ii) A user may want to remove a large set of images and leave only a 
+% (ii) A user may want to remove a large set of images and leave only a
 % few, or remove only a few images and leave a large set. Options (2a and
 % b) give the user flexibility to choose.
 

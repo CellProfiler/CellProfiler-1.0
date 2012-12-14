@@ -62,8 +62,8 @@ function handles = MeasureObjectIntensity(handles,varargin)
 %
 % For publication purposes, it is important to note that the units of
 % intensity from microscopy images are usually described as "Intensity
-% units" or "Arbitrary intensity units" since microscopes are not 
-% callibrated to an absolute scale. Also, it is important to note whether 
+% units" or "Arbitrary intensity units" since microscopes are not
+% callibrated to an absolute scale. Also, it is important to note whether
 % you are reporting either the mean or the integrated intensity, so specify
 % "Mean intensity units" or "Integrated intensity units" accordingly.
 %
@@ -91,7 +91,7 @@ function handles = MeasureObjectIntensity(handles,varargin)
 % measure against (1)
 % (ii) A button should be added that lets the user add/subtract additional
 % images after the last object in (2)
-% (ii) Creating another image by (ii) should create another object setting with 
+% (ii) Creating another image by (ii) should create another object setting with
 %  buttons that perform (i). Subtracting an image should remove the associated
 %  objects measured against it.
 %
@@ -171,7 +171,7 @@ BasicFeatures    = {'IntegratedIntensity',...
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -262,23 +262,23 @@ for i = 1:length(ObjectNameList)
     if any(size(OrigImage) ~= size(LabelMatrixImage))
         error(['Image processing was canceled in the ', ModuleName, ' module. The size of the image you want to measure is not the same as the size of the image from which the ',ObjectName,' objects were identified.'])
     end
-        
+
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%% MAKE MEASUREMENTS & SAVE TO HANDLES STRUCTURE %%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     drawnow
 
     %%% Get pixel indexes (fastest way), and count objects
-    [sr sc] = size(LabelMatrixImage);        
+    [sr sc] = size(LabelMatrixImage);
     props = regionprops(LabelMatrixImage,'PixelIdxList','Area');
-    ObjectCount = length(props);    
+    ObjectCount = length(props);
 
     %%% Label-aware boundary finding (even when two objects are adjacent)
     LabelBoundaryImage = CPlabelperim(LabelMatrixImage);
-    
+
     if ObjectCount > 0
         Basic = cell(ObjectCount,length(BasicFeatures));
-        
+
         for Object = 1:ObjectCount
             %%% It's possible for objects not to have any pixels,
             %%% particularly tertiary objects (such as cytoplasm from
@@ -287,21 +287,21 @@ for i = 1:length(ObjectNameList)
                 [Basic{Object,:}] = deal(0);
                 continue;
             end
-         
+
             %%% Measure basic set of Intensity features
             Basic{Object,1} = sum(OrigImage(props(Object).PixelIdxList));
             Basic{Object,2} = mean(OrigImage(props(Object).PixelIdxList));
             Basic{Object,3} = std(OrigImage(props(Object).PixelIdxList));
             Basic{Object,4} = min(OrigImage(props(Object).PixelIdxList));
-            Basic{Object,5} = max(OrigImage(props(Object).PixelIdxList));     
-     
+            Basic{Object,5} = max(OrigImage(props(Object).PixelIdxList));
+
             %%% Kyungnam, 2007-Aug-06: optimized code
             %%% Cut patch so that we don't have to deal with entire image
             [r,c] = ind2sub([sr sc],props(Object).PixelIdxList);
             rmax = min(sr,max(r));
             rmin = max(1,min(r));
             cmax = min(sc,max(c));
-            cmin = max(1,min(c)); 
+            cmin = max(1,min(c));
             BWim = LabelMatrixImage(rmin:rmax,cmin:cmax) == Object;
             Greyim = OrigImage(rmin:rmax,cmin:cmax);
             Boundaryim = LabelBoundaryImage(rmin:rmax,cmin:cmax) == Object;
@@ -311,9 +311,9 @@ for i = 1:length(ObjectNameList)
             Basic{Object,8}  = std(perim);
             Basic{Object,9}  = min(perim);
             Basic{Object,10} = max(perim);
-          
+
             %%% Kyungnam, 2007-Aug-06: the original old code left commented below
-            %%%                        'bwperim' is slow!                         
+            %%%                        'bwperim' is slow!
             %             %%% Get perimeter in order to calculate edge features
             %             perim = bwperim(BWim);
             %             perim = Greyim(find(perim)); %#ok Ignore MLint
@@ -321,8 +321,8 @@ for i = 1:length(ObjectNameList)
             %             Basic(Object,7)  = mean(perim);
             %             Basic(Object,8)  = std(perim);
             %             Basic(Object,9)  = min(perim);
-            %             Basic(Object,10) = max(perim);   
-           
+            %             Basic(Object,10) = max(perim);
+
         end
         %%% Calculate the Mass displacment (taking the pixelsize into account), which is the distance between
         %%% the center of gravity in the gray level image and the binary
@@ -335,7 +335,7 @@ for i = 1:length(ObjectNameList)
         masked_y = y(mask);
         CM_x = full(sparse(masked_labels, 1, masked_x) ./ sparse(masked_labels, 1, 1));
         CM_y = full(sparse(masked_labels, 1, masked_y) ./ sparse(masked_labels, 1, 1));
-        
+
         denom = sparse(masked_labels, 1, masked_intensity);
         if denom ~= 0
             intensity_CM_x = full(sparse(masked_labels, 1, masked_x .*masked_intensity) ./ denom);
@@ -384,12 +384,12 @@ for i = 1:length(ObjectNameList)
         handles = CPaddmeasurements(handles, ObjectName, ...
             feature_name, cat(1,Basic{:,j}));
     end
-    
+
     %%% Report measurements
     if any(findobj == ThisModuleFigureNumber);
         % Remove uicontrols from last cycle
         delete(findobj(ThisModuleFigureNumber,'tag','TextUIControl'));
-        
+
         FontSize = handles.Preferences.FontSize;
         if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
             delete(findobj('parent',ThisModuleFigureNumber,'string','R'));

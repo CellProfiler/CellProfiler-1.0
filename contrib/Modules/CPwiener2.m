@@ -4,7 +4,7 @@ function handles = CPwiener2(handles)
 % Category: Contributed
 %
 % SHORT DESCRIPTION:
-% 
+%
 % *************************************************************************
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -24,22 +24,22 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-%textVAR01 = What image do you want to apply wiener filter? 
+%textVAR01 = What image do you want to apply wiener filter?
 %infotypeVAR01 = imagegroup
 ImageName = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
 
 
-%textVAR02 = What do you want to call the resulting image? 
+%textVAR02 = What do you want to call the resulting image?
 %defaultVAR02 = WienerImageName
 %infotypeVAR02 = imagegroup indep
 WienerImageName = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 
-%textVAR03 = m: 
+%textVAR03 = m:
 %defaultVAR03 = 3
 m = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,3}));
 
-%textVAR04 = n: 
+%textVAR04 = n:
 %defaultVAR04 = 3
 n = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,4}));
 

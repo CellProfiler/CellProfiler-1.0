@@ -8,16 +8,16 @@ function handles = LabelImages(handles)
 % plate layout.
 % *************************************************************************
 %
-% This module labels images by assigning them a row and column annotation 
-% based on a plate layout. The annotation is created and stored as an image 
-% measurement that is stored in the output file and can thus be exported 
+% This module labels images by assigning them a row and column annotation
+% based on a plate layout. The annotation is created and stored as an image
+% measurement that is stored in the output file and can thus be exported
 % with other image data. For example, for 96 well plates, the first image
 % cycle will labeled:
-% PlateNumber = 1, RowNumber = 1, ColumnNumber = 1, SiteNumber = 1, 
-% RowText = A, ColumnText = 01, RowAndColumnText = A01, and 
-% FullLabel = Plate1_A01_site01. The second 
-% well will be labeled A02 or B01, depending on your request. You can also 
-% specify how many images cycles are associated per well, if there are 
+% PlateNumber = 1, RowNumber = 1, ColumnNumber = 1, SiteNumber = 1,
+% RowText = A, ColumnText = 01, RowAndColumnText = A01, and
+% FullLabel = Plate1_A01_site01. The second
+% well will be labeled A02 or B01, depending on your request. You can also
+% specify how many images cycles are associated per well, if there are
 % multiple fields of view per well.
 %
 % Features measured:     Feature Number:
@@ -27,11 +27,11 @@ function handles = LabelImages(handles)
 % SiteNumber            |      4
 % RowText               |      5
 % ColumnText            |      6
-% RowAndColumnText      |      7 
-% FullLabelText         |      8 
+% RowAndColumnText      |      7
+% FullLabelText         |      8
 %
 % Settings: Most are self-explanatory.
-% 
+%
 % See also DefineGrid, for labeling a grid within each image.
 
 % CellProfiler is distributed under the GNU General Public License.
@@ -81,7 +81,7 @@ catch
     error(['Image processing was canceled in the ', ModuleName, ' module because there is an invalid input for the number of rows and columns.  You need two integers separated by a comma, such as "8,12".']);
 end
 
-%textVAR03 = The first image cycle will be labeled A01. What should the second well be labeled? 
+%textVAR03 = The first image cycle will be labeled A01. What should the second well be labeled?
 %choiceVAR03 = A02
 %choiceVAR03 = B01
 RowOrColumn = char(handles.Settings.VariableValues{CurrentModuleNum,3});
@@ -116,7 +116,7 @@ end
 PlateNumber = ceil(SetBeingAnalyzed/NumberOfCyclesPerPlate);
 
 %%% Subtract previous plates to get a linear well index, which can range
-%%% from 1 to NumberOfCyclesPerPlate. 
+%%% from 1 to NumberOfCyclesPerPlate.
 CurrentLinearWellIndex = rem(SetBeingAnalyzed-1,PlateNumber*NumberOfCyclesPerPlate)+1;
 
 % Get Position Numbers
@@ -126,7 +126,7 @@ SiteNumber = rem(CurrentLinearWellIndex-1,ImageCyclesPerWell)+1;
 if strcmp(RowOrColumn,'A02')
     ColumnNumber = rem(ceil(CurrentLinearWellIndex/ImageCyclesPerWell)-1,numColumns)+1;
     RowNumber = ceil(ceil(CurrentLinearWellIndex/ImageCyclesPerWell)/(numColumns));
-elseif strcmp(RowOrColumn,'B01')    
+elseif strcmp(RowOrColumn,'B01')
     RowNumber = rem(ceil(CurrentLinearWellIndex/ImageCyclesPerWell)-1,numRows)+1;
     ColumnNumber = ceil(ceil(CurrentLinearWellIndex/ImageCyclesPerWell)/(numRows));
 else

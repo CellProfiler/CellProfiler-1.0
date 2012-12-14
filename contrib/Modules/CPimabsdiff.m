@@ -4,7 +4,7 @@ function handles = CPimabsdiff(handles)
 % Category: Contributed
 %
 % SHORT DESCRIPTION:
-% 
+%
 % *************************************************************************
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -24,17 +24,17 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-%textVAR01 = First group of images 
+%textVAR01 = First group of images
 %infotypeVAR01 = imagegroup
 ImageName1 = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
 
-%textVAR02 = Second group of images 
+%textVAR02 = Second group of images
 %infotypeVAR02 = imagegroup
 ImageName2 = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 %inputtypeVAR02 = popupmenu
 
-%textVAR03 = What do you want to call the resulting image? 
+%textVAR03 = What do you want to call the resulting image?
 %defaultVAR03 = DiffImageName
 %infotypeVAR03 = imagegroup indep
 DiffImageName = char(handles.Settings.VariableValues{CurrentModuleNum,3});

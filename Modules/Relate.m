@@ -14,7 +14,7 @@ function handles = Relate(handles,varargin)
 % associated with each parent. For every measurement that has been made of
 % the children objects upstream in the pipeline, this module calculates the
 % mean value of that measurement over all children and stores it as a
-% measurement for the parent, as "Mean_<child>_<category>_<feature>". 
+% measurement for the parent, as "Mean_<child>_<category>_<feature>".
 % For this reason, this module should be placed *after* all Measure modules
 % that make measurements of the children objects.
 %
@@ -31,8 +31,8 @@ function handles = Relate(handles,varargin)
 %
 % To access the Child/Parent label matrix image in downstream modules, use
 % the "Other..." method to choose your image and type Parent_Child,
-% where 'Parent' and 'Child' are the names of the objects as selected in 
-% Relate's first two settings.  For example, if the parent objects are 
+% where 'Parent' and 'Child' are the names of the objects as selected in
+% Relate's first two settings.  For example, if the parent objects are
 % "Cytoplasm" and the child objects are "Speckles", then downstream choose
 % "Cytoplasm_Speckles".
 %
@@ -57,7 +57,7 @@ function handles = Relate(handles,varargin)
 % (2) Which objects do you want as the parents? (ParentName{1})
 % (3a) Do you want to find minimum distances of each child to its parent?
 % (FindParentChildDistances)
-% (3b) (Show if 'Yes' to above) What other object do you want to find 
+% (3b) (Show if 'Yes' to above) What other object do you want to find
 %   distances to? There can only be one of these objects per parent object.
 %   (ParentName{2})
 % (4) Do you want to generate per-parent means for all child measurements?
@@ -105,7 +105,7 @@ FindMeanMeasurements = char(handles.Settings.VariableValues{CurrentModuleNum,5})
 %%% FEATURES  %%%
 %%%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -203,7 +203,7 @@ if wantDistancesCalculated
                 if wantMinimumDistances
                     % Calcuate the smallest distance from each Child to their Parent
                     % If no parent exists, then Distance = NaN
-                
+
                     % Calculate perimeters for all parents simultaneously
                     DistTransAll = CPlabelperim((CPretrieveimage(handles,['Segmented' thisParent{1}],ModuleName)));
                     Dists = zeros(max(SubObjectLabelMatrix(:)), 1);
@@ -286,7 +286,7 @@ if wantMeanMeasurements
         'Parent_','Children_',...                                                                   % Object lists and per-parent counts (CPRelateobjects)
         'Mean_',...                                                                                 % Per-parent mean measurments already calculated (Relate)
         'TrackObjects_Linearity_','TrackObjects_IntegratedDistance_','TrackObjects_Lifetime_'};     % Measurements which are calculated retrospectively (TrackObjects)
-    
+
     if isfield(handles.Measurements.(SubObjectName),['Parent_',ParentName{1}])
         % Why is test line here? Isn't this always the case?  Or is it in case Relate is called twice?- Ray 2007-08-09
         if length(handles.Measurements.(SubObjectName).(CPjoinstrings('Parent_',ParentName{1}))) >= handles.Current.SetBeingAnalyzed
@@ -342,11 +342,11 @@ if any(findobj == ThisModuleFigureNumber)
     %%% Activates the appropriate figure window.
     fig_h = CPfigure(handles,'Image',ThisModuleFigureNumber);
 
-    
+
     % Default image
     CPimagesc(ColoredNewObjectParentLabelMatrix,handles,ThisModuleFigureNumber);
     title('New Sub Objects')
-    
+
     % Construct struct which holds images and figure titles
     ud(1).img = ColoredNewObjectParentLabelMatrix;
     ud(2).img = ColoredSubObjectLabelMatrixImage;
@@ -365,7 +365,7 @@ if any(findobj == ThisModuleFigureNumber)
         ud(4).img = ColoredStepParentObjectLabelMatrix;
         ud(4).title = ['StepParent Objects, cycle # ',num2str(handles.Current.SetBeingAnalyzed)];
     end
-    
+
     % Uicontrol for displaying multiple images
     uicontrol(fig_h, 'Style', 'popup',...
         'String', str,...

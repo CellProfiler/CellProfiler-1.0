@@ -2,9 +2,9 @@ function result = CPverLessThan(toolboxstr, verstr)
 
 % This CP function is present only so we can easily replace the
 % verlessThan if necessary.  See documentation for warndlg for usage.
-    
+
 error(nargchk(2, 2, nargin, 'struct'))
-        
+
 if ~ischar(toolboxstr) || ~ischar(verstr)
     error('MATLAB:verLessThan:invalidInput', 'Inputs must be strings.')
 end

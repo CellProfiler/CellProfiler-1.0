@@ -1,5 +1,5 @@
 function rgOut = RgSmartDilate(rgIn,n)
-% Accepts labelled regions and dilates them with radius 1 diamond, disallowing region overlap. 
+% Accepts labelled regions and dilates them with radius 1 diamond, disallowing region overlap.
 % rgIn is a labelled region image, n is number of iterations.
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -20,7 +20,7 @@ intwarning('off');
 
 rgOut=rgIn;
 for i=1:n
-    %generate array of neighboring values 
+    %generate array of neighboring values
     %Note unstylish kluge at start of RunBatch.  For a standalone
     %function (costs 1 second) use
     %   rg4trans=uint16(zeros([size(rgOut) 4]));
@@ -34,8 +34,8 @@ for i=1:n
     rg4trans(1:end  ,1:end-1,3)=rgOut(1:end  ,2:end);
     %Shift right
     rg4trans(1:end  ,2:end  ,4)=rgOut(1:end  ,1:end-1);
-    
-    
+
+
     %find maximal neigbor value
     rgMax=max(rg4trans,[],3);
     %find minimal nonzero neighbor value
@@ -44,7 +44,7 @@ for i=1:n
 
     %if only one nonzero neighbor value, return
     rgMax(rgMax~=rgMin)=0;
-    
+
     %if original value was nonzero, return
     rgMax(rgOut>0)=0;
     rgOut=uint16(double(rgOut)+double(rgMax));

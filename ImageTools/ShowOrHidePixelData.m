@@ -7,9 +7,9 @@ function ShowOrHidePixelData(handles)
 % Shows X,Y pixel location and intensity information in the figure window.
 % *************************************************************************
 %
-% This tool shows the pixel intensity at each X,Y location as you hover 
-% over points within an image. The pixels are displayed via a small box at 
-% the lower left corner of the figure window. If the image is color (RGB), 
+% This tool shows the pixel intensity at each X,Y location as you hover
+% over points within an image. The pixels are displayed via a small box at
+% the lower left corner of the figure window. If the image is color (RGB),
 % three intensity values are shown: Red, Green, and Blue.
 %
 % Currently, it can also measure lengths if you click the mouse at a

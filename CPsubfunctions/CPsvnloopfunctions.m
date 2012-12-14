@@ -15,13 +15,13 @@ DEBUG = 0;
 for current_dir = dirs_to_loop
     current_dir_char = char(current_dir);
     files = dir([current_dir_char '/*.m']);
-    
+
     %% File loop
     for idx = 1:length(files)
         if DEBUG, found = 0; end
         current_file = files(idx).name;
         fid = fopen(current_file);
-        
+
         %% Find first line like this: "% $Revision$"
         while feof(fid) == 0
             current_line = fgetl(fid);

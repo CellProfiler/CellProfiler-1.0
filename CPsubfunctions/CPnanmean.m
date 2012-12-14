@@ -3,7 +3,7 @@ function m = CPnanmean(x)
 %   M = CPNANMEAN(X) returns the sample mean of X, treating NaNs as
 %   missing values.  For vector input, M is the mean value of the non-NaN
 %   elements in X.  For matrix input, M is a row vector containing the
-%   mean value of non-NaN elements in each column. 
+%   mean value of non-NaN elements in each column.
 %
 %   This function will need rewriting if it needs to take means
 %   along any dimension other than the first.  Also, it only accepts
@@ -24,7 +24,7 @@ function m = CPnanmean(x)
 
 
 assert(length(size(x)) <= 2, 'CPnanmean can only operate on vectors and 2D matrices.');
-    
+
 if isempty(x(:)),
     m = NaN;
 elseif ~any(isnan(x(:))),
@@ -36,11 +36,11 @@ else
     if size(x, 1) == 1,
         m = mean(x(~isnan(x)));
     else
-        % 2D matrix 
+        % 2D matrix
 
         % preallocate
         m = zeros(1, size(x, 2));
-        
+
         % work by columns
         for i = 1:size(x, 2),
             col = x(:, i);

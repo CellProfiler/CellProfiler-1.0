@@ -10,8 +10,8 @@ function handles = IdentifyPrimAutomatic(handles)
 % This module identifies primary objects (e.g. nuclei) in grayscale images
 % that show bright objects on a dark background. The module has many
 % options which vary in terms of speed and sophistication. The objects that
-% are found are displayed with arbitrary colors - the colors do not mean 
-% anything but simply help you to tell various objects apart. You can 
+% are found are displayed with arbitrary colors - the colors do not mean
+% anything but simply help you to tell various objects apart. You can
 % change the colormap in File > Set Preferences.
 %
 % Requirements for the images to be fed into this module:
@@ -157,7 +157,7 @@ function handles = IdentifyPrimAutomatic(handles)
 % threshold was unusually high or low compared to the other images.
 %    There are five methods for finding thresholds automatically, Otsu's
 % method, the Mixture of Gaussian (MoG) method, the Background method, the
-% Robust Background method and the Ridler-Calvard method. 
+% Robust Background method and the Ridler-Calvard method.
 % ** The Otsu method
 % uses our version of the Matlab function graythresh (the code is in the
 % CellProfiler subfunction CPthreshold). Our modifications include taking
@@ -168,31 +168,31 @@ function handles = IdentifyPrimAutomatic(handles)
 % know the object coverage percentage and it does not vary much from image
 % to image, the MoG can be better, especially if the coverage percentage is
 % not near 50%. Note, however, that the MoG function is experimental and
-% has not been thoroughly validated. 
-% ** The Background method 
-% is simple and appropriate for images in which most of the image is 
-% background. It finds the mode of the histogram of the image, which is 
-% assumed to be the background of the image, and chooses a threshold at 
+% has not been thoroughly validated.
+% ** The Background method
+% is simple and appropriate for images in which most of the image is
+% background. It finds the mode of the histogram of the image, which is
+% assumed to be the background of the image, and chooses a threshold at
 % twice that value (which you can adjust with a Threshold Correction Factor,
-% see below).  Note that the mode is protected from a high number of 
+% see below).  Note that the mode is protected from a high number of
 % saturated pixels by only counting pixels < 0.95. This can be very helpful,
-% for example, if your images vary in overall brightness but the objects of 
-% interest are always twice (or actually, any constant) as bright as the 
-% background of the image. 
+% for example, if your images vary in overall brightness but the objects of
+% interest are always twice (or actually, any constant) as bright as the
+% background of the image.
 % ** The Robust background
 % method trims the brightest and dimmest 5% of pixel intensities off first
 % in the hopes that the remaining pixels represent a gaussian of intensity
 % values that are mostly background pixels. It then calculates the mean and
 % standard deviation of the remaining pixels and calculates the threshold
-% as the mean + 2 times the standard deviation. 
+% as the mean + 2 times the standard deviation.
 % ** The Ridler-Calvard method
 % is simple and its results are often very similar to Otsu's - according to
-% Sezgin and Sankur's paper (Journal of Electronic Imaging 2004), Otsu's 
-% overall quality on testing 40 nondestructive testing images is slightly 
-% better than Ridler's (Average error - Otsu: 0.318, Ridler: 0.401). 
-% It chooses an initial threshold, and then iteratively calculates the next 
-% one by taking the mean of the average intensities of the background and 
-% foreground pixels determined by the first threshold, repeating this until 
+% Sezgin and Sankur's paper (Journal of Electronic Imaging 2004), Otsu's
+% overall quality on testing 40 nondestructive testing images is slightly
+% better than Ridler's (Average error - Otsu: 0.318, Ridler: 0.401).
+% It chooses an initial threshold, and then iteratively calculates the next
+% one by taking the mean of the average intensities of the background and
+% foreground pixels determined by the first threshold, repeating this until
 % the threshold converges.
 % ** The Kapur method
 % computes the threshold of an image by
@@ -266,7 +266,7 @@ function handles = IdentifyPrimAutomatic(handles)
 % de-clumping results of this method are affected by the thresholding
 % method you choose. Technical description: The binary thresholded image is
 % distance-transformed and object centers are defined as peaks in this
-% image. 
+% image.
 %
 % * Do not use (fastest option) - If objects are far apart and are very well
 % separated, it may be unnecessary to attempt to separate clumped objects.
@@ -312,10 +312,10 @@ function handles = IdentifyPrimAutomatic(handles)
 % along with the size of the smoothing filter, affects whether objects
 % close to each other are considered a single object or multiple objects.
 % It does not affect the dividing lines between an object and the
-% background. This setting looks for the maximum intensity in the size 
-% specified by the user.  The local intensity histogram is smoothed to 
-% remove the peaks within that distance. So,if you see too many objects 
-% merged that ought to be separate, the value should be lower. If you see 
+% background. This setting looks for the maximum intensity in the size
+% specified by the user.  The local intensity histogram is smoothed to
+% remove the peaks within that distance. So,if you see too many objects
+% merged that ought to be separate, the value should be lower. If you see
 % too many objects split up that ought to be merged, the value should be higher.
 %    Object markers are suppressed based on the specified minimum object
 % diameter that you have entered, but you may want to override the
@@ -338,7 +338,7 @@ function handles = IdentifyPrimAutomatic(handles)
 %
 % Laplacian of Gaussian method:
 % This is a specialized method to find objects and will override the above
-% settings in this module. The code was kindly donated by Zach Perlman and 
+% settings in this module. The code was kindly donated by Zach Perlman and
 % was used in this published work:
 % Multidimensional drug profiling by automated microscopy.
 % Science. 2004 Nov 12;306(5699):1194-8.  PMID: 15539606
@@ -851,7 +851,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     % figure, imagesc(Overlaid), title('overlaid');
                     % figure, imagesc(-DistanceTransformedImage), title('-DistanceTransformedImage');
                 end
-                
+
                 %%% Calculate the watershed transform and cut objects along the boundaries
                 WatershedBoundaries = watershed(Overlaid) > 0;
                 Objects = Objects.*WatershedBoundaries;
@@ -870,7 +870,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                 end
             end
             drawnow
-            
+
             if strcmp(LocalMaximaType, 'Manual_for_IdSecondary')
                Objects = MaximaImage;
             end
@@ -1063,7 +1063,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                 if any(findobj == ThisModuleFigureNumber)
                     % Remove uicontrols from last cycle
                     delete(findobj(ThisModuleFigureNumber,'tag','TextUIControl'));
-        
+
                     %%% Activates the appropriate figure window.
                     CPfigure(handles,'Image',ThisModuleFigureNumber);
                     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
@@ -1080,7 +1080,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     OutlinedObjects = cat(3,OutlinedObjectsR,OutlinedObjectsG,OutlinedObjectsB);
                     CPimagesc(OutlinedObjects,handles,hy);
                     title(hy,['Outlined ', ObjectName]);
-                    
+
                     %%% Report numbers
                     posx = get(hx,'Position');
                     posy = get(hy,'Position');
@@ -1239,7 +1239,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
 			handles = CPsaveObjectCount(handles, ObjectName, FinalLabelMatrixImage);
 			handles = CPsaveObjectLocations(handles, ObjectName, FinalLabelMatrixImage);
         end
-        
+
         if strcmp(TestMode,'Yes')
             if ~(LocalMaximaTypeNumber == 2 && WatershedTransformImageTypeNumber == 3)
                 drawnow;
@@ -1265,7 +1265,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     CPfigure(IdPrimTestModeSegmentedFigureNumber(1));
                     %%% Updates the cycle number on the window.
                     CPupdatefigurecycle(handles.Current.SetBeingAnalyzed,IdPrimTestModeSegmentedFigureNumber);
-                    
+
                     hAx = subplot(2,3,WatershedTransformImageTypeNumber+3*(LocalMaximaTypeNumber-1));
                     im = CPlabel2rgb(handles,Objects);
                     CPimagesc(im,handles,hAx);

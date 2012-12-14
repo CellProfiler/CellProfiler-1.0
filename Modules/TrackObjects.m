@@ -7,41 +7,41 @@ function handles = TrackObjects(handles,varargin)
 % Allows tracking objects throughout sequential frames of a movie, so that
 % each object maintains a unique identity in the output measurements.
 % *************************************************************************
-% This module must be run after the object to be tracked has been 
+% This module must be run after the object to be tracked has been
 % identified using an Identification module (e.g., IdentifyPrimAutomatic).
 %
 % Settings:
 %
 % Tracking method:
 % Choose between the methods based on which is most consistent from frame
-% to frame of your movie. For each, the maximum search distance that a 
+% to frame of your movie. For each, the maximum search distance that a
 % tracked object will looked for is specified with the Neighborhood setting
 % below:
 %
-%   Overlap - Compare the amount of overlaps between identified objects in 
+%   Overlap - Compare the amount of overlaps between identified objects in
 %   the previous frame with those in the current frame. The object with the
 %   greatest amount of overlap will be assigned the same label. Recommended
 %   for movies with high frame rates as compared to object motion.
-%       
+%
 %   Distance - Compare the distance between the centroid of each identified
-%   object in the previous frame with that of the current frame. The 
+%   object in the previous frame with that of the current frame. The
 %   closest objects to each other will be assigned the same label.
 %   Distances are measured from the perimeter of each object. Recommended
 %   for movies with lower frame rates as compared to object motion, but
 %   the objects are clearly separable.
 %
-%   Measurement - Compare the specified measurement of each object in the 
-%   current frame with that of objects in the previous frame. The object 
-%   with the closest measurement will be selected as a match and will be 
-%   assigned the same label. This selection requires that you run the 
+%   Measurement - Compare the specified measurement of each object in the
+%   current frame with that of objects in the previous frame. The object
+%   with the closest measurement will be selected as a match and will be
+%   assigned the same label. This selection requires that you run the
 %   specified Measurement module previous to this module in the pipeline so
-%   that the measurement values can be used to track the objects. 
+%   that the measurement values can be used to track the objects.
 %
 % Catagory/Feature Name or Number/Image/Scale:
 % Specifies which type of measurement (catagory) and which feature from the
-% Measure module will be used for tracking. Select the feature name from 
+% Measure module will be used for tracking. Select the feature name from
 % the popup box or see each Measure module's help for the numbered list of
-% the features measured by that module. Additional details such as the 
+% the features measured by that module. Additional details such as the
 % image that the measurements originated from and the scale used as
 % specified below if neccesary.
 %
@@ -49,13 +49,13 @@ function handles = TrackObjects(handles,varargin)
 % This indicates the region (in pixels) within which objects in the
 % next frame are to be compared. To determine pixel distances, you can look
 % at the markings on the side of each image (shown in pixel units) or
-% using the ShowOrHidePixelData Image tool (under the Image Tools menu of 
+% using the ShowOrHidePixelData Image tool (under the Image Tools menu of
 % any CellProfiler figure window)
 %
 % How do you want to display the tracked objects?
-% The objects can be displayed as a color image, in which an object with a 
+% The objects can be displayed as a color image, in which an object with a
 % unique label is assigned a unique color. This same color is maintained
-% throughout the object's lifetime. If desired, a number identifiying the 
+% throughout the object's lifetime. If desired, a number identifiying the
 % object is superimposed on the object.
 %
 % What number do you want displayed?
@@ -75,39 +75,39 @@ function handles = TrackObjects(handles,varargin)
 % LostObjectCount       |       6
 % NewObjectCount        |       7
 %
-% In addition to these, the following features are also recorded: Label, 
-% Lifetime as a per-object measurement, and the number of unique objects 
+% In addition to these, the following features are also recorded: Label,
+% Lifetime as a per-object measurement, and the number of unique objects
 % that have appeared and dissappeared in each frame.
 %
 % Desscription of each feature:
-%   Label: Each tracked object is assigned a unique identifier (label). 
+%   Label: Each tracked object is assigned a unique identifier (label).
 %   Results of splits or merges are seen as new objects and assigned a new
 %   label.
 %
-%   Trajectory: The direction of motion (in x and y coordinates) of the 
+%   Trajectory: The direction of motion (in x and y coordinates) of the
 %   object from the previous frame to the curent frame.
 %
-%   Distance traveled: The distance traveled by the object from the 
-%   previous frame to the curent frame (calculated as the magnititude of 
+%   Distance traveled: The distance traveled by the object from the
+%   previous frame to the curent frame (calculated as the magnititude of
 %   the distance traveled vector).
 %
-%   Lifetime: The duration (in frames) of the object. The lifetime begins 
+%   Lifetime: The duration (in frames) of the object. The lifetime begins
 %   at the frame when an object appears and is ouput as a measurement when
-%   the object disappears. At the final frame of the image set/movie, the 
+%   the object disappears. At the final frame of the image set/movie, the
 %   lifetimes of all remaining objects are ouput.
 %
 %   Integrated distance: The total distance traveled by the object during
 %   the lifetime of the object
-%   
+%
 %   Linearity: A measure of how linear the object trajectity is during the
-%   object lifetime. Calculated as (distance from initial to final 
+%   object lifetime. Calculated as (distance from initial to final
 %   location)/(integrated object distance). Value is in range of [0,1].
 %
 %   LostObjectCount: Number of objects that appear in the previous frame
 %   but have no identifiable child in the current frame
 %
 %   NewObjectCount: Number of objects that appear in the current frame but
-%   have no identifiable parent in the previous frame 
+%   have no identifiable parent in the previous frame
 %
 % What do you want to call the image with the tracked objects?
 % Specify a name to give the image showing the tracked objects. This image
@@ -147,8 +147,8 @@ function handles = TrackObjects(handles,varargin)
 % (2) What did you call the objects you want to track? (ObjectName)
 % (3a) What category of measurement do you want to use (MeasurementCategory)
 % (3b) What feature do you want to use? (MeasurementFeature)
-% (3c) (If the answer to (3b) involves a scale) What scale was used to 
-%      calculate the feature? (SizeScale) 
+% (3c) (If the answer to (3b) involves a scale) What scale was used to
+%      calculate the feature? (SizeScale)
 %      (If the answer to (3b) involves an image) What image was used to
 %      calculate the feature? (ImageName)
 % (4) Within what pixel distance will objects be considered to find a
@@ -232,7 +232,7 @@ DataImage = char(handles.Settings.VariableValues{CurrentModuleNum,11});
 %%% FEATURES  %%%
 %%%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -283,34 +283,34 @@ CollectStatistics = strncmpi(CollectStatistics,'y',1);
 % Start the analysis
 if SetBeingAnalyzed == StartingImageSet
     % Initialize data structures
-    
+
     % An additional structure is added to handles.Pipeline in order to keep
     % track of frame-to-frame changes
     % (1) Locations
-    % If using image grouping: The measurements are located in the actual 
+    % If using image grouping: The measurements are located in the actual
     % set being analyzed, so we break the grouping convention here
     TrackObjInfo.Current.Locations{SetBeingAnalyzed} = ...
     cat(2,  handles.Measurements.(ObjectName).Location_Center_X{handles.Current.SetBeingAnalyzed},...
             handles.Measurements.(ObjectName).Location_Center_Y{handles.Current.SetBeingAnalyzed});
-        
+
     CurrentLocations = TrackObjInfo.Current.Locations{SetBeingAnalyzed};
     PreviousLocations = NaN(size(CurrentLocations));
-    
+
     % (2) Segmented, labeled image
     TrackObjInfo.Current.SegmentedImage = CPretrieveimage(handles,['Segmented' ObjectName],ModuleName);
-    
+
     % (3) Labels
     InitialNumObjs = size(TrackObjInfo.Current.Locations{SetBeingAnalyzed},1);
     CurrentLabels = (1:InitialNumObjs)';
     PreviousLabels = CurrentLabels;
 	CurrHeaders = cell(size(CurrentLabels));
 	[CurrHeaders{:}] = deal('');
-    
+
     % (4) Colormap
     TrackObjInfo.Colormap = [];
     % (5) Lookup table for object to color
     TrackObjInfo.ObjToColorMapping = [];
-    
+
     if CollectStatistics
         [TrackObjInfo.Current.AgeOfObjects,TrackObjInfo.Current.SumDistance] = deal(zeros(size(CurrentLabels)));
         TrackObjInfo.Current.InitialObjectLocation = CurrentLocations;
@@ -325,18 +325,18 @@ if SetBeingAnalyzed == StartingImageSet
 else
     % Extracts data from the handles structure
     TrackObjInfo = handles.Pipeline.TrackObjects.(ObjectName);
-    
+
     % Create the new 'previous' state from the former 'current' state
     TrackObjInfo.Previous = TrackObjInfo.Current;
-    
+
     % Get the needed variables from the 'previous' state
     PreviousLocations = TrackObjInfo.Previous.Locations{SetBeingAnalyzed-1};
     PreviousLabels = TrackObjInfo.Previous.Labels;
     PreviousSegmentedImage = TrackObjInfo.Previous.SegmentedImage;
     PrevHeaders = TrackObjInfo.Previous.Headers;
 
-    % Get the needed variables from the 'current' state. 
-    % If using image grouping: The measurements are located in the actual 
+    % Get the needed variables from the 'current' state.
+    % If using image grouping: The measurements are located in the actual
     % set being analyzed, so we break the grouping convention here
     TrackObjInfo.Current.Locations{SetBeingAnalyzed} = ...
     cat(2,  handles.Measurements.(ObjectName).Location_Center_X{handles.Current.SetBeingAnalyzed},...
@@ -347,22 +347,22 @@ else
 
     switch lower(TrackingMethod)
         case 'distance'
-            % Create a distance map image, threshold it by search radius 
+            % Create a distance map image, threshold it by search radius
             % and relabel appropriately
-            [CurrentObjNhood,CurrentObjLabels] = bwdist(CurrentSegmentedImage); 
+            [CurrentObjNhood,CurrentObjLabels] = bwdist(CurrentSegmentedImage);
             CurrentObjNhood = (CurrentObjNhood < PixelRadius).*CurrentSegmentedImage(CurrentObjLabels);
-            
-            [PreviousObjNhood,previous_obj_labels] = bwdist(PreviousSegmentedImage); 
+
+            [PreviousObjNhood,previous_obj_labels] = bwdist(PreviousSegmentedImage);
             PreviousObjNhood = (PreviousObjNhood < PixelRadius).*PreviousSegmentedImage(previous_obj_labels);
-            
+
             % Compute overlap of distance-thresholded objects
             MeasuredValues = ones(size(CurrentObjNhood));
             [CurrentLabels, CurrHeaders] = EvaluateObjectOverlap(CurrentObjNhood,PreviousObjNhood,PreviousLabels,PrevHeaders,MeasuredValues);
-            
+
         case 'overlap'  % Compute object area overlap
             MeasuredValues = ones(size(CurrentSegmentedImage));
             [CurrentLabels, CurrHeaders] = EvaluateObjectOverlap(CurrentSegmentedImage,PreviousSegmentedImage,PreviousLabels,PrevHeaders,MeasuredValues);
-            
+
         otherwise
             % Get the specified featurename
             try
@@ -370,36 +370,36 @@ else
             catch
                 error(['Image processing was canceled in the ', ModuleName, ' module because an error ocurred when retrieving the ' MeasurementFeature ' set of data. Either the category of measurement you chose, ', MeasurementCategory,', was not available for ', ObjectName,', or the feature number, ', num2str(MeasurementFeature), ', exceeded the amount of measurements.']);
             end
-            
+
             % The idea here is to take advantage to MATLAB's sparse/full
             % trick used in EvaluateObjectOverlap by modifying the input
             % label matrices appropriately.
             % The big problem with steps (1-3) is that bwdist limits the distance
             % according to the obj neighbors; I want the distance threshold
             % to be neighbor-independent
-            
+
             % (1) Expand the current objects by the threshold pixel radius
-            [CurrentObjNhood,CurrentObjLabels] = bwdist(CurrentSegmentedImage); 
+            [CurrentObjNhood,CurrentObjLabels] = bwdist(CurrentSegmentedImage);
             CurrentObjNhood = (CurrentObjNhood < PixelRadius).*CurrentSegmentedImage(CurrentObjLabels);
-            
+
             % (2) Find those previous objects which fall within this range
             PreviousObjNhood = (CurrentObjNhood > 0).*PreviousSegmentedImage;
-            
+
             % (3) Shrink them to points so the accumulation in sparse will
             % evaluate only a single number per previous object, the value
             % of which is assigned in the next step
             PreviousObjNhood = bwmorph(PreviousObjNhood,'shrink',inf).*PreviousSegmentedImage;
-            
+
             % (4) Produce a labeled image for the previous objects in which the
             % labels are the specified measurements. The nice thing here is
             % that I can extend this to whatever measurements I want
             PreviousStatistics = handles.Measurements.(ObjectName).(FeatureName){SetBeingAnalyzed-1};
             PreviousStatisticsImage = (PreviousObjNhood > 0).*LabelByColor(PreviousSegmentedImage, PreviousStatistics);
-            
-            % (4) Ditto for the current objects 
+
+            % (4) Ditto for the current objects
             CurrentStatistics = handles.Measurements.(ObjectName).(FeatureName){SetBeingAnalyzed};
             CurrentStatisticsImage = LabelByColor(CurrentObjNhood, CurrentStatistics);
-            
+
             % (5) The values that are input into EvaluateObjectOverlap are
             % the normalized measured per-object values, ie, CurrentStatistics/PreviousStatistics
             warning('off','MATLAB:divideByZero');
@@ -410,7 +410,7 @@ else
             % result is on the range of [0,1]
             MeasuredValues(MeasuredValues > 1) = CurrentStatisticsImage(MeasuredValues > 1)./PreviousStatisticsImage(MeasuredValues > 1);
             warning('on','MATLAB:divideByZero');
-            
+
             [CurrentLabels, CurrHeaders] = EvaluateObjectOverlap(CurrentObjNhood,PreviousObjNhood,PreviousLabels,PrevHeaders,MeasuredValues);
     end
 
@@ -440,7 +440,7 @@ CurrentIndexedLabelImage = LabelByColor(TrackObjInfo.Current.SegmentedImage, Cur
                                                                           CurrentLabels, PreviousLabels, ...
                                                                           TrackObjInfo.Colormap, ...
                                                                           TrackObjInfo.ObjToColorMapping, ...
-                                                                          handles.Preferences.LabelColorMap);                                                                
+                                                                          handles.Preferences.LabelColorMap);
 TrackObjInfo.Colormap = LabelMatrixColormap;
 TrackObjInfo.ObjToColorMapping = ObjToColorMapping;
 
@@ -477,7 +477,7 @@ if isOpenAssignedModuleFigure || (~isOpenAssignedModuleFigure && userWantsDataIm
         [ignore,hAx] = CPimagesc(CurrentColoredLabelImage,handles,ThisModuleFigureNumber);
         title(hAx,['Tracked ',ObjectName]);
     elseif ~isOpenAssignedModuleFigure && userWantsDataImage
-        % If no figure windows exists, then the user doesn't want any windows 
+        % If no figure windows exists, then the user doesn't want any windows
         % to be open. We need a window for the capture to work, so create one
         % but make it invisible
         ThisModuleFigureNumber = CPfigurehandle(handles);
@@ -486,7 +486,7 @@ if isOpenAssignedModuleFigure || (~isOpenAssignedModuleFigure && userWantsDataIm
         [ignore,hAx] = CPimagesc(CurrentColoredLabelImage,handles,ThisModuleFigureNumber);
     end
 
-    % Construct uicontrol which holds images and figure titles 
+    % Construct uicontrol which holds images and figure titles
     if isempty(findobj(ThisModuleFigureNumber,'tag','PopupImage')),
         ud(1).img = CurrentColoredLabelImage;
         ud(2).img = ColoredPerimeterImage;
@@ -504,7 +504,7 @@ if isOpenAssignedModuleFigure || (~isOpenAssignedModuleFigure && userWantsDataIm
         ud = get(findobj(ThisModuleFigureNumber,'tag','PopupImage'),'userdata');
         ud(1).img = CurrentColoredLabelImage;
         ud(2).img = ColoredPerimeterImage;
-        set(findobj(ThisModuleFigureNumber,'tag','PopupImage'),'userdata',ud); 
+        set(findobj(ThisModuleFigureNumber,'tag','PopupImage'),'userdata',ud);
     end
     if ~isempty(strfind(DisplayType, 'Number'))
         switch LabelMethod
@@ -529,7 +529,7 @@ TrackObjInfo.Current.Labels = CurrentLabels;
 TrackObjInfo.Current.Headers = CurrHeaders;
 
 % Save the image of the tracked objects (if desired)
-if userWantsDataImage  
+if userWantsDataImage
     % Do the screen capture at high-res and resize to original image size.
     % This will get the image plus any text
     warning('off','MATLAB:Text:DrawStringIntoBitmap');
@@ -538,15 +538,15 @@ if userWantsDataImage
     OrigImSize = size(CurrentColoredLabelImage(:,:,1));
     ResizedCapturedImage = cat(3,   imresize(double(CapturedImage(:,:,1)),OrigImSize),...
                                     imresize(double(CapturedImage(:,:,2)),OrigImSize),...
-                                    imresize(double(CapturedImage(:,:,3)),OrigImSize))/255; 
-    
+                                    imresize(double(CapturedImage(:,:,3)),OrigImSize))/255;
+
     % Correct for over/under-shoot from interpolation
-    ResizedCapturedImage(ResizedCapturedImage > 1) = 1; 
+    ResizedCapturedImage(ResizedCapturedImage > 1) = 1;
     ResizedCapturedImage(ResizedCapturedImage < 0) = 0;
-    
+
     % Save to handles
     handles = CPaddimages(handles,DataImage,ResizedCapturedImage);
-    
+
     if ~isOpenAssignedModuleFigure
         % Destroy the invisible figure created earlier
         close(ThisModuleFigureNumber);
@@ -566,7 +566,7 @@ if CollectStatistics
                     CentroidTrajectory(:,2));
     handles = CPaddmeasurements(handles, ObjectName, CPjoinstrings(TrackingMeasurementPrefix,'DistanceTraveled',num2str(PixelRadius)), ...
                     DistanceTraveled(:));
-    
+
     % Record the object lifetime, integrated distance and linearity once it disappears...
     if SetBeingAnalyzed ~= NumberOfImageSets,
         [Lifetime,Linearity,IntegratedDistance] = deal(NaN(size(PreviousLabels)));
@@ -583,7 +583,7 @@ if CollectStatistics
 			Linearity(idx) = mag./reshape(SumDistance(AbsentObjectsLabel),size(mag));
 		end
         warning('on','MATLAB:divideByZero');
-		
+
 		% Count new objects that have appeared
 		NewObjectsLabel = setdiff(CurrentLabels,PreviousLabels);
 		handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'NewObjectCount',ObjectName,num2str(PixelRadius)), ...
@@ -600,7 +600,7 @@ if CollectStatistics
 		handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'NewObjectCount',ObjectName,num2str(PixelRadius)), ...
                     0);
     end
-        
+
     IntegratedDistanceMeasurementName = CPjoinstrings(TrackingMeasurementPrefix,'IntegratedDistance',num2str(PixelRadius));
     handles = CPaddmeasurements(handles, ObjectName, IntegratedDistanceMeasurementName, ...
                     IntegratedDistance(:));
@@ -616,17 +616,17 @@ if CollectStatistics
     % NOTE: If the measurement names are changed here, they need to be
     % altered in Relate since they need to be excluded from per-parent
     % measurements
-    if SetBeingAnalyzed > 1 && SetBeingAnalyzed ~= NumberOfImageSets, 
+    if SetBeingAnalyzed > 1 && SetBeingAnalyzed ~= NumberOfImageSets,
         handles.Measurements.(ObjectName).(IntegratedDistanceMeasurementName){SetBeingAnalyzed-1} = ...
-            handles.Measurements.(ObjectName).(IntegratedDistanceMeasurementName){SetBeingAnalyzed}; 
+            handles.Measurements.(ObjectName).(IntegratedDistanceMeasurementName){SetBeingAnalyzed};
         handles.Measurements.(ObjectName).(LifetimeMeasurementName){SetBeingAnalyzed-1} = ...
-            handles.Measurements.(ObjectName).(LifetimeMeasurementName){SetBeingAnalyzed}; 
+            handles.Measurements.(ObjectName).(LifetimeMeasurementName){SetBeingAnalyzed};
         handles.Measurements.(ObjectName).(LinearityMeasurementName){SetBeingAnalyzed-1} = ...
-            handles.Measurements.(ObjectName).(LinearityMeasurementName){SetBeingAnalyzed}; 
+            handles.Measurements.(ObjectName).(LinearityMeasurementName){SetBeingAnalyzed};
     end
 end
 
-% Save the structure back to handles.Pipeline 
+% Save the structure back to handles.Pipeline
 handles.Pipeline.TrackObjects.(ObjectName) = TrackObjInfo;
 
 %%%%%%%%%%%%%%%%%%%%%%
@@ -659,13 +659,13 @@ if any(CurrentPreviousLabelHistogram(:)),
     % the child's column in the histogram.  sort() will give us the
     % necessary parent (row) index as its second return argument.
     [OverlapCounts, CurrentObjIndexes] = sort(CurrentPreviousLabelHistogram,1);
-    
+
     % Get the parent list.
     CurrentObjList = CurrentObjIndexes(end, :);
-    
+
     % Handle the case of a zero overlap -> no current obj
     CurrentObjList(OverlapCounts(end, :) == 0) = 0;
-    
+
 	% If two children have the same parent - then choose the one with the
 	% largest intersection and set the other to zero.
 	[sortedVals, indsOfVals] = sort(CurrentObjList);
@@ -684,8 +684,8 @@ if any(CurrentPreviousLabelHistogram(:)),
 		[sortedMaxInterVals, sortedMaxInterInds] = sort(maxIntersection(sameParentChildrenIndices));
 		CurrentObjList(sameParentChildrenIndices(sortedMaxInterInds(1:end-1))) = 0;
 		i = i + 1;
-	end 
-	
+	end
+
     % Transpose to a column vector
     CurrentObjList = CurrentObjList';
 else
@@ -698,7 +698,7 @@ end
 
 % Disappeared: Obj in CurrentObjList set to 0, so drop label from list
 CurrentLabels = zeros(NumberOfCurrentObj,1);
-CurrentLabels(CurrentObjList(CurrentObjList > 0)) = PreviousLabels(CurrentObjList > 0); 
+CurrentLabels(CurrentObjList(CurrentObjList > 0)) = PreviousLabels(CurrentObjList > 0);
 
 % Newly appeared: Missing index in CurrentObjList, so add new label to list
 idx = setdiff((1:NumberOfCurrentObj)',CurrentObjList);
@@ -744,7 +744,7 @@ if isempty(LabelMatrixColormap),
     end
     index = rand(1,NumOfRegions)*NumberOfColors;
     if is2008b_or_greater, defaultStream.State = savedState; end
-    
+
     % Save the colormap and indices into the handles
     LabelMatrixColormap = cmap;
     ObjToColorMapping = index;
@@ -758,7 +758,7 @@ end
 %%% SUBFUNCTION - ComputeTrackingStatistics
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [CentroidTrajectory,DistanceTraveled,SumDistance,AgeOfObjects,InitialObjectLocation] = ComputeTrackingStatistics(CurrentLocations,PreviousLocations,CurrentLabels,PreviousLabels,SumDistance,AgeOfObjects,InitialObjectLocation)
-   
+
 CentroidTrajectory = zeros(size(CurrentLocations));
 [OldLabels, idx_previous, idx_current] = intersect(PreviousLabels,CurrentLabels);
 CentroidTrajectory(idx_current,:) = CurrentLocations(idx_current,:) - PreviousLocations(idx_previous,:);

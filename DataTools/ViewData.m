@@ -29,14 +29,14 @@ function ViewData(handles)
 % Ask the user to choose the file from which to extract measurements.
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 if FileName == 0
-    return
+    return;
 end
 
 % Quick check if it seems to be a CellProfiler file or not
 s = whos('-file',fullfile(Pathname, FileName));
 if ~any(strcmp('handles',cellstr(cat(1,s.name)))),
     CPerrordlg('Selected file is not a CellProfiler output file.')
-    return
+    return;
 end
 
 % Load the specified CellProfiler output file
@@ -44,7 +44,7 @@ try
     load(fullfile(Pathname, FileName));
 catch
     CPerrordlg('Selected file is not a CellProfiler or MATLAB file (it does not have the extension .mat).')
-    return
+    return;
 end
 
 % Try to convert features
@@ -58,21 +58,21 @@ while FinalOK == 0
     catch
         ErrorMessage = lasterr;
         CPerrordlg(['An error occurred in the ViewData Data Tool. ' ErrorMessage(30:end)]);
-        return
+        return;
     end
     if isempty(ObjectTypename),return,end
 
     %%% Generate a cell array with strings to display
     NbrOfImageSets = length(handles.Measurements.(ObjectTypename).(FeatureType));
     TextToDisplay = cell(NbrOfImageSets,1);
-    
+
     filenames = fieldnames(handles.Measurements.Image);
     idx = ~cellfun(@isempty,strfind(filenames,'FileName'));
     fileswithmeasurements = handles.Measurements.Image.(char(filenames(find(idx,1))));
     if NbrOfImageSets ~= length(fileswithmeasurements)
         CPerrordlg('There is an unequal number of measures to the number of image files. This has not yet been supported.');
     end
-    
+
     filenames = filenames(idx,:);
     filenamelist = {}; for i = 1:length(filenames),filenamelist = cat(1,filenamelist,handles.Measurements.Image.(filenames{i})); end
     for ImageSet = 1:NbrOfImageSets

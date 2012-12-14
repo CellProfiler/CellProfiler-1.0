@@ -4,9 +4,9 @@ function GSGettingStarted
 % pipeline (from www.cellprofiler.org) and try it out. Or, you can build a
 % pipeline from scratch. A pipeline is a sequential set of individual image
 % analysis modules. See also Help (main menu of CellProfiler) and "?"
-% buttons in the main window. 
+% buttons in the main window.
 % To learn how to program in CellProfiler, see Help > DeveloperInfo.
-% To learn how to use a cluster of computers to process large batches 
+% To learn how to use a cluster of computers to process large batches
 % of images, see Help > BatchProcessing.
 %
 % ************************   LOADING A PIPELINE   ************************
@@ -15,12 +15,12 @@ function GSGettingStarted
 %
 % STEP 2: Set the default image and output folders (lower right of the main
 % window) to be the folder where you put the images.
-% 
+%
 % STEP 3: Load the pipeline using File > Load Pipeline in the main menu of
 % CellProfiler.
 %
 % STEP 4: Click "Analyze images" to start processing.
-% 
+%
 % STEP 5: Examine the measurements using Data Tools.
 % Data Tools are accessible in the main menu of CellProfiler and allow you
 % to plot, view, or export your measurements (e.g. to Excel).
@@ -58,7 +58,7 @@ function GSGettingStarted
 % processing are not saved to the hard drive unless you specifically
 % request it, using a Save Images module.
 %
-% STEP 2: Adjust the settings in each module. 
+% STEP 2: Adjust the settings in each module.
 % Back in the main window of CellProfiler, click a module in the pipeline
 % to see its settings in the main workspace. To learn more about the
 % settings for each module, select the module in the pipeline and click the
@@ -88,7 +88,7 @@ function GSGettingStarted
 % the Load Images module to recognize all images in your folder.
 %
 % STEP 6: Save your pipeline.
-% This step can be done at any time using File > Save Pipeline. 
+% This step can be done at any time using File > Save Pipeline.
 %
 %
 %

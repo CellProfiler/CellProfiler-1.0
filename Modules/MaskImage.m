@@ -9,10 +9,10 @@ function handles = MaskImage(handles)
 %
 % This module masks an image and saves it in the handles structure for
 % future use. The masked image is based on the original image and the
-% object selected. 
-% 
+% object selected.
+%
 % Note that the image saved for further processing downstream is grayscale.
-% If a binary mask is desired in subsequent modules, you might be able to 
+% If a binary mask is desired in subsequent modules, you might be able to
 % access ['CropMask',MaskedImageName] (e.g. 'CropMaskMaskBlue'), or simply
 % use the ApplyThreshold module instead of MaskImage.
 
@@ -79,7 +79,7 @@ if CPisimageinpipeline(handles, fieldname)
     %%% Retrieves previously selected cropping mask from handles
     %%% structure.
     BinaryCropImage = CPretrieveimage(handles,fieldname,ModuleName);
-    try 
+    try
         CropMask = CropMask & BinaryCropImage;
     catch
         error('The image in which you want to identify objects has been cropped, but there was a problem recognizing the cropping pattern.');
@@ -103,7 +103,7 @@ if any(findobj == ThisModuleFigureNumber)
     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         CPresizefigure(OrigImage,'TwoByOne',ThisModuleFigureNumber)
     end
-    
+
     %%% A subplot of the Original image.
     hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
     CPimagesc(OrigImage,handles,hAx);

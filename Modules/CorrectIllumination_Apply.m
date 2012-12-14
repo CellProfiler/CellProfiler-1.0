@@ -157,7 +157,7 @@ ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule
 if any(findobj == ThisModuleFigureNumber)
     % Remove uicontrols from last cycle
     delete(findobj(ThisModuleFigureNumber,'tag','TextUIControl'));
-    
+
     %%% Activates the appropriate figure window.
     CPfigure(handles,'Image',ThisModuleFigureNumber);
     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet

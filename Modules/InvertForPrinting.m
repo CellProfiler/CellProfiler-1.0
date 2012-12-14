@@ -146,19 +146,19 @@ if any(findobj == ThisModuleFigureNumber)
         CPresizefigure(StackedInput(:,:,1),'TwoByOne',ThisModuleFigureNumber)
     end
     %%% A subplot of the figure window is set to display the original image.
-    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber); 
-    
-    CPimagesc(StackedInput,handles,hAx); 
+    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
+
+    CPimagesc(StackedInput,handles,hAx);
     title(hAx,['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
     %%% A subplot of the figure window is set to display the Inverted
     %%% Image.
-    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber); 
+    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber);
 
     InvertedStackedImage = StackedInput;
     InvertedStackedImage(:,:,1) = InvertedRed;
     InvertedStackedImage(:,:,2) = InvertedGreen;
     InvertedStackedImage(:,:,3) = InvertedBlue;
-    CPimagesc(InvertedStackedImage,handles,hAx); 
+    CPimagesc(InvertedStackedImage,handles,hAx);
     title(hAx,'Inverted Image');
 end
 

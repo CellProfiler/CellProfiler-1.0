@@ -126,7 +126,7 @@ function Histogram(handles)
 
 [RawFileName, RawPathname] = CPuigetfile('*.mat', 'Select the raw measurements file', handles.Current.DefaultOutputDirectory);
 if RawFileName == 0
-    return
+    return;
 end
 fn = fullfile(RawPathname, RawFileName);
 try
@@ -134,7 +134,7 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fn, ''' (possibly not a CellProfiler output file).'])
-    return
+    return;
 end
 
 try FontSize = handles.Preferences.FontSize;
@@ -151,7 +151,7 @@ end
 [object_name, field_name] = CPgetfeature(handles, 1);
 if isempty(object_name)
     % The user cancelled the dialog.
-    return
+    return;
 end
 % Human-readable description for use in graph legends, etc.
 pretty_field_name = field_name;
@@ -200,7 +200,7 @@ if ~isempty(sample_info_sets)
             SampleNames = handles.Pipeline.([prefix HeadingName]);
         end
     else
-        return
+        return;
     end
 end
 
@@ -208,16 +208,16 @@ end
 %%% This function returns a UserInput structure with the
 %%% information required to carry out the calculations.
 UserInput = [];
-try 
+try
     UserInput = UserInputWindow(handles,RawFileName,UserInput);
 catch
     CPerrordlg(lasterr)
-    return
+    return;
 end
 
 % If Cancel button pressed, return
 if ~isfield(UserInput,'FirstSample')
-    return
+    return;
 end
 
 NumberOfImages = UserInput.LastSample - UserInput.FirstSample + 1;
@@ -309,7 +309,7 @@ if strcmpi(UserInput.Combine, 'Yes') == 1
     UserInput.FirstSample = 1;
     UserInput.LastSample = 1;
     NumberOfImages = 1;
-    
+
     %%% Might make this optional by adding a Yes/No to the User window.
     CalcStatistics = 'Yes';
     if strcmpi(CalcStatistics,'Yes')
@@ -317,7 +317,7 @@ if strcmpi(UserInput.Combine, 'Yes') == 1
         %%% First change -Inf and +Inf to NaN.
         OutputMeasurementsForStats = OutputMeasurements{1,1};
         OutputMeasurementsForStats(OutputMeasurementsForStats==-Inf) = NaN;
-        OutputMeasurementsForStats(OutputMeasurementsForStats==Inf) = NaN;            
+        OutputMeasurementsForStats(OutputMeasurementsForStats==Inf) = NaN;
         Mean = CPnanmean(OutputMeasurementsForStats);
         Median = CPnanmedian(OutputMeasurementsForStats);
         %%% pObject is the percentage of image covered by objects. We will
@@ -337,7 +337,7 @@ if strcmpi(UserInput.Combine, 'Yes') == 1
         FontSize = handles.Preferences.FontSize;
         DistanceBetweenTextEntries = .1;
         CurrentEntryPosition = .92;
-        
+
         uicontrol(StatsFigHandle,'style','text','units','normalized',...
             'position', [0.02 CurrentEntryPosition 1 0.07], 'HorizontalAlignment','left',...
             'Backgroundcolor',[.7 .7 .9],'fontname','Helvetica',...
@@ -1543,11 +1543,11 @@ while 1
             end
 
             delete(FigHandle);
-            return
+            return;
         end
     else                                % The user pressed the cancel button or closed the window
         UserInput = [];
         if ishandle(FigHandle),delete(FigHandle);end
-        return
+        return;
     end
 end

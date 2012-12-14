@@ -13,7 +13,7 @@ function handles = MeasureObjectNeighbors(handles,varargin)
 % module can measure the number of neighbors each object has if every
 % object were expanded up until the point where it hits another object; to
 % use this option, enter 0 (the number zero) for the pixel distance. If you
-% want your objects to be touching before you count neighbors (for 
+% want your objects to be touching before you count neighbors (for
 % instance, in an image of tissue), use the ExpandOrShrink module to expand
 % your objects beforehand.
 %
@@ -49,17 +49,17 @@ function handles = MeasureObjectNeighbors(handles,varargin)
 % to use MATLAB.
 %
 % Saving the objects:
-% * You can save the objects colored by number of neighbors to the handles 
-% structure to be used in other modules. Here, the scalar value 1 is added 
-% to every pixel so that the background is zero and the objects range from 
+% * You can save the objects colored by number of neighbors to the handles
+% structure to be used in other modules. Here, the scalar value 1 is added
+% to every pixel so that the background is zero and the objects range from
 % 1 up to the highest number of neighbors, plus one. This makes the objects
 % compatible with the Convert To Image module.
 %
 % Saving the image:
 % * You can save the grayscale image of objects to the handles structure so
-% it can be saved to the hard drive. Here, the background is -1, and the 
+% it can be saved to the hard drive. Here, the background is -1, and the
 % objects range from 0 (if it has no neighbors) up to the highest number of
-% neighbors. The -1 value makes it incompatible with the Convert To Image 
+% neighbors. The -1 value makes it incompatible with the Convert To Image
 % module which expects a label matrix starting at zero.
 %
 
@@ -83,8 +83,8 @@ function handles = MeasureObjectNeighbors(handles,varargin)
 %   type. But then you have to synch up the output image question below to each
 %   image, so perhaps this is a pain]
 %
-% (2) Within what distance (in pixels) are objects to be considered 
-%   neighbors? 
+% (2) Within what distance (in pixels) are objects to be considered
+%   neighbors?
 %    [Note: the user should enter an integer here, but with two special
 %    cases available (perhaps via a dropdown menu?): (a) Only count as
 %    neighbors if objects are directly touching. (b) Expand all objects
@@ -145,7 +145,7 @@ GrayscaleNeighborsName = char(handles.Settings.VariableValues{CurrentModuleNum,4
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -232,7 +232,7 @@ if NumberOfObjects > 0
     % Initialize measurements
     [FirstObjectNumber,FirstXVector,FirstYVector,SecondObjectNumber,PercentTouching,...
         SecondXVector,SecondYVector,AngleBetweenTwoClosestNeighbors] = deal(zeros(1,NumberOfObjects));
-    
+
     for k = 1:NumberOfObjects
         % Cut patch around cell
         [r,c] = ind2sub([sr sc],props(k).PixelIdxList);
@@ -255,7 +255,7 @@ if NumberOfObjects > 0
             IdentityOfNeighbors{k} = setdiff(unique(overlap(:)),[0,k]);
             NumberOfNeighbors(k) = length(IdentityOfNeighbors{k});
             ImageOfNeighbors(sub2ind([sr sc],r,c)) = NumberOfNeighbors(k);
-        end        
+        end
 
 
         %%% PERCENT TOUCHING %%%
@@ -353,7 +353,7 @@ handles = CPaddmeasurements(handles, ObjectName, ...
 % yields a list of the objects who are neighbors with Cell object 3.
 handles.Measurements.Neighbors.IdentityOfNeighbors(handles.Current.SetBeingAnalyzed) = {IdentityOfNeighbors};
 
-%%% 
+%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%
 %%% DISPLAY RESULTS %%%
@@ -381,13 +381,13 @@ if any(findobj == ThisModuleFigureNumber)
     axis(hAx,'image');
     colormap(hAx,handles.Preferences.LabelColorMap);
     cbar_handle = colorbar('EastOutside','peer',hAx);
-    
+
     % Ensure that colorbar minimum is >=0, if possible
     ylim = get(cbar_handle,'YLim');
     clim = [max([ylim(1) 0]) ylim(2)];
     if diff(clim) <= 0, clim = ylim; end
     set(cbar_handle,'YLim',clim)
-    
+
     title(hAx,[ObjectName,' colored by number of neighbors']);
 
     if (NeighborDistance == 0),
@@ -402,13 +402,13 @@ if any(findobj == ThisModuleFigureNumber)
 	axis(hAx,'image');
 	colormap(hAx,handles.Preferences.LabelColorMap)
 	cbar_handle = colorbar('EastOutside','peer',hAx);
-    
+
 	% Ensure that colorbar minimum is >=0, if possible
     ylim = get(cbar_handle,'YLim');
     clim = [max([ylim(1) 0]) ylim(2)];
     if diff(clim) <= 0, clim = ylim; end
     set(cbar_handle,'YLim',clim)
-    
+
     title(hAx,[ObjectName,' colored by percent touching'])
 
 end
@@ -428,10 +428,10 @@ if ~strcmpi(GrayscaleNeighborsName,'Do not use')
     handles = CPaddimages(handles,GrayscaleNeighborsName,ImageOfNeighbors);
 end
 
-%%% Saves the objects colored by number of neighbors to the handles 
+%%% Saves the objects colored by number of neighbors to the handles
 %%% structure to be used in other modules.
-%%% Here, the scalar value 1 is added to every pixel so that the background 
-%%% is zero and the objects are from 1 up to the highest number of 
+%%% Here, the scalar value 1 is added to every pixel so that the background
+%%% is zero and the objects are from 1 up to the highest number of
 %%% neighbors, plus one. This makes the objects compatible with the Convert
 %%% To Image module.
 if ~strcmpi(ColoredNeighborsName,'Do not use')

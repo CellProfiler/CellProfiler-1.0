@@ -98,7 +98,7 @@ ProjectionType = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 %infotypeVAR03 = imagegroup indep
 ProjectionImageName = char(handles.Settings.VariableValues{CurrentModuleNum,3});
 
-%textVAR04 = Are the images you want to use to be loaded straight from a Load Images module, or are they being produced by the pipeline? 
+%textVAR04 = Are the images you want to use to be loaded straight from a Load Images module, or are they being produced by the pipeline?
 %choiceVAR04 = Load Images module
 %choiceVAR04 = Pipeline
 SourceIsLoadedOrPipeline = char(handles.Settings.VariableValues{CurrentModuleNum,4});
@@ -120,7 +120,7 @@ drawnow
 %%% image and its flag are saved to the handles structure after every cycle
 %%% is processed.
 if strncmpi(SourceIsLoadedOrPipeline, 'L',1) && handles.Current.SetBeingAnalyzed ~= 1
-    return
+    return;
 end
 
 ReadyFlag = 0;
@@ -206,7 +206,7 @@ if any(findobj == ThisModuleFigureNumber)
     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         CPresizefigure(ProjectionImage,'OneByOne',ThisModuleFigureNumber)
     end
-    
+
     [ignore,hAx] = CPimagesc(ProjectionImage,handles,ThisFigure);
     if strncmpi(SourceIsLoadedOrPipeline, 'L',1)
         %%% The averaged image is displayed the first time through the set.

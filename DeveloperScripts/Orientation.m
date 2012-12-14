@@ -6,15 +6,15 @@ blksze = 4; thresh = 0.1;
 %show(normim,1);
 
 % Determine ridge orientations
-[orientim, reliability] = ridgeorient(normim, 1, 4, 4); 
+[orientim, reliability] = ridgeorient(normim, 1, 4, 4);
 %plotridgeorient(orientim, 3, im, 2)
 %show(reliability,6)
 %figure(6),imagesc(reliability);
 
 % Determine ridge frequency values across the image
-blksze = 36; 
+blksze = 36;
 [freq, medfreq] = ridgefreq(normim, mask, orientim, blksze, 5, 5, 15);
-%show(freq,3) 
+%show(freq,3)
 
 % Actually I find the median frequency value used across the whole
 % fingerprint gives a more satisfactory result...

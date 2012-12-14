@@ -4,7 +4,7 @@ function handles = HistogramOfImage(handles)
 % Category: Contributed
 %
 % SHORT DESCRIPTION:
-% 
+%
 % *************************************************************************
 %
 % CellProfiler is distributed under the GNU General Public License.

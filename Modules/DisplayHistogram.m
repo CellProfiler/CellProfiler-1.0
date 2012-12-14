@@ -19,11 +19,11 @@ function handles = DisplayHistogram(handles)
 % bins. The minimum value is the threshold at which any measurements less
 % than this value will be combined into the leftmost bin. The maximum value
 % is the threshold at which any measurements greater than or equal to this
-% value will be combined into the rightmosot bin. 
+% value will be combined into the rightmosot bin.
 %
 % Absolute vs. Percentage
-% Choose "Numbers" if you want the histogram bins to contain the actual 
-% numbers of objects in the bin. Choose "Percents" if you want the 
+% Choose "Numbers" if you want the histogram bins to contain the actual
+% numbers of objects in the bin. Choose "Percents" if you want the
 % histogram bins to contain the percentage of objects in the bin.
 %
 % See also DisplayImageHistogram, MeasureObjectAreaShape,

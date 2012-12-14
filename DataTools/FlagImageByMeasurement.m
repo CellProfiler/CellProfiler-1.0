@@ -9,7 +9,7 @@ function FlagImageByMeasurement(handles)
 %
 % This data tool can take any per-image measurements in a CellProfiler output file
 % and flag the measurements based on user-inputted values.
-% 
+%
 %
 % The new measurements will be stored under Experiment, with the name "QC"
 % flag.
@@ -31,7 +31,7 @@ function FlagImageByMeasurement(handles)
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 
 if FileName == 0
-    return
+    return;
 end
 
 % Load the specified CellProfiler output file
@@ -40,7 +40,7 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fullfile(Pathname, FileName), ''' (possibly not a CellProfiler output file).'])
-    return
+    return;
 end
 
 [ImageOrExperiment,Feature] = CPgetfeature(handles);
@@ -109,7 +109,7 @@ end
 if strcmpi(LowLim, 'Do not use') && strcmpi(UpperLim, 'Do not use')
 CPwarndlg(['No images are being filtered using your current settings'])
 end
-   
+
     % Do filtering
 %QCFlag = cell(size(MeasureInfo));
 if strcmpi(Input1{selection}, 'Appending an existing QCFlag')
@@ -148,7 +148,7 @@ for i = 1:handles.Current.NumberOfImageSets
 end
 
 
- 
+
 % Save the updated CellProfiler output file
 try
     save(fullfile(Pathname, FileName),'handles');
@@ -179,7 +179,7 @@ for row = 1:size(Values, 1),
             elseif ischar(val),
                 fprintf(fid, '%s', val);
             else
-                fprintf(fid, '%d', val);        
+                fprintf(fid, '%d', val);
             end
         end
         fprintf(fid, '\n');

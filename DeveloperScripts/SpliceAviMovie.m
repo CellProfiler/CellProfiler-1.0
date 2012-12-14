@@ -29,7 +29,7 @@ for i = 1:NumMovies
     try NewAviMovie = addframe(NewAviMovie,LoadedRawImages);
     catch
         error(['Problem encountered during save of ',NewFileAndPathName])
-        return
+        return;
     end
     Status = ['Added frames from the movie: ', char(Filenames(i))]
 end

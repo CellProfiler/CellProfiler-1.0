@@ -1,4 +1,4 @@
-%% Preprocess neural images with I + tophat - bothat, as done in 
+%% Preprocess neural images with I + tophat - bothat, as done in
 %% Zhang et al 2007 JNMeth "A novel tracing algorithm for high throughput
 %% imaging Screening of neuron-based assays"
 
@@ -15,7 +15,7 @@ doLogTransform = 1;
 % OutputPathRoot = '/Volumes/imaging_analysis/2008_04_15_Lithium_Neurons_JenPan/';
 % OutputPathName = PathName;
 % search_string = '.*_s[0-9][a-zA-Z0-9].*.tif';
-%%%% 
+%%%%
 
 %%%% JEN PAN images from 2008-05-09
 % strel_size = 4;
@@ -24,7 +24,7 @@ doLogTransform = 1;
 % OutputPathRoot = '/Volumes/imaging_analysis/2008_04_15_Lithium_Neurons_JenPan/image08_ADSAPlate0423-1-4x_8069/';
 % OutputPathName = PathName;
 % search_string = '.*_s[0-9]_w[0-9][a-zA-Z0-9].*.tif';
-%%%% 
+%%%%
 
 %%%% JEN PAN images analyzed 2009-05-11 : SERVER
 % strel_size = 4;
@@ -33,7 +33,7 @@ doLogTransform = 1;
 % OutputPathRoot = '/Volumes/imaging_analysis/2008_04_15_Lithium_Neurons_JenPan/';
 % OutputPathName = [PathName '_pre_processed_with_tophat_minus_bottomhat_size4'];
 % search_string = '.*_[B-G][0-9][0-9].*.TIF'; %% Rows A and H are empty
-%%%% 
+%%%%
 
 %%%% JEN PAN images analyzed 2009-05-11 : LOCAL
 strel_size = 4;
@@ -46,8 +46,8 @@ strel_size = 4;
 %     OutputPathName = [OutputPathName '_logTransformed'];
 % end
 % search_string = '.*_[B-G][0-9][0-9].*.TIF'; %% Rows A and H are empty
-% 
-% 
+%
+%
 % PathRoot = '/Volumes/Image08/hcs/';
 % PathName = 'JenPan/ADSAPlate0423-1-4x/2008-05-09/8069';
 % OutputPathRoot = '/Volumes/imaging_analysis/2008_04_15_Lithium_Neurons_JenPan/image08_ADSAPlate0423-1-4x_8069/';
@@ -61,7 +61,7 @@ OutputPathRoot = '/Users/dlogan/Projects/2008_04_15_Lithium_Neurons_JenPan/image
 OutputPathName = [PathName '_pre_processed_with_tophat_minus_bottomhat_size4'];
 search_string = '.*_[B-G][0-9][0-9].*.TIF'; %% Rows A and H are empty
 
-%%%% 
+%%%%
 
 
 %%%% LETIAN KUAI images
@@ -90,7 +90,7 @@ end
 for i = length(Good):-1:1
     disp(i)
     I = imread(fullfile([PathRoot PathName],Good{i}));
-    
+
     %% Log transform
     if doLogTransform
         if max(I(:)) > 0,

@@ -4,7 +4,7 @@ function handles = SubtractBackgroundSingle(handles)
 % Category: Contributed
 %
 % SHORT DESCRIPTION:
-% 
+%
 % *************************************************************************
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -24,17 +24,17 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-%textVAR01 = What did you call the image to be corrected? 
+%textVAR01 = What did you call the image to be corrected?
 %infotypeVAR01 = imagegroup
 ImageName = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
 
-%textVAR02 = What do you want to call the corrected image? 
+%textVAR02 = What do you want to call the corrected image?
 %defaultVAR02 = SubBackSingleImage
 %infotypeVAR02 = imagegroup indep
 CorrectedImageName = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 
-%textVAR03 = What n^th pixel do you want to use as threshold? 
+%textVAR03 = What n^th pixel do you want to use as threshold?
 %defaultVAR03 = 10
 PixelThreshold = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,3}));
 
@@ -67,7 +67,7 @@ error(['Image processing was canceled in the ', ModuleName, ' module because it 
 end
 TempImage = CPimread(fullfile(Pathname,char(FileList(index))));
 SortedColumnImage = sort(reshape(TempImage, [],1));
-TenthMinimumPixelValue = SortedColumnImage(PixelThreshold); 
+TenthMinimumPixelValue = SortedColumnImage(PixelThreshold);
 if TenthMinimumPixelValue ~= 0
     %%% Subtracts the MinimumTenthMinimumPixelValue from every pixel in the
     %%% original image.  This strategy is similar to that used for the "Apply
@@ -90,14 +90,14 @@ if TenthMinimumPixelValue ~= 0
         end
         %%% A subplot of the figure window is set to display the original
         %%% image, some intermediate images, and the final corrected image.
-        subplot(2,1,1); 
+        subplot(2,1,1);
         CPimagesc(OrigImage,handles);
         title(['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
         %%% The mean image does not absolutely have to be present in order to
         %%% carry out the calculations if the illumination image is provided,
         %%% so the following subplot is only shown if MeanImage exists in the
         %%% workspace.
-        subplot(2,1,2); 
+        subplot(2,1,2);
         CPimagesc(CorrectedImage,handles);
         title('Corrected Image');
         %%% Displays the text.

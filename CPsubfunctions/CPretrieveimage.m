@@ -85,7 +85,7 @@ elseif ColorFlag == 3
 elseif ColorFlag ==4
       fieldname = ['Pathname', ImageName];
       % Preferentially load from file unless the image was generated
-      if isfield(handles.Pipeline,fieldname) 
+      if isfield(handles.Pipeline,fieldname)
           Pathname = handles.Pipeline.(fieldname);
 
           % Retrieves the list of filenames where the images are stored from the

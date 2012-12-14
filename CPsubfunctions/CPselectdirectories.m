@@ -19,7 +19,7 @@ function handles = CPselectdirectories(handles)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Determines which cycle is being analyzed.
 if isempty(handles)
-    return
+    return;
 end
 if iscell(handles)
     % The "handles" is just a list of directories
@@ -37,7 +37,7 @@ else
 % % Trimming the list of files to be analyzed occurs only the first time
 % % through this module.
 % if SetBeingAnalyzed ~= 1, return; end
-% 
+%
 % % There MUST be a LoadImages module immediately before this one
 % idxLoadImages = strmatch('LoadImages',handles.Settings.ModuleNames);
 % if isempty(idxLoadImages) || max(idxLoadImages)+1 ~= CurrentModuleNum,
@@ -73,7 +73,7 @@ ListingTag = cell(0,0);
 UniquePathNumber = zeros(0,0);
 if ispc, fileseparator = ['\',filesep]; else fileseparator = filesep; end
 if length(UniqueDirectories) == 1 && isempty(UniqueDirectories{1})
-    return
+    return;
 end
 
 for i = 1:length(UniqueDirectories),
@@ -100,7 +100,7 @@ for i = 1:length(UniqueDirectories),
     UniquePathNumber = [UniquePathNumber; i*ones(length(p{:}),1)];
 end
 
-% Organize the listing so that directories with a common root that follow 
+% Organize the listing so that directories with a common root that follow
 % each other in the list don't get repeated when displayed
 % Find the directory names that (1) share a level (2) under the same
 % root...
@@ -140,7 +140,7 @@ end
 
 if return_directories
     handles = DirectoryPaths(sort(DirectoryPathIdx(Selection)));
-    return
+    return;
 else
 % Remove the de-selected directories from the FileLists (since there are
 % likely to be less de-selected than selected directories)
@@ -161,7 +161,7 @@ for i = 1:length(DirectoriesToRemove)
         idxOfFilesep = length(DirectoriesToRemove{i});
     end
     SearchString = DirectoriesToRemove{i}(1:idxOfFilesep);
-    
+
     idxToRemove = idxToRemove | strncmp(SearchString,handles.Pipeline.(fn),length(SearchString));
 end
 % Remove the direcrtories from all FileLists (which assumes that the paths

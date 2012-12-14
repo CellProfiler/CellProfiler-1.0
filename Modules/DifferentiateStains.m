@@ -30,7 +30,7 @@ function handles = DifferentiateStains(handles)
 % versa. A particular pixel can have quantities of both stains.
 %
 % Competitive:
-% In competitive mode, the module computes a vector in colorspace between 
+% In competitive mode, the module computes a vector in colorspace between
 % the colors of stains 1 and 2, finds background values for the two stains
 % and then for each pixel, computes the magnitude of the pixel's color
 % in the direction of the vector, subtracting the background value
@@ -213,7 +213,7 @@ data = guidata(hObject);
 data.Continue=0;
 guidata(hObject,data);
 uiresume(gcf);
-    
+
 function ImageClickCallback(hObject, event)
 data = guidata(hObject);
 pos=get(get(gcbo,'Parent'),'CurrentPoint');
@@ -221,8 +221,8 @@ pos=floor(pos(1,1:2));
 data.position = pos;
 guidata(hObject,data);
 uiresume(gcf);
-    
-    
+
+
 function ShowData(data,ThisModuleFigureNumber)
 handles=data.handles;
 hAx = subplot(2,2,1,'Parent',ThisModuleFigureNumber);

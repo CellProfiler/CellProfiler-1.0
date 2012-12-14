@@ -6,7 +6,7 @@ function out = CPhilberttransform(im, ITERATIONS, ALPHA, EXP, DIRECTION)
     E = EXP;
 	[H, W] = size(im);
 	im = CPjustify(double(im));
-	
+
 	tim = ht(im,0);
 	out = tim;
 	for i = 2:ITERATIONS
@@ -15,7 +15,7 @@ function out = CPhilberttransform(im, ITERATIONS, ALPHA, EXP, DIRECTION)
 		out = out + tim;
 		im = nim;
 	end
-	
+
 	out = CPjustify(out);
 
 function out = ht(im,n)

@@ -159,12 +159,12 @@ fwrite(fid, tex_page([heading body]));
 % body = [tex_label(['GSBatchProcessing']) tex_preformatted(help('GSBatchProcessing.m'))];
 % heading = tex_center(tex_huge(['Batch Processing \\']));
 % fwrite(fid, tex_page([heading body]));
-% 
+%
 % % 4.7 Extract 'help' lines from GSDeveloperInfo.m.
 % body = [tex_label(['GSDeveloperInfo']) tex_preformatted(help('GSDeveloperInfo.m'))];
 % heading = tex_center(tex_huge(['Developer Information \\']));
 % fwrite(fid, tex_page([heading body]));
-% 
+%
 % 5. Extract 'help' lines from anything in the help folder starting
 % with 'Help' (the order is not critical here).
 path(fullfile(pwd,'Help'), path);

@@ -5,7 +5,7 @@ function HelpPixelSize
 % of pixels, if you would like the size measurements to be scaled for your
 % images. By default, the pixel size is set to "1" which means that all
 % distance measurements will be in units of pixel lengths.
-% 
+%
 % You can let CellProfiler convert pixel lengths to absolute units of
 % measure (microns (micrometers)) for you by changing the pixel size or you
 % can do the conversion yourself later. The default pixel size can be set
@@ -17,7 +17,7 @@ function HelpPixelSize
 % along with any pipelines you save, so you can check what pixel size was
 % used in an old experiment by loading the pipeline from a pipeline file or
 % output file.
-% 
+%
 % How do you know what value to use for the pixel size? The pixel size
 % depends on the resolution and binning of the camera and the magnification
 % of the objective lens of the microscope, in addition to the physical
@@ -32,7 +32,7 @@ function HelpPixelSize
 % the markings on the slide relative to a single pixel in the image. Make a
 % table for yourself of the pixel size at each microscope/camera setting
 % for future reference.
-% 
+%
 % Warning: some CellProfiler modules might currently ignore the pixel size
 % and produce data in pixel length units no matter what pixel size is set.
 % We are working to fix this.

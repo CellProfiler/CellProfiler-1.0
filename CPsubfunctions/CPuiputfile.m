@@ -11,8 +11,8 @@
 
 function [filename, pathname, filterindex] = CPuiputfile(filterspec, title, ...
 						path)
-                    
-origFilterspec = filterspec;                    
+
+origFilterspec = filterspec;
 if nargin == 3 && ~iscell(path) && exist(path, 'dir')
   filterspec = fullfile(path, filterspec);
 end
@@ -26,4 +26,3 @@ else
 end
 
 
-  

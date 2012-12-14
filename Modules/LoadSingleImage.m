@@ -10,7 +10,7 @@ function handles = LoadSingleImage(handles)
 % module, not this one.
 %
 % Tells CellProfiler where to retrieve a single image and gives the image a
-% meaningful name for the other modules to access.  This module processes 
+% meaningful name for the other modules to access.  This module processes
 % the input text string in one of two ways:
 % (1) A string referring to a filename. In this case, the module only
 % executes the first time through the pipeline, and thereafter the image
@@ -20,7 +20,7 @@ function handles = LoadSingleImage(handles)
 % you can load four 'single' images using this module.
 % (2) A string referring to a regular expression. In this case, the module
 % should be placed after a FileNameMetadata module and use the same regular
-% expression applied in the FileNameMetadata module. It will execute each 
+% expression applied in the FileNameMetadata module. It will execute each
 % cycle of the pipeline, matching the regular expression to the metadata
 % previously measured. This is useful for when you have multiple images
 % that need to be used once per cycle, but have a different name each
@@ -38,7 +38,7 @@ function handles = LoadSingleImage(handles)
 % folder.  The above also applies for '&' with regards to the default
 % output folder.
 %
-% NOTE: A LoadSingleImage module must be placed downstream of a 
+% NOTE: A LoadSingleImage module must be placed downstream of a
 % LoadImages module in order to work correctly.
 %
 % If more than four single images must be loaded, more than one Load Single
@@ -185,10 +185,10 @@ if doFirstCycleOnly || doTokensExist,
         end
     else CPwarndlg('It is advisable to use RELATIVE path names, i.e. begin your path with either ''.'' or ''&''',[ModuleName,': Pathname warning'],'replace');
     end
-    
+
     % Substitute Metadata tokens into Pathname (if found)
     Pathname = CPreplacemetadata(handles,Pathname);
-    
+
     SpecifiedPathname = Pathname;
     if ~exist(SpecifiedPathname,'dir')
         error(['Image processing was canceled in the ', ModuleName, ' module because the directory "',SpecifiedPathname,'" does not exist. Be sure that no spaces or unusual characters exist in your typed entry and that the pathname of the directory begins with / (for Mac/Unix) or \ (for PC).'])
@@ -198,7 +198,7 @@ if doFirstCycleOnly || doTokensExist,
         error(['Image processing was canceled in the ', ModuleName, ' module because you have not chosen any images to load.'])
     end
 
-    for n = 1:length(ImageName)  
+    for n = 1:length(ImageName)
         %%% This try/catch will catch any problems in the load images module.
         try
             CurrentFileName = TextToFind{n};
@@ -235,7 +235,7 @@ if doFirstCycleOnly || doTokensExist,
     if any(findobj == ThisModuleFigureNumber)
         % Remove uicontrols from last cycle
         delete(findobj(ThisModuleFigureNumber,'tag','TextUIControl'));
-        
+
         if SetBeingAnalyzed == handles.Current.StartingImageSet
             CPresizefigure('','NarrowText',ThisModuleFigureNumber)
         end
@@ -255,10 +255,10 @@ if doFirstCycleOnly || doTokensExist,
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%% SAVE DATA TO HANDLES %%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
+
     if doFirstCycleOnly
         % Since there's no need to re-load the same image multiple times,
-        % replicate the filename/pathname measurement the neccesary number of 
+        % replicate the filename/pathname measurement the neccesary number of
         % times here
         for m = 1:NumberOfImageSets,
             for n = 1:length(ImageName),

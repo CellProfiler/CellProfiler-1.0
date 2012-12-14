@@ -17,7 +17,7 @@ function handles = IdentifyPrimLoG(handles)
 % even size, this module may be more sensitive than the methods in
 % IdentifyPrimAutomatic and therefore detect objects that would
 % otherwise be lost.
-% 
+%
 % The result consists of only a single pixel per object, located near
 % the center of the object; the IdentifySecondary module can be used
 % to fill out the object based on this center point.
@@ -32,18 +32,18 @@ function handles = IdentifyPrimLoG(handles)
 % looking for objects.  Internally, each potential object is assigned
 % a score that depends on both how bright the object is and how
 % blob-like its shape is.  Only objects that score above the threshold
-% are returned.  If the thresold is too high, objects will be lost; 
-% if it is too low, spurious objects will be found. The threshold 
-% can be determined experimentally, but the 'Automatic' setting 
-% will make a guess using RobustBackground Global's thresholding 
+% are returned.  If the thresold is too high, objects will be lost;
+% if it is too low, spurious objects will be found. The threshold
+% can be determined experimentally, but the 'Automatic' setting
+% will make a guess using RobustBackground Global's thresholding
 % method on the transformed image.  RobustBackground is useful because it
-% makes little assumption of the intensity histogram, and thus 
-% can be protective against out-of-focus or empty images.  If you want the 
-% threshold to be consistent across images, then you can use the threshold found by 
+% makes little assumption of the intensity histogram, and thus
+% can be protective against out-of-focus or empty images.  If you want the
+% threshold to be consistent across images, then you can use the threshold found by
 % the 'Automatic' setting as a starting point for manual threshold input adjustment.
-% Also, if the threshold is consistently high or low, then you can adjust 
+% Also, if the threshold is consistently high or low, then you can adjust
 % by a multiplicative correction factor by inserting it after a comma, e.g.
-% "Automatic,1.5". 
+% "Automatic,1.5".
 %
 % ALGORITHM DETAILS:
 %
@@ -67,32 +67,32 @@ function handles = IdentifyPrimLoG(handles)
 % Notes for PyCP
 %
 % FROM CP ToDo:
-% Anne 2008_01_30: Merge IdentifyPrimaryLoG into the regular IdentifyPrimAutomatic module. 
-% In particular, be sure that the help describes under what conditions the different options 
+% Anne 2008_01_30: Merge IdentifyPrimaryLoG into the regular IdentifyPrimAutomatic module.
+% In particular, be sure that the help describes under what conditions the different options
 % are useful. Think carefully about how to add the variable that is LoG-specific to the module.
 %
-% Anne 2008_05_12: Describe what the LoG is doing - we think that we are looking for 
-% minima (or maxima) of the LoG which makes it a maxima-minima finder of the original image, 
-% whereas many people look for zero crossings of the LoG which would be using it as an edge 
+% Anne 2008_05_12: Describe what the LoG is doing - we think that we are looking for
+% minima (or maxima) of the LoG which makes it a maxima-minima finder of the original image,
+% whereas many people look for zero crossings of the LoG which would be using it as an edge
 % detector. Is that right?
 %
 % David 2009_04_17:  As the above older comments say, this module should be integrated into
 % IDPrimAuto.  However, this ID module is different than other primary segmentation modules
-% in that it only finds the center pixel of objects and must utilize a subsequent IDSecondary 
+% in that it only finds the center pixel of objects and must utilize a subsequent IDSecondary
 % after to grow objects.  So we either:
 % (1) Treat LoG as a special thresholding method that only ouputs single pixel objects
 % or
-% (2) Treat LoG as a declumping method.  In this case, another thresholding method would define 
+% (2) Treat LoG as a declumping method.  In this case, another thresholding method would define
 % foreground/background, and LoG would find single pixels within the foreground.
-% 
+%
 % In either case, we would need to decide whether we automatically apply a watershed/propagation
 % after the initial single-pixel finding method.  I prefer (2) above and would opt for
-% automatically propagating the single-pixels within the foreground objects, since that is almost 
+% automatically propagating the single-pixels within the foreground objects, since that is almost
 % always done anyway, and would save the step of adding an IDSecondary.
 %
 % Settings:
 % The first two settings map obviously.
-% The diameter parameter is only single, so that if LoG is chosen, one of the diameter boxes 
+% The diameter parameter is only single, so that if LoG is chosen, one of the diameter boxes
 % should gray-out.
 % The threshold parameter is very sensitive, and the user was blind to what this should be at first,
 % so the 'Automatic' threshold was added recently to use Otsu to guess.  This functionality would be
@@ -146,7 +146,7 @@ if CPisimageinpipeline(handles, MaskFieldname)
     %%% Retrieves previously selected cropping mask from handles
     %%% structure.
     PreviousCropMask = CPretrieveimage(handles,MaskFieldname,ModuleName);
-    try 
+    try
         im(~PreviousCropMask) = 0;
     catch
         error('The image in which you want to identify objects has been cropped, but there was a problem recognizing the cropping pattern.');
@@ -216,7 +216,7 @@ if any(findobj == ThisModuleFigureNumber)
   h_fig = CPfigure(handles,'Image',ThisModuleFigureNumber);
   [hImage,hAx] = CPimagesc(visRGB, handles,ThisModuleFigureNumber);
   title(hAx,[ObjectName, ' cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
-  
+
   ud(1).img = visRGB;
   ud(2).img = ac_scaled;
   ud(3).img = OrigImage;
@@ -231,7 +231,7 @@ if any(findobj == ThisModuleFigureNumber)
                     'backgroundcolor',[.7 .7 .9],...
                     'tag','PopupImage',...
                     'Callback', @CP_ImagePopupmenu_Callback);
-  
+
   text(0.1,-0.08,...
       ['Threshold: ' num2str(Threshold) ', Number of objects: ' num2str(sum(bw(:)))],...
       'Color','black',...
@@ -261,7 +261,7 @@ function f = lapofgau(im, s)
 % Author: Baris Sumengen - sumengen@ece.ucsb.edu
 
 sigma = (s-1)/3;
-op = fspecial('log',s,sigma); 
+op = fspecial('log',s,sigma);
 op = op - sum(op(:))/numel(op); % make the op to sum to zero
 
 %% Pad image to fix border artifact

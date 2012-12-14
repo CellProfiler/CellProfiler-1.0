@@ -17,11 +17,11 @@ userData.Application = 'CellProfiler';
 userData.ImageFlag = 0;
 if is2008b_or_greater, userData.FractionInput = get(fout,'userdata'); end
 set(fout, 'Color', [0.7 0.7 0.9], 'UserData',userData);
-    
+
 ax = get(fout, 'Children');
 ttl = get(ax, 'Title');
-% set(ttl,'Interpreter','none') 
-try 
+% set(ttl,'Interpreter','none')
+try
     handles = guidata(gcbo);
     axFontSize = handles.Preferences.FontSize;
     set(ax, 'FontSize', axFontSize);

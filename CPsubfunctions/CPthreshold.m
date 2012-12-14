@@ -70,7 +70,7 @@ end
 %%% cases: if the user is going to set the threshold interactively, if they
 %%% are using All images together to calculate the threshold, or if they
 %%% have manually entered a numerical value for the threshold.
-if strcmp(Threshold,'Set interactively') || strcmp(Threshold,'All') || ~isempty(str2num(Threshold)) 
+if strcmp(Threshold,'Set interactively') || strcmp(Threshold,'All') || ~isempty(str2num(Threshold))
     %%% In these cases, don't do anything.
 else
     fieldname = ['CropMask', ImageName];
@@ -132,7 +132,7 @@ if ~isempty(strfind(Threshold,'Global')) || ~isempty(strfind(Threshold,'Adaptive
     if isempty(strmatch(ThresholdMethod,{'Otsu','MoG','Background','RobustBackground','RidlerCalvard','Kapur'},'exact'))
         error(['The method chosen for thresholding, ',Threshold,', in the ',ModuleName,' module was not recognized by the CPthreshold subfunction. Adjustment to the code of CellProfiler is needed; sorry for the inconvenience.'])
     end
-    
+
     %%% For all methods, Global or Adaptive or PerObject, we want to
     %%% calculate the global threshold. Sends the linear masked image to
     %%% the appropriate thresholding subfunction.
@@ -224,17 +224,17 @@ if ~isempty(strfind(Threshold,'Global')) || ~isempty(strfind(Threshold,'Adaptive
             %%% linear set of numbers (and masking of pixels outside the
             %%% object is done automatically, in a sense).
             Intensities = OrigImage(RetrievedCropMask == i);
-            
-            
-            
-            
-            
+
+
+
+
+
 %             %%% Diagnostic:
 %             PerObjectImage = zeros(size(OrigImage));
 %             PerObjectImage(RetrievedCropMask == i) = OrigImage(RetrievedCropMask == i);
 %             %figure(31)
 %             %imagesc(PerObjectImage)
-% 
+%
 %             %%% Removes Rows and Columns that are completely blank.
 %             ColumnTotals = sum(PerObjectImage,1);
 %             warning off all
@@ -246,7 +246,7 @@ if ~isempty(strfind(Threshold,'Global')) || ~isempty(strfind(Threshold,'Adaptive
 %             CroppedImagePlusRange = CroppedImage;
 %             [rows,columns] = size(CroppedImage);
 %             CroppedImagePlusRange(:,end+1) = 1;
-% 
+%
 %             [ManualThreshold,bw] = CPthresh_tool(CroppedImagePlusRange,'gray',1);
 %             ManualThreshold = log(ManualThreshold);
 %             %%% Initializes the variables.
@@ -256,20 +256,20 @@ if ~isempty(strfind(Threshold,'Global')) || ~isempty(strfind(Threshold,'Adaptive
 %             ManualThresholds(end+1) = ManualThreshold;
 %             save('Batch_32Manualdata','ManualThresholds');
 
-            
 
-            
-            
-            
-            
-            
+
+
+
+
+
+
             %%% Sends those pixels to the appropriate threshold
             %%% subfunctions.
             eval(['CalculatedThreshold = ',ThresholdMethod,'(Intensities,handles,ImageName,pObject);']);
             %%% This evaluates to something like: Threshold =
             %%% Otsu(Intensities,handles,ImageName,pObject);
 
-            
+
 
             %%% Sets the pixels corresponding to object i to equal the
             %%% calculated threshold.
@@ -300,7 +300,7 @@ elseif strcmp(Threshold,'All')
             PositionMsgBox = [500 BottomOfMsgBox OrigSize(3) OrigSize(4)];
             set(h, 'Position', PositionMsgBox)
             drawnow
-            
+
             %%% Retrieves the path where the images are stored from the
             %%% handles structure.
             fieldname = ['Pathname', ImageName];
@@ -524,16 +524,16 @@ else
 
     %%% Convert user-specified percentage of image covered by objects to a
     %%% prior probability of a pixel being part of an object.
-    
+
     %%% Since the default list for MoG thresholding contains a % sign, we
     %%% need to remove the percent sign and use only the number to
     %%% calculate the threshold. If the pObject does not contain a % sign,
-    %%% it will continue.  
+    %%% it will continue.
     %%% pObject is important, but pObjectNew is only used in  2 lines of code.blah
     if regexp(pObject, '%')
         pObjectNew = regexprep(pObject, '%', '');
         pObject = (str2double(pObjectNew)/100);
-    
+
     else
         pObject = str2double(pObject);
     end
@@ -654,22 +654,22 @@ else
     %% We were using the 'mode' function here, but it does not always report
     %% what is the obvious peak in the histogram.  This is because the
     %% distribution is not continuous, and may be binned in not-so-obvious
-    %% ways.  So we are using imhist instead to bin intensities somewhat 
+    %% ways.  So we are using imhist instead to bin intensities somewhat
     %% and then do an effective mode calculation.
-    
+
     %% Also handle the case in which there are enough saturated, or zeroed,
-    %% pixels that the mode is 0 or 1 (or some other, pinned high value).  
-    %% We remove the high and low values from the mode calculation.  
+    %% pixels that the mode is 0 or 1 (or some other, pinned high value).
+    %% We remove the high and low values from the mode calculation.
     %% Robust cutoff arbitrarily set to 2%.
 
     [counts,x] = imhist(im);
-    
+
     %% Remove bins with zero counts at the low and high ends of imhist
     mn = find(counts ~=0,1, 'first');
     mx = find(counts ~=0,1, 'last');
     counts_scaled = counts(mn:mx);
     x_scaled = x(mn:mx);
-    
+
     thresh = 0.02;
     robust_indices = ceil(thresh * length(x_scaled)):ceil((1-thresh) * length(x_scaled));
     robust_counts = counts_scaled(robust_indices);
@@ -683,7 +683,7 @@ function level = RobustBackground(im,handles,ImageName,pObject)
 %%% The threshold is calculated by trimming the top and bottom 5% of
 %%% pixels off the image, then calculating the mean and standard deviation
 %%% of the remaining image. The threshold is then set at 2 (empirical
-%%% value) standard deviations above the mean. 
+%%% value) standard deviations above the mean.
 
 %%% The following is needed for the adaptive cases where there the image
 %%% has been cropped. This must be done within this subfunction, rather
@@ -725,7 +725,7 @@ end
 
 % %%% DEBUGGING
 % Logim = log(sort(im(im~=0)));
-% 
+%
 % %%% For debugging:
 % figure(30)
 % subplot(1,2,1)
@@ -747,16 +747,16 @@ end
 % hold on
 % plot([level;level],[0,max(Contents)])
 % hold off
-% 
+%
 % figure(30)
-% 
+%
 % %%% More debugging:
 % try
 %     load('Batch_80Autodata');
 % end
 % %%% Initializes the variables.
 % if ~exist('Means','var')
-%    Means = []; 
+%    Means = [];
 %    StDevs = [];
 %    Levels = [];
 %    TrimmedImages = [];
@@ -946,7 +946,7 @@ if isempty(Image(CropMask)),
 end
 
 %%% clamp dynamic range
-minval = max(Image(CropMask))/256; 
+minval = max(Image(CropMask))/256;
 if minval == 0.0,
     soe = 0;
     return;

@@ -1,27 +1,27 @@
 function [thresh isUnimodal curvature smoothTest tcurv] = Threshold_Tsai(image,fsize)
 % Extra outputs, for troubleshooting:
 % isUnimodal curvature smoothTest tcurv
-% 
-% Here's the code. I've expanded my analysis to a few more image sets, and it 
-% still seems to be doing a good job- I was having a bit of a problem with 
-% false peaks (i.e. a "bumpy" background distribution), but I added a few 
-% lines of code to deal with that issue. Like I said previously, for images 
-%     with a really tight background distribution, and then a more spread out 
-%     foreground distribution, this method appears to give much better results 
-%     than the metric-based (inter-class variance, entropy, etc.). The exact 
+%
+% Here's the code. I've expanded my analysis to a few more image sets, and it
+% still seems to be doing a good job- I was having a bit of a problem with
+% false peaks (i.e. a "bumpy" background distribution), but I added a few
+% lines of code to deal with that issue. Like I said previously, for images
+%     with a really tight background distribution, and then a more spread out
+%     foreground distribution, this method appears to give much better results
+%     than the metric-based (inter-class variance, entropy, etc.). The exact
 %     paper the original algorithm was pulled from is:
-% Du-Ming Tsai. A fast thresholding selection procedure for multimodal and 
+% Du-Ming Tsai. A fast thresholding selection procedure for multimodal and
 % unimodal histograms. Pattern Recognition Letters 16(6): 653-666 (1995)
-% 
-% I'm happy to give more info on my implementation, and to take any 
-% suggestions on its further improvement. Like I said, my experience is a 
+%
+% I'm happy to give more info on my implementation, and to take any
+% suggestions on its further improvement. Like I said, my experience is a
 % really nonexistent when it comes to this stuff, so I won't be surprised if
 % the algorithm suffers from limited range of application.
-% 
-% When I put it in CPthreshold, I used a secondary function (Tsai.m) to call 
-% Threshold_Tsai and provide the whole means of dealing with cropped images, 
+%
+% When I put it in CPthreshold, I used a secondary function (Tsai.m) to call
+% Threshold_Tsai and provide the whole means of dealing with cropped images,
 % similar to the existing threshold functions.
-% 
+%
 %
 % This thresholding method uses feature extraction from the image histogram
 % to set the threshold: it finds the valley between the foreground

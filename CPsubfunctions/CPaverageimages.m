@@ -36,7 +36,7 @@ if strcmpi(Mode,'DoNow')
     %%% Retrieves the path where the images are stored from the
     %%% handles structure.
     fieldname = ['Pathname', ImageName];
-    try 
+    try
 		Pathname = handles.Pipeline.(fieldname);
 	catch
 		error('Image processing was canceled because the CPaverageimages subfunction (which is used by Make Projection and Correct Illumination modules) uses all the images in a set in its calculations. Therefore, the entire image set to be averaged must exist prior to processing the first image set through the pipeline. In other words, the module using CPaverageimages must be run straight from a LoadImages module rather than following an image analysis module. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this module onward.')
@@ -44,7 +44,7 @@ if strcmpi(Mode,'DoNow')
     %%% Retrieves the list of filenames where the images are stored
     %%% from the handles structure.
     fieldname = ['FileList', ImageName];
-    try 
+    try
         if ~isImageGroups,
             FileList = handles.Pipeline.(fieldname);
         else
@@ -72,7 +72,7 @@ if strcmpi(Mode,'DoNow')
     NumberOfImages = length(FileList);
     for i = 2:length(FileList)
         OrigImage = ImageLoader(handles,ImageName,Pathname,FileList,i);
-		
+
         %%% Checks that the original image is two-dimensional (i.e.
         %%% not a color image), which would disrupt several of the
         %%% image functions.
@@ -147,17 +147,17 @@ elseif strcmpi(Mode,'Accumulate')
     ProjectedImage = CPretrieveimage(handles,ProjectionImageName,ModuleName);
     %%% Retrieves the current number of images analyzed
     NumberOfActualImages = CPretrieveimage(handles,'NumberOfActualImages',ModuleName);
-    
+
     if has_mask
-        mask = CPretrieveimage(handles,mask_fieldname,ModuleName); 
-        
+        mask = CPretrieveimage(handles,mask_fieldname,ModuleName);
+
         OutputImage = ProjectedImage + OrigImage .* mask;
         MaskCountImage = CPretrieveimage(handles,MaskCountImageName,ModuleName);
         MaskCountImage = MaskCountImage + mask;
         MaskImage = MaskCountImage > 0;
         NumberOfActualImages = NumberOfActualImages + 1;
         OutputImage = OutputImage./max(MaskCountImage,1);
-        
+
         handles = CPaddimages(handles,MaskCountImageName,MaskCountImage);
         if SetBeingAnalyzed == NumberOfImageSets
             %%% Divides by the total number of images in order to average.
@@ -167,7 +167,7 @@ elseif strcmpi(Mode,'Accumulate')
         %%% Adds the current image to it.
         OutputImage = ProjectedImage + OrigImage;
         NumberOfActualImages = NumberOfActualImages + 1;
-        
+
         %%% If the last image set has just been processed, indicate that
         %%% the projection image is ready.
         MaskImage = ones(size(OutputImage));
@@ -178,14 +178,14 @@ elseif strcmpi(Mode,'Accumulate')
             ReadyFlag = 1;
         end
     end
-    
+
     %%% Saves the updated projection image to the handles structure.
     handles = CPaddimages(handles,ProjectionImageName,OutputImage);
     handles = CPaddimages(handles,'NumberOfActualImages',NumberOfActualImages);
 end
 
 function LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,idx)
-		
+
 if ~isfield(handles.Pipeline,['FileFormat',ImageName])
 	LoadedImage = CPimread(fullfile(Pathname,char(FileList(idx))));
 else
@@ -197,6 +197,6 @@ else
 		warning('on','CPtiffread:IgnoredTiffEntryWithTag');
 		LoadedImage = im2double(LoadedRawImage.data);
 	elseif any(strcmpi(FileFormat,{'tif','tiff','flex'}))
-		LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));  
+		LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));
 	end
 end

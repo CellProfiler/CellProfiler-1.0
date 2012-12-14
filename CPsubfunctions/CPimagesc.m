@@ -37,7 +37,7 @@ else
 end
 
 %%% Embeds the Image tool submenu so that it appears when the user clicks
-%%% on the image. 
+%%% on the image.
 set(h,'ButtonDownFcn','CPimagetool');
 
 %%% Link any image axis limits together so zoom/pan is reflected in all axes
@@ -45,10 +45,10 @@ if exist('linkaxes','file'),    % Make sure linkaxes exists (available in > R13)
     % Will need to change this line if the image tags are ever set
     AllAxesHandles = get(findobj(CurrentFig,'type','image','ButtonDownFcn','CPimagetool'),'parent');
     if iscell(AllAxesHandles), AllAxesHandles = cell2mat(AllAxesHandles); end
-    
+
     %%% Make sure the axis limits are the same in all axes, otherwise
     %%% linkaxes will adjust them all to the same value (which would be bad)
-    AllAxesLimits = [get(AllAxesHandles,'xlim') get(AllAxesHandles,'ylim')]; 
+    AllAxesLimits = [get(AllAxesHandles,'xlim') get(AllAxesHandles,'ylim')];
     if size(AllAxesLimits,1) > 1,
         AllAxesLimits = cell2mat(AllAxesLimits);
         if size(unique(AllAxesLimits,'rows'),1) == 1,
@@ -71,7 +71,7 @@ ImageHandles = findobj(CurrentFig,'Type','Image');
 FigUserData = get(CurrentFig,'Userdata');
 
 Font = handles.Preferences.FontSize;
- 
+
 if isempty(findobj(CurrentFig,'tag','ToggleColorR')),
     uicontrol('Style', 'checkbox', ...
         'Units','normalized',...
@@ -99,7 +99,7 @@ if isempty(findobj(CurrentFig,'tag','ToggleColorB')),
         'max',1,'value',1,'tag','ToggleColorB','string','B');
 end
 
-%%% The RBG buttons default to being drawn for each individual axes object, 
+%%% The RBG buttons default to being drawn for each individual axes object,
 %%% but we delete RGB buttons if there are no color images in the figure
 if isfield(FigUserData,'MyHandles')
     for i = length(ImageHandles):-1:1

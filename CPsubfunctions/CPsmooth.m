@@ -24,10 +24,10 @@ function [SmoothedImage RealFilterLength SizeOfSmoothingFilterUsed] = CPsmooth(O
 %
 % $Revision$
 
-%%% If SizeOfSmoothingFilter(S) >= LARGESIZE_OF_SMOOTHINGFILTER (L), 
+%%% If SizeOfSmoothingFilter(S) >= LARGESIZE_OF_SMOOTHINGFILTER (L),
 %%% then rescale the original image by L/S, and rescale S to L.
 %%% It is a predefined effective maximum filter size (diameter).
-LARGESIZE_OF_SMOOTHINGFILTER = 50; 
+LARGESIZE_OF_SMOOTHINGFILTER = 50;
 
 SmoothedImage = OrigImage;
 RealFilterLength = 0;
@@ -180,7 +180,7 @@ switch lower(SmoothingMethod)
             SmoothedImage(MaskImage~=0) = SmoothedImage(MaskImage~=0) ./ SmoothedMask(MaskImage~=0);
             SmoothedImage(~MaskImage) = 0;
         end
-%       [Kyungnam Jul-30-2007: The following old code that was replaced with the above code has been left for reference]        
+%       [Kyungnam Jul-30-2007: The following old code that was replaced with the above code has been left for reference]
 %         FiltLength = min(30,max(1,ceil(2*sigma))); % Determine filter size, min 3 pixel, max 61
 %         [x,y] = meshgrid(-FiltLength:FiltLength,-FiltLength:FiltLength);      % Filter kernel grid
 %         f = exp(-(x.^2+y.^2)/(2*sigma^2));f = f/sum(f(:));                    % Gaussian filter kernel
@@ -202,16 +202,16 @@ switch lower(SmoothingMethod)
         if HasMask
             SmoothedImage = mean(OrigImage(MaskImage~=0)) * ones(size(OrigImage));
         else
-            SmoothedImage = mean(OrigImage(:))*ones(size(OrigImage));        
+            SmoothedImage = mean(OrigImage(:))*ones(size(OrigImage));
         end
 %       [Kyungnam Jul-30-2007: If you want to use the traditional averaging filter, use the following]
 %        h = fspecial('average', [SizeOfSmoothingFilter SizeOfSmoothingFilter]);
 %        SmoothedImage = imfilter(OrigImage, h, 'replicate');
     case 'remove brightroundspeckles'
-        %%% It does a grayscale open morphological operation. Effectively, 
+        %%% It does a grayscale open morphological operation. Effectively,
         %%% it removes speckles of SizeOfSmoothingFilter brighter than its
         %%% surroundings. If combined with the 'Subtract' module, it
-        %%% behaves like a tophat filter        
+        %%% behaves like a tophat filter
         SPECKLE_RADIUS = round(SizeOfSmoothingFilter/2);
         disk_radius = round(SPECKLE_RADIUS);
         SE = strel('disk', disk_radius);
@@ -254,11 +254,11 @@ switch lower(SmoothingMethod)
     otherwise
         if ~strcmp(SmoothingMethod,'N');
             error('The smoothing method you specified is not valid. This error should not have occurred. Check the code in the module or tool you are using or let the CellProfiler team know.');
-        end       
+        end
 end
 
 %%% Resize back to original if resized earlier due to the large filter size
 if Resized
-    SmoothedImage = imresize(SmoothedImage, [original_row original_col]);  
+    SmoothedImage = imresize(SmoothedImage, [original_row original_col]);
     RealFilterLength = RealFilterLength * ResizingFactor;
 end

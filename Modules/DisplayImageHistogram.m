@@ -11,7 +11,7 @@ function handles = DisplayImageHistogram(handles)
 % input image. The histogram can then be saved using the SaveImages module.
 %
 % Settings:
-% 
+%
 % How many histograms bins would you like to use?
 % Choose how many bins to use (i.e. in how many sets do you want the data
 % distributed).
@@ -21,7 +21,7 @@ function handles = DisplayImageHistogram(handles)
 % bins. The minimum value is the threshold at which any measurements less
 % than this value will be combined into the leftmost bin. The maximum value
 % is the threshold at which any measurements greater than or equal to this
-% value will be combined into the rightmosot bin. 
+% value will be combined into the rightmosot bin.
 %
 % See also DisplayHistogram, MeasureObjectAreaShape,
 % MeasureObjectIntensity, MeasureTexture, MeasureCorrelation,

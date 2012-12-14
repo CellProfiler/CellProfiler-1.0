@@ -183,18 +183,18 @@ else
     if isempty(FeatureNumOrName)
         error(['Image processing was canceled in the ', ModuleName, ' module because your entry for feature number is not valid.']);
     end
-    
+
     if strcmp(Category,'Intensity') || strcmp(Category,'Texture') && ~RulesFlag
         OrigImage = CPretrieveimage(handles,ImageName,ModuleName,'MustBeGray','CheckScale');
     else
         OrigImage = CPretrieveimage(handles,ImageName,ModuleName,'DontCheckColor','CheckScale');
     end
     LabelMatrixImage = CPretrieveimage(handles,['Segmented' ObjectName],ModuleName,'MustBeGray','DontCheckScale');
-    
+
     try
         FeatureName = CPgetfeaturenamesfromnumbers(handles, ObjectName, ...
             Category, FeatureNumOrName, ImageName, SizeScale);
-        
+
     catch
         error([lasterr '  Image processing was canceled in the ', ModuleName, ...
             ' module (#' num2str(CurrentModuleNum) ...
@@ -206,19 +206,19 @@ else
             'Texture Scale = ' num2str(SizeScale) '.']);
     end
     MeasureInfo = handles.Measurements.(ObjectName).(FeatureName){SetBeingAnalyzed};
-    
+
     if strcmpi(MinValue1, 'No minimum')
         MinValue1 = -Inf;
     else
         MinValue1 = str2double(MinValue1);
     end
-    
+
     if strcmpi(MaxValue1, 'No maximum')
         MaxValue1 = Inf;
     else
         MaxValue1 = str2double(MaxValue1);
     end
-    
+
     if strcmpi(MinValue1, 'No minimum') && strcmpi(MaxValue1, 'No maximum')
         CPwarndlg(['No objects are being filtered with the default settings in ' ...
             ModuleName ' (module #' num2str(CurrentModuleNum) ')'])
@@ -233,7 +233,7 @@ drawnow
 if RulesFlag
     numObj = max(LabelMatrixImage(:));
     [ToBeFilteredOut,RulesPathFilename] = ApplyRules(RulesFileName,RulesPathName,handles.Measurements,SetBeingAnalyzed,numObj);
-else 
+else
     ToBeFilteredOut = find((MeasureInfo < MinValue1) | (MeasureInfo > MaxValue1));
 end
 FinalLabelMatrixImage = LabelMatrixImage;
@@ -277,7 +277,7 @@ if any(findobj == ThisModuleFigureNumber)
     if SetBeingAnalyzed == handles.Current.StartingImageSet
         CPresizefigure(LabelMatrixImage,'TwoByTwo',ThisModuleFigureNumber);
     end
-    
+
     %%% A subplot of the figure window is set to display the original
     %%% image.
     if ~RulesFlag
@@ -285,21 +285,21 @@ if any(findobj == ThisModuleFigureNumber)
         CPimagesc(OrigImage,handles,hAx);
         title(hAx,['Input Image, cycle # ',num2str(SetBeingAnalyzed)]);
     end
-    
+
     %%% A subplot of the figure window is set to display the label
     %%% matrix image.
     hAx=subplot(2,2,3,'Parent',ThisModuleFigureNumber);
     UnfilteredLabelMatrixImage = CPlabel2rgb(handles,LabelMatrixImage);
     CPimagesc(UnfilteredLabelMatrixImage,handles,hAx);
     title(hAx,['Original ',ObjectName]);
-        
+
     text(0.1,-0.18,...
         ['Number of objects filtered out = ' num2str(length(ToBeFilteredOut(:)))],...
         'Color','black',...
         'fontsize',handles.Preferences.FontSize,...
         'Units','Normalized',...
         'Parent',hAx);
-    
+
     %%% A subplot of the figure window is set to display the Overlaid image,
     %%% where the maxima are imposed on the inverted original image
     hAx=subplot(2,2,2,'Parent',ThisModuleFigureNumber);
@@ -310,7 +310,7 @@ if any(findobj == ThisModuleFigureNumber)
     else
         title(hAx,[ObjectName,' filtered by ',FeatureName]);
     end
-    
+
     if ~RulesFlag
         hAx=subplot(2,2,4,'Parent',ThisModuleFigureNumber);
         CPimagesc(ObjectOutlinesOnOrigImage,handles,hAx);

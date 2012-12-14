@@ -19,17 +19,17 @@ function handles = IdentifyObjectsInGrid(handles)
 % identify objects of interest in a previous Identify module, and the
 % locations and/or shapes of these rough objects are refined in this
 % module. Within this module, objects are re-numbered according to the grid
-% definitions rather than their original numbering from the original 
-% Identify module. For the Natural Shape option, if an object does not 
-% exist within a grid compartment, an object consisting of one single pixel 
-% in the middle of the grid square will be created. Also, for the Natural 
-% Shape option, if a grid compartment contains two partial objects, they 
+% definitions rather than their original numbering from the original
+% Identify module. For the Natural Shape option, if an object does not
+% exist within a grid compartment, an object consisting of one single pixel
+% in the middle of the grid square will be created. Also, for the Natural
+% Shape option, if a grid compartment contains two partial objects, they
 % will be combined together as a single object.
 %
 % If placing the objects within the grid is impossible for some reason (the
 % grid compartments are too close together to fit the proper sized circles,
 % for example) the grid will fail and processing will be canceled unless
-% you choose to re-use any previous grid or the first grid in the in the 
+% you choose to re-use any previous grid or the first grid in the in the
 % image cycle.
 %
 % Special note on saving images: Using the settings in this module, object
@@ -65,22 +65,22 @@ function handles = IdentifyObjectsInGrid(handles)
 % (1) What did you call the grid previously defined? (GridName)
 % (2) What do you want to call the objects identified by this module?
 % (NewObjectName)
-% (3a) Would you like the objects to be defined as rectangles that fill the 
+% (3a) Would you like the objects to be defined as rectangles that fill the
 % grid element, circles within the grid at forced locations, circles within
 % the grid at their natural locations, or objects that retain their natural
 % shape? The last two options are based on objects previously identified (Shape)
-% (3b) (Show if any of "Circle" options selected) How do you want to calculate the 
+% (3b) (Show if any of "Circle" options selected) How do you want to calculate the
 %   diameter of each grid object in pixels? "Automatic" calculates the diameter
-%   as the average diameter of previously identified objects (Automatic or 
+%   as the average diameter of previously identified objects (Automatic or
 %   User-specfied)
 % (3bi) (Show if "User-specified" selected) What diameter do you want to the
 %   grid objects to have? (Diameter)
-% (3c) (Show if "Natural shape", "Circle natural location", or "Circle" option 
-% with an automatically calculated diameter) What did you call the objects 
+% (3c) (Show if "Natural shape", "Circle natural location", or "Circle" option
+% with an automatically calculated diameter) What did you call the objects
 % that you previously identified? (OldObjectName)
-% (4) What do you want to call the outlines of the identified objects? Use 
+% (4) What do you want to call the outlines of the identified objects? Use
 % "Do not use" to ignore. (SaveOutlines)
-% (5a) If the attempt to create a grid fails in this cycle, would you like 
+% (5a) If the attempt to create a grid fails in this cycle, would you like
 %   to replace it with a prior successful grid? (Yes/No)
 % (5b) (Show if "Yes" to above) Which grid would you like to use? (Most
 % recent, First successful)
@@ -274,14 +274,14 @@ if strcmp(FailedGridChoice,'Any Previous') || strcmp(FailedGridChoice,'The First
             YDiv = GridInfo.YSpacing;
             Rows = GridInfo.Rows;
             Cols = GridInfo.Columns;
-            
+
             VertLinesX = Grid.VertLinesX;
             VertLinesY = Grid.VertLinesY;
             HorizLinesX = Grid.HorizLinesX;
             HorizLinesY = Grid.HorizLinesY;
             SpotTable = Grid.SpotTable;
         end
-        
+
         handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(GridName,'DefinedGrid','GridFailed'), 1);
     else
         %%% If we arrive here, the grid placement has succeeded.
@@ -373,13 +373,13 @@ if any(findobj == ThisModuleFigureNumber)
         CPresizefigure(FinalLabelMatrixImage,'TwoByOne',ThisModuleFigureNumber)
     end
     ColoredLabelMatrixImage = CPlabel2rgb(handles,FinalLabelMatrixImage);
-    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber); 
+    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
     CPimagesc(ColoredLabelMatrixImage,handles,hAx);
     color = [.15 .15 .15];
     line(VertLinesX,VertLinesY,'Parent',hAx,'color',color);
     line(HorizLinesX,HorizLinesY,'Parent',hAx,'color',color);
     title(hAx,['Identified ',NewObjectName]);
-    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber); 
+    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber);
     CPimagesc(FinalOutline,handles,hAx);
     line(VertLinesX,VertLinesY,'Parent',hAx,'color',color);
     line(HorizLinesX,HorizLinesY,'Parent',hAx,'color',color);

@@ -18,7 +18,7 @@ for i = 1:NumSplitMovies
     try movie2avi(LoadedRawImages,NewFileAndPathName)
     catch
         error('problem encountered during save')
-        return
+        return;
     end
     LastFrameRead = i*FramesPerSplitMovie;
 end

@@ -19,10 +19,10 @@ function handles = MeasureImageQuality(handles,varargin)
 % PercentMaximal       |         5
 %
 % In addition, an OrigThreshold value is added to the Image measurements
-% under the MeasureImageQuality category. 
+% under the MeasureImageQuality category.
 %
-% Lastly, the following measurements are placed in the Experiment category: 
-% MeanThreshold 
+% Lastly, the following measurements are placed in the Experiment category:
+% MeanThreshold
 % MedianThreshold
 % StdevThreshold
 %
@@ -60,34 +60,34 @@ function handles = MeasureImageQuality(handles,varargin)
 % FocusScore{ImageNumber} = ...
 %    sum(SquaredNormalizedImage(:))/(m*n*MeanImageValue);
 %
-% The above score is to measure a relative score given a focus setting of 
+% The above score is to measure a relative score given a focus setting of
 % a certain microscope. Using this, one can calibrrate the microscope's
 % focus setting. However it doesn't necessarily tell you how well an image
 % was focused when taken. That means these scores obtained from many different
 % images probably taken in different situations and with different cell
 % contents can not be used for focus comparison.
-% 
-% The LocalFocusScore is a local version of the original FocusScore. 
-% LocalFocusScore was just named after the original one to be consistent 
-% with naming. Note that these focus scores do not necessarily 
-% represent the qualities of focusing between different images. 
-% LocalFocusScore was added to differentiate good segmentation and bad 
-% segmentation images in the cases when bad segmentation images usually 
+%
+% The LocalFocusScore is a local version of the original FocusScore.
+% LocalFocusScore was just named after the original one to be consistent
+% with naming. Note that these focus scores do not necessarily
+% represent the qualities of focusing between different images.
+% LocalFocusScore was added to differentiate good segmentation and bad
+% segmentation images in the cases when bad segmentation images usually
 % contain no cell objects with high background noise.
 %
 % Example Output:
-% 
+%
 % Percent of pixels that are Saturated:
 % RescaledOrig:     0.002763
-% 
+%
 % Percent of pixels that are in the Maximal
 % Intensity:
 % RescaledOrig:     0.0002763
 %
-% 
+%
 % Focus Score:
 % RescaledOrig: 0.016144
-% 
+%
 % Suggested Threshold:
 % Orig: 0.0022854
 %
@@ -112,7 +112,7 @@ function handles = MeasureImageQuality(handles,varargin)
 % Recommended variable order (setting, followed by current variable in MATLAB CP)
 % (1) What grayscale image would you like to use to measure image quality?
 % (NameImageToCheck)
-% (2) The local focus score is measured within an NxN pixel window applied 
+% (2) The local focus score is measured within an NxN pixel window applied
 % to the image. What value of N would you like to use? A suggested value
 % is twice the average object diameter. (WindowSize)
 % (3) Would you like to check for image saturation on this image?
@@ -124,7 +124,7 @@ function handles = MeasureImageQuality(handles,varargin)
 % images, prompting with question (1).
 % (ii) A range of N values should be allowable for (2) so additional
 % modules are not needed
-% (iii) The prompt for (4b) should appear only if the user selects 'yes' to (4a) 
+% (iii) The prompt for (4b) should appear only if the user selects 'yes' to (4a)
 % (iv) Another nice feature would be to test several thresholding methods
 % for each image. The reason is that I may not know which thresholding
 % method I might want to use right away, so seeing the results from several
@@ -182,7 +182,7 @@ NameImageToThresh{1} = char(handles.Settings.VariableValues{CurrentModuleNum,4})
 %choiceVAR05 = Kapur Adaptive
 %choiceVAR05 = Kapur PerObject
 ThresholdMethod{1} = char(handles.Settings.VariableValues{CurrentModuleNum,5});
-%inputtypeVAR05 = popupmenu 
+%inputtypeVAR05 = popupmenu
 
 %textVAR06 = Which grayscale image would you like to use to check for saturation?
 %choiceVAR06 = Do not use
@@ -290,7 +290,7 @@ ThresholdMethod{4} = char(handles.Settings.VariableValues{CurrentModuleNum,14});
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -340,7 +340,7 @@ for ImageNumber = 1:length(NameImageToCheck);
     %%% Reads (opens) the images you want to analyze and assigns them to
     %%% variables.
     ImageToCheck{ImageNumber} = CPretrieveimage(handles,NameImageToCheck{ImageNumber},ModuleName,'MustBeGray','CheckScale'); %#ok Ignore MLint
-   
+
     NumberPixelsSaturated = sum(sum(ImageToCheck{ImageNumber} == 1));
     NumberPixelsMaximal = sum(sum(ImageToCheck{ImageNumber} == max(ImageToCheck{ImageNumber}(:))));
     [m,n] = size(ImageToCheck{ImageNumber});
@@ -348,7 +348,7 @@ for ImageNumber = 1:length(NameImageToCheck);
     PercentPixelsSaturated = 100*NumberPixelsSaturated/TotalPixels;
     PercentSaturation{ImageNumber} = PercentPixelsSaturated;  %#ok Ignore MLint
     PercentMaximal{ImageNumber} = 100*NumberPixelsMaximal/TotalPixels;
-    
+
     %%% Checks the focus of the images, if desired.
     if ~strcmpi(BlurCheck,'N')
         %         Old method of scoring focus, not justified
@@ -373,12 +373,12 @@ for ImageNumber = 1:length(NameImageToCheck);
             FocusScore{ImageNumber} = sum(SquaredNormalizedImage(:))/(m*n*MeanImageValue);
         end
 
-        %%% Local normalized variance 
+        %%% Local normalized variance
         % WindowSize = 15; %%I'm commenting out this line because it looks
         % like an error.  Why would we want to ask the user to specify a
         % window size if we are going to over-ride it? -Martha 2008-05-22
         m_numblocks = floor(m/WindowSize);
-        n_numblocks = floor(n/WindowSize); 
+        n_numblocks = floor(n/WindowSize);
         LocalNormVar = zeros(m_numblocks,n_numblocks);
         for i = 1 : m_numblocks
             for j = 1 : n_numblocks
@@ -391,8 +391,8 @@ for ImageNumber = 1:length(NameImageToCheck);
                     LocalNormVar(i,j) = sum(SubSquaredNormalizedImage(:))/(WindowSize*WindowSize*SubMeanImageValue);
                 end
             end
-        end      
-        %%% Different statistics testing and chose normvarLocalNormVar 
+        end
+        %%% Different statistics testing and chose normvarLocalNormVar
         %meanLocalNormVar{ImageNumber} = mean(LocalNormVar(:));
         %medianLocalNormVar{ImageNumber} = median(LocalNormVar(:));
         %minLocalNormVar{ImageNumber} = min(LocalNormVar(:));
@@ -400,7 +400,7 @@ for ImageNumber = 1:length(NameImageToCheck);
         %modeLocalNormVar{ImageNumber} = mode(LocalNormVar(:));
         %varLocalNormVar{ImageNumber} = var(LocalNormVar(:));
         %normvarLocalNormVar{ImageNumber} = var(LocalNormVar(:))/mean(LocalNormVar(:));
-        
+
         if median(LocalNormVar(:)) == 0
             normvarLocalNormVar2 = 0;
         else
@@ -411,7 +411,7 @@ for ImageNumber = 1:length(NameImageToCheck);
         FocusScore{ImageNumber} = [];
         LocalFocusScore{ImageNumber} = [];
     end
-    
+
     handles = CPaddmeasurements(handles, 'Image', ...
         CPjoinstrings(MeasurementPrefix,'FocusScore',NameImageToCheck{ImageNumber},num2str(WindowSize)), ...
         FocusScore{ImageNumber});
@@ -483,7 +483,7 @@ if any(findobj == ThisModuleFigureNumber)
     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         CPresizefigure('','NarrowText',ThisModuleFigureNumber)
     end
-    
+
     if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl'))
         displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text','units','normalized','position', [0.1 0.1 0.8 0.8],'fontname','helvetica','backgroundcolor',[.7 .7 .9],'horizontalalignment','left','FontSize',handles.Preferences.FontSize);
     else
@@ -529,7 +529,7 @@ if any(findobj == ThisModuleFigureNumber)
                 end
             end
         end
-    end  
+    end
 
     DisplayText = strvcat(DisplayText,'      ',...
         'Suggested Threshold:');

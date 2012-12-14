@@ -9,7 +9,7 @@ function FilledLabelMatrix = CPfill_holes(LabelMatrix)
 
 MaximaImage = ordfilt2(LabelMatrix, 5, [0 1 0; 1 1 1 ; 0 1 0]);
 ZerosMaxima = MaximaImage .* (LabelMatrix == 0);
-        
+
 %%% Likewise, for every zero pixel, find its smallest adjacent
 %%% label.  A little trickier, since we need to ignore zeros.
 %%% replace 0s with a unique label

@@ -5,7 +5,7 @@ function handles = DICTransform(handles)
 %
 % SHORT DESCRIPTION:
 % Transforms a DIC image to more readily enable object identification.
-% 
+%
 % ************************************************************************
 %
 % Typically, identifying objects with algorithms like those in
@@ -14,7 +14,7 @@ function handles = DICTransform(handles)
 % background. This module provides several algorithms for transforming a
 % DIC image to enhance the brightness of objects relative to the
 % background.
-% 
+%
 %
 % Settings:
 %
@@ -44,7 +44,7 @@ function handles = DICTransform(handles)
 %%%%%%%%%%%%%%%%%
 
 % pyCP notes:
-% (1) There needs to be more Help on all the individual 
+% (1) There needs to be more Help on all the individual
 %   transformation method settings. In particular, there's no mention in
 %   the help of when Hilbert transform is useful - can
 % we provide some guidance on that?  More info might be found here:
@@ -210,13 +210,13 @@ if any(findobj == ThisModuleFigureNumber)
         CPresizefigure(OrigImage,'TwoByOne',ThisModuleFigureNumber)
     end
     %%% A subplot of the figure window is set to display the original image.
-    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber); 
-    CPimagesc(OrigImage,handles,hAx); 
+    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
+    CPimagesc(OrigImage,handles,hAx);
     title(hAx,['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
     %%% A subplot of the figure window is set to display the Transformed
     %%% Image.
-    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber); 
-    CPimagesc(TransformedImage,handles,hAx); 
+    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber);
+    CPimagesc(TransformedImage,handles,hAx);
     title(hAx,'Transformed Image');
 end
 

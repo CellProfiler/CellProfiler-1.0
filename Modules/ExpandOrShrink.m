@@ -48,7 +48,7 @@ function handles = ExpandOrShrink(handles)
 %
 % $Revision$
 
-% Variable settings for PyCP 
+% Variable settings for PyCP
 % For Var05, I think the choices should be:
 % 'Shrink objects to a point'
 % 'Expand objects til touching'
@@ -56,11 +56,11 @@ function handles = ExpandOrShrink(handles)
 % 'Expand objects by specified number of pixels: [edit box for #]
 % 'Shrink objects by specified number of pixels: [edit box for #]
 %
-% & eliminate Var04 (change wording of var05 to something like 'How do you want to shrink or expand your objects?').  
+% & eliminate Var04 (change wording of var05 to something like 'How do you want to shrink or expand your objects?').
 % In general I think it's best to let the options be
 % very specific rather than having the actual variable question be long and
 % explicative and requiring the user input several variables.
-% 
+%
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%
@@ -208,7 +208,7 @@ elseif strcmp(ShrinkOrExpand,'Expand')
 	  fooindex = find(OriginalLabel);                    % Find index to a nonzero element, i.e. to the original label number
 	  FinalShrunkenUneditedSegmentedImage(index) = OriginalLabel(fooindex(1)); % Put new label on expanded object
 	end
-	  
+
         [L,num] = bwlabel(ShrunkenSmallRemovedSegmentedImage);
         FinalShrunkenSmallRemovedSegmentedImage = zeros(size(ShrunkenSmallRemovedSegmentedImage));
         for k = 1:num

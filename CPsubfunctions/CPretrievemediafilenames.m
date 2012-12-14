@@ -10,7 +10,7 @@ function [handles,FileNames] = CPretrievemediafilenames(handles, Pathname, TextT
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$ 
+% $Revision$
 
 if strncmpi(recurse,'S',1) && ~isfield(handles.Pipeline,'PathNameSubFolders')
     SelectDirType = CPquestdlg('Do you want to select directories using a dialog box, or entering a text list of directories from a string or a file?','Choose Image Subfolder','Dialog','Text','Cancel','Dialog');
@@ -36,7 +36,7 @@ if strncmpi(recurse,'S',1) && ~isfield(handles.Pipeline,'PathNameSubFolders')
                 CPmsgbox(char(Directories), 'SubDirectories chosen:','help','replace');
 
                 % Make sure the selected directories all lie under the Default Image path
-                % Here, characters are treated like numbers in order to find where the 
+                % Here, characters are treated like numbers in order to find where the
                 % difference lies between the DefaultImage path and the selected
                 % path.
                 str = strvcat(Pathname,Directories{idx});
@@ -67,7 +67,7 @@ if strncmpi(recurse,'S',1) && ~isfield(handles.Pipeline,'PathNameSubFolders')
             end
         case 'Text'
             SelectTextType = CPquestdlg('Do you want to enter a text string of directories or select a text file?','Choose Image Subfolder','String','File','Cancel','String');
-    
+
             switch lower(SelectTextType)
                 case 'string'
                 Directories = CPinputdlg(['Enter the text string with the directories. Each path should be separated with a "',pathsep,'"'],'Enter Image Subfolders');
@@ -85,24 +85,24 @@ if strncmpi(recurse,'S',1) && ~isfield(handles.Pipeline,'PathNameSubFolders')
         case 'Cancel'
             error('Processing was stopped because the user chose Cancel');
     end
-    
+
     % Recurse selected subdirectories
-    SelectedDirectoryTree = []; 
-    for i = 1:length(Directories), 
-        SelectedDirectoryTree = cat(1,SelectedDirectoryTree,CPgetdirectorytree(Directories{i})); 
-    end; 
+    SelectedDirectoryTree = [];
+    for i = 1:length(Directories),
+        SelectedDirectoryTree = cat(1,SelectedDirectoryTree,CPgetdirectorytree(Directories{i}));
+    end;
     [handles.Pipeline.PathNameSubFolders,Directories] = deal(SelectedDirectoryTree(:)');
-    
+
 elseif strncmpi(recurse,'Y',1) && ~isfield(handles.Pipeline,'PathNameSubFolders')
     % CPselectdirectories is still too slow for a lot of subfolders on
     % bcb_image
     Directories = CPgetdirectorytree(Pathname);
     %         Directories= CPselectdirectories(Directories);
     handles.Pipeline.PathNameSubFolders = Directories;
-    
+
 elseif isfield(handles.Pipeline,'PathNameSubFolders') && ~strcmpi(ImageOrMovie,'Both')
     % This is only used for multiple channels, so that Directories is set to PathNameSubFolders after the first channel
-    % The 'Both' protection is used because CellProfiler.m, which just happens to be the only function that uses the 'Both' argument, 
+    % The 'Both' protection is used because CellProfiler.m, which just happens to be the only function that uses the 'Both' argument,
     % runs a DefaultImageDirectory check which calls this subfn and
     % occurs before handles.Pipeline is cleared, so that PathNameSubFolders is still hanging around even after Analyze Images is clicked.
     Directories = handles.Pipeline.PathNameSubFolders;

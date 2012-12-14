@@ -19,7 +19,7 @@ function FeatureName = CPgetfeaturenamesfromnumbers(handles,ObjectName,Category,
 
 % $Revision$
 
-% Note!!  We are relying on the fact that the features should have been 
+% Note!!  We are relying on the fact that the features should have been
 % added in the order matching that of each Module's Help text!
 
 error(nargchk(4, 6, nargin, 'string'))
@@ -67,7 +67,7 @@ elseif strcmp(Category,'Neighbors') || ...
 % Nothing to do.  These should have all arguments specified
 elseif strcmp(Category,'Correlation')
 % Children is special because 'Count' is added in CPrelateobjects
-elseif strcmp(Category,'Children') 
+elseif strcmp(Category,'Children')
     Image = 'Count';
     SizeScale = '';
 % Location is special because 'Center' is added in CPsaveObjectLocations
@@ -78,7 +78,7 @@ elseif strcmp(Category,'Location')
     Image = FeatureNumberOrName; %% 'X' or 'Y'
     FeatureNumberOrName = 'Center';
     SizeScale = '';
-else 
+else
     % TODO: SaturationBlur
     error('Measurement category could not be found.')
 end
@@ -89,7 +89,7 @@ if isnumeric(FeatureNumberOrName)
     FieldnumsCategoryCell = regexp(AllFieldNames,CurrentMeasure);
     FieldnumsCategory = find(~cellfun('isempty',FieldnumsCategoryCell));
     % Could do error checking here, since the next line is where this subfn usually errors
-    % (if it can't find a FeatureName), but we ought to use 'try/catch' in the 
+    % (if it can't find a FeatureName), but we ought to use 'try/catch' in the
     % calling function, for better error handling
     FeatureName = AllFieldNames(FieldnumsCategory(FeatureNumberOrName));
 else

@@ -15,26 +15,26 @@ function handles = SmoothOrEnhance(handles)
 % median filtering method. Artifacts with widths over ~50 take substantial
 % amounts of time to process.
 %
-% BRIGHT SPECKLE DETECTION: 'Enhance BrightRoundSpeckles' performs 
-% morphological tophat filtering, which has the effect of enhancing round 
-% objects with size equal to, or slightly smaller than, the ObjectWidth setting. 
-%   'Remove BrightRoundSpeckles' is a filtering method to remove bright, round 
-% speckles, equivalent to a morphological open operation (an erosion followed by a dilation).  
+% BRIGHT SPECKLE DETECTION: 'Enhance BrightRoundSpeckles' performs
+% morphological tophat filtering, which has the effect of enhancing round
+% objects with size equal to, or slightly smaller than, the ObjectWidth setting.
+%   'Remove BrightRoundSpeckles' is a filtering method to remove bright, round
+% speckles, equivalent to a morphological open operation (an erosion followed by a dilation).
 % When followed by a Subtract module which subtracts the smoothed image from the original,
-% bright round-shaped speckles will be enhanced. This is effectively the 
+% bright round-shaped speckles will be enhanced. This is effectively the
 % same as 'Enhance BrightRoundSpeckles', or tophat filtering.  We used
 % MATLAB's built-in imtophat and imopen function to perform these
 % operations; more information can be found by accessing MATLAB's help at
 % http://www.mathworks.com.
-%   Then, you could use the ApplyThreshold module to make a binary 
-% speckles/non-speckles image. Furthermore, the IdentifyPrimAutomatic can 
+%   Then, you could use the ApplyThreshold module to make a binary
+% speckles/non-speckles image. Furthermore, the IdentifyPrimAutomatic can
 % be used on the thresholded image to label each speckle for your analysis.
 %
-% ENHANCE NEURITES: This method maximizes the contrast of objects slightly 
+% ENHANCE NEURITES: This method maximizes the contrast of objects slightly
 % less than the width of the Object Width setting, while leaving other
 % structures intact.  For example, this is useful for enhancing thin
-% neurite processes while leaving cell bodies morphologically intact.  
-% The algorithm applied is Orig+tophat(Orig)-bottomhat(Orig), from 
+% neurite processes while leaving cell bodies morphologically intact.
+% The algorithm applied is Orig+tophat(Orig)-bottomhat(Orig), from
 % Zhang et al., 2007, J. Neuroscience Methods.
 %
 % ENHANCE DARK HOLES: This method fills in dark holes surrounded by a
@@ -43,7 +43,7 @@ function handles = SmoothOrEnhance(handles)
 % ring diameter.
 %
 % SMOOTH KEEPING EDGES: 'Smooth Keeping Edges' smooths the images while
-% preserving the edges. It uses the Bilateral Filter, as implemented by 
+% preserving the edges. It uses the Bilateral Filter, as implemented by
 % Jiawen Chen.
 %
 % Special note on saving images: If you want to save the smoothed image to
@@ -109,7 +109,7 @@ function handles = SmoothOrEnhance(handles)
 % not really sure.
 
 % Vars 7&8: should be context-dependent and only show up if you pick Smooth
-% keeping edges.  
+% keeping edges.
 % For Var7, I've never understood what 'preserved objects' are.
 % For Var8, I dont like the idea of 0.0 being equivalent to 'calculate from
 % the image'.  This could be asked in a better way like, 'What is the
@@ -149,7 +149,7 @@ SmoothedImageName = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 SmoothingMethod = char(handles.Settings.VariableValues{CurrentModuleNum,3});
 %inputtypeVAR03 = popupmenu
 
-%textVAR04 = If you choose any setting besides 'Fit Polynomial' as your smoothing method, please specify the approximate width of the objects in your image (in pixels). This will be used to calculate an adequate filter size. If you don't know the width of your objects, you can use the ShowOrHidePixelData image tool to find out or leave the word 'Automatic'. For 'Enhance Dark Holes', a range of values may be used, separated by a hyphen. 
+%textVAR04 = If you choose any setting besides 'Fit Polynomial' as your smoothing method, please specify the approximate width of the objects in your image (in pixels). This will be used to calculate an adequate filter size. If you don't know the width of your objects, you can use the ShowOrHidePixelData image tool to find out or leave the word 'Automatic'. For 'Enhance Dark Holes', a range of values may be used, separated by a hyphen.
 %defaultVAR04 = Automatic
 ObjectWidth = handles.Settings.VariableValues{CurrentModuleNum,4};
 
@@ -194,7 +194,7 @@ if strncmpi(WaitForFlag,'Y',1) == 1
             CPfigure(handles,'Image',ThisModuleFigureNumber);
             title('Results will be shown after the last image cycle only if this window is left open.')
         end
-        return
+        return;
     elseif ReadyFlag
         %%% If the smoothed image has already been calculated, the module
         %%% aborts until the next cycle. Otherwise we continue in this
@@ -226,7 +226,7 @@ if ~strcmp(SizeOfSmoothingFilter,'Do not use')
         WidthFlg = 0;
     end
 else
-    if ~isempty(regexp(ObjectWidth,'\d+','once')) 
+    if ~isempty(regexp(ObjectWidth,'\d+','once'))
         ObjectWidth = str2double(regexp(ObjectWidth,'\d+','match'));
 		if length(ObjectWidth) == 1  % Single number,
 			if isnan(ObjectWidth) || ObjectWidth < 0
@@ -277,7 +277,7 @@ try
             % XXX - adjust such that it returns 1.0 for worm images.
             IntensityRadius = ImageMAD(OrigImage) / 2.0;
         end
-    
+
         SmoothedImage = bilateralFilter(OrigImage, OrigImage, SpatialRadius, IntensityRadius,...
             SpatialRadius / 2.0, IntensityRadius / 2.0);
     else
@@ -356,7 +356,7 @@ function MAD = ImageMAD(Image)
 % edge = data
 % sigmaSpatial = samplingSpatial = min( width, height ) / 16;
 % sigmaRange = samplingRange = ( max( edge( : ) ) - min( edge( : ) ) ) / 10
-% 
+%
 %
 function output = bilateralFilter( data, edge, sigmaSpatial, sigmaRange, samplingSpatial, samplingRange )
 
@@ -431,17 +431,17 @@ dz = round( ( edge - edgeMin ) / samplingRange ) + paddingZ + 1;
 % perform a summation to do box downsampling
 
 for k = 1 : numel( dz ),
-       
+
     dataZ = data( k ); % traverses the image column wise, same as di( k )
     if ~isnan( dataZ  ),
-        
+
         dik = di( k );
         djk = dj( k );
         dzk = dz( k );
 
         gridData( dik, djk, dzk ) = gridData( dik, djk, dzk ) + dataZ;
         gridWeights( dik, djk, dzk ) = gridWeights( dik, djk, dzk ) + 1;
-        
+
     end
 end
 

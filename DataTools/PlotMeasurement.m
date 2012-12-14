@@ -30,7 +30,7 @@ function PlotMeasurement(handles)
 
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 if FileName == 0
-    return
+    return;
 end
 fn = fullfile(Pathname, FileName);
 try
@@ -38,13 +38,13 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg('Selected file is not a CellProfiler or MATLAB file (it does not have the extension .mat).')
-    return
+    return;
 end
 
 PlotType = listdlg('Name','Choose the plot type','SelectionMode','single','ListSize',[200 200],...
     'ListString',{'Bar chart','Line chart','Scatter plot, 1 measurement','Scatter plot, 2 measurements'});
 if isempty(PlotType)
-    return
+    return;
 end
 
 if PlotType == 4
@@ -52,19 +52,19 @@ if PlotType == 4
     msg=CPmsgbox('In the following dialog, please choose measurements for the Y axis.');
     uiwait(msg);
     [Object2,Feature2] = CPgetfeature(handles, 1);
-        
+
     msg=CPmsgbox('In the following dialog, please choose measurements for the X axis.');
     uiwait(msg);
     [Object,Feature] = CPgetfeature(handles, 1);
     if isempty(Object) || isempty(Object2)
-	return
+	return;
     end
     CPplotmeasurement(handles,PlotType,[],0,Object,Feature,Object2,Feature2)
 else
     %%% Get the feature type
     [Object,Feature] = CPgetfeature(handles, 1);
     if isempty(Object)
-	return
+	return;
     end
     CPplotmeasurement(handles,PlotType,[],0,Object,Feature)
 end

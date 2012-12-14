@@ -55,7 +55,7 @@ EachOrAll = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %defaultVAR02 = 50
 SmoothingDiameter = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,2}));
 
-%textVAR03 = 
+%textVAR03 =
 
 %textVAR04 = What is the first image (aka channel) to be corrected?
 %infotypeVAR04 = imagegroup
@@ -77,7 +77,7 @@ Modality1 = char(handles.Settings.VariableValues{CurrentModuleNum,5});
 %infotypeVAR06 = imagegroup indep
 IlluminationImageName1 = char(handles.Settings.VariableValues{CurrentModuleNum,6});
 
-%textVAR07 = 
+%textVAR07 =
 
 %textVAR08 = What is the second image (aka channel) to be corrected?
 %choiceVAR08 = None
@@ -100,7 +100,7 @@ Modality2 = char(handles.Settings.VariableValues{CurrentModuleNum,9});
 %infotypeVAR10 = imagegroup indep
 IlluminationImageName2 = char(handles.Settings.VariableValues{CurrentModuleNum,10});
 
-%textVAR11 = 
+%textVAR11 =
 
 %textVAR12 = What is the third image (aka channel) to be corrected?
 %infotypeVAR12 = imagegroup
@@ -123,7 +123,7 @@ Modality3 = char(handles.Settings.VariableValues{CurrentModuleNum,13});
 %infotypeVAR14 = imagegroup indep
 IlluminationImageName3 = char(handles.Settings.VariableValues{CurrentModuleNum,14});
 
-%textVAR15 = 
+%textVAR15 =
 
 %textVAR16 = What is the fourth image (aka channel) to be corrected?
 %infotypeVAR16 = imagegroup
@@ -191,7 +191,7 @@ ImageSize = [size(Image, 1) size(Image, 2)];
 %%% We just use 10 components.
 NumberOfComponents = 10;
 
-%%% Now there are two possiblities, depending on Each or All.  
+%%% Now there are two possiblities, depending on Each or All.
 if strcmpi(EachOrAll, 'Each'),
     %%% If Each, we don't sample, we just pass the whole image into
     %%% the correction calculation.
@@ -211,7 +211,7 @@ else
         %%% We need to randomly sample the right fraction of pixels
         %%% from this image and replace the corresponding number
         %%% randomly within the sample buffer.
-        
+
         %%% Get the old samples
         SampleBuffer = handles.Pipeline.(IlluminationImageName1).Samples;
         LocationBuffer = handles.Pipeline.(IlluminationImageName1).Locations;
@@ -219,10 +219,10 @@ else
         %%% Seed the random number generator so this code is repeatable.
         RandState = rand('state');
         rand('state', handles.Current.SetBeingAnalyzed);
-        
+
         %%% get a random ordering of the data
         [ignore, Order] = sort(rand(size(Samples, 1), 1));
-        
+
         %%% Drop all but the fraction of the ordering we care about
         FractionToKeep = 5 / handles.Current.NumberOfImageSets;
         NewData = Order(1:ceil(FractionToKeep * length(Order)));
@@ -233,14 +233,14 @@ else
 
         %%% Now choose random locations to replace in the sample buffer.
         [ignore, BufferOrder] = sort(rand(size(SampleBuffer, 1), 1));
-        
+
         %%% Keep only how many we want to replace.
         OldData = BufferOrder(1:size(NewSamples, 1));
-        
+
         %%% Replace the old data with new values.
         SampleBuffer(OldData, :) = Samples(NewData, :);
         LocationBuffer(OldData, :) = Locations(NewData, :);
-        
+
         %%% Put the new buffers back into place
         handles.Pipeline.(IlluminationImageName1).Samples = SampleBuffer;
         handles.Pipeline.(IlluminationImageName1).Locations = LocationBuffer;
@@ -248,7 +248,7 @@ else
         %%% restore the random state
         rand('state', RandState);
     end
-    
+
     %%% Is this the last image set?
     if handles.Current.SetBeingAnalyzed == handles.Current.NumberOfImageSets,
         %%% Get the samples
@@ -283,22 +283,22 @@ if strcmpi(EachOrAll, 'Each') | (handles.Current.SetBeingAnalyzed == handles.Cur
     %%% We need this count variable because of the code above that fetches
     %%% images (see PRELIMINARY CALCULATIONS above)
     count = 2;
-    
+
     if ~ strcmpi(ImageName2, 'None')
         if (~ strcmpi(IlluminationImageName2, 'Do not use')) ,
             handles.Pipeline.(IlluminationImageName2) = PostTreatImage(IlluminationField(:,:,count), Modality2);
         end
         count = count + 1;
     end
-    
-    
+
+
     if ~ strcmpi(ImageName3, 'None')
         if (~ strcmpi(IlluminationImageName3, 'Do not use')) ,
             handles.Pipeline.(IlluminationImageName3) = PostTreatImage(IlluminationField(:,:,count), Modality3);
         end
         count = count + 1;
     end
-    
+
     if ~ strcmpi(ImageName4, 'None')
         if (~ strcmpi(IlluminationImageName4, 'Do not use')) ,
             handles.Pipeline.(IlluminationImageName4) = PostTreatImage(IlluminationField(:,:,count), Modality4);
@@ -320,7 +320,7 @@ if strcmpi(EachOrAll, 'Each') | (handles.Current.SetBeingAnalyzed == handles.Cur
         drawnow;
     end
 end
-   
+
 
 %%%%%%%%%%%%%%%%%%%%
 %%% SUBFUNCTIONS %%%

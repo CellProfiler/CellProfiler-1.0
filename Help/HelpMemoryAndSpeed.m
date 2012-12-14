@@ -2,12 +2,12 @@ function HelpMemoryAndSpeed
 
 % Help for memory and speed issues in CellProfiler:
 %
-% There are several options in CellProfiler for dealing with out-of-memory 
+% There are several options in CellProfiler for dealing with out-of-memory
 % errors associated with analyzing images:
 %
 % (1) Resize the input images
 %   If the image is high-resolution, it may be helpful to determine
-%   whether the features of interest can be processed (and accurate 
+%   whether the features of interest can be processed (and accurate
 %   data obtained) by using a lower-resolution image. If this is the
 %   case, use the Resize module (under Image Processing) to scale down
 %   the image to a more manageable size, and perform the desired
@@ -23,8 +23,8 @@ function HelpMemoryAndSpeed
 %   For example, if you choose to resize your image and you know that you
 %   don't need the original image, you can give the resized image the same
 %   name as the original. This will overwrite the original with the smaller,
-%   resized image, thereby saving space. 
-%   Note: You must be certain that you have no use for the original image 
+%   resized image, thereby saving space.
+%   Note: You must be certain that you have no use for the original image
 %   later in the pipeline, since that data will be lost by this method.
 %
 % (3) Running without display windows
@@ -33,11 +33,11 @@ function HelpMemoryAndSpeed
 %   not interested in seeing the intermediate output as it is produced,
 %   you can deactivate the creation of display windows. Under File > Set
 %   Preferences > Display Mode, you can specify which (if any) windows you
-%   want displayed. 
-%   Note: The status and error windows will still be shown so you can see 
+%   want displayed.
+%   Note: The status and error windows will still be shown so you can see
 %   the pipeline progress as your images are analyzed.
 %
-% (4) Use the SpeedUpCellProfiler module. 
+% (4) Use the SpeedUpCellProfiler module.
 %   The SpeedUpCellProfiler module permits the user to clear the images
 %   stored in memory with the exception of those specified by the user.
 %   Please see the help for the SpeedUpCellProfiler module for more details
@@ -60,8 +60,8 @@ function HelpMemoryAndSpeed
 %   If you have a large image which contains a large number of small
 %   objects, a good deal of computer time will be used in processing each
 %   individual object, many of which you might not need. In this case, make
-%   sure that you adjust the diameter options in IdentifyPrimAutomatic to 
-%   exclude small objects you are not interested in, or use a FilterObjects 
+%   sure that you adjust the diameter options in IdentifyPrimAutomatic to
+%   exclude small objects you are not interested in, or use a FilterObjects
 %   module to eliminate objects that are not of interest.
 
 % $Revision$

@@ -93,7 +93,7 @@ if isempty(FigureHandle)
     beep;
     h=warndlg('There are no figures open!');
     uiwait(h);
-    return
+    return;
 end
 figure(FigureHandle);
 zoomparams.currax = gca;
@@ -225,7 +225,7 @@ if ~ AxesHit
 end
 
 %Note: up to this point, the only thing that has changed in refax is the currentpoint property
-return
+return;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function bdfcn(FigHandle)
@@ -278,5 +278,5 @@ if ~strcmp(get(FigHandle,'selectiontype'),'extend')
     setappdata(FigHandle,'zoomparams',zoomparams);
     feval(getappdata(FigHandle,'zoomfcnhandle'),FigHandle);
 end
-return
+return;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

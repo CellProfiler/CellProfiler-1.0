@@ -12,7 +12,7 @@ NeedsPlaceholderUpdateMsg = false;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Changes to LoadImages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-if strcmp('LoadImages',CurrentModuleName) 
+if strcmp('LoadImages',CurrentModuleName)
     if (SavedVarRevNum == 1)
         ImageOrMovie = Settings.VariableValues{ModuleNum-Skipped,11};
         if strcmp(ImageOrMovie,'Image')
@@ -26,7 +26,7 @@ if strcmp('LoadImages',CurrentModuleName)
         end
         Settings.VariableValues{ModuleNum-Skipped,11} = new_variablevalue;
         Settings.VariableValues{ModuleNum-Skipped,12} = Settings.VariableValues{ModuleNum-Skipped,13};
-        Settings.VariableValues{ModuleNum-Skipped,13} = Settings.VariableValues{ModuleNum-Skipped,14};   
+        Settings.VariableValues{ModuleNum-Skipped,13} = Settings.VariableValues{ModuleNum-Skipped,14};
         SavedVarRevNum = 2;
         IsModuleModified = true;
     end
@@ -38,7 +38,7 @@ if strcmp('LoadImages',CurrentModuleName)
         SavedVarRevNum = 3;
         IsModuleModified = true;
     end
-        
+
     if (SavedVarRevNum == 3)    % File text exclusion added
         for i = Settings.NumbersOfVariables(ModuleNum-Skipped):-1:12,
             Settings.VariableValues{ModuleNum-Skipped,i} = Settings.VariableValues{ModuleNum-Skipped,i-1};
@@ -49,11 +49,11 @@ if strcmp('LoadImages',CurrentModuleName)
 
         Settings.VariableValues{ModuleNum-Skipped,11} = 'Do not use';
         Settings.VariableInfoTypes{ModuleNum-Skipped,11} = [];
-        
+
         %%% The last variable is bogus...
         Settings.NumbersOfVariables(ModuleNum-Skipped) = 16;
         Settings.VariableValues{ModuleNum-Skipped,16} = [];
-        
+
         SavedVarRevNum = 4;
         IsModuleModified = true;
     end
@@ -129,7 +129,7 @@ if strcmp(CurrentModuleName, 'SaveImages')
         IsModuleModified = true;
     end
     if SavedVarRevNum == 13    % Picky revision for specific use of "\"
-        
+
         for fixup=[3,12]
             if strcmp(Settings.VariableValues{ModuleNum-Skipped,fixup},'\')
                 Settings.VariableValues{ModuleNum-Skipped,fixup} = 'Do not use';
@@ -339,7 +339,7 @@ if strcmp(CurrentModuleName, 'InvertIntensity')
     Settings.NumbersOfVariables(ModuleNum-Skipped)=12;
     IsModuleModified = true;
     SavedVarRevNum = 2;
-    
+
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -395,7 +395,7 @@ if strcmp(CurrentModuleName,'UnifyObjects')
     Settings.NumbersOfVariables(ModuleNum-Skipped)= 5;
     SavedVarRevNum = 1;
     IsModuleModified = true;
-end 
+end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Obsolete module: SplitIntoContiguousObjects
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -431,7 +431,7 @@ if strcmp(CurrentModuleName, 'ExportToExcel')
         SavedVarRevNum = 3;
         IsModuleModified = true;
     end
-    
+
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -465,7 +465,7 @@ if strcmp(CurrentModuleName, 'FileNameMetadata')
         SavedVarRevNum = 4;
         IsModuleModified = true;
     end
-    
+
 end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -474,8 +474,8 @@ end
 if strcmp(CurrentModuleName, 'GrayToColor')
     if SavedVarRevNum == 2      % GrayToColor got two new arguments, but at the end.
         Settings.VariableValues{ModuleNum-Skipped,9} = '1';
-        Settings.VariableValues(ModuleNum-Skipped,5:8) = Settings.VariableValues(ModuleNum-Skipped,4:7); 
-        Settings.VariableValues{ModuleNum-Skipped,4} = 'Do not use'; 
+        Settings.VariableValues(ModuleNum-Skipped,5:8) = Settings.VariableValues(ModuleNum-Skipped,4:7);
+        Settings.VariableValues{ModuleNum-Skipped,4} = 'Do not use';
         Settings.VariableInfoTypes{ModuleNum-Skipped,4} = 'imagegroup';
         Settings.NumbersOfVariables(ModuleNum-Skipped) = Settings.NumbersOfVariables(ModuleNum-Skipped) + 2;
         SavedVarRevNum = 3;
@@ -516,7 +516,7 @@ if strcmp(CurrentModuleName, 'Align')
     if SavedVarRevNum == 5      % Align got four new arguments towards the end.
         Settings.VariableValues{ModuleNum-Skipped,16} = Settings.VariableValues{ModuleNum-Skipped,12};
         Settings.VariableInfoTypes{ModuleNum-Skipped,16} = Settings.VariableInfoTypes{ModuleNum-Skipped,12};
-        
+
         Settings.VariableValues{ModuleNum-Skipped,12} = 'Do not use';
         Settings.VariableInfoTypes{ModuleNum-Skipped,12} = [];
         Settings.VariableValues{ModuleNum-Skipped,13} = 'Do not use';
@@ -525,7 +525,7 @@ if strcmp(CurrentModuleName, 'Align')
         Settings.VariableInfoTypes{ModuleNum-Skipped,14} = [];
         Settings.VariableValues{ModuleNum-Skipped,15} = 'Do not use';
         Settings.VariableInfoTypes{ModuleNum-Skipped,15} = [];
-        
+
         Settings.NumbersOfVariables(ModuleNum-Skipped) = Settings.NumbersOfVariables(ModuleNum-Skipped) + 4;
         SavedVarRevNum = 6;
         IsModuleModified = true;
@@ -578,19 +578,19 @@ if strcmp(CurrentModuleName,'MeasureImageSaturationBlur')
     Settings.ModuleNames{ModuleNum-Skipped} = CurrentModuleName;
     Settings.VariableValues{ModuleNum-Skipped,7} = Settings.VariableValues{ModuleNum-Skipped,1};
     Settings.VariableValues{ModuleNum-Skipped,8} = Settings.VariableValues{ModuleNum-Skipped,2};
-    
+
     Settings.VariableValues{ModuleNum-Skipped,1} = Settings.VariableValues{ModuleNum-Skipped,3};
     Settings.VariableValues{ModuleNum-Skipped,2} = Settings.VariableValues{ModuleNum-Skipped,6};
     Settings.VariableValues{ModuleNum-Skipped,3} = Settings.VariableValues{ModuleNum-Skipped,9};
     Settings.VariableValues{ModuleNum-Skipped,4} = Settings.VariableValues{ModuleNum-Skipped,12};
     Settings.VariableValues{ModuleNum-Skipped,5} = '';
     Settings.VariableValues{ModuleNum-Skipped,6} = '';
-    
+
 %     Settings.VariableValues{ModuleNum-Skipped,4} = 'Do not use';
 %     Settings.VariableValues{ModuleNum-Skipped,7} = 'Do not use';
 %     Settings.VariableValues{ModuleNum-Skipped,10} = 'Do not use';
 %     Settings.VariableValues{ModuleNum-Skipped,13} = 'Do not use';
-    
+
 
     SavedVarRevNum = 1;
     IsModuleModified = true;

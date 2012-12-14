@@ -65,7 +65,7 @@ if ~strcmp(action,'start')
     k = gcf;
     idx = find(nlin_fig == k);
     if isempty(idx)
-        return
+        return;
     end
     nlin_fig = nlin_fig(idx);
     if strcmp(action,'down')
@@ -117,7 +117,7 @@ switch action
                 nlintool(x, y, 'hougen', b);
             end
             %   figure(hmsg);
-            return
+            return;
         end
 
         if (nargin<4)
@@ -346,7 +346,7 @@ switch action
         p = get(nlin_fig,'CurrentPoint');
         k = floor(1+n*(p(1)-0.18)/.80);
         if k < 1 || k > n
-            return
+            return;
         end
         newx(k) = str2double(get(x_field(k),'String'));
         maxx = xrange(k,2);
@@ -377,7 +377,7 @@ switch action
                 cursorstate = 'arrow';
             end
             set(nlin_fig,'Pointer',cursorstate);
-            return
+            return;
         elseif flag == 1,
             if last_axes(k) == 0
                 return;
@@ -411,7 +411,7 @@ switch action
         p = get(nlin_fig,'CurrentPoint');
         k = floor(1+n*(p(1)-0.18)/.80);
         if k < 1 || k > n || p(2) > 0.90 || p(2) < 0.22
-            return
+            return;
         end
         ud.last_axes(k) = 1;
         set(nlin_fig,'Pointer','crosshair');
@@ -449,7 +449,7 @@ switch action
         k = floor(1+n*(p(1)-0.18)/.80);
         lk = find(last_axes == 1);
         if isempty(lk)
-            return
+            return;
         end
         if k < lk
             set(x_field(lk),'String',num2str(double(xrange(lk,1))));
@@ -468,14 +468,14 @@ switch action
             set(x_field(flag),'String',num2str(double(xsettings(1,flag))));
             % Create Bad Settings Warning Dialog.
             warndlg('Please type only numbers in the editable text fields.');
-            return
+            return;
         end
         xl = get(nlin_axes(flag),'Xlim');
         if cx < xl(1) || cx > xl(2)
             % Create Bad Settings Warning Dialog.
             warndlg('This number is outside the range of the data for this variable.');
             set(x_field(flag),'String',num2str(double(xsettings(1,flag))));
-            return
+            return;
         end
 
         last_axes(flag) = 1;

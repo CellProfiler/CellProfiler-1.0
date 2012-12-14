@@ -17,7 +17,7 @@ function HelpDeveloperInfo
 % and the code for CellProfiler is heavily documented so that you can
 % understand what each line does. It was designed so that biologists
 % without programming experience could adapt it.
-% 
+%
 % *** HELP SECTIONS AT THE BEGINNING OF EACH MODULE AND TOOL ***
 %
 % The first unbroken block of lines will be extracted as help by
@@ -47,7 +47,7 @@ function HelpDeveloperInfo
 % * The '%textVAR' lines contain the variable descriptions which are
 % displayed in the CellProfiler main window next to each variable box. This
 % text will wrap appropriately so it can be as long as desired, but it must
-% be kept on a single line in the m-file (do not allow it to wrap). 
+% be kept on a single line in the m-file (do not allow it to wrap).
 %
 % * Whether the variable is entered into an edit box, chosen from a popup
 % menu, or selected using browse buttons is determined by %inputtypeVAR
@@ -80,7 +80,7 @@ function HelpDeveloperInfo
 % box; i.e. no %inputtype line.
 % - imagegroup: will display the user's image entries. Usually used in
 % combination with a popupmenu.
-% - objectgroup indep and objectgroup: Same idea as imagegroup, for passing 
+% - objectgroup indep and objectgroup: Same idea as imagegroup, for passing
 % along object names.
 % - outlinegroup indep and outlinegroup: Same idea as imagegroup, for
 % passing along outline names.
@@ -88,7 +88,7 @@ function HelpDeveloperInfo
 % along text/data names.
 % - gridgroup indep and gridgroup: Same idea as imagegroup, for passing
 % along grid names.
-% 
+%
 % * The line of actual code within each group of variable lines is what
 % actually extracts the value that the user has entered in the main window
 % of CellProfiler (which is stored in the handles structure) and saves it
@@ -97,32 +97,32 @@ function HelpDeveloperInfo
 % * For CellProfiler to load modules and pipelines correctly, the order of
 % variable information should be as follows:
 % %textVAR01 = Whatever text description you want to appear
-% %defaultVAR01 = Whatever text you want to appear 
+% %defaultVAR01 = Whatever text you want to appear
 % (OR, %choiceVAR01 = Whatever text)
 % %infotypeVAR01 = imagegroup indep
 % BlaBla = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 % %inputtypeVAR01 = popupmenu
-%   For cases in which the variable input is optional or your module should  
+%   For cases in which the variable input is optional or your module should
 % ignore the contents of the variable box, the standard placeholder text is
-% "Do not use." Please follow this naming convention whenever new modules 
+% "Do not use." Please follow this naming convention whenever new modules
 % are created or modified.
-%	In particular, when the input type is "popupmenu custom", the 
+%	In particular, when the input type is "popupmenu custom", the
 % choiceVAR01 line should be after textVAR01. This order is necessary
 % because the textVAR01 creates a VariableBox associated with a variable
 % number. Also, the defaultVAR01 value will inadvertently overwrite saved
 % settings when loading a saved pipeline if it is located after
 % infotypeVAR01 or inputtypeVAR01.
-% 
+%
 % When loading the settings of pipeline modules, CellProfiler tries to find
-%       handles.Settings.VariableValues{ModuleNums,i} from the list of 
-%       handles.VariableBox{ModuleNums}(i), 
-% for example, 
-%       the pipeline-specified 'Gaussian Filter' from the list of 
-%       available Smoothing methods in the loaded module. 
+%       handles.Settings.VariableValues{ModuleNums,i} from the list of
+%       handles.VariableBox{ModuleNums}(i),
+% for example,
+%       the pipeline-specified 'Gaussian Filter' from the list of
+%       available Smoothing methods in the loaded module.
 % It is searched and set in CellProfiler.m, exactly starting
 % with this line of code:
 %       PPos = find(strcmp(handles.Settings.VariableValues{ModuleNums,i},OptList));
-% You may want to add your own action code here when a certain setting is 
+% You may want to add your own action code here when a certain setting is
 % found in a loaded module.
 %
 % * CellProfiler uses VariableRevisionNumbers to help programmers notify
@@ -140,11 +140,11 @@ function HelpDeveloperInfo
 % for our source-control revisions - this revision number does not affect
 % the user's previously saved settings files and you can ignore it.
 % However, a line with "% $Revision$" should be added to any new
-% function, so that the version-control system will find and update the 
+% function, so that the version-control system will find and update the
 % number upon new commits.
 %
 % *** STORING AND RETRIEVING DATA: THE HANDLES STRUCTURE ***
-% 
+%
 % In CellProfiler (and MATLAB in general), each independent function
 % (module) has its own workspace and is not able to 'see' variables
 % produced by other modules. For data or images to be shared from one
@@ -164,7 +164,7 @@ function HelpDeveloperInfo
 % (including variable revision numbers), their settings (variables), and
 % the pixel size. Fields currently in handles.Settings: PixelSize,
 % VariableValues, NumbersOfVariables, VariableInfoTypes,
-% VariableRevisionNumbers, ModuleNames, SelectedOption. 
+% VariableRevisionNumbers, ModuleNames, SelectedOption.
 %    *** N.B. handles.Settings.PixelSize is where you should retrieve the
 % PixelSize if needed, not in handles.Preferences!
 %
@@ -194,7 +194,7 @@ function HelpDeveloperInfo
 % SetBeingAnalyzed, SaveOutputHowOften, TimeStarted, CurrentModuleNumber,
 % FigureNumberForModuleXX.
 %
-% handles.Preferences: 
+% handles.Preferences:
 % Everything in handles.Preferences is stored in the file
 % CellProfilerPreferences.mat when the user uses File > Set Preferences.
 % These preferences are loaded upon launching CellProfiler, or individual
@@ -208,9 +208,9 @@ function HelpDeveloperInfo
 % handles.Settings or handles.Current. Therefore:
 %    *** N.B. handles.Settings.PixelSize is where you should retrieve the
 % PixelSize if needed, not in handles.Preferences!
-%    *** N.B. handles.Current.DefaultImageDirectory is where you should 
+%    *** N.B. handles.Current.DefaultImageDirectory is where you should
 % retrieve the DefaultImageDirectory if needed, not in handles.Preferences!
-%    *** N.B. handles.Current.DefaultOutputDirectory is where you should 
+%    *** N.B. handles.Current.DefaultOutputDirectory is where you should
 % retrieve the DefaultOutputDirectory if needed, not in
 % handles.Preferences!
 %
@@ -226,7 +226,7 @@ function HelpDeveloperInfo
 % the entire image (e.g. Image TotalIntensity), or which could be an
 % aggregate measurement based on individual object measurements (e.g. Image
 % MeanAreaCells).  Use the appropriate substructure to ensure that your data
-% will be extracted properly. 
+% will be extracted properly.
 %   The relationships between objects can also be defined.  For
 % example, a nucleus might be associated with a particular cytoplasm
 % and therefore each nucleus has a cytoplasm's number in the nucleus'
@@ -241,14 +241,14 @@ function HelpDeveloperInfo
 %
 %   Measurement storage was overhauled 2008-04-25 such that all modules
 % that record measurements must use the subfunction CPaddmeasurements. The
-% usage is: 
+% usage is:
 %
 %   handles = CPaddmeasurements(handles,ObjectName,FeatureName,Data);
 %
 % This will create this data structure:
 %
 %   handles.Measurements.ObjectName.FeatureName = Data
-% 
+%
 %   where
 %     -ObjectName is a single string denoting the name of the object, or
 %       simply "Image" for image measurements
@@ -257,15 +257,15 @@ function HelpDeveloperInfo
 %
 %                   Category_SpecificFeatureName_Parameters
 %
-%           * Category = Module name (e.g., AreaShape), or useful category, 
-%               or nothing if there is no appropriate category (e.g., if 
+%           * Category = Module name (e.g., AreaShape), or useful category,
+%               or nothing if there is no appropriate category (e.g., if
 %               feature name = ObjectCount there is no category).
 %               - Note: Do not include the word "Measure" when naming.
 %               - Note: If you create a new category, be sure to add it to
-%               the list of categories below, as well as in 
+%               the list of categories below, as well as in
 %               CPgetfeaturenamesfromnumbers, and all choiceVAR lists so that
 %               your new category will be selectable (in the future, this will
-%               be a drop down menu) for modules that ask the user to 
+%               be a drop down menu) for modules that ask the user to
 %               choose a category.
 %           * SpecificFeatureName = specific feature recorded by a module
 %               (e.g., Perimeter). Usually the module recording the
@@ -284,13 +284,13 @@ function HelpDeveloperInfo
 %               (someday, CP will look at upstream modules and make dropdowns)
 %
 %           Category List:
-%           These reflect choiceVAR lists in many modules, with their 
+%           These reflect choiceVAR lists in many modules, with their
 %           necessary extra parameters:
 %               No extra parameters:
 %                   AreaShape, Math
 %               Image:
 %                   Imageintensity, Granularity, Children, Parent, AreaOccupied
-%               SizeScale: 
+%               SizeScale:
 %                   Neighbors
 %               SizeScale and Image:
 %                   Texture and RadialDistribution
@@ -390,7 +390,7 @@ function HelpDeveloperInfo
 % an image by that name, the module will run just fine: it will just
 % repeatedly use the processed image of nuclei leftover from the last image
 % set, which was left in handles.Pipeline.
-% 
+%
 % How do I save the handles structure in a GUI module?
 % Any changes you make to the handles structure are not kept from one
 % module to the next unless they are saved to the GUI first. This is done
@@ -426,10 +426,10 @@ function HelpDeveloperInfo
 % *** ERROR HANDLING ***
 %
 % * In data tools & image tools:
-%       CPerrordlg(['Image processing was canceled in the ',ModuleName,' 
+%       CPerrordlg(['Image processing was canceled in the ',ModuleName,'
 %               module because your entry ',ValueX,' was invalid.'])
 %       return
-% 
+%
 % * In modules and CPsubfunctions (no need for "return"):
 %       error('Your error message here.')
 %
@@ -474,7 +474,7 @@ function HelpDeveloperInfo
 %   CPfigure(handles,'Image',ThisModuleFigureNumber);
 % For figures that contain any images, choose 'Image', otherwise choose
 % 'Text'. 'Image' figures will have the RGB checkboxes which allow
-% displaying individual channels, the InteractiveZoom and CellProfiler 
+% displaying individual channels, the InteractiveZoom and CellProfiler
 % Image Tools menu items, and the Raw/Stretched intensity scale pulldown.
 %
 % Note: unfortunately there is no convenient way right now to have more
@@ -519,7 +519,7 @@ function HelpDeveloperInfo
 % *** DEBUGGING HINTS ***
 %
 % * Use breakpoints in MATLAB to stop your code at certain points and
-% examine the intermediate results. 
+% examine the intermediate results.
 %
 % * To temporarily show an image during debugging, add lines like this to
 % your code, or type them at the command line of MATLAB:
@@ -533,7 +533,7 @@ function HelpDeveloperInfo
 % saving. If the image is not saved correctly, for example, try
 % adding the uint8 command:
 %       imwrite(uint8(BlurredImage), 'FileName.tif', 'FileFormat');
-% 
+%
 % * To routinely save images produced by this module, see the help in
 % the SaveImages module.
 %
@@ -559,9 +559,9 @@ function HelpDeveloperInfo
 %
 % *** RUNNING CELLPROFILER WITHOUT THE GRAPHICAL USER INTERFACE ***
 %
-% In order to run CellProfiler modules without the GUI you must have the 
+% In order to run CellProfiler modules without the GUI you must have the
 % following variables:
-% 
+%
 % handles.Settings.ModuleNames (for all modules in pipeline)
 % handles.Settings.VariableValues (for all modules in pipeline)
 % handles.Current.CurrentModuleNumber (must be consistent with pipeline)
@@ -575,11 +575,11 @@ function HelpDeveloperInfo
 % handles.Preferences.IntensityColorMap (only used for display purposes)
 % handles.Preferences.LabelColorMap (only used for display purposes)
 % handles.Preferences.FontSize (only used for display purposes)
-% 
+%
 % You will also need to have the CPsubfunctions folder, since our Modules
 % call CP subfunctions for many tasks. The CurrentModuleNumber needs to be
 % set correctly for each module in the pipeline since this is how the
-% variable values are called. In order to see what all of these variables 
+% variable values are called. In order to see what all of these variables
 % look like, run a sample analysis and then go to File -> Tech Diagnosis.
 % This will let you manipulate the handles variable in MATLAB.
 

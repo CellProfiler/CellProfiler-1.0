@@ -149,7 +149,7 @@ Angle = char(handles.Settings.VariableValues{CurrentModuleNum,11});
 %%% Features  %%%
 %%%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'

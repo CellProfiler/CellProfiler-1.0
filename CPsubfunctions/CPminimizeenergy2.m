@@ -3,16 +3,16 @@ function out = CPminimizeenergy2(I, L1, L2, ITERATIONS, EPS, inMethod, DIRECTION
 	global b K method sqrFilter smoothFilter integrableFilter frame
 	im = CPjustify(double(I));
 	method = inMethod;
-    
+
     if strcmp(method,'abs2') || strcmp(method,'sin')
         K = inK;
     elseif ~strcmp(method,'abs') && ~strcmp(method,'sqr')
         error(sprintf('Unknown method %s', method));
-        return
+        return;
     end
-    
+
 	[H, W] = size(im);
-    
+
     if strcmpi(DIRECTION,'diagonal')
     	sx = 1 / sqrt(2);
     	sy = 1 / sqrt(2);
@@ -20,7 +20,7 @@ function out = CPminimizeenergy2(I, L1, L2, ITERATIONS, EPS, inMethod, DIRECTION
         sx = 1;
         sy = 0;
     end
-    
+
     b = zeros(H,W);
     i2 = im(3:H  ,2:W-1);
     i4 = im(2:H-1,3:W  );
@@ -41,18 +41,18 @@ function out = CPminimizeenergy2(I, L1, L2, ITERATIONS, EPS, inMethod, DIRECTION
     end
     smoothFilter = L1*[sx*sy,-2*sy^2,-sx*sy;-2*sx^2,4*(sx^2+sy^2),-2*sx^2;-sx*sy,-2*sy^2,sx*sy];
     integrableFilter = L2*[0,sx,0;sy,0,-sy;0,-sx,0];
-    
+
 	out = zeros(H,W);
 	for itr = 1:ITERATIONS
         out = out - EPS*grad(out);
 	end
-	
+
 	out = CPjustify(out);
 end
 
 function out = grad(f)
     global b K method sqrFilter smoothFilter integrableFilter frame
-    
+
     if strcmp(method,'sqr')
         out = b + imfilter(f,sqrFilter+smoothFilter+integrableFilter);
     elseif strcmp(method,'abs')

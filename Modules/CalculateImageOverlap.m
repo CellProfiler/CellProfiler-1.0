@@ -15,7 +15,7 @@ function handles = CalculateImageOverlap(handles)
 % "Which image do you want to test against the ground truth?" : This image
 % is a binary (ie masked) image which is the result of some image
 % processing algorithm (either in CellProfiler or any image processing
-% software) that you would like to compare with the ground truth image.  
+% software) that you would like to compare with the ground truth image.
 %
 % The module calculates the overlap of the two image sets, and determines
 % the F-factor, a measure of the algorithm's precision and recall.
@@ -24,7 +24,7 @@ function handles = CalculateImageOverlap(handles)
 % calculation, we suggest you specify the output name rather than use
 % Automatic naming.
 %
-% 
+%
 
 % CellProfiler is distributed under the GNU General Public License.
 % See the accompanying file LICENSE for details.
@@ -50,7 +50,7 @@ function handles = CalculateImageOverlap(handles)
 % Even changing Var2 to
 % Which image do you want to test for overlap against the ground truth?
 %
-% may make the function of the module more clear.  
+% may make the function of the module more clear.
 %
 % Anne says:  Agreed. Let's go with this (and adjust the help accordingly;
 % we should also explain how to interpret true positives/false positives and
@@ -154,35 +154,35 @@ if any(findobj == ThisModuleFigureNumber)
 
     % Subplots of the various images to show overlap
         ax = cell(1,6);
-       
+
             ax{1} = subplot(2,3,1,'Parent',ThisModuleFigureNumber);
             CPimagesc(TruePosImg,handles,ax{1});
             title(['True Positive Image, cycle #',num2str(handles.Current.SetBeingAnalyzed)],'Parent',ax{1});
-       
+
             ax{2} = subplot(2,3,2,'Parent',ThisModuleFigureNumber);
             CPimagesc(TrueNegImg,handles,ax{2});
             title(['True Negative Image, cycle #',num2str(handles.Current.SetBeingAnalyzed)],'Parent',ax{2});
-         
+
             ax{3} = subplot(2,3,3,'Parent',ThisModuleFigureNumber);
             CPimagesc(FalsePosImg,handles,ax{3});
             title(['False Positive Image, cycle #',num2str(handles.Current.SetBeingAnalyzed)],'Parent',ax{3});
-            
+
             ax{4} = subplot(2,3,4,'Parent',ThisModuleFigureNumber);
             CPimagesc(FalseNegImg,handles,ax{4});
             title(['False Negative Image, cycle #',num2str(handles.Current.SetBeingAnalyzed)],'Parent',ax{4});
-           
+
             % Place the text in position 5
             posx = get(ax{2},'Position');
             posy = get(ax{4},'Position');
             pos = [posx(1)+0.05 posy(2)+posy(4) posx(3)+0.1 0.04];
-                
+
                 bgcolor = get(ThisModuleFigureNumber,'Color');
                 str{1} =    ['Precision: ' num2str(Precision,'%4.2f')];
                 str{2} =    ['Recall: ' num2str(Recall, '%4.2f')];
                 str{3} =    ['F-factor: ',num2str(Ffactor,'%4.2f')];
                 str{4} =    ['False Positive Rate: ',num2str(FalsePosRate,'%4.2f')];
                 str{5} =    ['False Negative Rate:',num2str(FalseNegRate,'%4.2f')];
-                
+
 
                 for i = 1:length(str),
                     h = uicontrol(ThisModuleFigureNumber,'Style','Text','Units','Normalized','Position',[pos(1) pos(2)-0.04*i pos(3:4)],...
@@ -191,9 +191,8 @@ if any(findobj == ThisModuleFigureNumber)
 end
 end
 
-           
-        
-   
-           
-        
-   
+
+
+
+
+

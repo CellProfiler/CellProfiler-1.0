@@ -4,7 +4,7 @@ function handles =  InverseRadonTransform(handles)
 % Category: Contributed
 %
 % SHORT DESCRIPTION:
-% 
+%
 % *************************************************************************
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -24,38 +24,38 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-%textVAR01 = What did you call the image to be corrected? 
+%textVAR01 = What did you call the image to be corrected?
 %infotypeVAR01 = imagegroup
 ImageName = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
 
-%textVAR02 = What do you want to call the corrected image? 
+%textVAR02 = What do you want to call the corrected image?
 %defaultVAR02 = IRadonImage
 %infotypeVAR02 = imagegroup indep
 CorrectedImageName = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 
-%textVAR03 = theta range[0,179]: 
+%textVAR03 = theta range[0,179]:
 %defaultVAR03 = 45
 theta = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,3}));
 
-%textVAR04 = Settings 
+%textVAR04 = Settings
 %choiceVAR04 = NO
 %choiceVAR04 = YES
 %inputtypeVAR04 = popupmenu
 Functions{3} = char(handles.Settings.VariableValues{CurrentModuleNum,4});
 
-%textVAR05 = For interpolation: 
+%textVAR05 = For interpolation:
 
-%textVAR06 = What type do you want to perform? 
+%textVAR06 = What type do you want to perform?
 %choiceVAR06 = nearest
 %choiceVAR06 = linear
 %choiceVAR06 = spline
 %inputtypeVAR06 = popupmenu
 Functions{1} = char(handles.Settings.VariableValues{CurrentModuleNum,6});
 
-%textVAR07 = For filter: 
+%textVAR07 = For filter:
 
-%textVAR08 = What filter do you want to perform? 
+%textVAR08 = What filter do you want to perform?
 %choiceVAR08 = Ram-Lak
 %choiceVAR08 = Shepp-Logan
 %choiceVAR08 = Cosine
@@ -64,15 +64,15 @@ Functions{1} = char(handles.Settings.VariableValues{CurrentModuleNum,6});
 %inputtypeVAR08 = popupmenu
 Functions{2} = char(handles.Settings.VariableValues{CurrentModuleNum,8});
 
-%textVAR09 = For frequency scaling: 
+%textVAR09 = For frequency scaling:
 
-%textVAR10 = frequency scaling range: [0,1]: 
+%textVAR10 = frequency scaling range: [0,1]:
 %defaultVAR10 = 1
 fs = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,10}));
 
-%textVAR11 = For output size: 
+%textVAR11 = For output size:
 
-%textVAR12 = output size: 
+%textVAR12 = output size:
 %defaultVAR12 = 2*floor(size(R,1)/(2*sqrt(2)))
 os = str2double(char(handles.Settings.VariableValues{CurrentModuleNum,12}));
 
@@ -114,7 +114,7 @@ elseif strcmp(Functions{1}, 'nearest')
                             A = iradon(OrigImage,theta,'linear','Hamming',fs,os );
                                 elseif strcmp(Functions{2}, 'Hann')
                                     A = iradon(OrigImage,theta,'linear','Hann',fs,os );
-          
+
         elseif strcmp(Functions{1}, 'spline')
          elseif strcmp(Functions{2}, 'Ram-Lak')
         A = iradon(OrigImage,theta,'spline','Ram-Lak',fs,os );
@@ -126,8 +126,8 @@ elseif strcmp(Functions{1}, 'nearest')
                             A = iradon(OrigImage,theta,'spline','Hamming',fs,os );
                                 elseif strcmp(Functions{2}, 'Hann')
                                     A = iradon(OrigImage,theta,'spline','Hann',fs,os );
-end                                    
-     
+end
+
 CorrectedImage = A;
     %%%%%%%%%%%%%%%%%%%%%%%
     %%% DISPLAY RESULTS %%%

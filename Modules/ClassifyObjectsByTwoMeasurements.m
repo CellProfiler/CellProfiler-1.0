@@ -45,38 +45,38 @@ function handles = ClassifyObjectsByTwoMeasurements(handles)
 % $Revision$
 
 % MBray 2009_04_17: Comments on variables for pyCP upgrade
-% (1) What did you call the objects whose measurements you want to classify 
+% (1) What did you call the objects whose measurements you want to classify
 %   into bins? (ObjectName)
-% (2) What is the first measurement to use? 
+% (2) What is the first measurement to use?
 %   (Category{1},FeatureNbr{1},SizeScale,ImageName)
 % (3) What is the first measurement to use?
 %   (Category{2},FeatureNbr{2},SizeScale,ImageName)
-% (4a) How do you want to determine the classification threshold for the 
+% (4a) How do you want to determine the classification threshold for the
 %   first set of measurements, as a specified value or the measurement mean
 %   or median? (Absolute, Mean, Median)
 % (4b) (If "Absolute" for above). What value to you want to use as a
 % threshold?
-% (5a) How do you want the determine the classification threshold for the 
+% (5a) How do you want the determine the classification threshold for the
 %   second set of measurements, as a specified value or the measurement mean
 %   or median? (Absolute, Mean, Median)
 % (5b) (If "Absolute" for above). What value to you want to use as a
 % threshold?
 % (6) What labels do you want to give the four classes? (Labels)
-% (7a) Which panel do you want to save? (Do not use, Histogram of first 
-%   measurement, Histogram of second measurement, Classified objects, 
+% (7a) Which panel do you want to save? (Do not use, Histogram of first
+%   measurement, Histogram of second measurement, Classified objects,
 %   Classification histogram)
 % (7b) What do you want to call this panel? (SaveColoredObjects)
 %
-% (i) Setting (2,3): Ideally, the Measurement category/feature/image/scale 
+% (i) Setting (2,3): Ideally, the Measurement category/feature/image/scale
 % settings should be drop-downs that fill in the appropriate
 % category/feature/image/scale names based on (a) the hierarchy specific
 % to the measurement type (i.e, features unique to Intensity, AreaShape,
-% etc) and (b) whether a prior Measurement module actually took the 
-% measurements (i.e, don't show all possible features for a measurement, 
+% etc) and (b) whether a prior Measurement module actually took the
+% measurements (i.e, don't show all possible features for a measurement,
 % only those for which we actually have values)
 % (ii) Setting (6): Should have defaults of "LowLow", "LowHigh", "HighLow",
 % and "HighHigh"
-% (iii) The Classification histogram is currently a set of four bars, one 
+% (iii) The Classification histogram is currently a set of four bars, one
 % for each class. Would this be better served by a 3D bar chart, the 1st
 % measurement along one horiz axis, the 2nd measurement along the other,
 % and the fractions shown as z-height?
@@ -88,7 +88,7 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-%textVAR01 = What did you call the objects that you want to classify into bins? 
+%textVAR01 = What did you call the objects that you want to classify into bins?
 %infotypeVAR01 = objectgroup
 ObjectName = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu custom

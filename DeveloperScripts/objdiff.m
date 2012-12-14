@@ -24,19 +24,19 @@ function [objectC,IA,IB] = objdiff(objectA,objectB,varargin)
 %     >> objectA = struct('a',3, 'b',5, 'd',9);
 %     >> objectB = struct('a','ert', 'c',struct('t',pi), 'd',9);
 %     >> objectC = objdiff(objectA, objectB)  % a=different, b=new in objectA, c=new in objectB, d=same
-%     objectC = 
+%     objectC =
 %         a: {[3]  'ert'}
 %         b: {[5]  {}}
 %         c: {{}  [1x1 struct]}
 %
 %     >> objectC = objdiff(java.awt.Color.red, java.awt.Color.blue)
-%     objectC = 
+%     objectC =
 %         Blue: {[0]  [255]}
 %          RGB: {[-65536]  [-16776961]}
 %          Red: {[255]  [0]}
 %
 %     >> objectC = objdiff(0,gcf)  % 0 is the root handle
-%     objectC = 
+%     objectC =
 %           children: {[2x1 struct]  []}
 %             handle: {[0]  [1]}
 %         properties: {[1x1 struct]  [1x1 struct]}

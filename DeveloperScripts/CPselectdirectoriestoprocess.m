@@ -48,7 +48,7 @@ for i = 1:length(UniqueDirectories),
     UniquePathNumber = [UniquePathNumber; i*ones(length(p{:}),1)];
 end
 
-% Organize the listing so that directories with a common root that follow 
+% Organize the listing so that directories with a common root that follow
 % each other in the list don't get repeated when displayed
 % Find the directory names that (1) share a level (2) under the same
 % root...
@@ -106,7 +106,7 @@ for i = 1:length(DirectoriesToRemove)
         idxOfFilesep = length(DirectoriesToRemove{i});
     end
     SearchString = DirectoriesToRemove{i}(1:idxOfFilesep);
-    
+
     idxToRemove = idxToRemove | strncmp(SearchString,handles.Pipeline.(fn),length(SearchString));
 end
 

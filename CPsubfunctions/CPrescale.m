@@ -58,7 +58,7 @@ elseif strncmpi(RescaleOption,'E',1) == 1
     if any([strcmpi(LowestPixelOrig, 'AA') strcmpi(HighestPixelOrig, 'AA')]),
         FindLowestIntensity =   strcmpi(LowestPixelOrig, 'AA');
         FindHighestIntensity =  strcmpi(HighestPixelOrig,'AA');
-        
+
         if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
             try
                 %%% Notifies the user that the first image set will take much longer than
@@ -123,7 +123,7 @@ elseif strncmpi(RescaleOption,'E',1) == 1
             end
         end
     end
-    
+
     % Case 2: Either of the arguments are AE
     if strcmpi(LowestPixelOrig, 'AE'),
         LowestPixelOrig = min(min(InputImage));
@@ -131,7 +131,7 @@ elseif strncmpi(RescaleOption,'E',1) == 1
     if strcmpi(HighestPixelOrig, 'AE'),
         HighestPixelOrig = max(max(InputImage));
     end
-    
+
     % Case 3: Either of the arguments are numbers
     if isfinite(str2double(LowestPixelOrig))    % Evaulates to NaN if a string
         LowestPixelOrig = str2double(LowestPixelOrig);
@@ -147,16 +147,16 @@ elseif strncmpi(RescaleOption,'E',1) == 1
     %   old high/low values to their new high/low values
     hi = HighestPixelOrig; HI = HighestPixelRescale;
     lo = LowestPixelOrig; LO = LowestPixelRescale;
-    X = [lo 1; hi 1]\[LO; HI]; 
+    X = [lo 1; hi 1]\[LO; HI];
     OutputImage = InputImageMod*X(1) + X(2);
     % Extra measure to make sure values close to EPS are mapped to 0
     % (since the matrix algebra is not perfect)
     OutputImage(abs(OutputImage) > 0 & abs(OutputImage) < eps) = 0;
-    
-    % (2) Pixels above/below rescaled values are set to the desired pinning values 
+
+    % (2) Pixels above/below rescaled values are set to the desired pinning values
     OutputImage(OutputImage > HighestPixelRescale) =   HighestPixelOrigPinnedValue;
     OutputImage(OutputImage < LowestPixelRescale) =    LowestPixelOrigPinnedValue;
-    
+
 elseif strncmpi(RescaleOption,'C',1) == 1
     OutputImage = uint8(InputImage*255);
 elseif strncmpi(RescaleOption, 'T', 1) == 1

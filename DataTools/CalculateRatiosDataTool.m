@@ -17,8 +17,8 @@ function CalculateRatiosDataTool(handles)
 % the ratio for each object). If you need to calculate image-by-image
 % ratios or ratios for object measurements by whole image measurements (to
 % allow normalization), use the CalculateRatios module until this data tool
-% is updated to handle such calculations. Be careful with your denominator 
-% data. Any 0's found in it may corrupt your output, especially when 
+% is updated to handle such calculations. Be careful with your denominator
+% data. Any 0's found in it may corrupt your output, especially when
 % dividing measurements.
 %
 % The new measurements will be stored under the first object's data, under
@@ -41,7 +41,7 @@ function CalculateRatiosDataTool(handles)
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 
 if FileName == 0
-    return
+    return;
 end
 
 % Load the specified CellProfiler output file
@@ -50,16 +50,16 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fullfile(Pathname, FileName), ''' (possibly not a CellProfiler output file).'])
-    return
+    return;
 end
 
 promptLoop = 0;
 while promptLoop == 0
-    Answers = inputdlg({'Operation? Multiply or Divide, Add Or Subtract', 'Take Log10? Yes or no', 'Raise to what power? "Do not use" to ignore'}, 'Operation', 1, {'Multiply', 'Do not use', 'Do not use'}); 
+    Answers = inputdlg({'Operation? Multiply or Divide, Add Or Subtract', 'Take Log10? Yes or no', 'Raise to what power? "Do not use" to ignore'}, 'Operation', 1, {'Multiply', 'Do not use', 'Do not use'});
     Operation = Answers{1};
     Log = Answers{2};
     Power = Answers{3};
-    if ~strcmpi(Operation,'Multiply') && ~strcmpi(Operation,'Divide') && ~strcmpi(Operation, 'Add') && ~strcmpi(Operation, 'Subtract') 
+    if ~strcmpi(Operation,'Multiply') && ~strcmpi(Operation,'Divide') && ~strcmpi(Operation, 'Add') && ~strcmpi(Operation, 'Subtract')
         uiwait(CPerrordlg('Error: there was a problem with your choice for operation'));
         continue
     end
@@ -87,7 +87,7 @@ while menuLoop == 0
     catch
         ErrorMessage = lasterr;
         CPerrordlg(['An error occurred in CalculateRatiosDataTool. ' ErrorMessage(30:end)]);
-        return
+        return;
     end
     if isempty(Measure1Object),return,end
     if isempty(Measure2Object),return,end
@@ -99,17 +99,17 @@ Measure1 = handles.Measurements.(Measure1Object).(Measure1fieldname);
 Measure2 = handles.Measurements.(Measure2Object).(Measure2fieldname);
 if length(Measure1) ~= length(Measure2)
     CPerrordlg(['Processing cannot continue because the specified object names ',Measure1Object,' and ',Measure2Object,' do not have the same number of measurements.']);
-    return
+    return;
 end
 %SetBeingAnalyzed = handles.Current.SetBeingAnalyzed;
 
 for i = 1:length(Measure1)
-       
+
     % Extract the measures of interest
     NumeratorMeasurements = handles.Measurements.(Measure1Object).(Measure1fieldname){i};
     DenominatorMeasurements = handles.Measurements.(Measure2Object).(Measure2fieldname){i};
-    
-    % Calculate the new measure. 
+
+    % Calculate the new measure.
     if strcmpi(Operation,'Multiply')
         FinalMeasurements = NumeratorMeasurements.*DenominatorMeasurements;
     elseif strcmpi(Operation,'Divide')
@@ -119,21 +119,21 @@ for i = 1:length(Measure1)
     elseif strcmpi(Operation, 'Subtract')
         FinalMeasurements = NumeratorMeasurements-DenominatorMeasurements;
     end
-    
+
     if ~strcmp(Log, 'Do not use')
         FinalMeasurements = log10(FinalMeasurements);
     end
-    
+
     if ~strcmp(Power,'Do not use')
     	FinalMeasurements = FinalMeasurements .^ str2double(Power);
     end
-    
+
     % Record the new measure in the handles structure.
     NewFieldName = CPjoinstrings(Measure1fieldname, char(Operation), Measure2Object, Measure2fieldname);
     NewFieldName = CPtruncatefeaturename(NewFieldName);
     handles.Current.SetBeingAnalyzed = i;
     try
-        handles = CPaddmeasurements(handles,Measure1Object,NewFieldName,FinalMeasurements);    
+        handles = CPaddmeasurements(handles,Measure1Object,NewFieldName,FinalMeasurements);
     catch
         uiwait(CPerrordlg(['Could not add new measurements:\n' lasterr]));
         return;

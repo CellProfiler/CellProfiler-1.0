@@ -6,17 +6,17 @@ function plot_384well_enrichments
 %% Well, PLATE, PHENOTYPE1_COUNT, PHENOTYPE2_COUNT, PVALUE_PHENOTYPE1, PVALUE_PHENOTYPE2, ENRICHMENT
 %% A01,2002-01-W01-02-01-CN00002412-B,3198,2352,0.986617752,0.013382248,1.867619843
 %%
-%% NOTE!  You must manually strip off the header lines of CPA output .csv file before you run this.  
-%% The way newlines are encoded now in the header make it complicated to do this programmatically.   
+%% NOTE!  You must manually strip off the header lines of CPA output .csv file before you run this.
+%% The way newlines are encoded now in the header make it complicated to do this programmatically.
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% USER SETS THESE
-numRows = 4;  
-numCols = 5; 
+numRows = 4;
+numCols = 5;
 suptitle_all = {'PHENOTYPE1_COUNT', 'PHENOTYPE2_COUNT', 'PVALUE_PHENOTYPE1', 'PVALUE_PHENOTYPE2', 'ENRICHMENT'};
 file = '/Users/dlogan/Desktop/CPA_output.csv';
-output_folder = 'Data_array_CSV_files'; %% placed in same path as CPA_output.csv 
+output_folder = 'Data_array_CSV_files'; %% placed in same path as CPA_output.csv
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 [pathstr, name, ext, versn] = fileparts(file);
@@ -44,15 +44,15 @@ Data = cell2mat(C(3:end));
 for idxPlate = length(plate_list):-1:1
     for idxRow = 16:-1:1
         for idxCol = 24:-1:1
-            
+
             idxColStr = CPtwodigitstring(idxCol);
             wellID = [ALPHABET(idxRow) num2str(idxColStr)];
-            
+
             %% Find proper row
             matched_wells = strcmp(C{1}, wellID);
             matched_plates = strcmp(C{2}, plate_list(idxPlate));
             matched_well_and_plate =  find(matched_wells & matched_plates);
-            
+
             if isempty(matched_well_and_plate)
                 Data_array(idxRow,idxCol,idxPlate,:) = NaN;
             elseif length(matched_well_and_plate) == 1
@@ -93,7 +93,7 @@ for idxDataType = size(Data,2):-1:1
         set(gca,'XTick',1:3:24)
         set(gca,'YTick',1:3:16)
         set(gca, 'YTickLabel', 'A|D|G|J|M|P')
-        
+
         %% Export data to Excel
         csvwrite(fullfile(output_folder,[name '_' suptitle_all{idxDataType} '_' plate_list{idxPlate} '.csv']),...
             Data_array(:,:,idxPlate,idxDataType))

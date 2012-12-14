@@ -40,11 +40,11 @@ function handles = EditObjectsManually(handles)
 % refer to everything in the module as 'filter', rather than 'edit'.  I
 % think filter actually makes a little more sense, since you're not really
 % 'editing' the objects, (I would think cutting an object in half would be editing it)
-% you're removing some of the objects.  
+% you're removing some of the objects.
 % I think the variables are pretty straightforward, but since this is
 % really a UI-based module (the user input comes from the window that pops
 % up, not so much from what they enter here) I had some comments on the UI:
-% 
+%
 % The 'Objects to Keep' and 'Objects to Remove' displays are not labelled.
 % they should be.
 % Additional text should be added to the UI to instruct the user about what

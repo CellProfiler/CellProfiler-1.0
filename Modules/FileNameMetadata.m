@@ -41,14 +41,14 @@ function handles=FileNameMetadata(handles, varargin)
 %  9. "[0-9]+"      Capture as many digits as follow
 %
 % When entering fields for the pathname, because slashs are platform-
-% dependdent and are escape characters in regexp, you can use '[\\/]' to 
+% dependdent and are escape characters in regexp, you can use '[\\/]' to
 % capture both slashes or use a vertical line ('|') as shorthand
 % to separate the direcrories, like this:
 %   (?<rootdir>)|(?<subdir1>)|(?<subdir2>)....
 % For instance, if an experimental run is given a unique directory name,
 % the following expression will capture the directory name from the path:
 %   .*|(?<Run>.*)$ or .*[\\/](?<Run>.*)$
-% This captures the immediate directory containing the image file in the 
+% This captures the immediate directory containing the image file in the
 % token "Run", ignoring earlier directories in the path.
 %
 % If you want to group the images according to a set of tokens, enter the
@@ -57,7 +57,7 @@ function handles=FileNameMetadata(handles, varargin)
 % enter the fields (not the tokens) you want to group by
 % here. For example, using the above examples, entering "Run, Plate" will
 % create groups containing images that share the same Run and the same
-% Plate fields. This is especially useful if you want to group all plates 
+% Plate fields. This is especially useful if you want to group all plates
 % together for an illumination correction calculation, rather than running
 % the correction pipeline on each directory containing a plate separately.
 %
@@ -82,7 +82,7 @@ function handles=FileNameMetadata(handles, varargin)
 % MBray 2009_03_20: Comments on variables for pyCP upgrade
 %
 % Recommended variable order (setting, followed by current variable in MATLAB CP)
-% This module needs to be folded into LoadImages, so we have access to the 
+% This module needs to be folded into LoadImages, so we have access to the
 % metadata from the very beginning (such as for image confirmation). In
 % that case, the settings would be:
 % (1) What is the regular expression to capture the fields in the image filename? (RegularExpressionFilename)
@@ -142,7 +142,7 @@ end
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -205,7 +205,7 @@ if ~isempty(PathFieldNames)
 end
 
 if (isempty(Metadata) && ~isempty(PathFieldNames)) || (~isempty(Metadata) && all(structfun(@isempty,Metadata)))
-	if ~isempty(FileName) 
+	if ~isempty(FileName)
 		error([ 'Image processing was canceled in the ', ModuleName, ' module. The path "',PathName,'" doesn''t match the regular expression "',RegularExpressionPathname,'"']);
 	end
 end
@@ -248,13 +248,13 @@ end
 % Place current token values in handles.Pipeline
 for i = 1:length(FieldNames)
     if isempty(Metadata.(FieldNames{i}))
-        value = ''; 
+        value = '';
     else
         value = Metadata.(FieldNames{i});
     end
     handles.Pipeline.CurrentMetadata.(FieldNames{i}) = value;
 end
-    
+
 % If groups are being defined, set up the handles.Pipeline structure
 % appropriately. The updated structure has the following fields:
 % GroupFileList: One for each group which contains;
@@ -262,14 +262,14 @@ end
 %   NumberOfImageSets: The total number of images in the group
 % GroupFileListIDs: A vector the same length of handles.Pipeline.FileList*
 %   where the index corresponds to the group number an image belongs to
-% GroupIDs: 
+% GroupIDs:
 % CurrentImageGroupID: Index of the current group being analyzed
 % ImageGroupFields: The metadata used to group the images
 
 if ~isempty(FieldsToGroupBy)
     isRunningOnCluster = isfield(handles.Current,'BatchInfo');
     isCreatingBatchFile = any(~cellfun(@isempty,regexp(handles.Settings.ModuleNames,'CreateBatchFiles'))) & ~isRunningOnCluster;
-    
+
     % If executing on the cluster, the following portion has already been
     % done and doesn't need to executed again
     if handles.Current.SetBeingAnalyzed == 1 && ~isRunningOnCluster
@@ -339,7 +339,7 @@ if ~isempty(FieldsToGroupBy)
                     s2(i).Well = [s2(i).WellRow num2str(str2num(s2(i).WellColumn),'%02d')];
                 end
             end
-            
+
             FileFieldsToGroupBy = FieldsToGroupBy(ismember(FieldsToGroupBy,FileFieldNames));
             file_idstr = cell(size(s2,1),length(FileFieldsToGroupBy));
             [file_idstr{:}] = deal('');
@@ -393,7 +393,7 @@ if ~isempty(FieldsToGroupBy)
         handles.Pipeline.CurrentImageGroupID = idx;
         handles.Pipeline.ImageGroupFields = FieldsToGroupBy;
         handles.Current.NumberOfImageGroups = length(handles.Pipeline.GroupFileList);
-        
+
         % Lastly, in case the groups are not contigiuous in the original
         % FileList, re-order the FileLists to make it so (required for
         % processing in CPCluster)
@@ -411,19 +411,19 @@ if ~isempty(FieldsToGroupBy)
             handles.Pipeline.(['FileList',AllImageNames{i}]) = handles.Pipeline.(['FileList',AllImageNames{i}])(:,sortedidx);
         end
         handles.Pipeline.GroupFileListIDs = newIDlist;
-        
+
         % Finally, if the user is preparing for a a batch run, we need to
-        % replace the number of cycles with the number of groups, so each 
+        % replace the number of cycles with the number of groups, so each
         % group gets it's own node
         StartingImageSet = handles.Current.StartingImageSet;
-        
+
         if isCreatingBatchFile
             if SetBeingAnalyzed == StartingImageSet
                 handles.Current.NumberOfImageSets = length(handles.Pipeline.GroupFileList);
             end
             CPwarndlg('You are using image grouping in preparation for a batch run. You will need to submit the batch job using a batch size of 1.',[ModuleName,': Required settings for cluster run'],'replace');
         end
-        
+
     else
         % If grouping fields have been created, set the current group
         % number (This will not be true until FileNameMetadata has
@@ -434,8 +434,8 @@ if ~isempty(FieldsToGroupBy)
         end
         newImageGroupID = find(all(ismember(handles.Pipeline.GroupIDs,idxID),2));
 
-        % Determine the current image being used within the group. 
-        % NB: An unfortunate side-effect separating of LoadImages and 
+        % Determine the current image being used within the group.
+        % NB: An unfortunate side-effect separating of LoadImages and
         % FileNameMetadata is that if the ImageGroupID changes, LoadImages has
         % already placed the images in the old ImageGroupID. So I need to
         % import the images here.
@@ -465,7 +465,7 @@ if ~isempty(FieldsToGroupBy)
 					[cell_str{:}] = deal('_');
 					index = cellfun(@num2str,handles.Pipeline.GroupFileList{idx}.(['FileList',ImageName])(2,:),'UniformOutput',false);
 					currentFilelist = cellfun(@cat,cell_dim,name, cell_str, index, ext,'UniformOutput',false);
-					currentFilelist = cellfun(@fullfile,pathstr,currentFilelist,'UniformOutput',false);	
+					currentFilelist = cellfun(@fullfile,pathstr,currentFilelist,'UniformOutput',false);
 				end
                 handles.Pipeline.GroupFileList{idx}.SetBeingAnalyzed = ...
                     find(ismember(currentFilelist,handles.Pipeline.(['Filename',ImageName])(end)));
@@ -536,7 +536,7 @@ drawnow
 
 for i = 1:length(FieldNames)
     if isempty(Metadata.(FieldNames{i}))
-        value = ''; 
+        value = '';
     else
         value = Metadata.(FieldNames{i});
     end
@@ -557,8 +557,8 @@ s = s(:);
 s = s(end:-1:1);
 [b,i,j] = unique(s);     % b=unique group names
 i = length(s) + 1 - i; % make sure this is the first instance
-isort = i;  
-if (~iscell(s))  
+isort = i;
+if (~iscell(s))
    if (any(isnan(b)))  % remove multiple NaNs; put one at the end
       nans = isnan(b);
       b = [b(~nans); NaN];

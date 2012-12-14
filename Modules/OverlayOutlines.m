@@ -8,7 +8,7 @@ function handles = OverlayOutlines(handles)
 % *************************************************************************
 %
 % Outlines (in a special format produced by an identify module) can be
-% placed on any desired image (grayscale, color, or blank) and then this 
+% placed on any desired image (grayscale, color, or blank) and then this
 % resulting image can be saved using the SaveImages module.
 %
 % Settings:
@@ -72,7 +72,7 @@ function handles = OverlayOutlines(handles)
 %
 %
 % MBray 2009_04_16: Comments on variables for pyCP upgrade
-% A button should sbe added that lets the user add/subtract outlines to 
+% A button should sbe added that lets the user add/subtract outlines to
 % overlay. Right now, we have to string multiple modules together to create
 % pictures with multiple outlines in different colors.
 %

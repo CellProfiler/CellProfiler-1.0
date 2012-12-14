@@ -341,7 +341,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
         if strcmp(IdentChoice(12),'N')
             %%% Dilate primary objects, and find nearest pixel in original label.
             [dist, Labels] = bwdist(full(PrelimPrimaryLabelMatrixImage>0));
-            DilatedPrelimSecObjectBinaryImage = dist < DistanceToDilate;            
+            DilatedPrelimSecObjectBinaryImage = dist < DistanceToDilate;
 
             %%% Remaps labels in Labels to labels in PrelimPrimaryLabelMatrixImage.
 
@@ -375,7 +375,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
         %%% "IdentifySecPropagateSubfunction.mexmac" (or whichever version is
         %%% appropriate for the computer platform being used), which consists of C
         %%% code that has been compiled to run quickly within Matlab.
-        
+
         % 2007-Jul-16 Kyungnam: If you want to get additional outputs, then
         % add more output arguments as follows:
         %%% [PropagatedImage, dist, diff_count, pop_count] = IdentifySecPropagateSubfunction(PrelimPrimaryLabelMatrixImage,OrigImage,ThresholdedOrigImage,RegularizationFactor);
@@ -394,7 +394,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
         %%% that no borders are adjusted during editing (i.e., any
         %%% changes from Prelim to Edited only involves removing
         %%% entire objects), but this is safer.
-        %%% 
+        %%%
         %%% (add one so that zeros are remapped correctly.)
         PrelimToEditedHist = sparse(EditedPrimaryLabelMatrixImage(:) + 1, PrelimPrimaryLabelMatrixImage(:) + 1, 1);
         [ignore, PrelimToEditedRemap] = sort(PrelimToEditedHist, 1);
@@ -409,7 +409,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
         %%% Fill holes (any contiguous, all-0 regions that are
         %%% surrounded by a single value).
         FinalLabelMatrixImage = CPfill_holes(EditedLabelMatrixImage);
-        
+
     elseif strcmp(IdentChoice,'Watershed')
         %%% In order to use the watershed transform to find dividing lines between
         %%% the secondary objects, it is necessary to identify the foreground
@@ -667,7 +667,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
     PrimaryObjectOutlines = DilatedPrimaryBinaryImage - EditedPrimaryBinaryImage;
     BothOutlinesOnOrigImage = ObjectOutlinesOnOrigImage;
     BothOutlinesOnOrigImage(PrimaryObjectOutlines == 1) = LineIntensity;
-    
+
     if strcmp(TestMode,'Yes')
         %%% If the test mode window does not exist, it is created, but only
         %%% if it's at the starting image set (if the user closed the window
@@ -725,12 +725,12 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
 
             %%% Calculates the ColoredLabelMatrixImage for display
             ColoredLabelMatrixImage = CPlabel2rgb(handles,FinalLabelMatrixImage);
-            
+
             %%%% Display secondary outlines as default
             CPimagesc(ObjectOutlinesOnOrigImage, handles,ThisModuleFigureNumber);
             title(['Outlined ',SecondaryObjectName])
 
-            %%% Construct struct which holds images and figure titles 
+            %%% Construct struct which holds images and figure titles
             if isempty(findobj(ThisModuleFigureNumber,'tag','PopupImage')),
                 ud(1).img = ObjectOutlinesOnOrigImage;
                 ud(2).img = BothOutlinesOnOrigImage;
@@ -777,7 +777,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
 	      handles = CPaddmeasurements ...
 			(handles, 'Image', ...
 			 ['Threshold_SumOfEntropies_', SecondaryObjectName],...
-			 SumOfEntropies);	    
+			 SumOfEntropies);
             end
         end
 
@@ -785,7 +785,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
 				    FinalLabelMatrixImage);
 	handles = CPsaveObjectLocations(handles, SecondaryObjectName, ...
 					FinalLabelMatrixImage);
-	
+
         %%% Saves images to the handles structure so they can be saved to the hard
         %%% drive, if the user requested.
         try

@@ -8,9 +8,9 @@ function handles = Morph(handles)
 % *************************************************************************
 %
 % Beta version: provides access to built in Matlab morphological functions.
-% If you have defined more than one function to be applied, each individual 
-% function is repeated the number of times specified before progressing to 
-% the next function in the list.  
+% If you have defined more than one function to be applied, each individual
+% function is repeated the number of times specified before progressing to
+% the next function in the list.
 %
 % Note that these will only operate on binary images
 %
@@ -38,7 +38,7 @@ function handles = Morph(handles)
 % end.
 % Perhaps change the second, third, 'what function..?' questions to 'What
 % function do you want to perform next?' so that user understands the they
-% are being performed in sequence.  
+% are being performed in sequence.
 % If possible in PyCP, only show one function & one 'how many times..' and
 % allow the user to click a 'plus' button to add another morphological
 % function.  This module always looked somewhat cluttered for a quite
@@ -281,7 +281,7 @@ drawnow
 
 for i = 1:length(Functions)
     Images{i+1} = bwmorph(Images{i},Functions{i},str2double(FunctionVariables{i}));
-    
+
     if strcmp('Yes',SkelClean) && strcmp('skel',Functions{i}) && strcmp('skel',FunctionVariables{i})
         skel = CPcleanskeleton(skel);
     end
@@ -304,9 +304,9 @@ if any(findobj == ThisModuleFigureNumber)
 
     %%% Construct structure which holds images and figure titles
     ud = cell2struct(Images,'img',1);
-    
+
     if isempty(findobj(ThisModuleFigureNumber,'tag','PopupImage')),
-        
+
 %         ud.img = Images;
         ud(1).title = 'Input Image';
         for i = 1:length(Functions)
@@ -314,7 +314,7 @@ if any(findobj == ThisModuleFigureNumber)
         end
         ud(end).title = ['Final ' ud(end).title];
         title(ud(end).title)
-        
+
         %%% uicontrol for displaying other images
         uicontrol(ThisModuleFigureNumber, ...
             'Style', 'popup',...

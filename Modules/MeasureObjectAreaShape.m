@@ -195,7 +195,7 @@ ZernikeChoice = char(handles.Settings.VariableValues{CurrentModuleNum,8});
 %%% Features  %%%
 %%%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -310,7 +310,7 @@ for i = 1:length(ObjectNameList)
             handles = CPaddmeasurements(handles, ObjectName, ...
                 ['AreaShape_', BasicFeatures{j}], []);
         end
-        
+
         if strcmp(ZernikeChoice,'Yes')
             % Here, just getting the feaure names out; I don't care about the
             % values, and the subfunction doesn't error if the label matrix is
@@ -330,7 +330,7 @@ for i = 1:length(ObjectNameList)
     if any(findobj == ThisModuleFigureNumber)
         % Remove uicontrols from last cycle
         delete(findobj(ThisModuleFigureNumber,'tag','TextUIControl'));
-        
+
         if SetBeingAnalyzed == handles.Current.StartingImageSet
             delete(findobj('parent',ThisModuleFigureNumber,'string','R'));
             delete(findobj('parent',ThisModuleFigureNumber,'string','G'));
@@ -361,7 +361,7 @@ for i = 1:length(ObjectNameList)
             uicontrol(ThisModuleFigureNumber,'style','text','units','normalized', 'position', [0.05 0.35 0.25 0.03],...
                 'HorizontalAlignment','left','BackgroundColor',[.7 .7 .9],'fontname','Helvetica','tag','TextUIControl',...
                 'fontsize',FontSize,'fontweight','bold','string','First 5 Zernike features:','UserData',handles.Current.SetBeingAnalyzed);
-            
+
             for k = 1:5 %% Only displaying the first 5 for space considerations
                 uicontrol(ThisModuleFigureNumber,'style','text','units','normalized', 'position', [0.05 0.35-0.04*k 0.25 0.03],...
                     'HorizontalAlignment','left','BackgroundColor',[.7 .7 .9],'fontname','Helvetica','tag','TextUIControl',...
@@ -381,7 +381,7 @@ for i = 1:length(ObjectNameList)
 
         % Report features, if there are any.
         % Plot zeros if no objects
-        if max(LabelMatrixImage(:)) < 1 
+        if max(LabelMatrixImage(:)) < 1
             Basic = zeros(length(ObjectNameList),length(BasicFeatures)+1);
             Zernike = zeros(length(ObjectNameList),5);
         end

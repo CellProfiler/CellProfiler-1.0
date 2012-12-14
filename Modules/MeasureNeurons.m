@@ -70,7 +70,7 @@ combined_skel=bwmorph(combined_skel,'thin',Inf);
 [IgnoreLabels, DistanceMap] = IdentifySecPropagateSubfunction(SeedObjectsLabelMatrix, zeros(size(SeedObjectsLabelMatrix)), max(combined_skel,SeedObjectsLabelMatrix)> 0, 1.0);
 
 %% Change background from white -> black
-DistanceMap(isinf(DistanceMap)) = -Inf; 
+DistanceMap(isinf(DistanceMap)) = -Inf;
 branch_points = bwmorph(combined_skel,'branchpoints');
 
 %% Remove branch points that fall on objects removed by
@@ -103,13 +103,13 @@ r = zeros(size(combined_skel));
 g = zeros(size(combined_skel));
 b = combined_skel;
 
-%% "Trunk" branchpoints (Distance = 0 branchpoints, i.e. those that fall on the seed object) 
+%% "Trunk" branchpoints (Distance = 0 branchpoints, i.e. those that fall on the seed object)
 %% are Red
 r(trunks) = 1;
 g(trunks) = 0;
 b(trunks) = 0;
 
-%% NonTrunk branchpoints (Distance > 0 branchpoints, i.e. those that fall beyond the seed object) 
+%% NonTrunk branchpoints (Distance > 0 branchpoints, i.e. those that fall beyond the seed object)
 %% are Green
 r(nonZeroBranches) = 0;
 g(nonZeroBranches) = 1;
@@ -145,7 +145,7 @@ handles = CPaddmeasurements(handles, SeedObjects, ...
 handles = CPaddmeasurements(handles, SeedObjects, ...
     ['NumberNonTrunkBranches_' SkeletonName], NumNonTrunkBranches');
 
-        
+
 %% Save Branchpoint Image
 BranchpointLabelSeedSkeletonName = [SeedObjects '_' SkeletonName];
 handles = CPaddimages(handles,BranchpointLabelSeedSkeletonName,visRGB);

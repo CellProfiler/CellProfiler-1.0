@@ -1,6 +1,6 @@
 function handles = CorrectIllumination_Calculate(handles)
 
-% Help for the Correct Illumination Calculate module: 
+% Help for the Correct Illumination Calculate module:
 % Category: Image Processing
 %
 % SHORT DESCRIPTION:
@@ -88,10 +88,10 @@ function handles = CorrectIllumination_Calculate(handles)
 % you would apply smoothing until you obtain a fairly smooth pattern
 % without sharp bright or dim regions.  Note that smoothing is a
 % time-consuming process, and fitting a polynomial is fastest but does not
-% allow a very tight fit as compared to the slower median and gaussian 
+% allow a very tight fit as compared to the slower median and gaussian
 % filtering methods. We typically recommend median vs. gaussian because
-% median 
-% is less sensitive to outliers, although the results are also slightly 
+% median
+% is less sensitive to outliers, although the results are also slightly
 % less smooth and the fact that images are in the range of 0 to 1 means that
 % outliers typically will not dominate too strongly anyway. A less commonly
 % used option is to *completely* smooth the entire image by choosing
@@ -259,7 +259,7 @@ end
 % the first time through the cycle. No further calculations are
 % necessary.
 if isProcessingAll && SetBeingAnalyzed ~= 1 && areImagesOriginal
-    return
+    return;
 end
 
 try NumericalObjectDilationRadius = str2double(ObjectDilationRadius);
@@ -307,7 +307,7 @@ else
         if areImagesOriginal
             % However, if grouping is being used for a cluster run and the
             % "LoadImages" option is being used, each batch
-            % needs access to the proper image for the current group, for the 
+            % needs access to the proper image for the current group, for the
             % current image set. Since we are re-arranging the number of
             % image sets here, this image must be pulled from the filelist.
             fieldname = ['Pathname', ImageName];
@@ -368,7 +368,7 @@ if isProcessingAll
         if areImagesOriginal && SetBeingAnalyzed == 1
             % Check if the correct images are being used for this config
             fieldname = ['Pathname', ImageName];
-            try 
+            try
                 Pathname = handles.Pipeline.(fieldname);
             catch
                 error(['Image processing was canceled in the ', ModuleName, ' module because it uses all the images of one type to calculate the illumination correction. Therefore, the entire set of images to be illumination corrected must exist prior to processing the first cycle through the pipeline. In other words, the ',ModuleName, ' module must be run straight after a Load Images module rather than following an image analysis module. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this ', ModuleName, ' module onward.']);
@@ -402,9 +402,9 @@ if isProcessingAll
                         FileList = handles.Pipeline.GroupFileList{CurrentImageGroupID}.(fieldname);
                     end
                     FileList(cellfun(@isempty,FileList)) = [];   % Get rid of empty names
-                    
+
 					LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,1);
-						
+
                     SumMiniIlluminationImage = blkproc(padarray(LoadedImage,[RowsToAdd ColumnsToAdd],'replicate','post'),BestBlockSize,@minnotzero);
                     for i = 2:length(FileList)
 						LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,i);
@@ -453,7 +453,7 @@ if isProcessingAll
                 % Retrieves the existing illumination image, as accumulated so far.
                 SumMiniIlluminationImage = CPretrieveimage(handles,IlluminationImageName,ModuleName);
                 NumberOfActualImages = CPretrieveimage(handles,'NumberOfActualImages',ModuleName);
-                
+
                 % Adds the current image to it unless it's all 0's (i.e, file is empty)
                 if ~all(OrigImage(:) == 0)
                     SumMiniIlluminationImage = SumMiniIlluminationImage + blkproc(padarray(OrigImage,[RowsToAdd ColumnsToAdd],'replicate','post'),[BestBlockSize(1) BestBlockSize(2)],@minnotzero);
@@ -461,12 +461,12 @@ if isProcessingAll
                 end
                 handles = CPaddimages(handles,IlluminationImageName,SumMiniIlluminationImage);
                 handles = CPaddimages(handles,'NumberOfActualImages',NumberOfActualImages);
-                
+
                 % If the last cycle has just been processed, indicate that
                 % the projection image is ready.
                 if SetBeingAnalyzed == NumberOfImageSets
                     % Divides by the total number of images in order to
-                    % average. 
+                    % average.
                     MiniIlluminationImage = SumMiniIlluminationImage / NumberOfActualImages;
                     % The coarse estimate is then expanded in size so that it is the same
                     % size as the original image. Bilinear interpolation is used to ensure the
@@ -514,7 +514,7 @@ else error(['Image processing was canceled in the ', ModuleName, ' module becaus
 end
 
 % Dilates the objects, and/or smooths the RawImage if the user requested.
-if ReadyFlag || isCreatingBatchFile 
+if ReadyFlag || isCreatingBatchFile
     if usingRegularIllumCorr
         if (NumericalObjectDilationRadius > 0)
             DilatedImage = CPdilatebinaryobjects(RawImage, NumericalObjectDilationRadius);
@@ -677,7 +677,7 @@ if any(findobj == ThisModuleFigureNumber)
             ax{2} = subplot(2,2,2,'Parent',ThisModuleFigureNumber);
             CPimagesc(FinalIlluminationFunction,handles,ax{2});
             title(ax{2},'Final illumination function');
-            
+
             if ~isempty(ax{3}) && ~isempty(ax{4}),
                 % If subplots 3 and 4 exist (in addition to 1 and 2), report numbers on the graph itself
                 text(1,50,['Min Value: ' num2str(min(min(FinalIlluminationFunction)))],'Color','red','fontsize',handles.Preferences.FontSize,'Parent',ax{2});
@@ -747,7 +747,7 @@ if any(findobj == ThisModuleFigureNumber)
             CPimagesc(AverageMinimumsImage,handles,ax{3});
             title(ax{3},'Average minimums image');
         end
-        
+
         if ~isempty(ax{2}) && (~isempty(ax{4}) && exist('FinalIlluminationFunction','var')),
             % Report numbers on the graph itself
             text(1,50,  ['Min Value: ' num2str(min(min(FinalIlluminationFunction)))],'Color','red','fontsize',handles.Preferences.FontSize,'Parent',ax{3});
@@ -819,7 +819,7 @@ if areImagesDerived || (areImagesOriginal && SetBeingAnalyzed == 1)
             if isProcessingEach
                 error(['Image processing was canceled in the ', ModuleName, ' module because you attempted to pass along the averaged image, but because you are in Each mode, an averaged image has not been calculated.']);
             end
-            try 
+            try
                 handles = CPaddimages(handles,AverageImageName,RawImage);
             catch
                 error(['Image processing was canceled in the ', ModuleName, ' module. There was a problem passing along the averaged image. This image can only be passed along if you choose to dilate.']);
@@ -830,7 +830,7 @@ if areImagesDerived || (areImagesOriginal && SetBeingAnalyzed == 1)
             handles = CPaddimages(handles,fieldname,ReadyFlag);
         end
         if ~strcmpi(DilatedImageName,'Do not use')
-            try 
+            try
                 handles = CPaddimages(handles,DilatedImageName,DilatedImage);
             catch
                 error(['Image processing was canceled in the ', ModuleName, ' module. There was a problem passing along the dilated image. This image can only be passed along if you choose to dilate.']);
@@ -883,7 +883,7 @@ function lowest = minnotzero(x)
 	end
 
 function LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,idx)
-					
+
 if ~isfield(handles.Pipeline,['FileFormat',ImageName])
 	LoadedImage = CPimread(fullfile(Pathname,char(FileList(idx))));
 else
@@ -895,6 +895,6 @@ else
 		warning('on','CPtiffread:IgnoredTiffEntryWithTag');
 		LoadedImage = im2double(LoadedRawImage.data);
 	elseif any(strcmpi(FileFormat,{'tif','tiff','flex'}))
-		LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));  
+		LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));
 	end
 end

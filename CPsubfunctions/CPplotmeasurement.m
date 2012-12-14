@@ -40,7 +40,7 @@ if PlotType <= 3
 	uiwait(msgfig);
 	[object_name, feature_name] = CPgetfeature(handles, 1);
 	if isempty(object_name)
-	    return
+	    return;
 	end
 	[Thresholdstr, Measurements, object_name, feature_name] = ...
 	    Threshold(handles, Measurements, UserAnswers, object_name, feature_name);
@@ -59,7 +59,7 @@ if PlotType <= 3
         warnfig=CPwarndlg('There is an empty matrix in your measurement data, so a portion of the measurements will not be taken into account for the graph. This may affect the display of the graph (eg. fewer/no data points). This probably occurred because your custom-chosen data threshold was too stringent. You may consider trying a more lenient threshold.');
         uiwait(warnfig);
     end
-    
+
     xticklabels = num2cell([0; image_numbers'; 0]);
     xticklabels{1} = '';
     xticklabels{end} = '';
@@ -179,7 +179,7 @@ elseif PlotType == 4
 	    uiwait(msgfig);
 	    [object_name, feature_name] = CPgetfeature(handles, 1);
 	    if isempty(object_name)
-		return
+		return;
 	    end
 	    [Thresholdstr2,Measurements2,object_name,feature_name] = Threshold(handles,Measurements2,UserAnswers,object_name,feature_name);
 	    [Thresholdstr1,Measurements1,object_name,feature_name] = Threshold(handles,Measurements1,UserAnswers,object_name,feature_name);
@@ -395,12 +395,12 @@ while 1
                     UserAnswers.Color='CellProfiler background';
             end
             delete(UserWindow);
-            return
+            return;
         end
     else
         UserAnswers = [];
         if ishandle(UserWindow),delete(UserWindow);end
-        return
+        return;
     end
 end
 
@@ -410,7 +410,7 @@ function [Thresholdstr,Measurements,ObjectTypename,FeatureType] = Threshold(hand
 
 
 if isempty(ObjectTypename)
-    return
+    return;
 end
 MeasurementToThresholdValueOnName = pretty_feature_name(FeatureType, ObjectTypename);
 MeasurementToThresholdValueOn = handles.Measurements.(ObjectTypename).(FeatureType);
@@ -452,7 +452,7 @@ for ImageNumber = 1:NumberOfImages
 		newcol=[newcol; datacol(row)];
 	    end
 	end
-	
+
 	newmat=[newmat newcol];
     end
     OutputMeasurements{CompressedImageNumber,1} = newmat;
@@ -492,7 +492,7 @@ function str = pretty_feature_name(feature_name, object_name)
     strread(feature_name, '%s%s%s%s', 'delimiter', '_');
 if strcmp(feature_type, 'Intensity') ...
         || strcmp(feature_type, 'Texture') ...
-        || strcmp(feature_type, 'Correlation') 
+        || strcmp(feature_type, 'Correlation')
     str = sprintf('%s of %s in %s', char(feature_subtype), char(image_name), char(object_name));
 else
     str = sprintf('%s of %s', strrep(char(feature_name), '_', ' '), char(object_name));

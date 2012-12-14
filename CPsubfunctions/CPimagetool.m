@@ -6,7 +6,7 @@ function CPimagetool(varargin)
 % help is contained in a file called ImageToolWindow in the image tools
 % folder.
 
-% Notes for pyCP: 
+% Notes for pyCP:
 % See the comments in ImageToolWindow
 
 % CellProfiler is distributed under the GNU General Public License.
@@ -55,7 +55,7 @@ if ~isempty(varargin)
                 set(gca,'FontSize',FontSize);
                 title(['Histogram for ' get(get(get(ImageHandle,'parent'),'title'),'string')])
                 xlabel('Pixel intensity');
-                ylabel('Number of pixels'); 
+                ylabel('Number of pixels');
                 grid on
             case {'MatlabWS'}                                 % Store image in Matlab base work space
                 assignin('base','Image',get(ImageHandle,'Cdata'));

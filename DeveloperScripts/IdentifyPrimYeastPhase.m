@@ -344,18 +344,18 @@ if any(findobj == ThisModuleFigureNumber)
     %%% Need to put in the figure handling stuff like thhe other modules
     %%% have.
     CPfigure(handles,'Image',ThisModuleFigureNumber);
-    subplot(2,2,1); 
-    CPimagesc(OrigImage,handles); 
+    subplot(2,2,1);
+    CPimagesc(OrigImage,handles);
     title(['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
     ColoredLabelMatrixImage = CPlabel2rgb(handles,FinalLabelMatrixImage);
-    subplot(2,2,2); 
-    CPimagesc(ColoredLabelMatrixImage,handles); 
+    subplot(2,2,2);
+    CPimagesc(ColoredLabelMatrixImage,handles);
     title(['Segmented ',ObjectName]);
-    subplot(2,2,3); 
-    CPimagesc(EnhancedInvertedImage,handles); 
+    subplot(2,2,3);
+    CPimagesc(EnhancedInvertedImage,handles);
     title('Inverted enhanced contrast image');
-    subplot(2,2,4); 
-    CPimagesc(FinalOutline,handles); 
+    subplot(2,2,4);
+    CPimagesc(FinalOutline,handles);
     title([ObjectName, ' Outlines']);
 end
 

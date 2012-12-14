@@ -1,5 +1,5 @@
 function varargout = CellProfiler(varargin)
- 
+
 % CellProfilerTM cell image analysis software
 %
 % CellProfiler cell image analysis software is designed for biologists
@@ -101,19 +101,19 @@ handles.FunctionHandles.LoadPipelineCallback = @LoadPipeline_Callback;
 %%% pre-loaded.
 if isdeployed
     try
-        load(fullfile(handles.Current.StartupDirectory, 'CellProfilerPreferences.mat'))
+        load(fullfile(handles.Current.StartupDirectory, 'CellProfilerPreferences.mat'));
         LoadedPreferences = SavedPreferences;
         clear SavedPreferences
     end
     handles.Preferences.DefaultModuleDirectory = fullfile(pwd,'Modules');
 else
     try
-        load(fullfile(matlabroot,'CellProfilerPreferences.mat'))
+        load(fullfile(matlabroot,'CellProfilerPreferences.mat'));
         LoadedPreferences = SavedPreferences;
         clear SavedPreferences
     catch
         try
-            load(fullfile(handles.Current.StartupDirectory, 'CellProfilerPreferences.mat'))
+            load(fullfile(handles.Current.StartupDirectory, 'CellProfilerPreferences.mat'));
             LoadedPreferences = SavedPreferences;
             clear SavedPreferences
         end
@@ -141,7 +141,7 @@ end
 set(0, 'defaultuicontrolbackgroundcolor', [0.7 0.7 0.9]);
 
 %%% Turn off TeX interpreter globally
-set(0,'DefaultTextInterpreter','none')
+set(0,'DefaultTextInterpreter','none');
 
 if ~isdeployed
     %%% If the Default Module Directory has not yet been successfully
@@ -221,9 +221,9 @@ handles.Settings.PixelSize = handles.Preferences.PixelSize;
 %%% (No need to set a current module directory or display it in an
 %%% edit box; the one stored in preferences is the only one ever
 %%% used).
-set(handles.PixelSizeEditBox,'String',handles.Preferences.PixelSize)
-set(handles.DefaultOutputDirectoryEditBox,'String',handles.Preferences.DefaultOutputDirectory)
-set(handles.DefaultImageDirectoryEditBox,'String',handles.Preferences.DefaultImageDirectory)
+set(handles.PixelSizeEditBox,'String',handles.Preferences.PixelSize);
+set(handles.DefaultOutputDirectoryEditBox,'String',handles.Preferences.DefaultOutputDirectory);
+set(handles.DefaultImageDirectoryEditBox,'String',handles.Preferences.DefaultImageDirectory);
 %%% Retrieves the list of image file names from the chosen directory,
 %%% stores them in the handles structure, and displays them in the
 %%% filenameslistbox, by faking a click on the DefaultImageDirectoryEditBox.
@@ -233,12 +233,12 @@ handles = DefaultImageDirectoryEditBox_Callback(hObject, eventdata, handles);
 %%% adds the Modules subfolder of the folder that contains CellProfiler.m to
 %%% Matlab's search path, if possible.
 if ~isdeployed
-    addpath(handles.Preferences.DefaultModuleDirectory)
+    addpath(handles.Preferences.DefaultModuleDirectory);
     CellProfilerPathname = fileparts(which('CellProfiler'));
     CellProfilerModulePathname = fullfile(CellProfilerPathname,'Modules');
     handles.Current.CellProfilerPathname = CellProfilerPathname;
     try
-        addpath(CellProfilerModulePathname)
+        addpath(CellProfilerModulePathname);
     end
 end
 
@@ -255,7 +255,7 @@ end
 names = fieldnames(handles);
 for k = 1:length(names)
     if ishandle(handles.(names{k}))
-        set(findobj(handles.(names{k}),'-property','FontSize'),'FontSize',handles.Preferences.FontSize,'FontName','helvetica')
+        set(findobj(handles.(names{k}),'-property','FontSize'),'FontSize',handles.Preferences.FontSize,'FontName','helvetica');
     end
 end
 
@@ -272,7 +272,7 @@ end
 if ~isdeployed
     %%% Adds the Help folder to Matlab's search path.
     try Pathname = fullfile(handles.Current.CellProfilerPathname,'Help');
-        addpath(Pathname)
+        addpath(Pathname);
     catch
         CPerrordlg('CellProfiler could not find its help files, which should be located in a folder called Help within the folder containing CellProfiler.m. The help buttons will not be functional.');
     end
@@ -343,7 +343,8 @@ set(handles.CPlogoAxes,'visible','off')
 %%% Compiler: BEGIN HELP
 Pathname = fullfile(handles.Current.CellProfilerPathname,'Modules');
 ListOfTools{1} = 'Modules: none loaded';
-try addpath(Pathname)
+try
+    addpath(Pathname);
     %%% Lists all the contents of that path into a structure which includes the
     %%% name of each object as well as whether the object is a file or
     %%% directory.
@@ -389,7 +390,8 @@ handles.Current.ModulesHelp = ToolHelp;
 ListOfTools = {};
 Pathname = fullfile(handles.Current.CellProfilerPathname,'ImageTools');
 ListOfTools{1} = 'Image tools: none loaded';
-try addpath(Pathname)
+try
+    addpath(Pathname)
     %%% Lists all the contents of that path into a structure which includes the
     %%% name of each object as well as whether the object is a file or
     %%% directory.
@@ -435,7 +437,8 @@ ListOfTools = {};
 %%% DataTools folder.
 Pathname = fullfile(handles.Current.CellProfilerPathname,'DataTools');
 ListOfTools{1} = 'Data tools: none loaded';
-try addpath(Pathname)
+try
+    addpath(Pathname);
     %%% Lists all the contents of that path into a structure which includes the
     %%% name of each object as well as whether the object is a file or
     %%% directory.
@@ -471,7 +474,8 @@ GSListOfTools = {};
 Pathname = fullfile(handles.Current.CellProfilerPathname,'Help');
 ListOfTools{1} = 'Help: none loaded';
 GSListOfTools{1} = 'Help: none loaded';
-try addpath(Pathname)
+try
+    addpath(Pathname);
     %%% Lists all the contents of that path into a structure which includes the
     %%% name of each object as well as whether the object is a file or
     %%% directory.
@@ -636,7 +640,7 @@ if strcmp(Answer,'Yes')
     handles.Settings.VariableRevisionNumbers = [];
     handles.Settings.ModuleRevisionNumbers = [];
     handles.Settings.ModuleNotes = {};
-    handles.Settings.ModuleSupportedFeatures = {};    
+    handles.Settings.ModuleSupportedFeatures = {};
     delete(get(handles.variablepanel,'children'));
     set(handles.slider1,'visible','off');
     handles.VariableBox = {};
@@ -646,12 +650,12 @@ if strcmp(Answer,'Yes')
     handles.Current.NumberOfModules = 0;
     contents = {'No Modules Loaded'};
     set(handles.ModulePipelineListBox,'String',contents);
-    
+
     %%% Clear the pipeline name and path info
     handles.Current.SavedPipeline.Info.Pathname = {};
     handles.Current.SavedPipeline.Info.Filename = {};
     guidata(hObject,handles);
-    
+
     set(handles.figure1,'name','CellProfiler');
 end
 
@@ -666,7 +670,7 @@ if isempty(eventdata)
     errFlg = 0;
     [SettingsFileName, SettingsPathname] = ...
 	CPuigetfile('*.mat', 'Choose a pipeline file', ...
-		    handles.Current.DefaultOutputDirectory); 
+		    handles.Current.DefaultOutputDirectory);
     pause(.1);
     figure(handles.figure1);
 else
@@ -677,7 +681,7 @@ end
 %%% If the user presses "Cancel", the SettingsFileName.m will = 0 and
 %%% nothing will happen.
 if SettingsFileName == 0
-    return
+    return;
 end
 
 drawnow
@@ -691,7 +695,7 @@ end
 if ~(isfield(LoadedSettings, 'Settings') || isfield(LoadedSettings, 'handles'))
     CPerrordlg(['The file ' SettingsPathname SettingsFileName ' does not appear to be a valid settings or output file. Settings can be extracted from an output file created when analyzing images with CellProfiler or from a small settings file saved using the "Save Settings" button.  Either way, this file must have the extension ".mat" and contain a variable named "Settings" or "handles".']);
     errFlg = 1;
-    return
+    return;
 end
 %%% Figures out whether we loaded a Settings or Output file, and puts
 %%% the correct values into Settings. Splices the subset of variables
@@ -699,7 +703,8 @@ end
 if (isfield(LoadedSettings, 'Settings')),
     Settings = LoadedSettings.Settings;
 else
-    try Settings = LoadedSettings.handles.Settings;
+    try
+        Settings = LoadedSettings.handles.Settings;
         Settings.NumbersOfVariables = LoadedSettings.handles.Settings.NumbersOfVariables;
     end
 end
@@ -709,12 +714,12 @@ try
     if (size(Settings.ModuleNames,2) ~= NumberOfModules)||(size(Settings.NumbersOfVariables,2) ~= NumberOfModules);
         CPerrordlg(['The file ' SettingsPathname SettingsFileName ' is not a valid settings or output file. Settings can be extracted from an output file created when analyzing images with CellProfiler or from a small settings file saved using the "Save Settings" button.']);
         errFlg = 1;
-        return
+        return;
     end
 catch
     CPerrordlg(['The file ' SettingsPathname SettingsFileName ' is not a valid settings or output file. Settings can be extracted from an output file created when analyzing images with CellProfiler or from a small settings file saved using the "Save Settings" button.']);
     errFlg = 1;
-    return
+    return;
 end
 
 %%% Hide stuff in the background, but keep old values in case of errors.
@@ -731,11 +736,11 @@ Skipped = 0;
 for k = 1:NumberOfModules
     if ~isdeployed
         CurrentModuleNamedotm = [char(ModuleNames{k}) '.m'];
-         
+
         %% Calculating a suggested image threshold was added to
-        %% MeasureImageSaturationBlur. 
+        %% MeasureImageSaturationBlur.
         if strcmp(CurrentModuleNamedotm,'MeasureImageSaturationBlur.m')
-            CurrentModuleNamedotm  = 'MeasureImageQuality.m'; %% 
+            CurrentModuleNamedotm  = 'MeasureImageQuality.m';
             Filename = 'MeasureImageQuality';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             pause(.1);
@@ -744,11 +749,11 @@ for k = 1:NumberOfModules
             Settings.ModuleNames{k-Skipped} = Filename;
             CPwarndlg('Note: The module ''MeasureImageSaturationBlur'' has been replaced with ''MeasureImageQuality''.  The settings have been transferred for your convenience.')
         end
-        
+
         %% Smooth.m was changed to SmoothOrEnhance.m since Tophat Filter
         %% was added to the Smooth Module
         if strcmp(CurrentModuleNamedotm,'Smooth.m')
-            CurrentModuleNamedotm  = 'SmoothOrEnhance.m'; %% 
+            CurrentModuleNamedotm  = 'SmoothOrEnhance.m';
             Filename = 'SmoothOrEnhance';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             pause(.1);
@@ -757,10 +762,10 @@ for k = 1:NumberOfModules
             Settings.ModuleNames{k-Skipped} = Filename;
             CPwarndlg('Note: The module ''Smooth'' has been replaced with ''SmoothOrEnhance''.  The settings have been transferred for your convenience.')
         end
-        
+
         %% SmoothKeepingEdges.m was merged into SmoothOrEnhance.m
         if strcmp(CurrentModuleNamedotm,'SmoothKeepingEdges.m')
-            CurrentModuleNamedotm  = 'SmoothOrEnhance.m'; %% 
+            CurrentModuleNamedotm  = 'SmoothOrEnhance.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
             CPwarndlg('Note: The module ''SmoothKeepingEdges'' has been merged into ''SmoothOrEnhance''.  The settings have been transferred for your convenience.')
@@ -768,61 +773,60 @@ for k = 1:NumberOfModules
 
         %% Flip and Rotate.m were combined - the fixup for this is handled in CPimportPreviousModuleSettings
         if strcmp(CurrentModuleNamedotm,'Flip.m') || strcmp(CurrentModuleNamedotm,'Rotate.m')
-            CurrentModuleNamedotm  = 'FlipAndRotate.m'; %% 
+            CurrentModuleNamedotm  = 'FlipAndRotate.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
+
         if strcmp(CurrentModuleNamedotm,'Subtract.m')
             CurrentModuleNamedotm = 'ImageMath.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
+
         if strcmp(CurrentModuleNamedotm,'Average.m')
             CurrentModuleNamedotm = 'ImageMath.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
+
         if strcmp(CurrentModuleNamedotm, 'UnifyObjects.m')
             CurrentModuleNamedotm = 'RelabelObjects.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
+
         if strcmp(CurrentModuleNamedotm, 'SplitIntoContiguousObjects.m')
             CurrentModuleNamedotm = 'RelabelObjects.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
-        
+
         if strcmp(CurrentModuleNamedotm,'Combine.m')
             CurrentModuleNamedotm = 'ImageMath.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
+
         if strcmp(CurrentModuleNamedotm,'InvertIntensity.m')
             CurrentModuleNamedotm = 'ImageMath.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
+
         if strcmp(CurrentModuleNamedotm,'Multiply.m')
             CurrentModuleNamedotm = 'ImageMath.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
+
         if strcmp(CurrentModuleNamedotm,'CalculateRatios.m')
             CurrentModuleNamedotm = 'CalculateMath.m';
             Pathname = handles.Preferences.DefaultModuleDirectory;
             Pathnames{k-Skipped} = Pathname;
         end
-        
-        
+
+
         if exist(CurrentModuleNamedotm,'file')
             Pathnames{k-Skipped} = fileparts(which(CurrentModuleNamedotm)); %#ok Ignore MLint
         else
@@ -888,7 +892,7 @@ for k = 1:NumberOfModules
                 set(handles.ModulePipelineListBox,'Value',OldValue);
                 ModulePipelineListBox_Callback(hObject,[],handles);
                 errFlg = 1;
-                return
+                return;
             end
         end
     else
@@ -938,7 +942,7 @@ for ModuleNum = 1:length(handles.Settings.ModuleNames)
     elseif strcmp('WriteSQLFiles',CurrentModuleName)
         handles.Settings.ModuleNames(ModuleNum-Skipped) = {'ExportToDatabase'};
     end
-    
+
     %%% Load the module's settings
 
     try
@@ -954,15 +958,15 @@ for ModuleNum = 1:length(handles.Settings.ModuleNames)
             CPimportPreviousModuleSettings(Settings,CurrentModuleName,ModuleNum,Skipped,SavedVarRevNum);
         if IsModuleModified, UpdatedModules(ModuleNum) = true; end
         if NeedsPlaceholderUpdateMsg, PlaceholderUpdate(ModuleNum) = true; end
-        
+
         %%% Load the module with its default settings
         [defVariableValues defVariableInfoTypes defDescriptions handles.Settings.NumbersOfVariables(ModuleNum-Skipped) DefVarRevNum ModuleRevNum] = LoadSettings_Helper(Pathnames{ModuleNum-Skipped}, CurrentModuleName);
-        
+
         %%% Using the VariableRevisionNumber and the number of variables,
         %%% check if the loaded module and the module the user is trying to
         %%% load is the same
         if SavedVarRevNum == DefVarRevNum && handles.Settings.NumbersOfVariables(ModuleNum-Skipped) == Settings.NumbersOfVariables(ModuleNum-Skipped)
-            %%% If so, replace the default settings with the saved ones            
+            %%% If so, replace the default settings with the saved ones
             handles.Settings.VariableValues(ModuleNum-Skipped,1:Settings.NumbersOfVariables(ModuleNum-Skipped)) = Settings.VariableValues(ModuleNum-Skipped,1:Settings.NumbersOfVariables(ModuleNum-Skipped));
             %%% save module revision number
             handles.Settings.ModuleRevisionNumbers(ModuleNum-Skipped) = ModuleRevNum;
@@ -1038,7 +1042,7 @@ for ModuleNum = 1:length(handles.Settings.ModuleNames)
             guidata(hObject,handles);
             ModulePipelineListBox_Callback(hObject,[],handles);
             errFlg = 1;
-            return
+            return;
         end
     end
 end
@@ -1112,7 +1116,7 @@ if exist('FixList','var')
         handles.Settings.VariableValues(FixList(k,1),FixList(k,2)) = FirstValue;
     end
 end
-    
+
 guidata(hObject,handles);
 set(handles.ModulePipelineListBox,'String',contents);
 set(handles.ModulePipelineListBox,'Value',1);
@@ -1332,7 +1336,7 @@ PipelineFileIdentifier = 'PIPE';
 if isempty(eventdata)
     errFlg = 0;
     RootPipelinesPathname = ...
-        CPuigetdir(handles.Current.DefaultOutputDirectory,'Choose the root directory where your pipelines are located.'); 
+        CPuigetdir(handles.Current.DefaultOutputDirectory,'Choose the root directory where your pipelines are located.');
     pause(.1);
     figure(FrontEndFigure);
 else
@@ -1342,7 +1346,7 @@ end
 %%% If the user pressed Cancel, exit
 if RootPipelinesPathname == 0, return; end
 
-%%% Obtain directory list recursively using subdir (see subfunction below) 
+%%% Obtain directory list recursively using subdir (see subfunction below)
 FilesAndDirsStructure = subdir(RootPipelinesPathname);
 
 %%% Puts the logical value of whether each object is a directory into a list.
@@ -1355,7 +1359,7 @@ FilesAndDirsStructure = FilesAndDirsStructure(~LogicalIsDirectory);
 AllPotentialPipelineFilenames = cat(1,{FilesAndDirsStructure.name});
 FilesWithPIPEInName = regexp(AllPotentialPipelineFilenames,PipelineFileIdentifier);     % Match string to filename
 FilesWithPIPEInName(cellfun('isempty',FilesWithPIPEInName)) = {0};                      % Insert 0 for []
-FilesAndDirsStructure = FilesAndDirsStructure(find(cell2mat(FilesWithPIPEInName)));           % Remove non-PIPE files 
+FilesAndDirsStructure = FilesAndDirsStructure(find(cell2mat(FilesWithPIPEInName)));           % Remove non-PIPE files
 
 %%% Saves the filename and directory lists separately.
 PipelinePathnames = {FilesAndDirsStructure.dir};
@@ -1374,7 +1378,7 @@ catch
     CPerrordlg(lasterr)
     return;
 end
-    
+
 %%% Use the user input to trim the pipeline list
 PipelineFilenames = PipelineFilenames(IndicesOfPipelinesToRun);
 PipelinePathnames = PipelinePathnames(IndicesOfPipelinesToRun);
@@ -1416,14 +1420,14 @@ end
 %%% Start processing each pipeline in order
 for i = 1:length(PipelineFilenames);
     handles = guidata(FrontEndFigure);
-    
-    %%% Now, we will try to load each pipeline listed in PipelineFilenames. 
-    %%% Beforehand, change the Default Image and Output directories to be 
+
+    %%% Now, we will try to load each pipeline listed in PipelineFilenames.
+    %%% Beforehand, change the Default Image and Output directories to be
     %%% the same location as the current directory.
     errFlg = 0;
-   
+
     try    %%% Attempt to run the pipeline
-        %%% Place the relevant parameters into eventdata and invoke 
+        %%% Place the relevant parameters into eventdata and invoke
         %%% LoadPipeline_Callback
         SettingsFilename = PipelineFilenames{i};
         SettingsPathname = PipelinePathnames{i};
@@ -1439,19 +1443,19 @@ for i = 1:length(PipelineFilenames);
             case 2, handles.Current.DefaultOutputDirectory = SettingsPathname;
         end
         guidata(gcbo,handles);
-        
-        %%% Displays the chosen directories in the 
+
+        %%% Displays the chosen directories in the
         %%% DefaultImageDirectoryEditBox and DefaultOutputDirectoryEditBox.
         set(handles.DefaultImageDirectoryEditBox,'String',handles.Current.DefaultImageDirectory);
         set(handles.DefaultOutputDirectoryEditBox,'String',handles.Current.DefaultOutputDirectory);
-        
-        %%% Execute callback for DefaultImageDirectoryEditBox to retrieves the list of 
-        %%% image file names from the chosen directory, store them in the handles 
+
+        %%% Execute callback for DefaultImageDirectoryEditBox to retrieves the list of
+        %%% image file names from the chosen directory, store them in the handles
         %%% structure, and display them in the filenameslistbox
         DefaultImageDirectoryEditBox_Callback(hObject, [], guidata(FrontEndFigure));
         % Do the same for OutputDirectoryEditBox
         DefaultOutputDirectoryEditBox_Callback(hObject, [], guidata(FrontEndFigure));
-        
+
         %%% Now run the pipeline by invoking AnalyzeImagesButton_Callback
         AnalyzeImagesButton_Callback(hObject, eventdata, guidata(FrontEndFigure));
     catch
@@ -1463,21 +1467,21 @@ for i = 1:length(PipelineFilenames);
     handles = guidata(FrontEndFigure);
     ModuleNames = handles.Settings.ModuleNames;
     prefix = 'ModuleError_';
-    ismoduleerror = false(length(ModuleNames),1); 
+    ismoduleerror = false(length(ModuleNames),1);
     j = 1; fdname = [prefix,num2str(j,'%02d'),ModuleNames{j}];
     while (j < length(ModuleNames)) && isfield(handles.Measurements.Image,fdname),
-        ismoduleerror(j) = handles.Measurements.Image.(fdname){:}; 
+        ismoduleerror(j) = handles.Measurements.Image.(fdname){:};
         j = j+1; fdname = [prefix,num2str(j,'%02d'),ModuleNames{j}];
     end
     if any(ismoduleerror),
         ErrorsInPipeline{i} = {find(ismoduleerror),ModuleNames{ismoduleerror},};
     end
-    
+
     if errFlg ~= 0,     %%% This would have to be an error that doesn't get flagged by AnalyzeImages; not sure if that can happen
         error(['Image processing was canceled in RunMultiplePipelines due to an error.']);
     end
 end
-        
+
 %%% If any errors occured in the pipelines, let the user know where they happened
 ismoduleerror = ~cellfun('isempty',ErrorsInPipeline);
 if any(ismoduleerror)
@@ -1640,7 +1644,7 @@ cancelpushbutton = uicontrol(...
     'Units','normalized',...
     'Callback',@RunMultiplePipelines_Dialog_Callback,...
     'Position',[0.6 0.05 0.3 0.06],...
-    'String','Cancel',... 
+    'String','Cancel',...
     'FontName','helvetica',...
     'FontSize',handles.Preferences.FontSize,...
     'Tag','cancelpushbutton');  %#ok Ignore MLint
@@ -1687,7 +1691,7 @@ function SavePipeline_Callback(hObject, eventdata, handles) %#ok We want to igno
 
 if handles.Current.NumberOfModules == 0
     warndlg('Pipeline saving was canceled because there are no modules in the current pipeline.','Warning')
-    return
+    return;
 end
 
 if length(handles.Settings.NumbersOfVariables) ~= length(handles.Settings.ModuleNames)
@@ -1728,7 +1732,7 @@ if FileName ~= 0
         elseif strcmp(AutoName,'No')
             CPhelpdlg('The pipeline file has been saved.');
         elseif strcmp(AutoName,'Cancel')
-            return
+            return;
         end
     end
     %%% Checks if a field is present, and if it is, the value is stored in the
@@ -1757,17 +1761,17 @@ if FileName ~= 0
     if isfield(handles.Settings,'ModuleNotes')
         Settings.ModuleNotes = handles.Settings.ModuleNotes;
     end
-    
+
     %%% Save current name and location of saved pipeline to handles
     handles.Current.SavedPipeline.Info.Pathname = Pathname;
     handles.Current.SavedPipeline.Info.Filename = FileName;
     guidata(hObject, handles);
-    
+
     set(handles.figure1,'name',['CellProfiler - ',FileName]);
 
     %%% Save the pipeline
     save(fullfile(Pathname,FileName),'Settings');
-    
+
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% SAVE PIPELINE AS TEXT %%%
@@ -1808,12 +1812,12 @@ function AddModule_Callback(hObject,eventdata,handles) %#ok We want to ignore ML
 obj=findobj('Tag','AddModuleWindow');
 if(~isempty(obj))  %Window already exists
     figure(obj);
-    return
+    return;
 end
 
 if handles.Current.NumberOfModules == 99
     CPerrordlg('CellProfiler in its current state can only handle 99 modules. You have just attempted to load the 100th module. It should be fairly straightforward to modify the code in CellProfiler.m to expand its capabilities.');
-    return
+    return;
 end
 
 %%% 1. Opens a user interface to retrieve the .m file you want to use.
@@ -1854,7 +1858,7 @@ if ModuleNamedotm ~= 0,
             %%% If the module's .m file is not found on the search path, the result
             %%% of exist is zero, and the user is warned.
             CPerrordlg(['Something is wrong; The .m file ', ModuleNamedotm, ' was not initially found by Matlab, so the folder containing it was added to the Matlab search path. But, Matlab still cannot find the .m file for the analysis module you selected. The module will not be added to the image analysis pipeline.'],'Error');
-            return
+            return;
         elseif length(differentPaths) > 1
             CPwarndlg(['More than one file with this same module name exists in the Matlab search path.  The pathname from ' char(differentPaths{1}) ' will likely be used, but this is unpredictable.  Modules should have unique names that are not the same as already existing Matlab functions to avoid confusion.'],ModuleNamedotm,'modal');
         end
@@ -1869,7 +1873,7 @@ if ModuleNamedotm ~= 0,
     %%% version (isdeployed), we must remove 4 characters (=.txt) instead.
     if isdeployed
         ModuleName = ModuleNamedotm(1:end-4);
-	if ~ strcmp(ModuleNamedotm(end-3:end), '.txt'),			       
+	if ~ strcmp(ModuleNamedotm(end-3:end), '.txt'),
 	        CPwarndlg('Only compiled modules (.txt files) can be added to the pipeline in the compiled version of CellProfiler. If you load .m files, your pipeline will not function correctly.');
 	end
     else
@@ -2298,7 +2302,7 @@ if ModuleNamedotm ~= 0,
     if ~isfield(handles.Settings,'VariableInfoTypes') || size(handles.Settings.VariableInfoTypes,1) < size(handles.Settings.VariableValues,1),
         handles.Settings.VariableInfoTypes(size(handles.Settings.VariableValues,1),:)={[]};
     end
-    
+
     for i=1:lastVariableCheck
         if strcmp(get(handles.VariableBox{ModuleNums}(i),'style'),'edit')
             if ~RunInBG
@@ -2324,8 +2328,8 @@ if ModuleNamedotm ~= 0,
                             handles.Settings.VariableValues{ModuleNums,i} = 'Gaussian Filter';
                             CPwarndlg('Your pipeline uses Modules(s) including old ''Median Filtering'' which is actually ''Gaussian Filter''. We automatically convert Median Filtering to Gaussian Filter for your convenience');
                         else
-                            set(handles.VariableBox{ModuleNums}(i),'String',[OptList;handles.Settings.VariableValues(ModuleNums,i)]);                            
-                        end                                            
+                            set(handles.VariableBox{ModuleNums}(i),'String',[OptList;handles.Settings.VariableValues(ModuleNums,i)]);
+                        end
                         PPos = find(strcmp(handles.Settings.VariableValues{ModuleNums,i},OptList));
                         if (isempty(PPos)),
                             PPos = 1;
@@ -2338,10 +2342,10 @@ if ModuleNamedotm ~= 0,
             end
         end
     end
-    
+
     if lastVariableCheck == 0
         CPerrordlg(['The module you attempted to add, ', ModuleNamedotm,', is not a valid CellProfiler module because it does not appear to have any variables.  Sometimes this error occurs when you try to load a module that has the same name as a built-in Matlab function and the built in function is located in a directory higher up on the Matlab search path.']);
-        return
+        return;
     end
 
     try Contents = handles.Settings.VariableRevisionNumbers(str2double(ModuleNumber));
@@ -2431,11 +2435,11 @@ if strcmp(ConfirmOrNot, 'Confirm') == 1
     %%% Confirms the choice to clear the module.
     Answer = CPquestdlg('Are you sure you want to delete this analysis module from the image analysis pipeline?','Confirm','Yes','No','Yes');
     if strcmp(Answer,'No')
-        return
+        return;
     end
 end
 if isempty(handles.Settings.ModuleNames);
-    return
+    return;
 end
 %%% 1. Sets all VariableBox edit boxes and all VariableDescriptions to be invisible.
 
@@ -3093,7 +3097,7 @@ function handles = updateCategoryPopupmenu(handles, ModuleNumber, lastVariableNu
         strcmp(get(handles.Settings.VariableBox{ModuleNumber}(lastVariableNumber+1),'UserData'),'measurement')
         handles = updateMeasurementPopupmenu(handles, ModuleNumber,lastVariableNumber+1);
     end
-    
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% updateMeasurementPopupmenu - update a category popupmenu after its object
 %%%                              has changed
@@ -3106,7 +3110,7 @@ function handles = updateMeasurementPopupmenu(handles, ModuleNumber, lastVariabl
     measurements = CPgetpriormeasurements(handles, ModuleNumber, ObjectOrImageName,Category);
     [handles,StrSet] = getStrSet(handles,measurements,ModuleNumber,lastVariableNumber,[]);
     updatePopup(handles,ModuleNumber,lastVariableNumber,StrSet);
-    
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% updatePopup - update a popup menu, trying to keep the value stable
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -3118,7 +3122,7 @@ function updatePopup(handles,ModuleNumber,lastVariableNumber,StrSet)
     if ~ isempty(idx)
         set(hVariable,'Value',idx);
     end
-    
+
 function [ModuleNumber] = whichactive(handles)
 ModuleHighlighted = get(handles.ModulePipelineListBox,'Value');
 ModuleNumber = ModuleHighlighted(1);
@@ -3180,7 +3184,7 @@ ModuleNumber = ModuleHighlighted(1);
 if isempty(handles.Settings.NumbersOfVariables)
     set(handles.slider1,'visible','off');
     guidata(handles.figure1,handles);
-    return
+    return;
 end
 % Note:  The yPosition is 0 + scrollPos because 0 is the original Y
 % Position of the variablePanel.  If the original location of the
@@ -3883,7 +3887,7 @@ else
     Answer = CPquestdlg(Question,'Missing directory','Yes','No','Yes');
     if strcmp(Answer, 'Yes'),
         [status, message] = mkdir(pathname);
-        if status 
+        if status
             handles.Current.DefaultImageDirectory = pathname;
             [handles,FileNames] = CPretrievemediafilenames(handles, pathname,'','No','Exact','Both');
             handles.Current.FilenamesInImageDir = FileNames;
@@ -3951,7 +3955,7 @@ else
     Answer = CPquestdlg(Question,'Missing directory','Yes','No','Yes');
     if strcmp(Answer, 'Yes'),
         [status, message] = mkdir(pathname);
-        if status 
+        if status
             handles.Current.DefaultOutputDirectory = pathname;
         else
             CPerrordlg(['Unable to create directory ''' pathname '''.  (' message ')']);
@@ -3977,14 +3981,14 @@ if strcmp(get(gcf,'SelectionType'),'open')
     String = get(handles.FilenamesListBox,'string');
     %%% Check if there are images
     if strcmpi(String,'No image files recognized')
-        return
+        return;
     end
     FileName = char(String(Val));
     PathName = get(handles.DefaultImageDirectoryEditBox,'string');
     if (~isdir(PathName))
         CPerrordlg('The selected directory could not be found. Please make sure the directory exists.');
-        return
-    end 
+        return;
+    end
     if strcmpi(FileName(end-3:end),'.mat')
         test = load(fullfile(PathName,FileName));
         if isfield(test,'Settings') || isfield(test,'handles')
@@ -4159,7 +4163,7 @@ else
             Answer = CPquestdlg('The output file already exists. A new file name has been generated. Continue?','Output file exists','Yes','Cancel','Yes'); %When closing this dialog box, it assumes 'Yes' was chosen
             if ~strcmp(Answer,'Yes')
                 set(handles.OutputFileNameEditBox,'string',tmp)
-                return
+                return;
             end
         end
     end
@@ -4185,7 +4189,7 @@ else
                 try
                     handles.Preferences.DisplayWindows = CPselectmodules(handles.Settings.ModuleNames);
                 catch
-                    return
+                    return;
                 end
             else
                 handles.Preferences.DisplayWindows= ones(handles.Current.NumberOfModules,1);
@@ -4227,7 +4231,7 @@ else
             %%% from the main monitor. It can be enhanced to intelligently
             %%% calculate all the monitors' positions.
             [ScreenWidth,ScreenHeight] = CPscreensize;
-                      
+
             %%% Determines where to place the timer window: We want it below the image
             %%% windows, which means at about 800 pixels from the top of the screen,
             %%% but in case the screen doesn't have that many pixels, we don't want it
@@ -4242,7 +4246,7 @@ else
             timerFig = figure('name','Status',...
                 'NumberTitle','off','IntegerHandle','off', 'HandleVisibility', 'off', ...
                 'color',[0.7,0.7,0.9],'UserData',userData,'Resize','off');
-            %% Pause helps to place the window where you actually tell it to go (Matlab, why??) 
+            %% Pause helps to place the window where you actually tell it to go (Matlab, why??)
             pause(.1)
             set(timerFig, 'Position', [0 BottomOfTimer 350 120]);
             set(timerFig, 'Toolbar', 'none');
@@ -4535,9 +4539,9 @@ else
                             end
                             %%% This is used to check for errors and allow restart.
                             CanMoveToNextModule = false;
-                            
+
                             %% Initialize here, since it should only be set in PauseCellProfiler.m
-                            handles.Settings.SkipToModule = 0; 
+                            handles.Settings.SkipToModule = 0;
 
                             %%% Updates the timer with the current module.
                             TimerData = get(timer_handle,'UserData');
@@ -4746,7 +4750,7 @@ else
                         end
                         handles.Pipeline = tempPipe;
                     end
-                    try 
+                    try
                         % Save the output file
                         [msg_orig,id_orig] = lastwarn;
                         save(fullfile(handles.Current.DefaultOutputDirectory,get(handles.OutputFileNameEditBox,'string')),'handles');
@@ -5001,9 +5005,9 @@ elseif strcmp(ImageDataOrHelp,'Help')
     TextString = sprintf(['CellProfiler version 1.0.' svn_ver_char  '\n' CompiledOrNot '\n\nPlease choose specific help below:']);
 elseif strcmp(ImageDataOrHelp,'Getting Started')
     set(ToolsHelpWindowHandle,'name','Getting Started');
-    
+
     [svn_ver_char, CompiledOrNot] = get_svn_info(handles);
-    
+
     TextString = sprintf(['CellProfiler version 1.0.' svn_ver_char ' \n' CompiledOrNot '\n\nPlease choose specific help below:']);
 end
 
@@ -5278,7 +5282,7 @@ function LoadPreferences_Callback(hObject,eventdata,handles)
 
 [SettingsFileName, SettingsPathname] = CPuigetfile('*.mat','Choose a preferences file',matlabroot);
 if isequal(SettingsFileName,0) || isequal(SettingsPathname,0)
-    return
+    return;
 else
     try
         load(fullfile(SettingsPathname,SettingsFileName));
@@ -5286,7 +5290,7 @@ else
         clear SavedPreferences
     catch
         CPwarndlg('The file chosen does not exist');
-        return
+        return;
     end
 end
 LoadPreferences_Helper(hObject,eventdata,handles,EnteredPreferences);
@@ -5311,13 +5315,13 @@ if exist('EnteredPreferences','var') &&  ~isempty(EnteredPreferences)
         handles.Preferences.DisplayModeValue = 1;
     end
     clear global EnteredPreferences
-    
+
     %%% Now that handles.Preferences.(5 different variables) has been filled
     %%% in, the handles.Current values and edit box displays are set.
     handles.Current.DefaultOutputDirectory = handles.Preferences.DefaultOutputDirectory;
     handles.Current.DefaultImageDirectory = handles.Preferences.DefaultImageDirectory;
     handles.Settings.PixelSize = handles.Preferences.PixelSize;
-    
+
     %%% (No need to set a current module directory or display it in an
     %%% edit box; the one stored in preferences is the only one ever
     %%% used).
@@ -5330,9 +5334,9 @@ if exist('EnteredPreferences','var') &&  ~isempty(EnteredPreferences)
     handles = DefaultImageDirectoryEditBox_Callback(hObject, eventdata, handles);
     %%% Adds the default module directory to Matlab's search path.
     if ~isdeployed
-        addpath(handles.Preferences.DefaultModuleDirectory)
+        addpath(handles.Preferences.DefaultModuleDirectory);
     end
-    
+
     %%% Set new fontsize...
     names = fieldnames(handles);
     for k = 1:length(names)
@@ -5343,7 +5347,7 @@ if exist('EnteredPreferences','var') &&  ~isempty(EnteredPreferences)
     %%% ... and make it the new default.
     set(0, 'defaultuicontrolfontsize', handles.Preferences.FontSize);
     set(0, 'defaultuicontrolfontname', 'helvetica');
-    
+
     %%% Updates the handles structure to incorporate all the changes.
     guidata(gcbo, handles);
 end

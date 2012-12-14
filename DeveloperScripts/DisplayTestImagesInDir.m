@@ -6,7 +6,7 @@ for i = 1:length(Filelist)
     Filename = Filelist(i).name;
     load(Filename);
     subplot(7,5,5*(i-1)+1), imagesc(handles.Pipeline.ProjectedOrigBlue), colormap(gray), axis image, colorbar
-    if i == 1, title({' ProjectedOrigBlue'}), end    
+    if i == 1, title({' ProjectedOrigBlue'}), end
     subplot(7,5,5*(i-1)+2), imagesc(handles.Pipeline.SmoothProjectedOrigBlue), colormap(gray),  axis image, colorbar
     if i == 1,     title({' SmoothProjectedOrigBlue'}), end
     subplot(7,5,5*(i-1)+3), imagesc(handles.Pipeline.RawProjectedThreshBlue), colormap(gray),  axis image, colorbar

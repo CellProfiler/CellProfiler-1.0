@@ -53,7 +53,7 @@ function handles = MeasureCorrelation(handles,varargin)
 % time, presumably) and make question (2) more obviously ask "Would you
 % ALSO like to measure within objects"? With a default to a "Do not measure
 % correlations within objects" option.]
-% 
+%
 % (i) A button should be added that lets the user add/subtract additional
 % objects and images.
 
@@ -134,7 +134,7 @@ ObjectName{6} = char(handles.Settings.VariableValues{CurrentModuleNum,10});
 %%%%%%%%%%%%%%%%%
 %%% FEATURES  %%%
 %%%%%%%%%%%%%%%%%
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -285,7 +285,7 @@ for ObjectNameNbr = 1:ObjectNameCount
                     else
                         c = corrcoef([Image{i}(index) Image{j}(index)]);             % Get the values for these indexes in the images and calculate the correlation
                         CorrelationForCurrentObject = c(1,2);
-                        
+
                         % Checks for undefined values, and sets them to zero
                         if isnan(CorrelationForCurrentObject) || isinf(CorrelationForCurrentObject)
                             CorrelationForCurrentObject = 0;
@@ -326,8 +326,8 @@ for ObjectNameNbr = 1:ObjectNameCount
     end
 
     %%% Store the correlation and slope measurements
-    %%% Note: we end up with 'Correlation_Correclation_*', but that's OK since 
-    %%% both the Category and FeatureName are both 'Correlation' here 
+    %%% Note: we end up with 'Correlation_Correclation_*', but that's OK since
+    %%% both the Category and FeatureName are both 'Correlation' here
     for f=1:size(Correlation,2)
         handles = CPaddmeasurements(handles, ObjectName{ObjectNameNbr}, ...
             CPjoinstrings('Correlation', CorrelationFeatures{f}), ...
@@ -352,7 +352,7 @@ ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule
 if any(findobj == ThisModuleFigureNumber)
     % Remove uicontrols from last cycle
     delete(findobj(ThisModuleFigureNumber,'tag','TextUIControl'));
-        
+
     %%% Activates the appropriate figure window.
     CPfigure(handles,'Text',ThisModuleFigureNumber);
     %%% Get size of window

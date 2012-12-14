@@ -24,10 +24,10 @@ function handles = CalculateMath(handles)
 % numbered list of the features measured by that module.
 %
 % Saving:
-% The math measurements are stored as 'Math_...'. If both measures are 
-% image-based, then a single calculation (per cycle) will be stored as 'Image' data.  
+% The math measurements are stored as 'Math_...'. If both measures are
+% image-based, then a single calculation (per cycle) will be stored as 'Image' data.
 % If one measure is object-based and one image-based, then the calculations will
-% be stored associated with the object, one calculation per object.  If both are 
+% be stored associated with the object, one calculation per object.  If both are
 % objects, then the calculations are stored with both objects.
 %
 % Category: 'Math'
@@ -65,7 +65,7 @@ function handles = CalculateMath(handles)
 % words, if they choose Division, then show: Operand 1/operand 2. If they
 % choose subtraction, show: operand 1 - operand 2.
 %
-% (2.5) What type of number is the first operand? 
+% (2.5) What type of number is the first operand?
 % CHOICES: (a) measurement of an individual object, (b) measurement from a whole
 % image, (c) number
 % If they choose (a) then provide the list of objects, if (b) then list of
@@ -78,8 +78,8 @@ function handles = CalculateMath(handles)
 % (3a) Which object's measurement would you like to use as the first operand? (ObjectName{1})
 % (3b) What is the measurement category? (Category{1})
 % (3c) What is the measurement feature? (FeatureNumber{1})
-% (3d) (If the answer to (3c) involves a scale) What scale was used to 
-%      calculate the feature? (SizeScale{1}) 
+% (3d) (If the answer to (3c) involves a scale) What scale was used to
+%      calculate the feature? (SizeScale{1})
 %      (If the answer to (3c) involves an image) What image was used to
 %      calculate the feature? (ImageName{1})
 % (3e) What number would you like to multiply the operand by?  (MultiplyFactor1)
@@ -95,8 +95,8 @@ function handles = CalculateMath(handles)
 % (4a) Which object's measurement would you like to use as the second operand? (ObjectName{2})
 % (4b) What is the measurement category? (Category{2})
 % (4c) What is the measurement feature? (FeatureNumber{2})
-% (4d) (If the answer to (4c) involves a scale) What scale was used to 
-%      calculate the feature? (SizeScale{2}) 
+% (4d) (If the answer to (4c) involves a scale) What scale was used to
+%      calculate the feature? (SizeScale{2})
 %      (If the answer to (4c) involves an image) What image was used to
 %      calculate the feature? (ImageName{2})
 % (4e) What number would you like to multiply the operand by? (MultiplyFactor2)
@@ -258,7 +258,7 @@ if isnan(MultiplyFactor2)
     end
     MultiplyFactor2 = 1;
 end
-    
+
 % Check sizes (note, 'Image' measurements have length=1)
 if length(Measurements{1}) ~= length(Measurements{2}) && ...
         ~(length(Measurements{1}) ==1 || length(Measurements{2}) == 1)
@@ -281,7 +281,7 @@ if( strcmpi(Operation, 'Multiply') )
 elseif( strcmpi(Operation, 'Divide') )
     Measurements{2}(Measurements{2}==0) = NaN;
     Measurements{2}(isnan(Measurements{2})) = CPnanmean(Measurements{2});
-    
+
     if ~all(isnan(Measurements{2}))
         FinalMeasurements = (MultiplyFactor1.*Measurements{1}) ./ (MultiplyFactor2.*Measurements{2});
     else
@@ -296,7 +296,7 @@ elseif( strcmpi(Operation, 'Add') )
 elseif( strcmpi(Operation, 'Subtract') )
     FinalMeasurements = (MultiplyFactor1.*Measurements{1}) - (MultiplyFactor2.*Measurements{2});
 end
-    
+
 if strcmp(LogChoice,'Yes')
     FinalMeasurements = log10(FinalMeasurements);
 end
@@ -331,16 +331,16 @@ ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule
 if any(findobj == ThisModuleFigureNumber);
     % Remove uicontrols from last cycle
     delete(findobj(ThisModuleFigureNumber,'tag','TextUIControl'));
-    
+
     if SetBeingAnalyzed == handles.Current.StartingImageSet
         CPresizefigure('','NarrowText',ThisModuleFigureNumber)
     end
-    
+
     %%% Activates the appropriate figure window.
     currentfig = CPfigure(handles,'Text',ThisModuleFigureNumber);
     TextString = {['Image Set #' num2str(SetBeingAnalyzed)];...
         [TruncFeatureName ' = ' num2str(mean(FinalMeasurements))]};
-    
+
     uicontrol(currentfig,'style','text',...
         'units','normalized',...
         'fontsize',handles.Preferences.FontSize,...

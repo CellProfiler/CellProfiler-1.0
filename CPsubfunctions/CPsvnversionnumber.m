@@ -27,14 +27,14 @@ try
                 first = pos+length(str_to_find);
                 svn_ver_char = strtok(info(first:end));
                 cd(current_dir)
-                return
+                return;
             end
         end
     end
 catch
     svn_ver_char = CPsvnloopfunctions;
     cd(current_dir)
-    return
+    return;
 end
 
 %% If you've gotten here without returning (e.g.  if not deployed)

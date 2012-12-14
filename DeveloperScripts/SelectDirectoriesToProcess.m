@@ -12,7 +12,7 @@ function handles = SelectDirectoriesToProcess(handles)
 % later consideration.
 %
 % This module MUST be placed (1) after the final LoadImages module for the
-% pipeline and (b) before any processing or measurement modules, since it 
+% pipeline and (b) before any processing or measurement modules, since it
 % trims the list of files created by LoadImages and passes the trimmed list
 % to the rest of the pipeline for processing.
 %
@@ -84,11 +84,11 @@ if any(findobj == ThisModuleFigureNumber)
     TextString{end+1} = [' Number of directories found: ',num2str(length(uniquePathsBefore))];
     TextString{end+1} = [' Number of directories excluded: ',num2str(length(uniquePathsBefore) - length(uniquePathsAfter))];
     TextString{end+1} = '';
-    
+
     % Create figure and display list
     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         CPresizefigure('','NarrowText',ThisModuleFigureNumber)
-    end    
+    end
     currentfig = CPfigure(handles,'Text',ThisModuleFigureNumber);
     for i = 1:length(TextString),
         uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString{i},'position',[.05 .9-(i-1)*.04 .95 .04],'BackgroundColor',[.7 .7 .9]);

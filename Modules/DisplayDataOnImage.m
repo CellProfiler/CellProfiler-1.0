@@ -46,8 +46,8 @@ function handles = DisplayDataOnImage(handles)
 % (3) should be drop-downs that fill in the appropriate
 % category/feature/image/scale names based on (a) the hierarchy specific
 % to the measurement type (i.e, features unique to Intensity, AreaShape,
-% etc) and (b) whether a prior Measurement module actually took the 
-% measurements (i.e, don't show all possible features for a measurement, 
+% etc) and (b) whether a prior Measurement module actually took the
+% measurements (i.e, don't show all possible features for a measurement,
 % only those for which we actually have values).
 
 %%%%%%%%%%%%%%%%%
@@ -72,7 +72,7 @@ Category = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 %inputtypeVAR03 = popupmenu measurement
 FeatureNbr = handles.Settings.VariableValues{CurrentModuleNum,3};
 
-if isempty(FeatureNbr) 
+if isempty(FeatureNbr)
     error(['Image processing was canceled in the ', ModuleName, ' module because your entry for the Feature Number is invalid.']);
 end
 
@@ -154,7 +154,7 @@ if ErrorFlag
     %%% Creates the display window.
     CPfigure(handles,'Image',ThisModuleFigureNumber);
     title('No objects identified.');
-    CPwarndlg(['No objects were identified. This could mean that the measurements you have specified in the ',ModuleName,' are not being processed. Please verify that the Measure module precedes this module.']); 
+    CPwarndlg(['No objects were identified. This could mean that the measurements you have specified in the ',ModuleName,' are not being processed. Please verify that the Measure module precedes this module.']);
 else
 
     StringListOfMeasurements = cellstr(num2str(ListOfMeasurements));
@@ -172,14 +172,14 @@ else
     %%% DISPLAY %%%
     %%%%%%%%%%%%%%%
     drawnow
-    
+
     ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule]);
-    
+
     %%% Activates the appropriate figure window.
     FigHandle = CPfigure(handles,'Image',ThisModuleFigureNumber);
 
     %%% Modules won't create a figure window if the user has requested not
-    %%% to. But in this case, we need a figure window in order to get a 
+    %%% to. But in this case, we need a figure window in order to get a
     %%% screenshot.
     %%% Here, if the user doesn't want the figure displayed, we make it
     %%% invisible. The image capture will still work anyway.
@@ -187,7 +187,7 @@ else
     if userdoesntwantwindow,
         set(FigHandle,'visible','off');
     end
-    
+
     %% Put outlines of objects on image
     LabelMatrixObjectImage = CPretrieveimage(handles,['Segmented' ObjectName],ModuleName,'MustBeGray','DontCheckScale');
     MaxFilteredImage = ordfilt2(LabelMatrixObjectImage,9,ones(3,3),'symmetric');
@@ -195,14 +195,14 @@ else
 
     OutlinesOnImage = OrigImage;
     OutlinesOnImage(logical(Outlines)) = 1;
-    
+
     [hImage,hAx] = CPimagesc(OutlinesOnImage,handles,ThisModuleFigureNumber);
     colormap(hAx,gray);
-    
+
     uicontrol(FigHandle,'units','normalized','position',[.01 .5 .06 .04],'string','off',...
         'UserData',{OrigImage OutlinesOnImage},'backgroundcolor',[.7 .7 .9],...
         'Callback',@CP_OrigNewImage_Callback);
-    
+
     % Now extract the FeatureName itself for the Title
     % (1) Strip Category prefix + slash
     justtheFeatureName = FeatureName(length([Category,'_'])+1:end);
@@ -233,7 +233,7 @@ else
     if isnan(dpi),
         error(['Image processing was canceled in the ', ModuleName, ' module because the value entered for the DPI (',DPIToSave,')was not numeric']);
     end
-    switch SavedImageContents 
+    switch SavedImageContents
         case 'image',   opt = 'img';
         case 'axes',    opt = 'imgAx';
         case 'figure',  opt = 'all';

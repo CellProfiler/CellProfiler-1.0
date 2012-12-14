@@ -115,7 +115,7 @@ if ishandle(SelectDisplay)
     end
     delete(SelectDisplay);
 else
-    return
+    return;
 end
 
 

@@ -33,8 +33,8 @@ function handles = MeasureImageIntensity(handles,varargin)
 %
 % For publication purposes, it is important to note that the units of
 % intensity from microscopy images are usually described as "Intensity
-% units" or "Arbitrary intensity units" since microscopes are not 
-% callibrated to an absolute scale. Also, it is important to note whether 
+% units" or "Arbitrary intensity units" since microscopes are not
+% callibrated to an absolute scale. Also, it is important to note whether
 % you are reporting either the mean or the total intensity, so specify
 % "Mean intensity units" or "Total intensity units" accordingly.
 %
@@ -105,7 +105,7 @@ PixelSize = str2double(handles.Settings.PixelSize);
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -179,13 +179,13 @@ if any(findobj == ThisModuleFigureNumber)
     end
     %%% A subplot of the figure window is set to display the original
     %%% image.
-    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber); 
+    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
     CPimagesc(OrigImage,handles,hAx);
     title(hAx,['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
     %%% A subplot of the figure window is set to display the processed
     %%% image.
-    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber); 
-    CPimagesc(ThresholdedOrigImage,handles,hAx); 
+    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber);
+    CPimagesc(ThresholdedOrigImage,handles,hAx);
     title(hAx,'Thresholded Image');
     if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl'))
         displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text', 'position', [0 0 200 60],'fontname','helvetica','backgroundcolor',[.7 .7 .9],'FontSize',handles.Preferences.FontSize);

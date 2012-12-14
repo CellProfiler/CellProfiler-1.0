@@ -42,7 +42,7 @@ if nargin>0 && isfield(varargin{1},'Pipeline')
     end
     userData.MyHandles = FixedHandles;
     FigHandle=figure(varargin{3:end});
-    
+
     %% Try to correct for odd Figure placement
     idx = find(strcmp('Position',varargin), 1);
     if ~isempty(idx)
@@ -50,7 +50,7 @@ if nargin>0 && isfield(varargin{1},'Pipeline')
         pause(.05)
         set(FigHandle,'Position',pos)
     end
-    
+
     if nargin>=2
         %%% This is for the typical usage:
         %%% CPfigure(handles,'Image',ThisModuleFigureNumber)
@@ -88,7 +88,7 @@ if nargin>0 && isfield(varargin{1},'Pipeline')
                         'end,' ...
                     'end;' ...
                     'clear popup ImageHandles cax i;'];
-                
+
                 uicontrol('Style', 'popup',...
                     'String', 'Stretched|Raw',...
                     'Units','normalized',...
@@ -108,8 +108,8 @@ else
     %%% CPfigure with no arguments just sets the figure to be the
     %%% current/active one.
     FigHandle=figure(varargin{:});
-    
-    %% Do not overwrite the old UserData, if the figure was pre-existing 
+
+    %% Do not overwrite the old UserData, if the figure was pre-existing
     %% with the field UserData.MyHandles
     if nargin == 0 && isfield(get(FigHandle),'UserData')
         if ~isfield(get(FigHandle,'UserData'),'MyHandles')

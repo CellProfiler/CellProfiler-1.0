@@ -307,7 +307,7 @@ SetSelectedPopupValue(hObject,OldSelection);
 UpdateMeasurementPopup(handles);
 
 % --- Update the measurement popup from the measurements
-%     and use the object source and category to constrain 
+%     and use the object source and category to constrain
 %     the allowable values
 function UpdateMeasurementPopup(handles)
 % handles   handles to the objects + the loaded .MAT file
@@ -325,7 +325,7 @@ SetSelectedPopupValue(hObject,OldSelection);
 UpdateImageSourcePopup(handles);
 
 % --- Update the image source popup from the measurements
-%     and use the object source, measurement and category to constrain 
+%     and use the object source, measurement and category to constrain
 %     the allowable values. Hide the popup and its label if not relevant.
 function UpdateImageSourcePopup(handles)
 % handles   handles to the objects + the loaded .MAT file
@@ -354,7 +354,7 @@ UpdateScalePopup(handles);
 
 % --- Update the scale popup from the measurements
 %     and use the object source, measurement, category, and image source
-%     to constrain the allowable values. 
+%     to constrain the allowable values.
 %     Hide the popup and its label if not relevant.
 function UpdateScalePopup(handles)
 % handles   handles to the objects + the loaded .MAT file

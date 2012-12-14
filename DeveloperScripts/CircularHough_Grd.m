@@ -430,7 +430,7 @@ if prm_useaoi,
         rgn_top = min( accumrgn_IdxI );
         rgn_bottom = max( accumrgn_IdxI );
         rgn_left = min( accumrgn_IdxJ );
-        rgn_right = max( accumrgn_IdxJ );        
+        rgn_right = max( accumrgn_IdxJ );
         % The AOIs selected must satisfy a minimum size
         if ( (rgn_right - rgn_left + 1) >= prm_aoiminsize && ...
                 (rgn_bottom - rgn_top + 1) >= prm_aoiminsize ),
@@ -473,16 +473,16 @@ end
 circen = zeros(0,2);
 for k = 1 : size(accumAOI, 1),
     aoi = accumAOI(k,:);    % just for referencing convenience
-    
+
     % Thresholding of 'accum' by a lower bound
     accumaoi_LBMask = ...
         ( accum(aoi(1):aoi(2), aoi(3):aoi(4)) > prm_LM_LoBnd );
-    
+
     % Apply the local maxima filter
     candLM = conv2( accum(aoi(1):aoi(2), aoi(3):aoi(4)) , ...
         fltr4LM , 'same' );
     candLM_mask = ( candLM > 0 );
-    
+
     % Clear the margins of 'candLM_mask'
     candLM_mask([1:prm_fltrLM_R, (end-prm_fltrLM_R+1):end], :) = 0;
     candLM_mask(:, [1:prm_fltrLM_R, (end-prm_fltrLM_R+1):end]) = 0;

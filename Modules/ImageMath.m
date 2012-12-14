@@ -13,7 +13,7 @@ function handles = ImageMath(handles)
 % the module.  If you would like to average many images (all of the images
 % in an entire pipeline), please use the CorrectIllumination_Calculate
 % module and chose the option "(For 'All' mode only) What do you want to
-% call the averaged image (prior to dilation or smoothing)? 
+% call the averaged image (prior to dilation or smoothing)?
 % (This is an image produced during the calculations - it is typically not
 % needed for downstream modules)"  This will be an average over all images.
 %
@@ -21,7 +21,7 @@ function handles = ImageMath(handles)
 %
 % Multiply factors:
 % The final image may have a substantially different range of pixel
-% intensities than the originals, so each image can be multiplied by a 
+% intensities than the originals, so each image can be multiplied by a
 % factor prior to the operation. This factor can be any real number.
 %
 % Do you want values in the image to be set to zero/one?:
@@ -154,7 +154,7 @@ nImages = 1;
 if isempty(SecondImageConstant) && ~any(strcmp(Operation,{'Invert', 'Log transform (base 2)'})),
     SecondImage = CPretrieveimage(handles,SecondImageName,ModuleName,'DontCheckColor','CheckScale');
     nImages = 2;
-else 
+else
     SecondImage = SecondImageConstant;
     clear SecondImageConstant
 end
@@ -247,7 +247,7 @@ ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule
 if any(findobj == ThisModuleFigureNumber)
     CPfigure(handles,'Image',ThisModuleFigureNumber);
 
-    % NumColumns is useful since 'Invert' has only one "before" image  
+    % NumColumns is useful since 'Invert' has only one "before" image
     if strcmp(Operation, 'Combine')
         if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
             CPresizefigure(FirstImage, 'TwobyThree', ThisModuleFigureNumber);
@@ -257,24 +257,24 @@ if any(findobj == ThisModuleFigureNumber)
         if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
             CPresizefigure(FirstImage,'TwoByTwo',ThisModuleFigureNumber);
         end
-        NumColumns = 2; 
+        NumColumns = 2;
     else
         if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
             CPresizefigure(FirstImage,'TwoByOne',ThisModuleFigureNumber);
         end
         NumColumns = 1;
     end
-    
-    
+
+
     % Set title text
     if MultiplyFactor1 == 1
         FirstText = (FirstImageName);
-    else 
+    else
         FirstText = [FirstImageName '*' num2str(MultiplyFactor1)];
     end
     if MultiplyFactor2 == 1,
         SecondText = (SecondImageName);
-    else 
+    else
         SecondText = [SecondImageName '*' num2str(MultiplyFactor2)];
     end
     if MultiplyFactor3 == 1;
@@ -282,10 +282,10 @@ if any(findobj == ThisModuleFigureNumber)
     else
         ThirdText = [ThirdImageName '*' num2str(MultiplyFactor3)];
     end
-    
+
     %%% First image subplot
     hAx = subplot(2,NumColumns,1,'Parent',ThisModuleFigureNumber);
-    CPimagesc(MultiplyFactor1*FirstImage,handles,hAx); 
+    CPimagesc(MultiplyFactor1*FirstImage,handles,hAx);
     title(hAx,[FirstText ' image, cycle # ' num2str(handles.Current.SetBeingAnalyzed)]);
 
     if strcmp(Operation, 'Combine')
@@ -303,7 +303,7 @@ if any(findobj == ThisModuleFigureNumber)
     else
         title(hAx,[SecondText ' image']);
     end
-    
+
     % ImageAfterMath
     hAx = subplot(2,NumColumns,2,'Parent',ThisModuleFigureNumber);
     CPimagesc(ImageAfterMath,handles,hAx);

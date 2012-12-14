@@ -23,7 +23,7 @@ function handles = MeasureImageAreaOccupied(handles,varargin)
 % ThresholdUsed       |        3
 %
 % (Note: to use with Calculate modules, the "category of measures you would
-% like to use" should be entered as: AreaOccupied_Name, where Name is the 
+% like to use" should be entered as: AreaOccupied_Name, where Name is the
 % name you entered in the MeasureAreaOccupied module.)
 %
 % Settings:
@@ -180,7 +180,7 @@ ThresholdCorrection = str2double(char(handles.Settings.VariableValues{CurrentMod
 %defaultVAR05 = 0,1
 ThresholdRange = char(handles.Settings.VariableValues{CurrentModuleNum,5});
 
-%textVAR06 = For MoG thresholding, what is the approximate fraction of image covered by objects? 
+%textVAR06 = For MoG thresholding, what is the approximate fraction of image covered by objects?
 %choiceVAR06 = 0.01
 %choiceVAR06 = 0.1
 %choiceVAR06 = 0.2
@@ -202,7 +202,7 @@ PixelSize = str2double(handles.Settings.PixelSize);
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -254,7 +254,7 @@ drawnow
 [handles,Threshold] = CPthreshold(handles,Threshold,pObject,MinimumThreshold,MaximumThreshold,ThresholdCorrection,OrigImage,ImageName,ModuleName);
 
 %%% Thresholds the original image.
-ThresholdedOrigImage = OrigImage > Threshold;   
+ThresholdedOrigImage = OrigImage > Threshold;
 % ThresholdedOrigImage = im2bw(OrigImage,Threshold);
 AreaOccupiedPixels = sum(ThresholdedOrigImage(:));
 AreaOccupied = AreaOccupiedPixels*PixelSize*PixelSize;
@@ -275,15 +275,15 @@ if any(findobj == ThisModuleFigureNumber) == 1;
         CPresizefigure(OrigImage,'TwoByOne',ThisModuleFigureNumber)
     end
     %%% A subplot of the figure window is set to display the original image.
-    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber); 
+    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
     CPimagesc(OrigImage,handles,hAx);
     title(hAx,['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
     %%% A subplot of the figure window is set to display the colored label
     %%% matrix image.
-    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber); 
-    CPimagesc(ThresholdedOrigImage,handles,hAx); 
+    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber);
+    CPimagesc(ThresholdedOrigImage,handles,hAx);
     title(hAx,'Thresholded Image');
-    
+
     % Text
     if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl'))
         displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text', 'position', [0 0 250 40],'fontname','helvetica','backgroundcolor',[0.7 0.7 0.9],'FontSize',handles.Preferences.FontSize);

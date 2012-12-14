@@ -35,7 +35,7 @@ ModuleName = 'CalculateStatisticsDataTool';
 if FileName == 0, return, end   %% CPuigetfile canceled
 
 % Override the DefaultOutputDirectory since the 'load' command below
-% may have the denoted the path as on the cluster if CreatebatchFiles 
+% may have the denoted the path as on the cluster if CreatebatchFiles
 % was used to generate the raw measurements file
 origDefaultOutputDirectory = handles.Current.DefaultOutputDirectory;
 origDefaultImageDirectory = handles.Current.DefaultImageDirectory;
@@ -47,7 +47,7 @@ try
 catch
     CPerrordlg(['Unable to load file ''', fullfile(Pathname, FileName), ''' (file does not exist or is not a CellProfiler output file).'])
     close(MsgBoxLoad)
-    return
+    return;
 end
 close(MsgBoxLoad)
 
@@ -94,7 +94,7 @@ while ~ValidGroupings,
         'Operation', 1, {'positives','Yes', 'Do not use'});
 
     if isempty(Answers), return, end %% Inputdlg cancelled
-    
+
     FeatureName = Answers{1};
     Logarithmic = Answers{2};
     FigureName = Answers{3};
@@ -106,7 +106,7 @@ while ~ValidGroupings,
     elseif any(strcmpi({'no', 'n'}, Logarithmic)),
         Logarithmic = '/';
     end
-    
+
     % Check if the user used the same name as a previous LoadText module
     if any(strcmp(PreloadedFeatures, FeatureName)),
         Replace = CPquestdlg(['A feature named ''', FeatureName, ''' already exists in the measurements.  Do you want to replace it?'], 'Existing feature', 'Yes', 'No', 'Cancel', 'Yes');
@@ -115,7 +115,7 @@ while ~ValidGroupings,
             continue;
         end
         if strcmp(Replace, 'Cancel'), % cancelled.
-            return
+            return;
         end
 
         %%% remove the conflicting measurement
@@ -130,7 +130,7 @@ while ~ValidGroupings,
     handles.Settings.VariableValues{1,1}=TextFileName;
     handles.Settings.VariableValues{1,2}=FeatureName;
     handles.Settings.VariableValues{1,3}=TextFilePathname;
-    
+
     handles.Current.CurrentModuleNumber='01';
     handles.Current.SetBeingAnalyzed=1;
     handles.Current.DefaultImageDirectory = origDefaultImageDirectory; %% In case cluster path is different
@@ -143,7 +143,7 @@ while ~ValidGroupings,
     % success...
     ValidGroupings = true;
 end
-    
+
 
 Answer = CPinputdlg({'What do you want to call the output file with statistics?'},...
     'Calculate Statistics DataTool',1,{'StatsOUT.mat'});
@@ -151,7 +151,7 @@ if isempty(Answer), return, end
 OutputFileName = Answer{1};
 
 % Override the DefaultOutputDirectory since the 'load' command above
-% may have the denoted the path as on the cluster if CreatebatchFiles 
+% may have the denoted the path as on the cluster if CreatebatchFiles
 % was used to generate the raw measurements file
 handles.Current.DefaultOutputDirectory = origDefaultOutputDirectory;
 handles.Current.DefaultImageDirectory = origDefaultImageDirectory;

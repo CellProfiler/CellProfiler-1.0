@@ -202,7 +202,7 @@ else
         %%% In these cases we can just retrieve the previously existing
         %%% BinaryCropImage and apply it.
         [handles, CroppedImage, BinaryCropImage,Ignore] = CropImageBasedOnMaskInHandles(handles,OrigImage,CroppedImageName,ModuleName,RemoveRowsAndColumns);
-        
+
         %%% We have a try/catch here for a situation like this: we are
         %%% using Rectangle and the 'First' option (because we always want
         %%% to crop at 1,100 1,100 for example). The first images run fine,

@@ -3,7 +3,7 @@ function HelpSaveCurrentCellProfilerCode
 % File > Save Current CellProfiler code.
 %
 % This is only to be used in CellProfiler Developer's version.
-% It allows you to save all the Modules, DataTools, ImageTools and 
+% It allows you to save all the Modules, DataTools, ImageTools and
 % CPsubfunctions at the current revision as a ZIP file. This file is then
 % placed in the default output directory.
 

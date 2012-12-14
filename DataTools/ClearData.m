@@ -34,7 +34,7 @@ function handles = ClearData(handles)
 
 %%% Check if cancel button pressed
 if ~iscellstr(SelectedFiles)
-    return
+    return;
 end
 
 %%% Load the first specified CellProfiler output file so we can choose the
@@ -45,7 +45,7 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fullfile(Pathname, SelectedFiles{1}), ''' (possibly not a CellProfiler output file).'])
-    return
+    return;
 end
 
 [MeasureObject,Measurefieldname] = CPgetfeature(handles,false);
@@ -56,7 +56,7 @@ if isempty(MeasureObject),return,end
 %%% Ask the user if he really wants to clear the selected feature
 Confirmation = CPquestdlg(['Are you sure you want to delete the selected feature? (', MeasureObject, ' ', Measurefieldname, ')'],'Confirmation','Yes','Cancel','Cancel');
 if strcmp(Confirmation,'Cancel')
-    return
+    return;
 end
 
 
@@ -72,7 +72,7 @@ for FileNbr = 1:length(SelectedFiles)
         handles = CP_convert_old_measurements(temp.handles);
     catch
         errors{FileNbr} = [fullfile(Pathname, SelectedFiles{FileNbr}),' is not a CellProfiler or MATLAB file (it does not have the extension .mat)'];
-        return
+        return;
     end
 
     handles.Measurements.(MeasureObject) = rmfield(handles.Measurements.(MeasureObject), Measurefieldname);

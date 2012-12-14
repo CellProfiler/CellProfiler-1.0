@@ -18,14 +18,14 @@ function ConvertBatchFiles(handles)
 % ExportDatabase data tool or ExportToDatabase module), or merged together
 % (using the MergeOutputFiles DataTool), or converted to regular
 % CellProfiler output files using this data tool. This data tool will save
-% new files with 'Converted' as a prefix in the filename. 
+% new files with 'Converted' as a prefix in the filename.
 %
 % Important: note that the image cycles will be renumbered, starting with
 % 2. For example, your batch output file 'Batch_102_to_201_OUT.mat' will be
 % converted to 'ConvertedBatch_102_to_201_OUT.mat', but when you access the
 % data within (e.g. using ViewData), image cycle #102 will now be image
 % cycle #2. Image cycle #1 will be the original image cycle #1. Image cycle
-% #1 is present in all the batch files, and is removed so that the 
+% #1 is present in all the batch files, and is removed so that the
 % converted batch file will contain only the remainder of the image cycles.
 %
 % Technical details: this data tool removes empty entries in the
@@ -74,7 +74,7 @@ for fileno = 1:length(files)
     catch
         ErrorMessage = lasterr;
         CPerrordlg(['An error occurred in ConvertBatchFiles tool loading ', fullfile(Pathname, files{fileno}), ' : ', ErrorMessage(30:end)]);
-        return
+        return;
     end
 
     % Check that this is actually the output of a batch processing run.

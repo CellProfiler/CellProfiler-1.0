@@ -1,10 +1,10 @@
 function string = CPjoinstrings(varargin)
 %CPjoinstrings Build underscore-separated string from parts.
 %
-%   CPjoinstrings(D1,D2, ... ) builds a string from 
+%   CPjoinstrings(D1,D2, ... ) builds a string from
 %   D1,D2, etc specified.  This is conceptually equivalent to
 %
-%      F = [D1 '_' D2 '_' ... '_' DN] 
+%      F = [D1 '_' D2 '_' ... '_' DN]
 %
 %   Care is taken to handle the cases where the directory
 %   parts D1, D2, etc. may contain an empty string, in which case there are

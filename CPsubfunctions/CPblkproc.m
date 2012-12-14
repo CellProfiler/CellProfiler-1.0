@@ -14,7 +14,7 @@ function b = CPblkproc(varargin)
 % This function is very similar to Matlab's function blkproc.  The only
 % difference is that CPblkproc can take a third dimension for the block
 % size.  This function is necessary for CPthreshold.
-   
+
 [a, block, border, fun, params, padval] = parse_inputs(varargin{:});
 
 % Expand A: Add border, pad if size(a) is not divisible by block.
@@ -159,7 +159,7 @@ case 3
     fun = fcnchk(varargin{3});
     params = cell(0,0,0);
     padval = 0;
-    
+
 case 4
     if (strcmp(varargin{2}, 'indexed'))
         % BLKPROC(X, 'indexed', [m n], 'fun')
@@ -169,7 +169,7 @@ case 4
         fun = fcnchk(varargin{4});
         params = cell(0,0);
         padval = 1;
-        
+
     else
         params = varargin(4);
         [fun,msg] = fcnchk(varargin{3}, length(params));
@@ -179,7 +179,7 @@ case 4
             block = varargin{2};
             border = [0 0 0];
             padval = 0;
-            
+
         else
             % BLKPROC(A, [m n], [mb nb], 'fun')
             a = varargin{1};
@@ -190,7 +190,7 @@ case 4
             padval = 0;
         end
     end
-    
+
 otherwise
     if (strcmp(varargin{2}, 'indexed'))
         params = varargin(5:end);
@@ -201,7 +201,7 @@ otherwise
             block = varargin{3};
             border = [0  0 0];
             padval = 1;
-            
+
         else
             % BLKPROC(A, 'indexed', [m n], [mb nb], 'fun', P1, ...)
             a = varargin{1};
@@ -210,9 +210,9 @@ otherwise
             params = varargin(6:end);
             fun = fcnchk(varargin{5},length(params));
             padval = 1;
-            
+
         end
-        
+
     else
         params = varargin(4:end);
         [fun,msg] = fcnchk(varargin{3},length(params));
@@ -222,7 +222,7 @@ otherwise
             block = varargin{2};
             border = [0 0 0];
             padval = 0;
-            
+
         else
             % BLKPROC(A, [m n], [mb nb], 'fun', P1, ...)
             a = varargin{1};
@@ -231,12 +231,12 @@ otherwise
             params = varargin(5:end);
             fun = fcnchk(varargin{4}, length(params));
             padval = 0;
-            
+
         end
-        
+
     end
 end
-    
+
 if (islogical(a) || isa(a,'uint8') || isa(a, 'uint16'))
     padval = 0;
 end

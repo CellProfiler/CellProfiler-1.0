@@ -1,9 +1,9 @@
 function varargout = CPerrordlg(ErrorString,DlgName,Replace)
 %CPERRORDLG Error dialog box.
-%  HANDLE = CPERRORDLG(ErrorString,DlgName,CREATEMODE) creates an 
-%  error dialog box which displays ErrorString in a window 
-%  named DlgName.  A pushbutton labeled OK must be pressed 
-%  to make the error box disappear.  
+%  HANDLE = CPERRORDLG(ErrorString,DlgName,CREATEMODE) creates an
+%  error dialog box which displays ErrorString in a window
+%  named DlgName.  A pushbutton labeled OK must be pressed
+%  to make the error box disappear.
 %
 %  CPERRORDLG uses CPMSGBOX.  Please see the help for CPMSGBOX for a
 %  full description of the input arguments to CPERRORDLG.

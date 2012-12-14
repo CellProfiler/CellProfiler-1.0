@@ -35,7 +35,7 @@ function ExportData(handles)
 [RawFileName, RawPathname] = CPuigetfile('*.mat','Select the raw measurements file', handles.Current.DefaultOutputDirectory);
 
 if RawFileName == 0
-    return
+    return;
 end
 
 %%% Load the specified CellProfiler output file.
@@ -44,7 +44,7 @@ try
     handles = CP_convert_old_measurements(temp.handles);
 catch
     CPerrordlg(['Unable to load file ''', fullfile(RawPathname, RawFileName), ''' (possibly not a CellProfiler output file).']);
-    return
+    return;
 end
 
 DataExists=0;
@@ -55,12 +55,12 @@ while DataExists == 0
     try ExportInfo = ObjectsToExport(handles,RawFileName);
     catch
         CPerrordlg(lasterr)
-        return
+        return;
     end
 
     %%% Indicates that the Cancel button was pressed
     if ~isfield(ExportInfo, 'ExportProcessInfo')
-        return
+        return;
     end
 
     if ~isempty(ExportInfo.ObjectNames)
@@ -75,7 +75,7 @@ while DataExists == 0
                 CPtextpipe(handles,ExportInfo,RawFileName,RawPathname);
             catch
                 CPerrordlg(lasterr)
-                return
+                return;
             end
         else
             warnfig = CPwarndlg('You must select at least one measurement to export. If you wish to only export pipeline settings and not measurements, type a settings extension. Please try again.');
@@ -90,7 +90,7 @@ if isfield(ExportInfo, 'ExportProcessInfo')
         try CPtextpipe(handles,ExportInfo,RawFileName,RawPathname);
         catch
             CPerrordlg(lasterr)
-            return
+            return;
         end
     end
 
@@ -104,7 +104,7 @@ if isfield(ExportInfo, 'ExportProcessInfo')
             MetadataNames = fieldnames(handles.Measurements.Image);
             prefix = 'metadata';
             MetadataNames(~strncmpi(MetadataNames,prefix,length(prefix))) = [];
-                    
+
             for i = 1:length(ObjectNames)
                 MeasurementFieldnames = fieldnames(handles.Measurements.(ObjectNames{i}));
                 sz = cellfun(@size,handles.Measurements.(ObjectNames{i}).(MeasurementFieldnames{1}),'uniformoutput',false);
@@ -117,7 +117,7 @@ if isfield(ExportInfo, 'ExportProcessInfo')
         try CPwritemeasurements(handles,ExportInfo,RawPathname);
         catch
             CPerrordlg(lasterr)
-            return
+            return;
         end
     end
 
@@ -174,14 +174,14 @@ BottomPos = (ScreenHeight-Height)/2;
 set(ETh,'position',[LeftPos BottomPos Width Height]);
 
 if ~isempty(fields)
-    NumberOfImageSetsCompleted = num2str(handles.Current.SetBeingAnalyzed); 
+    NumberOfImageSetsCompleted = num2str(handles.Current.SetBeingAnalyzed);
     NumberOfImageSetsPlanned = num2str(handles.Current.NumberOfImageSets);
     % Top text
     uicontrol(ETh,'style','text','String',...
         [NumberOfImageSetsCompleted,' image cycles were completed out of ',NumberOfImageSetsPlanned,' total cycles planned.'],...
         'FontName','helvetica','FontSize',FontSize,'FontWeight', 'bold',...
         'HorizontalAlignment','left','units','pixels','position',[20 Height-30 400 20],'BackgroundColor',get(ETh,'color'))
-    
+
     uicontrol(ETh,'style','text','String','Measurements to export:','FontName','helvetica','FontSize',FontSize,'FontWeight', 'bold',...
         'HorizontalAlignment','left','units','pixels','position',[20 Height-60 400 20],'BackgroundColor',get(ETh,'color'))
 
@@ -273,7 +273,7 @@ uicontrol(ETh,'style','pushbutton','String','?','FontName','helvetica','FontSize
     'HorizontalAlignment','center','units','pixels','position',[560 ypos+8 15 uiheight],...
     'BackgroundColor',get(ETh,'color'),'FontWeight', 'bold',...
     'Callback', Help_Callback);
-    
+
 fn = fieldnames(handles.Measurements.Image);
 prefix = 'metadata';
 doesMetadataExist = any(strncmpi(prefix,fn,length(prefix)));
@@ -323,15 +323,15 @@ uicontrol(ETh,'style','pushbutton','String','Export','FontName','helvetica','Fon
 uiwait(ETh);                         % Wait until window is destroyed or uiresume() is called
 
 ExportInfo.IgnoreNaN = get(IgnoreNaN,'Value');
-if doesMetadataExist, 
+if doesMetadataExist,
     str = get(ExportPerObjectMetadata,'string');
-    ExportInfo.ExportPerObjectMetadata = str{get(ExportPerObjectMetadata,'value')}; 
+    ExportInfo.ExportPerObjectMetadata = str{get(ExportPerObjectMetadata,'value')};
 else
     ExportInfo.ExportPerObjectMetadata = 'No';
 end
 
 if get(ETh,'Userdata') == 1,     % The user pressed the Export button
-    
+
     % File names
     if ~isempty(fields)
         ExportInfo.MeasurementFilename = get(EditMeasurementFilename,'String');
@@ -349,7 +349,7 @@ if get(ETh,'Userdata') == 1,     % The user pressed the Export button
     else
         ExportInfo.SwapRowsColumnInfo = 'Yes';
     end
-    
+
     if get(DataExportParameter,'Value')==1
         ExportInfo.DataParameter = 'mean';
     elseif get(DataExportParameter,'Value')==2
@@ -366,7 +366,7 @@ if get(ETh,'Userdata') == 1,     % The user pressed the Export button
         end
         ExportInfo.ObjectNames = fields(find(buttonchoice));  %#ok Get the fields for which the radiobuttons are enabled
     end
-    
+
     delete(ETh);
 else
     delete(ETh);

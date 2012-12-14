@@ -1,13 +1,13 @@
 function differences = compare_measurements(folder)
 % This is an ridicuously inelegant script to compare measurement results
-% between the old (pre-5122) and the new (> 5701). It takes a folder as 
+% between the old (pre-5122) and the new (> 5701). It takes a folder as
 % input and outputs a strcuture with fields corresponding to the shared
-% measurments between the two handles, with a value equal to the RMS 
+% measurments between the two handles, with a value equal to the RMS
 % difference between them.
-% 
-% It assumes that the two results are in DefaultOUT.mat and 
-% DefaultOUT__1.mat for a given example directory. 
-% 
+%
+% It assumes that the two results are in DefaultOUT.mat and
+% DefaultOUT__1.mat for a given example directory.
+%
 % It uses objdiff, a user-contributed fxn found by David Logan
 %
 % Written by Mark Bray, last edited on 8/29/08

@@ -4,7 +4,7 @@ function handles = IFFT(handles)
 % Category: Contributed
 %
 % SHORT DESCRIPTION:
-% 
+%
 % *************************************************************************
 %
 % CellProfiler is distributed under the GNU General Public License.
@@ -24,13 +24,13 @@ drawnow
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
-%textVAR01 = What image do you want to apply IFFT2? 
+%textVAR01 = What image do you want to apply IFFT2?
 %infotypeVAR01 = imagegroup
 ImageName = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
 
 
-%textVAR02 = What do you want to call the IFFT2 image? 
+%textVAR02 = What do you want to call the IFFT2 image?
 %defaultVAR02 = IFFTImage
 %infotypeVAR02 = imagegroup indep
 ComplementedImageName = char(handles.Settings.VariableValues{CurrentModuleNum,2});

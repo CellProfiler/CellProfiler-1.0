@@ -1,8 +1,8 @@
 function CombineFourImageQuadrants
 
 
-% This code is run from the command line. 
-% 
+% This code is run from the command line.
+%
 % Its purpose is to take four projection (mean) images, each
 % representing a different quadrant of the field of view, and combine
 % them into a single mean image. The quadrants do not need to be
@@ -13,7 +13,7 @@ function CombineFourImageQuadrants
 % To use: put the four files into their own folder and type
 % CombineFourImageQuadrants at the command line of Matlab, and it
 % guides you through creating the Whole Mean Image.
-% 
+%
 % Then, to create the illumination function from them, type:
 % CreateIlluminationCorrectionImageFromProjection('OriginalFilename.
 % mat','NewFilename.mat') at the command line, where the first
@@ -23,7 +23,7 @@ function CombineFourImageQuadrants
 
 PathName = CPuigetdir(pwd,'Select the folder with the four images in .mat format');
 if PathName == 0
-    return
+    return;
 end
 %%% Uses subfunction below.
 FileNames = RetrieveImageFileNames(PathName,'N')
@@ -54,19 +54,19 @@ TopRightImage = BottomLeftOfWellImage;
 
 if TopLeftImageHeight ~= TopRightImageHeight
     error('The heights of the top two images is not the same')
-    return
+    return;
 end
 if BottomLeftImageHeight ~= BottomRightImageHeight
     error('The heights of the bottom two images is not the same')
-    return
+    return;
 end
 if TopLeftImageWidth ~= BottomLeftImageWidth
     error('The widths of the two left images is not the same')
-    return
+    return;
 end
 if TopRightImageWidth ~= BottomRightImageWidth
     error('The widths of the two right images is not the same')
-    return
+    return;
 end
 WholeImageWidth = TopLeftImageWidth + TopRightImageWidth;
 WholeImageHeight = TopLeftImageHeight + BottomLeftImageHeight;

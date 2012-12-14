@@ -1,5 +1,5 @@
 function handles = GrayToColor(handles)
-  
+
 % Help for the Gray To Color module:
 % Category: Image Processing
 %
@@ -9,8 +9,8 @@ function handles = GrayToColor(handles)
 % *************************************************************************
 %
 % This module takes up to four grayscale images as inputs, and produces
-% either a new color (RGB) image which results from assigning each of the 
-% input images the colors red, green, and blue (RGB, for 3 color) or cyan, 
+% either a new color (RGB) image which results from assigning each of the
+% input images the colors red, green, and blue (RGB, for 3 color) or cyan,
 % yellow, magenta, and gray (CMYK, for 4 color) respectively.
 % In addition, each color's intensity can be adjusted independently by
 % using adjustment factors (see below).
@@ -24,7 +24,7 @@ function handles = GrayToColor(handles)
 % Adjustment factors: Leaving the adjustment factors set to 1 will balance
 % all colors equally in the final image, and they will use the same range
 % of intensities as each individual incoming image. Using factors less than
-% 1 will decrease the intensity of that color in the final image, and 
+% 1 will decrease the intensity of that color in the final image, and
 % values greater than 1 will increase it. Setting the adjustment factor
 % to zero will cause that color to be entirely blank.
 %
@@ -101,7 +101,7 @@ AdjustmentFactor{4} = char(handles.Settings.VariableValues{CurrentModuleNum,9});
 %%%%%%%%%%%%%%%%
 drawnow
 
-% Determines which images the user has specified 
+% Determines which images the user has specified
 [Image,ImageExists] = deal(cell(1,4));
 for i = 1:4,
     if ~strcmp(ImageName{i}, 'Do not use')
@@ -195,50 +195,50 @@ if any(findobj == ThisModuleFigureNumber)
     if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         if isRGB
             CPresizefigure(RGBImage,'TwoByTwo',ThisModuleFigureNumber);
-            
+
             % A subplot of the figure window is set to display the merged image.
-            hAx = subplot(2,2,1,'parent',ThisModuleFigureNumber); 
+            hAx = subplot(2,2,1,'parent',ThisModuleFigureNumber);
             CPimagesc(RGBImage,handles,hAx);
             title(hAx,['Merged Color Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
             % A subplot of the figure window is set to display the blue image.
-            hAx = subplot(2,2,2,'parent',ThisModuleFigureNumber); 
-            CPimagesc(Image{3},handles,hAx); 
+            hAx = subplot(2,2,2,'parent',ThisModuleFigureNumber);
+            CPimagesc(Image{3},handles,hAx);
             title(hAx,'Blue Image');
             % A subplot of the figure window is set to display the green image.
-            hAx = subplot(2,2,3,'parent',ThisModuleFigureNumber); 
-            CPimagesc(Image{2},handles,hAx); 
+            hAx = subplot(2,2,3,'parent',ThisModuleFigureNumber);
+            CPimagesc(Image{2},handles,hAx);
             title(hAx,'Green Image');
             % A subplot of the figure window is set to display the red image.
-            hAx = subplot(2,2,4,'parent',ThisModuleFigureNumber); 
-            CPimagesc(Image{1},handles,hAx); 
+            hAx = subplot(2,2,4,'parent',ThisModuleFigureNumber);
+            CPimagesc(Image{1},handles,hAx);
             title(hAx,'Red Image');
         elseif isCMYK
             CPresizefigure(Image{1},'TwobyThree',ThisModuleFigureNumber);
-            
+
             % A subplot of the figure window is set to display the cyan image.
-            hAx = subplot(2,3,1,'parent',ThisModuleFigureNumber); 
+            hAx = subplot(2,3,1,'parent',ThisModuleFigureNumber);
             CPimagesc(Image{1},handles,hAx);
             title(hAx,'Cyan Image');
             % A subplot of the figure window is set to display the magenta image.
-            hAx = subplot(2,3,2,'parent',ThisModuleFigureNumber); 
-            CPimagesc(Image{2},handles,hAx); 
+            hAx = subplot(2,3,2,'parent',ThisModuleFigureNumber);
+            CPimagesc(Image{2},handles,hAx);
             title(hAx,'Yellow Image');
             % A subplot of the figure window is set to display the yellow image.
-            hAx = subplot(2,3,3,'parent',ThisModuleFigureNumber); 
-            CPimagesc(Image{3},handles,hAx); 
+            hAx = subplot(2,3,3,'parent',ThisModuleFigureNumber);
+            CPimagesc(Image{3},handles,hAx);
             title(hAx,'Magenta Image');
             % A subplot of the figure window is set to display the gray image.
-            hAx = subplot(2,3,4,'parent',ThisModuleFigureNumber); 
-            CPimagesc(Image{4},handles,hAx); 
+            hAx = subplot(2,3,4,'parent',ThisModuleFigureNumber);
+            CPimagesc(Image{4},handles,hAx);
             title(hAx,'Gray Image');
             % A subplot of the figure window is set to display the merged image.
-            hAx = subplot(2,3,5,'parent',ThisModuleFigureNumber); 
-            CPimagesc(RGBImage,handles,hAx); 
+            hAx = subplot(2,3,5,'parent',ThisModuleFigureNumber);
+            CPimagesc(RGBImage,handles,hAx);
             title(hAx,['Merged Color Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
         end
     end
 
-    
+
 end
 
 %%%%%%%%%%%%%%

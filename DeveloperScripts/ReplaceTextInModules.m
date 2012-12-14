@@ -16,12 +16,12 @@ try cd(fullfile(CellProfilerPathname,'DeveloperScripts')), end
 
 [FileName,PathName] = uigetfile('*.m', 'Choose the M-file with the old text');
 if FileName == 0
-    return
+    return;
 end
 TextToRemove = retrievetextfromfile([PathName,FileName])
 [FileName,PathName] = uigetfile('*.m', 'Choose the M-file with the new text');
 if FileName == 0
-    return
+    return;
 end
 TextToAddInItsPlace = retrievetextfromfile([PathName,FileName])
 
@@ -37,7 +37,7 @@ if strcmp(Answer,'All folders') == 1
 else
     PathName = CPuigetdir(pwd,'Choose the folder in which you want to search and replace')
     if PathName == 0
-        return
+        return;
     end
     AlgorithmFileNames = RetrieveMFilesFromDirectory(PathName);
 end
@@ -48,7 +48,7 @@ if strcmp(Answer,'All') == 1
     Multiple = 1;
 elseif strcmp(Answer,'First') == 1
     Multiple = 0;
-else return
+else return;
 end
 %%% Loops through each Algorithm.
 for i = 1:NumberOfMFiles

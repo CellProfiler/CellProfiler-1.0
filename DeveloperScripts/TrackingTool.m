@@ -33,7 +33,7 @@ function handles = TrackingTool(handles)
 % menu to zoom in on this image. If the text is overlapping and not easily
 % visible, you can change the number of decimal places shown with the
 % 'Significant digits' button, or you can change the font size with the
-% 'Text Properties' button. You can also change the font style, color, and 
+% 'Text Properties' button. You can also change the font style, color, and
 % other properties with this button. If you want to go back to the original
 % label settings, click the 'Restore labels' button. Alternatively, you can
 % hide and show the labels by clicking the 'Hide labels' and 'Show labels'
@@ -73,19 +73,19 @@ try
 catch
     ErrorMessage = lasterr;
     CPerrordlg(['An error occurred in the ShowDataOnImage Data Tool. ' ErrorMessage(30:end)]);
-    return
+    return;
 end
 if isempty(ObjectTypename),return,end
 
 % Prompts the user to choose a sample number to be displayed.
 Answer = inputdlg({'Which sample/cycle number do you want to display?'},'Choose sample number',1,{'1'});
 if isempty(Answer)
-    return
+    return;
 end
 SampleNumber = str2double(Answer{1});
 if SampleNumber > length(handles.Measurements.(ObjectTypename).(FeatureType))
     CPerrordlg(['Error: the sample number you entered, ' num2str(SampleNumber) ', exceeds the number of samples in the output file.']);
-    return
+    return;
 end
 
 % Looks up the corresponding image file name.
@@ -110,7 +110,7 @@ else
         'PromptString','Choose the image whose filename you want to display','CancelString','Cancel',...
         'SelectionMode','single');
     if ok == 0
-        return
+        return;
     end
     if Selection == length(PotentialImageNames)
         PromptMessage = 'You have chosen to choose the image to display manually.';
@@ -149,7 +149,7 @@ try
     ImageToDisplay = CPimread(fullfile(Pathname,FileName));
 catch
     CPerrordlg(['Error opening image ', FileName, ' in folder ', Pathname])
-    return
+    return;
 end
 
 button = 1;
@@ -159,16 +159,16 @@ while button == 1
 tmp = handles.Measurements.(ObjectTypename).(FeatureType){SampleNumber};
 if isempty(tmp)
     CPerrordlg('Error: there are no object measurements in your file');
-    return
+    return;
 end
 
 TextFlag = 0;
-if iscell(tmp)    
+if iscell(tmp)
     if FeatureType == 'Tracking'
         StringListOfMeasurements = tmp(:,FeatureNo);
     else
         StringListOfMeasurements = handles.Measurements.(ObjectTypename).(FeatureType){SampleNumber};
-    end    
+    end
     ListOfMeasurements = StringListOfMeasurements;
     TextFlag = 1;
 else
@@ -201,12 +201,12 @@ CLICK_MAX_DISTANCE = 20;
 if button == 1
     dist = sqrt((Xlocations - x).^2 + (Ylocations - y).^2);
     [min_dist, min_idx] = min(dist);
-    if min_dist < CLICK_MAX_DISTANCE    
+    if min_dist < CLICK_MAX_DISTANCE
         % Prompts the user to choose a sample number to be displayed.
         currrent_label= handles.Measurements.(ObjectTypename).(FeatureType){SampleNumber}(min_idx,FeatureNo);
         Answer = inputdlg({'What label do you want to change this to ?'},'Enter label',1,currrent_label);
         if isempty(Answer)
-            return
+            return;
         end
         handles.Measurements.(ObjectTypename).(FeatureType){SampleNumber}(min_idx,FeatureNo) = Answer;
     end
@@ -215,7 +215,7 @@ end
 end
 
 
-% 
+%
 % % Save handles to the output file
 % handles.Current = rmfield(handles.Current,'StartingImageSet');
 % if (rem(handles.Current.SetBeingAnalyzed,handles.Current.SaveOutputHowOften) == 0) || (handles.Current.SetBeingAnalyzed == 1) || (handles.Current.SetBeingAnalyzed == handles.Current.NumberOfImageSets)
@@ -258,7 +258,7 @@ end
 % TimerData.SetBeingAnalyzed = setbeinganalyzed;
 % set(timer_handle,'UserData',TimerData);
 % guidata(gcbo, handles)
-% 
+%
 
 % Create structure and save it to the UserData property of the window
 Info = get(FigureHandle,'UserData');
@@ -328,9 +328,9 @@ if strcmp(computer,'MAC') && str2num(VersionCheck(1:3)) < 7.1 %#ok Ignore MLint
     drawnow;
 else
     info = get(gcbf,'Userdata');
-    CurrentTextHandles = info.TextHandles; 
+    CurrentTextHandles = info.TextHandles;
     try
-        propedit(CurrentTextHandles); 
+        propedit(CurrentTextHandles);
     catch
         CPmsgbox('A bug in MATLAB is preventing this function from working. Service Request #1-RR6M1');
     end
@@ -344,15 +344,15 @@ function DisplayButtonCallback2(hObject,eventdata)
 NumberOfDecimals = inputdlg('Enter the number of decimal places to display','Enter the number of decimal places',1,{'0'});
 info = get(gcbf,'Userdata');
 CurrentTextHandles = info.TextHandles;
-NumberValues = info.ListOfMeasurements; 
-if(isempty(NumberOfDecimals)) 
-    return; 
+NumberValues = info.ListOfMeasurements;
+if(isempty(NumberOfDecimals))
+    return;
 end
-Command = ['%.',num2str(NumberOfDecimals{1}),'f']; 
-NewNumberValues = num2str(NumberValues,Command); 
-CellNumberValues = cellstr(NewNumberValues); 
-PropName(1) = {'string'}; 
-set(CurrentTextHandles,PropName, CellNumberValues); 
+Command = ['%.',num2str(NumberOfDecimals{1}),'f'];
+NewNumberValues = num2str(NumberValues,Command);
+CellNumberValues = cellstr(NewNumberValues);
+PropName(1) = {'string'};
+set(CurrentTextHandles,PropName, CellNumberValues);
 drawnow;
 
 %%
@@ -360,24 +360,24 @@ drawnow;
 function DisplayButtonCallback3(hObject,eventdata)
 
 info = get(gcbf,'Userdata');
-CurrentTextHandles = info.TextHandles; 
-ListOfMeasurements = info.ListOfMeasurements; 
-StringListOfMeasurements = cellstr(num2str(ListOfMeasurements)); 
-PropName(1) = {'string'}; 
+CurrentTextHandles = info.TextHandles;
+ListOfMeasurements = info.ListOfMeasurements;
+StringListOfMeasurements = cellstr(num2str(ListOfMeasurements));
+PropName(1) = {'string'};
 set(CurrentTextHandles,PropName, StringListOfMeasurements);
 drawnow;
-    
+
 %%
 % SUBFUNCTION - DisplayButtonCallback5
 function DisplayButtonCallback4(hObject,eventdata)
 
 info = get(gcbf,'Userdata');
-CurrentTextHandles = info.TextHandles; 
+CurrentTextHandles = info.TextHandles;
 if get(hObject,'value'),
-    set(CurrentTextHandles, 'visible', 'off'); 
+    set(CurrentTextHandles, 'visible', 'off');
     set(hObject,'string','Show labels');
 else
-    set(CurrentTextHandles, 'visible', 'on'); 
+    set(CurrentTextHandles, 'visible', 'on');
     set(hObject,'string','Hide labels');
 end
 drawnow;

@@ -166,13 +166,13 @@ if handles.Current.SetBeingAnalyzed == 1
     if NumberRows*NumberColumns > NumberOfImages;
         Answer = CPquestdlg(['You have specified ', num2str(NumberRows), ' rows and ', num2str(NumberColumns), ' columns (=',num2str(NumberRows*NumberColumns),' images), but there are ', num2str(length(FileList)), ' images loaded. The image locations at the end of the grid for which there is no image data will be displayed as black. Do you want to continue?'],'Continue?','Yes','No','Yes');
         if strcmp(Answer,'No') == 1
-            return
+            return;
         end
         FileList(length(FileList)+1:NumberRows*NumberColumns) = {'none'};
     elseif NumberRows*NumberColumns < NumberOfImages;
         Answer = CPquestdlg(['You have specified ', num2str(NumberRows), ' rows and ', num2str(NumberColumns), ' columns (=',num2str(NumberRows*NumberColumns),' images), but there are ', num2str(length(FileList)), ' images loaded. Images at the end of the list will not be displayed. Do you want to continue?'],'Continue?','Yes','No','Yes');
         if strcmp(Answer,'No') == 1
-            return
+            return;
         end
         FileList(NumberRows*NumberColumns+1:NumberOfImages) = [];
     end

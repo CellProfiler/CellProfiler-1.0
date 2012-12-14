@@ -11,11 +11,11 @@ function handles = ExportToDatabase(handles)
 % This module exports measurements to a SQL compatible format. It creates
 % MySQL or Oracle scripts and associated data files which will create a
 % database and import the data into it and gives you the option of creating
-% a properties file for use with CellProfiler Analyst. 
-% 
-% This module must be run at the end of a pipeline, or second to last if 
+% a properties file for use with CellProfiler Analyst.
+%
+% This module must be run at the end of a pipeline, or second to last if
 % you are using the CreateBatchFiles module. If you forget this module, you
-% can also run the ExportDatabase data tool after processing is complete; 
+% can also run the ExportDatabase data tool after processing is complete;
 % its functionality is the same.
 %
 % The database is set up with two primary tables. These tables are the
@@ -41,12 +41,12 @@ function handles = ExportToDatabase(handles)
 %
 % Settings:
 %
-% Database Type: 
+% Database Type:
 % You can choose to export MySQL or Oracle database scripts. The exported
 % data is the same for each type, but the setup files for MySQL and Oracle
 % are different.
 %
-% Database Name: 
+% Database Name:
 %   In MySQL, you can enter the name of a database to create or the name of
 % an existing database. When using the script, if the database already
 % exists, the database creation step will be skipped so the existing
@@ -58,7 +58,7 @@ function handles = ExportToDatabase(handles)
 % means it is impossible to create/destroy a database with these
 % CellProfiler scripts.
 %
-% Table Prefix: 
+% Table Prefix:
 % Here you can choose what to append to the table names Per_Image and
 % Per_Object. If you choose "Do not use", no prefix will be appended. If you choose
 % a prefix, the tables will become PREFIX_Per_Image and PREFIX_Per_Object
@@ -87,11 +87,11 @@ function handles = ExportToDatabase(handles)
 % properties for using your new database in CellProfiler Analyst (a data
 % exploration tool which can also be downloaded from
 % http://www.cellprofiler.org/)
-% 
-% If creating a properties file for use with CellProfiler Analyst (CPA): 
-% The module will attempt to fill in as many as the entries as possible 
-% based on the current handles structure. However, entries such as the 
-% server name, username and password are omitted. Hence, opening the 
+%
+% If creating a properties file for use with CellProfiler Analyst (CPA):
+% The module will attempt to fill in as many as the entries as possible
+% based on the current handles structure. However, entries such as the
+% server name, username and password are omitted. Hence, opening the
 % properties file in CPA will produce an error since it won't be able to
 % connect to the server. However, you can still edit the file in CPA and
 % then fill in the required information.
@@ -99,14 +99,14 @@ function handles = ExportToDatabase(handles)
 % ********************* How To Import MySQL *******************************
 % Step 1: Log onto the server where the database will be located.
 %
-% Step 2: From within a terminal logged into that server, navigate to folder 
+% Step 2: From within a terminal logged into that server, navigate to folder
 % where the CSV output files and the SETUP script is located.
 %
-% Step 3: Type the following within the terminal to log into MySQL on the 
+% Step 3: Type the following within the terminal to log into MySQL on the
 % server where the database will be located:
 %    mysql -uUsername -pPassword -hHost
 %
-% Step 4: Type the following within the terminal to run SETUP script: 
+% Step 4: Type the following within the terminal to run SETUP script:
 %      \. DefaultDB_SETUP.SQL
 %
 % The SETUP file will do everything necessary to load the database.
@@ -153,8 +153,8 @@ function handles = ExportToDatabase(handles)
 % MBray 2009_04_17: Comments on variables for pyCP upgrade
 % (1a) What type of database do you want to use? (DatabaseType)
 % (1b) (Shown if "MySQL" is selected above) What is the name of the database to use?
-% (2) What prefix do you want to name the per-image and per-object tables 
-% in the database? Type "Do not use" to ignore. Metadata token may also be 
+% (2) What prefix do you want to name the per-image and per-object tables
+% in the database? Type "Do not use" to ignore. Metadata token may also be
 % used. An underscore will be added to the end of the prefix automatically.
 % (3) What prefix should be used to name the SQL files? (FilePrefix)
 % (4) What directory do you want the SQL files to be saved? Type period
@@ -166,13 +166,13 @@ function handles = ExportToDatabase(handles)
 % (WriteProperties)
 %
 % (i) Setting (2): The user should be able to use metadata tokens as well
-% (ii) Seting (4): Metadata tokens should be permitted here in order to 
-% create  subdirectories. Subdirecrtories should be created automatically 
+% (ii) Seting (4): Metadata tokens should be permitted here in order to
+% create  subdirectories. Subdirecrtories should be created automatically
 % if needed.
 % (iii) Setting (5): The selections should be Mean, Median and Standard deviation.
 % It should start with one popup, with a button to add/subtract more
 % statistics popups, with a max of three (for all the stats)
-% (iv) Setting (6): A button should be added that lets the user add/subtract 
+% (iv) Setting (6): A button should be added that lets the user add/subtract
 % objects
 
 %%%%%%%%%%%%%%%%%
@@ -197,7 +197,7 @@ assert(~any(isspace(DatabaseName)),['Image processing was canceled in the ', Mod
 assert(~any(strfind(DatabaseName,'-')),['Image processing was canceled in the ', ModuleName, ...
     ' module because you have entered one or more dashes in the text box for the database name.'])
 
-        
+
 %textVAR03 = What prefix should be used to name the tables in the database (should be unique per experiment, or leave "Do not use" to have generic Per_Image and Per_Object tables)?  An underscore will be added to the end of the prefix automatically. If a FileNameMetadata module was used, a regular expression may be inserted here.
 %defaultVAR03 = Do not use
 TablePrefix = char(handles.Settings.VariableValues{CurrentModuleNum,3});
@@ -213,7 +213,7 @@ if ~strcmp(TablePrefix,'Do not use')
         TablePrefix = strrep(TablePrefix,'-','_');
         CPwarndlg('Your table prefix has spaces and/or hyphens, which are not SQL-compatible. Spaces will be removed and hyphens converted to underscores. Check your database script to see if this change is acceptable',[mfilename,': Invalid characters in Table Prefix'],'replace');
     end
-    
+
     CPvalidfieldname(TablePrefix)
 end
 
@@ -236,7 +236,7 @@ DataPath = char(handles.Settings.VariableValues{CurrentModuleNum,5});
 StatisticsCalculated{1} = char(handles.Settings.VariableValues{CurrentModuleNum,6});
 %inputtypeVAR06 = popupmenu
 
-%textVAR07 = 
+%textVAR07 =
 %choiceVAR07 = Standard deviation
 %choiceVAR07 = Mean
 %choiceVAR07 = Median
@@ -245,7 +245,7 @@ StatisticsCalculated{1} = char(handles.Settings.VariableValues{CurrentModuleNum,
 StatisticsCalculated{2} = char(handles.Settings.VariableValues{CurrentModuleNum,7});
 %inputtypeVAR07 = popupmenu
 
-%textVAR08 = 
+%textVAR08 =
 %choiceVAR08 = Do not use
 %choiceVAR08 = Standard deviation
 %choiceVAR08 = Mean
@@ -254,7 +254,7 @@ StatisticsCalculated{2} = char(handles.Settings.VariableValues{CurrentModuleNum,
 StatisticsCalculated{3} = char(handles.Settings.VariableValues{CurrentModuleNum,8});
 %inputtypeVAR08 = popupmenu
 
-%textVAR09 = Which objects do you want to export? Use "All objects" in this first box to export all objects (including 'Image'), or select the objects you want to export in this and the following boxes. Use "Do not use" to ignore. 
+%textVAR09 = Which objects do you want to export? Use "All objects" in this first box to export all objects (including 'Image'), or select the objects you want to export in this and the following boxes. Use "Do not use" to ignore.
 %infotypeVAR09 = objectgroup
 %choiceVAR09 = All objects
 %choiceVAR09 = Image
@@ -316,7 +316,7 @@ WritePerWell = char(handles.Settings.VariableValues{CurrentModuleNum,16});
 PlateMeasurement = char(handles.Settings.VariableValues{CurrentModuleNum,17});
 %inputtypeVAR17 = popupmenu custom
 
-%textVAR18 = Which token uniquely specifies your Well? 
+%textVAR18 = Which token uniquely specifies your Well?
 %choiceVAR18 = Well
 %choiceVAR18 = Do not use
 WellMeasurement = char(handles.Settings.VariableValues{CurrentModuleNum,18});

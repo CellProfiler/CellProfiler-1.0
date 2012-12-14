@@ -26,13 +26,13 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
     CompositeValues = {};
     CompositeNames = {};
     if ~isBatchRun, CPwaitbar(0,waitbarhandle,['Export Status - computing ', ExportInfo.DataParameter, 's']); end
-    
+
     % find the number of measurements we need to compute (for the waitbar).
     FieldCount = 0;
     AllFields = fieldnames(handles.Measurements);
     for i = 1:length(AllFields)
         ObjectName = AllFields{i};
-        if any(strcmp(ObjectName,ExcludedObjectNames)), 
+        if any(strcmp(ObjectName,ExcludedObjectNames)),
             continue;
         end
         FieldCount = FieldCount + length(fieldnames(handles.Measurements.(ObjectName)));
@@ -58,12 +58,12 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
                 reducer = @median;
         end
     end
-    
+
     % Reduce per-object to per-image
     FieldsCompleted = 0;
     for i = 1:length(AllFields)
         ObjectName = AllFields{i};
-        if any(strcmp(ObjectName, ExcludedObjectNames)), 
+        if any(strcmp(ObjectName, ExcludedObjectNames)),
             continue;
         end
 
@@ -72,7 +72,7 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
             fieldname = fields{k};
 
             if ~isBatchRun, CPwaitbar(FieldsCompleted / FieldCount,waitbarhandle,['Export Status - computing ', ExportInfo.DataParameter, 's']); end
-            
+
             if ~isnumeric(handles.Measurements.(ObjectName).(fieldname){1})
                 continue
             end
@@ -140,7 +140,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
         fclose(fid);
         continue;
     end
-                
+
 
     %%% This should warn
     if strcmp(ObjectName,'Neighbors')
@@ -174,7 +174,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
     Values = {};
     ValueNames = {};
     fields = fieldnames(handles.Measurements.(ObjectName));
-    
+
     %%% Bring all fields to full size
     for k = 1:length(fields)
         fieldname = fields{k};
@@ -234,7 +234,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
         Prefix{k, 1} = sprintf('Set #%d, %s',imageidx,handles.Measurements.Image.(FirstFilename){imageidx});
         imageidx = imageidx + 1;
     end
-    
+
     % The following lines try to catch if measurements are missing
     % If it is, the corresponding Values are not written, so there is a mismatch
     % betwene the size of Prefix and Values. So we need to make sure the length
@@ -245,7 +245,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
     if size(Prefix,1) > size(Values,1),     % Missing set is the last cycle: Truncate Prefix
         Prefix = Prefix(1:size(Values,1),:);
     end
-    
+
     % Concatenate Prefix and Values together
     Values = [Prefix Values];
 
@@ -269,7 +269,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
                 elseif ischar(val),
                     fprintf(fid, '%s', val);
                 else
-                    fprintf(fid, '%d', val);        
+                    fprintf(fid, '%d', val);
                 end
             end
             fprintf(fid, '\n');
@@ -291,7 +291,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
                 elseif ischar(val),
                     fprintf(fid, '\t%s', val);
                 else
-                    fprintf(fid, '\t%d', val);        
+                    fprintf(fid, '\t%d', val);
                 end
             end
             fprintf(fid, '\n');

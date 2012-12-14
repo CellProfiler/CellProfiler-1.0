@@ -33,10 +33,10 @@ function handles = CreateWebPage(handles)
 % .html is simply that .html can't be represented in a DOS/16 bit operating
 % system which uses the 8.3 file naming convention. Most servers (but not
 % all) that can handle 4 character file extensions can be set up to treat
-% .htm and .html files in exactly the same way, just as they can be set up 
+% .htm and .html files in exactly the same way, just as they can be set up
 % to treat .jpg and .jpeg files the same way.
-% 
-% * Will you have the webpage HTML file in the same folder or one level 
+%
+% * Will you have the webpage HTML file in the same folder or one level
 % above the images?
 % If the images are going to be in a subfolder, then the HTML file will be
 % one level above the images. If the HTML file and the images will all be
@@ -70,28 +70,28 @@ function handles = CreateWebPage(handles)
 % MBray 2009_04_17: Comments on variables for pyCP upgrade
 % (1) What did you call the full-size images that you want to include on the
 % webpage? (OrigImage)
-% (2) What did you call the thumbnail images you want to use to link to the 
+% (2) What did you call the thumbnail images you want to use to link to the
 % full-size images? Select "Do not use" to ignore. (ThumbImage)
 % (3) Do you want to create the webpage (HTML file) before or after
 % processing all images? (CreateBA)
-% (4) What do you want to call the resulting webpage file? The '.html' 
+% (4) What do you want to call the resulting webpage file? The '.html'
 %   file extension will be added automatically. (FileName)
 % (5) Will you have the webpage HTML file in the same folder or one level
 % above the images? (DirectoryOption)
-% (6) What is the webpage title, which will be displayed at the top of the 
+% (6) What is the webpage title, which will be displayed at the top of the
 %   browser window? (PageTitle)
-% (7) What do you want the webpage background color to be? For custom 
+% (7) What do you want the webpage background color to be? For custom
 % colors, provide the html color code (e.g. #00FF00). (BGColor)
 % (8) How many columns of images do you want? (ThumbCols)
 % (9) What is the table border width, in pixels? (TableBorderWidth)
-% (10) What is the table border color? For custom colors, provide the html 
+% (10) What is the table border color? For custom colors, provide the html
 %   color code (e.g. #00FF00) (TableBorderColor)
 % (11) What is the spacing between images, in pixels? (ThumbSpacing)
 % (12) What is the image border width, in pixels? (ThumbBorderWidth)
-% (13) Do you want to open a new browser window when clicking on a 
+% (13) Do you want to open a new browser window when clicking on a
 %   thumbnail? (CreateNewWindow)
-% (14) If you want the webpage to have a link to a zipped file which 
-%   contains all of the full-size images, what is the filename. The '.zip' 
+% (14) If you want the webpage to have a link to a zipped file which
+%   contains all of the full-size images, what is the filename. The '.zip'
 %   file extension will be added automatically. (ZipFileName)
 %
 % Setting (4): The .htm vs. .html distinction is probably no longer

@@ -8,7 +8,7 @@ function handles = PlaceAdjacent(handles)
 % vertically, to produce a single image.
 % *************************************************************************
 %
-% To place together many images, you can use this module multiple times in 
+% To place together many images, you can use this module multiple times in
 % one pipeline.
 %
 % See also Tile.
@@ -37,30 +37,30 @@ drawnow
 ImageName{1} = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
 
-%textVAR02 = 
+%textVAR02 =
 %infotypeVAR02 = imagegroup
 ImageName{2} = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 %inputtypeVAR02 = popupmenu
 
-%textVAR03 = 
+%textVAR03 =
 %choiceVAR03 = Do not use
 %infotypeVAR03 = imagegroup
 ImageName{3} = char(handles.Settings.VariableValues{CurrentModuleNum,3});
 %inputtypeVAR03 = popupmenu
 
-%textVAR04 = 
+%textVAR04 =
 %choiceVAR04 = Do not use
 %infotypeVAR04 = imagegroup
 ImageName{4} = char(handles.Settings.VariableValues{CurrentModuleNum,4});
 %inputtypeVAR04 = popupmenu
 
-%textVAR05 = 
+%textVAR05 =
 %choiceVAR05 = Do not use
 %infotypeVAR05 = imagegroup
 ImageName{5} = char(handles.Settings.VariableValues{CurrentModuleNum,5});
 %inputtypeVAR05 = popupmenu
 
-%textVAR06 = 
+%textVAR06 =
 %choiceVAR06 = Do not use
 %infotypeVAR06 = imagegroup
 ImageName{6} = char(handles.Settings.VariableValues{CurrentModuleNum,6});
@@ -139,7 +139,7 @@ for i=1:(length(OrigImage)-1)
     if size(OrigImage{i},DimensionToCheck) ~= size(OrigImage{i+1},DimensionToCheck)
         error(['Image processing was canceled in the ', ModuleName, ' module because the two input images must have the same ',PotentialErrorMsg,' adjacent to each other.'])
     end
-    
+
     if i == 1
         AdjacentImage = cat(DimensionToPlace,OrigImage{i},OrigImage{i+1});
     else

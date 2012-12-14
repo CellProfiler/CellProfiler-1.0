@@ -18,7 +18,7 @@ function handles = Align(handles)
 % (1) Regardless of the number of input images, they will all be aligned
 % with respect to the first image.
 % (2) If desired, the images may be cropped according to the smallest input
-% image. 
+% image.
 % (3) If an image is aligned, the aligned image is padded with zeros.
 % (4) The module stores the amount of shift between images as a
 % measurement, which can be useful for quality control purposes.
@@ -33,7 +33,7 @@ function handles = Align(handles)
 % Settings:
 % * "Mutual Information" method: alignment works whether the images are
 % correlated or anti-correlated (bright in one = bright in the other, or
-% bright in one = dim in the other). 
+% bright in one = dim in the other).
 % * "Normalized Cross Correlation" method: alignment works only when the
 % images are correlated (they have matching bright and dark areas). When
 % using the cross correlation method, the second image should serve as a
@@ -58,13 +58,13 @@ function handles = Align(handles)
 % NEW SETTINGS FOR pyCP:
 % In general,
 % (1) Make the settings color order RGB (seems more intuitive than BRG)
-% (2) Remove the third image input, but add an "Add another image?" button, 
+% (2) Remove the third image input, but add an "Add another image?" button,
 % which creates unlimited "other" images/channels.
 % (3) The general approach of Align is to either:
 %   (a) align channels within one cycle, or
 %   (b) Load a template image (from a separate LoadSingleImage module) and align
-%       all cycles to it.  Additionally, it would be great to automate this to load in 
-%       a stack of images, as in an illumination correction, and align all images to the 
+%       all cycles to it.  Additionally, it would be great to automate this to load in
+%       a stack of images, as in an illumination correction, and align all images to the
 %       "median aligned" one, though this would probably be difficult.
 %
 % e.g.
@@ -74,7 +74,7 @@ function handles = Align(handles)
 % template image using LoadSingleImage? Or, should this suggestion just be
 % in the help section instead?]
 %2. What do you want to call the aligned first image? (default to "AlignedRed")
-%3. What is the name of the second image to be aligned? (will be displayed as green) 
+%3. What is the name of the second image to be aligned? (will be displayed as green)
 %4. What do you want to call the aligned second image? (default to "AlignedGreen")
 %5. Button asking "Add another image?" which will create dialogs like #1&2, which will display as "AlignedBlue"
 % (any channels beyond RGB can't easily be displayed, and even if they can
@@ -86,7 +86,7 @@ function handles = Align(handles)
 % then another image with the first channel as red and channels 6 and 7 as
 % green and blue, and so on. In reality it's pretty rare for someone to
 % have more than 4 channels, so keep that in mind).
-%6. Which alignment method would you like to use? (to replace the question "Use Mutual Information or Normalized Cross Correlation as the alignment method?")  
+%6. Which alignment method would you like to use? (to replace the question "Use Mutual Information or Normalized Cross Correlation as the alignment method?")
 % Note: currently if you choose normalized cross correlation, the second
 % image should be the template and smaller than the first. We should of
 % course change this so that if they choose NCC the FIRST image will be the
@@ -134,7 +134,7 @@ drawnow
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 
 % DLogan 2009_03_20: Change the color to Red
-%textVAR01 = What is the name of the first image to be aligned? (will be displayed as blue) 
+%textVAR01 = What is the name of the first image to be aligned? (will be displayed as blue)
 %infotypeVAR01 = imagegroup
 Image1Name = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %inputtypeVAR01 = popupmenu
@@ -144,7 +144,7 @@ Image1Name = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 %infotypeVAR02 = imagegroup indep
 AlignedImage1Name = char(handles.Settings.VariableValues{CurrentModuleNum,2});
 
-%textVAR03 = What is the name of the second image to be aligned? (will be displayed as green) 
+%textVAR03 = What is the name of the second image to be aligned? (will be displayed as green)
 %infotypeVAR03 = imagegroup
 Image2Name = char(handles.Settings.VariableValues{CurrentModuleNum,3});
 %inputtypeVAR03 = popupmenu
@@ -154,7 +154,7 @@ Image2Name = char(handles.Settings.VariableValues{CurrentModuleNum,3});
 %infotypeVAR04 = imagegroup indep
 AlignedImage2Name = char(handles.Settings.VariableValues{CurrentModuleNum,4});
 
-%textVAR05 = What is the name of the third image to be aligned? (will be displayed as red) 
+%textVAR05 = What is the name of the third image to be aligned? (will be displayed as red)
 %choiceVAR05 = Do not use
 %infotypeVAR05 = imagegroup
 Image3Name = char(handles.Settings.VariableValues{CurrentModuleNum,5});
@@ -215,7 +215,7 @@ MoreImageName{4} = char(handles.Settings.VariableValues{CurrentModuleNum,14});
 %infotypeVAR15 = imagegroup indep
 MoreAlignedImageName{4} = char(handles.Settings.VariableValues{CurrentModuleNum,15});
 
-%textVAR16 = Do you want the output images cropped according to the smallest input image? If so, the shifted images will be cropped from the upper left corner. 
+%textVAR16 = Do you want the output images cropped according to the smallest input image? If so, the shifted images will be cropped from the upper left corner.
 %choiceVAR16 = No
 %choiceVAR16 = Yes
 wantImagesCropped = char(handles.Settings.VariableValues{CurrentModuleNum,16});
@@ -233,8 +233,8 @@ drawnow
 if strcmpi(Image1Name,'Do not use') || strcmpi(Image2Name,'Do not use') || strcmpi(AlignedImage1Name,'Do not use') || strcmpi(AlignedImage2Name,'Do not use')
     error(['Image processing was canceled in the ', ModuleName, ' module because you must choose two images to align and name the resulting aligned images - one of the first two images you specified is currently called "Do not use".']);
 end
-    
-if strcmpi(Image3Name,'Do not use') ~= strcmpi(AlignedImage3Name,'Do not use') 
+
+if strcmpi(Image3Name,'Do not use') ~= strcmpi(AlignedImage3Name,'Do not use')
    % If there is a mismatch between the input/output names for image 3:
    % that is, if one is called Do not use but the other is not.
    error(['Image processing was canceled in the ', ModuleName, ' module because you have specified a name for the third image but also marked it "Do not use".']);
@@ -269,10 +269,10 @@ drawnow
 % Are all images are the same size? If not take the minimum size and warn
 % the user
 
-if AreThereThreeInputImages, 
+if AreThereThreeInputImages,
     M = [M1 M2 M3];
     N = [N1 N2 N3];
-    P = [P1 P2 P3]; 
+    P = [P1 P2 P3];
 else
     M = [M1 M2];
     N = [N1 N2];
@@ -286,7 +286,7 @@ if wantImagesCropped
 %     if any(diff(M)) || any(diff(N)) || any(diff(P))
 %         if isempty(findobj('Tag',['Msgbox_' ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': 3 Images not all same size']))
 %             CPwarndlg(['The images loaded into ' ModuleName ' which is number ' num2str(CurrentModuleNum) ' are not all the same size. The images will be cropped to the minimum dimension of (' num2str(Mmin) ', ' num2str(Nmin) ', ' num2str(Pmin) ').'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': 3 Images not all same size'],'replace');
-%         end    
+%         end
 %     end
 
     ModifiedImage1 = Image1(1:Mmin,1:Nmin,1:Pmin);
@@ -305,9 +305,9 @@ if any(P > 1)
         CPwarndlg(['The images loaded into ' ModuleName ' which is number ' num2str(CurrentModuleNum) ' are color. The images will be converted to Gray for alignment and the alignment will be applied to the color images.'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': working on color images'],'replace');
     end
 end
-    
-% Aligns images 1 and 2 (see subfunctions at the end of the module). The 
-% nice thing about imtransform is that it works on 2-D and 3-D images 
+
+% Aligns images 1 and 2 (see subfunctions at the end of the module). The
+% nice thing about imtransform is that it works on 2-D and 3-D images
 % (i.e., grayscale and RGB) with the same arguments
 [tx12, ty12] = autoalign(   sum(ModifiedImage1,3)/sum(max(max(ModifiedImage1))), ...
                             sum(ModifiedImage2,3)/sum(max(max(ModifiedImage2))), AlignMethod);
@@ -318,7 +318,7 @@ AlignedImage1 = ModifiedImage1;
 AlignedImage2 = imtransform(ModifiedImage2,tform,'xdata',[1 size(ModifiedImage2,2)],'ydata',[1 size(ModifiedImage2,1)]);
 
 % If there is a 3rd input image, align image 3 with the newly-aligned image 2
-if AreThereThreeInputImages, 
+if AreThereThreeInputImages,
     NotYetAlignedImage3 = imtransform(Image3,tform,'xdata',[1 size(ModifiedImage3,2)],'ydata',[1 size(ModifiedImage3,1)]);
 
     [tx23, ty23] = autoalign(   sum(AlignedImage2,3)/sum(max(max(AlignedImage2))), ...
@@ -328,7 +328,7 @@ if AreThereThreeInputImages,
     tform = maketform('affine',[1 0 ; 0 1; tx23 ty23]);
     AlignedImage3 = imtransform(NotYetAlignedImage3,tform,'xdata',[1 size(ModifiedImage3,2)],'ydata',[1 size(ModifiedImage3,1)]);
 end
-    
+
 % Apply this transformation to other images if desired
 MoreAlignedImage = cell(1,length(MoreImageName));
 for i = 1:length(MoreImageName)
@@ -397,7 +397,7 @@ if any(findobj == ThisModuleFigureNumber)
 			AlignedRGB = cat(3,zeros(Mi,Ni),...
 								sum(padarray(AlignedImages{2},[Mi-M2 Ni-N2],'pre'),3)/sum(max(max(AlignedImages{2}))),...
 								sum(padarray(AlignedImages{1},[Mi-M1 Ni-N1],'pre'),3)/sum(max(max(AlignedImages{1}))));
-							
+
 		end
     end
 
@@ -409,7 +409,7 @@ if any(findobj == ThisModuleFigureNumber)
         Position = get(ThisModuleFigureNumber,'position');
         set(ThisModuleFigureNumber,'position',[Position(1),Position(2)-40,Position(3),Position(4)+40])
     end
-    
+
     hAx = subplot(5,1,1:2,'Parent',ThisModuleFigureNumber);
     CPimagesc(OriginalRGB,handles,hAx);
     title(['Input Images, cycle # ',num2str(handles.Current.SetBeingAnalyzed)],'Parent',hAx);
@@ -538,7 +538,7 @@ end
 function [nx, ny, nb] = one_step(in1, in2, bx, by, ldx, ldy, best)
 %%% Finds the best one pixel move, but only in the same direction(s)
 %%% we moved last time (no sense repeating evaluations).  ldx is last
-%%% dx, ldy is last dy. 
+%%% dx, ldy is last dy.
 nb = best;
 for dx=-1:1,
     for dy=-1:1,

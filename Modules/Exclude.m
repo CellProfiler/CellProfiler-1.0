@@ -38,14 +38,14 @@ function handles = Exclude(handles)
 % objects (e.g. SmallRemovedSegmented Nuclei).
 %
 % Another note on filtering objects: The Exclude module will not exclude
-% whole objects that are overlapping with the specified region. To handle 
-% this, you can convert the region to a binary image, then use 
+% whole objects that are overlapping with the specified region. To handle
+% this, you can convert the region to a binary image, then use
 % MeasureObjectIntensity on the objects but based on the binary image. This
 % will essentially count the number of region pixels within each object,
-% which will be non-zero if there is any overlap of the object with the 
+% which will be non-zero if there is any overlap of the object with the
 % region of interest. Using FilterByObjectMeasurement based on a fraction
-% of the integrated intensity can then be applied to exclude overlapping 
-% objects. We will probably include this procedure as an option in the 
+% of the integrated intensity can then be applied to exclude overlapping
+% objects. We will probably include this procedure as an option in the
 % next release.
 %
 % See also FilterByObjectMeasurement, OverlayOutlines, ConvertToImage.
@@ -66,7 +66,7 @@ function handles = Exclude(handles)
 % MBray 2009_04_17: Comments on variables for pyCP upgrade
 % Recommended variable order (setting, followed by current variable in MATLAB CP)
 % (1) What did you call the object you want to filter? (ObjectName)
-% (2) Which object defines the region outside of which exclusion should 
+% (2) Which object defines the region outside of which exclusion should
 %   occur? (MaskRegionName)
 % (3) What do you want to call the objects that remain after exclusion?
 %   (RemainingObjectName)
@@ -74,9 +74,9 @@ function handles = Exclude(handles)
 %   object label or renumber them consecutively? (Renumber)
 % (5) What do you want to call the outlines of the remaining objects? Type
 %   "Do not use" to ignore. (SaveOutlines)
-% (6a) Should objects partially overlapping with the exclusion region be 
+% (6a) Should objects partially overlapping with the exclusion region be
 %   removed? (RemoveOverlapping)
-% (6b) (If "Yes" to above) What is the minimum percentage of the object 
+% (6b) (If "Yes" to above) What is the minimum percentage of the object
 %   that should be overlapping in order to exclude it?
 
 %%%%%%%%%%%%%%%%%
@@ -200,7 +200,7 @@ if any(findobj == ThisModuleFigureNumber) | ~strcmpi(SaveOutlines,'Do not use') 
     %%% Subtracts the FinalBinaryImage from the DilatedBinaryImage,
     %%% which leaves the PrimaryObjectOutlines.
     PrimaryObjectOutlines = DilatedBinaryImage - FinalBinaryImage;
-end    
+end
 if any(findobj == ThisModuleFigureNumber)
     %%% Calculates the ColoredLabelMatrixImage for displaying in the figure
     %%% window.
@@ -232,8 +232,8 @@ if any(findobj == ThisModuleFigureNumber)
     hAx=subplot(2,2,3,'Parent',ThisModuleFigureNumber);
     CPimagesc(ColoredMaskRegionObjectImage,handles,hAx);
     title(hAx,['Previously identified ', MaskRegionName,', cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
-    hAx=subplot(2,2,4,'Parent',ThisModuleFigureNumber); 
-    CPimagesc(ObjectOutlinesOnOrigImage,handles,hAx); 
+    hAx=subplot(2,2,4,'Parent',ThisModuleFigureNumber);
+    CPimagesc(ObjectOutlinesOnOrigImage,handles,hAx);
     title(hAx,[ObjectName, ' Outlines on Input Image']);
 end
 

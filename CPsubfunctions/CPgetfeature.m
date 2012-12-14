@@ -7,7 +7,7 @@ function [ObjectTypename,FeatureName] = CPgetfeature(handles,ExcludeImageMeasure
 % variables will be returned if the cancel button is pressed.
 %
 % The input variable 'suffix' is a cell array containing strings of
-% suffixes to look for. 
+% suffixes to look for.
 
 % CellProfiler is distributed under the GNU General Public License.
 % See the accompanying file LICENSE for details.
@@ -58,7 +58,7 @@ while dlgno < 4
                 'SelectionMode','single');
             if ok == 0
                 ObjectTypename = [];FeatureName = [];
-                return
+                return;
             end
             ObjectTypename = ObjectNames{Selection};
             dlgno = 2;                      % Indicates that the next dialog box is to be shown next

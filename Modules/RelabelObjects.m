@@ -7,7 +7,7 @@ function handles = RelabelObjects(handles)
 %
 % Relabels objects so that objects within a specified distance of each
 % other, or objects with a straight line connecting
-% their centroids that has a relatively uniform intensity, 
+% their centroids that has a relatively uniform intensity,
 % get the same label and thereby become the same object.
 % Optionally, if an object consists of two or more unconnected components, this
 % module can relabel them so that the components become separate objects.
@@ -22,7 +22,7 @@ function handles = RelabelObjects(handles)
 % objects that are touching will be unified. Note that selecting "unify" will not connect or bridge
 % the two objects by adding any new pixels. The new, unified object
 % may consist of two or more unconnected components.
-% 
+%
 % As an experimental feature, it is possible to specify a grayscale
 % image to help guide the decision of which objects to unify.  When
 % the module considers merging two objects, it looks at the pixels
@@ -71,7 +71,7 @@ function handles = RelabelObjects(handles)
 % Var 5 should then be: "If you would also like to use intensities to
 % determine which objects to unify, select the image here:" (and 'Do not use' is
 % the default option).
-% 
+%
 % We should be careful about using the words "unify" and "merge". I think
 % we should add a new Merge option that behaves like Unify except that it
 % physically fills in the space between the two objects so it becomes a
@@ -146,7 +146,7 @@ if any(findobj == ThisModuleFigureNumber)
   Relabeled = CPretrieveimage(handles, ['Segmented', RelabeledObjectName], ...
 			      ModuleName);
   vislabel = Relabeled;
-  
+
     %% This commented out code effectively adds a convex hull to each object,
     %% but is unnecessary and adds confusing new information to the displayed output
     %% since CPlabel2rgb color codes each object (Dlogan 2009-05-29).
@@ -161,7 +161,7 @@ if any(findobj == ThisModuleFigureNumber)
 %   end
 
   RelabeledRGB = CPlabel2rgb(handles, vislabel);
-  
+
   CPfigure(handles,'Image',ThisModuleFigureNumber);
   [hImage,hAx]=CPimagesc(RelabeledRGB,handles,ThisModuleFigureNumber);
   title(hAx,RelabeledObjectName);
@@ -236,7 +236,7 @@ if strcmp(RelabelOption, 'Unify')
     end
     end
 
-    
+
   % Make sure objects are consecutively numbered, otherwise downstream
   % modules will choke.
   Relabeled = CPrelabelDensely(Relabeled);
@@ -381,7 +381,7 @@ function [Coords]=brlinexya(Sx,Sy,Ex,Ey)
 				end
 			end
 		end
-	else % abs(Dy) > abs(Dx) 
+	else % abs(Dy) > abs(Dx)
 		Tmp = Ex;
 		Ex = Ey;
 		Ey = Tmp;

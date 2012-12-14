@@ -9,9 +9,9 @@ function [mask,probabilities] = random_walker(img,seeds,labels,beta)
 % segmentation given a 2D image, input seeds and seed labels.
 %
 %Inputs: img - The image to be segmented
-%        seeds - The input seed locations (given as image indices, i.e., 
+%        seeds - The input seed locations (given as image indices, i.e.,
 %           as produced by sub2ind)
-%        labels - Integer object labels for each seed.  The labels 
+%        labels - Integer object labels for each seed.  The labels
 %           vector should be the same size as the seeds vector.
 %        beta - Optional weighting parameter (Default beta = 90)
 %
@@ -24,10 +24,10 @@ function [mask,probabilities] = random_walker(img,seeds,labels,beta)
 %10/31/05 - Leo Grady
 %Based on the paper:
 %Leo Grady and Gareth Funka-Lea, "Multi-Label Image Segmentation for
-%   Medical Applications Based on Graph-Theoretic Electrical Potentials", 
-%   in Proceedings of the 8th ECCV04, Workshop on Computer Vision Approaches 
-%   to Medical Image Analysis and Mathematical Methods in Biomedical Image 
-%   Analysis, p. 230-245, May 15th, 2004, Prague, Czech Republic, 
+%   Medical Applications Based on Graph-Theoretic Electrical Potentials",
+%   in Proceedings of the 8th ECCV04, Workshop on Computer Vision Approaches
+%   to Medical Image Analysis and Mathematical Methods in Biomedical Image
+%   Analysis, p. 230-245, May 15th, 2004, Prague, Czech Republic,
 %   Springer-Verlag
 %Available at: http://cns.bu.edu/~lgrady/grady2004multilabel.pdf
 %
@@ -50,13 +50,13 @@ exitFlag=0;
 if((Z~=1) && (Z~=3)) %Check number of image channels
     disp('ERROR: Image must have one (grayscale) or three (color) channels.')
     exitFlag=1;
-end 
+end
 if(sum(isnan(img(:))) || sum(isinf(img(:)))) %Check for NaN/Inf image values
     disp('ERROR: Image contains NaN or Inf values - Do not know how to handle.')
     exitFlag=1;
 end
 %Check seed locations argument
-if(sum(seeds<1) || sum(seeds>size(img,1)*size(img,2)) || (sum(isnan(seeds)))) 
+if(sum(seeds<1) || sum(seeds>size(img,1)*size(img,2)) || (sum(isnan(seeds))))
     disp('ERROR: All seed locations must be within image.')
     disp('The location is the index of the seed, as if the image is a matrix.')
     disp('i.e., 1 <= seeds <= size(img,1)*size(img,2)')
@@ -79,7 +79,7 @@ end
 if(exitFlag)
     disp('Exiting...')
     [mask,probabilities]=deal([]);
-    return
+    return;
 end
 
 %Build graph

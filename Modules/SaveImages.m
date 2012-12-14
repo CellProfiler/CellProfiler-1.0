@@ -25,9 +25,9 @@ function handles = SaveImages(handles)
 % Settings:
 %
 % Update file names within CellProfiler:
-% This setting stores file and path name data in handles.Pipeline 
+% This setting stores file and path name data in handles.Pipeline
 % as well as a Per_image measurement.  This is useful when exporting to a
-% database, allowing access to the saved image.  This also allows 
+% database, allowing access to the saved image.  This also allows
 % downstream modules (e.g. CreateWebPage) to look up the newly
 % saved files on the hard drive. Normally, whatever files are present on
 % the hard drive when CellProfiler processing begins (and when the
@@ -41,15 +41,15 @@ function handles = SaveImages(handles)
 % files. Because this function is rarely needed and may introduce
 % complications, the default answer is "No".
 %
-% Do you want to create the input image subdirectory structure in the  
+% Do you want to create the input image subdirectory structure in the
 % output directory?
-% If the input images are located in subdirectories (such that you used 
-% "Analyze all subfolders within the selected folder" in LoadImages), you 
+% If the input images are located in subdirectories (such that you used
+% "Analyze all subfolders within the selected folder" in LoadImages), you
 % can re-create the subdirectory structure in the output directory. Note:
 % This option can only be applied if you specified an original image for the
 % filename prefix above, and not with "N" or "=DesiredFilename" options.
 % Otherwise, all images will be saved in the output directory.
-% 
+%
 % Special notes for saving in movie format (avi):
 % The movie will be saved after the last cycle is processed. You have the
 % option to also save the movie periodically during image processing, so
@@ -266,7 +266,7 @@ if ~isempty(TileModuleNum)      %if Tile Module is loaded
         end
     end
 end
-               
+
 if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBeingAnalyzed == 1) || (strcmpi(SaveWhen,'Last cycle') && SetBeingAnalyzed == NumberOfImageSets)
     %%% If the user has selected sequential numbers for the file names.
     if strcmpi(ImageFileName,'N')
@@ -276,10 +276,10 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
     elseif strncmpi(ImageFileName,'=',1)
         assert(~any(isspace(ImageFileName)),['Image processing was canceled in the ', ModuleName, ...
             ' module because you have entered one or more spaces in the text box for the filename of the image.'])
-        
+
         % Substitute Metadata tokens if found
         ImageFileName = CPreplacemetadata(handles,ImageFileName);
-               
+
         FileName = ImageFileName(2:end);
     else
         try
@@ -320,13 +320,13 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             end
             % Substitute Metadata tokens if found
             Appendage = CPreplacemetadata(handles,Appendage);
-            
+
             FileName = [FileName Appendage];
         end
     end
 
     FileName = [FileName '.' FileFormat];
-    
+
     FileDirectory = CPreplacemetadata(handles,FileDirectory);
     if strncmp(FileDirectory,'.',1)
         PathName = fullfile(handles.Current.DefaultOutputDirectory, strrep(strrep(FileDirectory(2:end),'/',filesep),'\',filesep),'');
@@ -338,7 +338,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
     end
     % Strip ending slash if inserted
     if strcmp(PathName(end),'/') || strcmp(PathName(end),'\'), PathName = PathName(1:end-1); end
-    
+
     % If the user wants to add subdirectories, alter the path accordingly
     if strncmpi(CreateSubdirectories,'y',1)
         if strcmpi(ImageFileName,'N') || strncmpi(ImageFileName,'=',1)
@@ -355,7 +355,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
         if ~isempty(SubDir) && (strcmp(SubDir(1),'/') || strcmp(SubDir(1),'\')), SubDir = SubDir(2:end); end
         PathName = fullfile(PathName,SubDir,'');
     end
-                
+
     %%% Makes sure that the output file directory specified by the user exists,
     %%% unless the user asked for it to be created
     if strncmpi(CreateSubdirectories,'y',1)
@@ -444,13 +444,13 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
     end
 
     FileAndPathName = fullfile(PathName, FileName);
-    
+
     if strcmpi(CheckOverwrite,'Yes') && ~strcmpi(FileFormat,'avi')
         %%% Checks whether the new image name is going to overwrite the
         %%% original file. This check is not done here if this is an avi
         %%% (movie) file, because otherwise the check would be done on each
         %%% frame of the movie.
-        
+
         %%% If setting up for a batch run, some filenames may be
         %%% overwritten. Warn the user this could occur and urge them to
         %%% check their settings
@@ -469,7 +469,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             if exist(FileAndPathName,'file') %#ok Ignore MLint
                 Answer = CPquestdlg(['The settings in the ', ModuleName, ' module will cause the file "', FileAndPathName,'" to be overwritten. Do you want to continue or cancel?'], 'Warning', 'Continue','Skip Module','Cancel','Cancel');
                 switch Answer,
-                    case 'Skip Module', 
+                    case 'Skip Module',
                         return;
                     case 'Cancel',
                         %%% This should cause a cancel so no further processing is done
@@ -488,17 +488,17 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
     drawnow
 
     FileSavingParameters = [];
-    if ~strcmp(BitDepth,'8') && (strcmpi(FileFormat,'jpg') || strcmpi(FileFormat,'jpeg') || strcmpi(FileFormat,'png'))        
+    if ~strcmp(BitDepth,'8') && (strcmpi(FileFormat,'jpg') || strcmpi(FileFormat,'jpeg') || strcmpi(FileFormat,'png'))
         FileSavingParameters = [',''bitdepth'', ', BitDepth,''];
         %%% In jpeg format at 12 and 16 bits, the mode must be set to
         %%% lossless to avoid failure of the imwrite function.
         if strcmpi(FileFormat,'jpg') || strcmpi(FileFormat,'jpeg')
             FileSavingParameters = [FileSavingParameters, ',''mode'', ''lossless'''];
-        end        
+        end
     elseif strcmp(BitDepth, '16') && (strcmp(FileFormat,'tif') || strcmp(FileFormat,'tiff'))
-        Image = im2uint16(Image);        
+        Image = im2uint16(Image);
     end
-     
+
     if ~strcmp(OptionalParameters,'Do not use')
         FileSavingParameters = [',',OptionalParameters,FileSavingParameters];
     end
@@ -538,7 +538,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
                     error(['Image processing was canceled in the ', ModuleName, ' module because the settings will cause the file "', FileAndPathName,'" to be overwritten and you have specified to not allow overwriting without confirming. When running on the cluster there is no way to confirm overwriting (no dialog boxes allowed), so image processing was canceled.'])
                 end
                 if strcmpi(Answer,'Cancel')
-                    
+
                     %%% This should cause a cancel so no further processing is done
                     %%% on this machine.
                     set(handles.timertexthandle,'string','Canceling after current module')
@@ -553,8 +553,8 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             Movie(NumberOfImageSets) = struct('colormap',[],'cdata',[]);
             handles = CPaddimages(handles,fieldname,Movie);
         end
-        Movie = CPretrieveimage(handles,fieldname,ModuleName); 
-        
+        Movie = CPretrieveimage(handles,fieldname,ModuleName);
+
         %%% Determines whether the image is RGB.
         if size(Image,3) == 3
             IsRGB = 1;
@@ -600,7 +600,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             %%% have been calculated for each frame and are
             %%% already stored in Movie.colormap.
             if IsRGB == 1
-                try 
+                try
                     movie2avi(Movie(1:SetBeingAnalyzed),FileAndPathName,'compression','none');
                 catch
                     error(['Image processing was canceled in the ', ModuleName, ' module because there was an error saving the movie to the hard drive.'])
@@ -614,7 +614,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
                 %%% dependency report, I think, because the variable
                 %%% ChosenColormap will not exist until the eval function
                 %%% is carried out.
-                try 
+                try
                     movie2avi(Movie(1:SetBeingAnalyzed),FileAndPathName,'colormap',ChosenColormap,'compression','none');
                 catch
                     error(['Image processing was canceled in the ', ModuleName, ' module because there was an error saving the movie to the hard drive.'])

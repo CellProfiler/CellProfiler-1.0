@@ -18,27 +18,27 @@ function handles = RescaleIntensity(handles)
 % one.
 %
 % (E) Enter the minimum and maximum values of the original image and the
-% desired resulting image. Pixels are scaled from their user-specified 
-% original range to a new user-specified range.  If the user enters "AE" 
-% (Automatic for Each), then the highest and lowest pixel values will be 
-% Automatically computed for each image by taking the maximum and minimum 
+% desired resulting image. Pixels are scaled from their user-specified
+% original range to a new user-specified range.  If the user enters "AE"
+% (Automatic for Each), then the highest and lowest pixel values will be
+% Automatically computed for each image by taking the maximum and minimum
 % pixel values in each image.  If the user enters "AA" (Automatic for All),
-% then the highest and/or lowest pixel values will be Automatically computed 
-% by taking the maximum and minimum pixel values in all the images in the 
-% set. 
+% then the highest and/or lowest pixel values will be Automatically computed
+% by taking the maximum and minimum pixel values in all the images in the
+% set.
 %
-% The user also has the option of selecting the values that pixels 
+% The user also has the option of selecting the values that pixels
 % outside the original min/max range are set to, by entering numbers in
 % the "For pixels above/below the chosen value..." boxes. If you want
-% these pixels to be set to the highest/lowest rescaled intensity values, 
+% these pixels to be set to the highest/lowest rescaled intensity values,
 % enter the same number in these boxes as was entered in the highest/lowest
 % rescaled intensity boxes. However, using other values permits a simple form of
 % thresholding (e.g., setting the upper bounding value to 0 can be used for
 % removing bright pixels above a specified value)
 %
-% To convert 12-bit images saved in 16-bit format to the correct 
-% range, use the settings 0, 0.0625, 0, 1, 0, 1.  The value 0.0625 is equivalent 
-% to 2^12 divided by 2^16, so it will convert a 16 bit image containing 
+% To convert 12-bit images saved in 16-bit format to the correct
+% range, use the settings 0, 0.0625, 0, 1, 0, 1.  The value 0.0625 is equivalent
+% to 2^12 divided by 2^16, so it will convert a 16 bit image containing
 % only 12 bits of data to the proper range.
 %
 % (G) Rescale the image so that all pixels are equal to or greater
@@ -244,13 +244,13 @@ if any(findobj == ThisModuleFigureNumber)
         CPresizefigure(OrigImage,'TwoByOne',ThisModuleFigureNumber)
     end
     %%% A subplot of the figure window is set to display the original image.
-    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber); 
+    hAx=subplot(2,1,1,'Parent',ThisModuleFigureNumber);
     CPimagesc(OrigImage,handles,hAx);
     title(hAx,['Input Image, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
     %%% A subplot of the figure window is set to display the Rescaled
     %%% Image.
-    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber); 
-    CPimagesc(RescaledImage,handles,hAx); 
+    hAx=subplot(2,1,2,'Parent',ThisModuleFigureNumber);
+    CPimagesc(RescaledImage,handles,hAx);
     title(hAx,'Rescaled Image');
 end
 

@@ -112,8 +112,8 @@ hp = uipanel(...
         'Position',[0.01 0.01 0.98 1-TextBoxFraction]);
 a = axes('Parent', hp);
 axis off
-I = imread('rice.png'); 
-BW = im2bw(I, graythresh(I)); 
+I = imread('rice.png');
+BW = im2bw(I, graythresh(I));
 Image = bwlabel(BW);
 GenerateColormaps(Image);
 

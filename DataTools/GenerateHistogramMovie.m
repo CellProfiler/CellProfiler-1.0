@@ -27,7 +27,7 @@ function GenerateHistogramMovie(handles)
 [RawFileName, RawPathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 % Allows canceling.
 if RawFileName == 0
-    return
+    return;
 end
 load(fullfile(RawPathname, RawFileName));
 
@@ -42,7 +42,7 @@ try
 catch
     ErrorMessage = lasterr;
     CPerrordlg(['An error occurred in the GenerateHistogramMovie Data Tool. ' ErrorMessage(30:end)]);
-    return
+    return;
 end
 if isempty(ObjectTypename),return,end
 
@@ -60,13 +60,13 @@ end
 % Do the plotting
 titlestr = [FeatureType,' of ', ObjectTypename];
 
-% Plots a line chart, where the X dimensions are incremented from 1 to the 
+% Plots a line chart, where the X dimensions are incremented from 1 to the
 % number of measurements to be displayed, and Y is the measurement of
 % interest.
 for l = 1:length(MeasurementsMean)
     if l == 1,
         FigureHandle = CPfigure('Position',[1 500 792 813],'visible','off');
-        
+
         % Plots the line chart and the standard deviations as lines, too
         plot(1:1:length(MeasurementsMean), MeasurementsMean,'Color',[0 0 0],'LineWidth',1);
         AxisHandle = findobj(FigureHandle,'type','axes');
@@ -75,7 +75,7 @@ for l = 1:length(MeasurementsMean)
         plot(1:1:length(MeasurementsMean), MeasurementsMean+MeasurementsStd,'Color',[0.7 0.7 0.7]);
         h = plot(l,MeasurementsMean(l),'rV');
         hold(AxisHandle,'off');
-    
+
         FontSize = 10;
         set(AxisHandle,'fontname','Helvetica','fontsize',FontSize)
         xlabel(AxisHandle,'Image number','Fontname','Helvetica','fontsize',FontSize+2)
@@ -83,7 +83,7 @@ for l = 1:length(MeasurementsMean)
         title(titlestr,'Fontname','Helvetica','fontsize',FontSize+2)
 
         set(FigureHandle,'Color','w')
-        
+
         % Create the figure
         [filename,pathname] = CPuiputfile('*.avi', 'Save Movie As...',handles.Current.DefaultOutputDirectory);
         Xmo = avifile(fullfile(pathname,filename));

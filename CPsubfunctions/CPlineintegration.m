@@ -3,12 +3,12 @@ function out = CPlineintegration(im, EXP, EXPD, DIRECTION)
 	im = CPjustify(double(im));
 	[H, W] = size(im);
     L = max(H,W);
-    
+
     pexp = cumprod(ones(L, 1)*EXP);
     pexpd = cumprod(ones(L, 1)*EXPD);
     sumd = ones(L, 1);
     sumd(2:L) = cumsum(pexpd(1:L-1)) + 1;
-    
+
     if strcmpi(DIRECTION, 'diagonal')
         memd1 = im;
         for i = 2:H
@@ -94,12 +94,12 @@ function out = CPlineintegration(im, EXP, EXPD, DIRECTION)
                 memd2(i,j) = im(i,j) + EXPD*memd2(i,j+1);
             end
         end
-        
+
         [dj, di] = meshgrid(1:W,1:H);
         d1 = dj-1;
         d2 = W-dj;
         d = min(d1, d2);
-        
+
         t = memd1 + memd2 - im;
         tp = pexpd(d+1);
 

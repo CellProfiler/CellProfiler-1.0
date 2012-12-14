@@ -19,7 +19,7 @@ mex IdentifySecPropagateSubfunction.cpp
 %%% On the cluster cd (change directory) to the CellProfiler/Modules folder. Type in the following in order to run this m-file on a cluster computer:
 %%% for mexglx file: bsub -q sq32mp -u xuefang_ma@wi.mit.edu "/nfs/apps/matlab701/bin/matlab -nodisplay -nojvm -c "1700@castlellan.wi.mit.edu"  < ../CPsubfunctions/CPcompilesubfunction.m"
 %%% for mexa64 file: bsub -q lq64lp -u xuefang_ma@wi.mit.edu "/nfs/apps/matlab701/bin/matlab -nodisplay -nojvm -c "1700@castlellan.wi.mit.edu"  < ../CPsubfunctions/CPcompilesubfunction.m
-%%% 
+%%%
 %%% Notes:
 %%% Put your own email address instead of xuefang_ma@wi.mit.edu.
 %%% This part specifies the license number for Matlab: -c "1700@castlellan.wi.mit.edu"

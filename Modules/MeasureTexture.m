@@ -33,10 +33,10 @@ function handles = MeasureTexture(handles,varargin)
 % A range of texture scales may be specified, as a comma-separated list.
 % Measurements will be generated for all scales specified.
 %
-% Note that texture measurements are affected by the overall intensity of 
-% the object (or image). For example, if Image1 = Image2 + 0.2, then the 
-% texture measurements should be the same for Image1 and Image2. However, 
-% if the images are scaled differently, for example Image1 = 0.9*Image2, 
+% Note that texture measurements are affected by the overall intensity of
+% the object (or image). For example, if Image1 = Image2 + 0.2, then the
+% texture measurements should be the same for Image1 and Image2. However,
+% if the images are scaled differently, for example Image1 = 0.9*Image2,
 % then this will be reflected in the texture measurements, and they will be
 % different. For example, in the extreme case of Image1 = 0*Image2 it is
 % obvious that the texture measurements must be different. To make the
@@ -66,14 +66,14 @@ function handles = MeasureTexture(handles,varargin)
 % Texture Measurement descriptions:
 %
 % Haralick Features:
-% Haralick texture features are derived from the co-occurrence matrix, 
-% which contains information about how image intensities in pixels with a 
-% certain position in relation to each other occur together. For example, 
-% how often does a pixel with intensity 0.12 have a neighbor 2 pixels to 
+% Haralick texture features are derived from the co-occurrence matrix,
+% which contains information about how image intensities in pixels with a
+% certain position in relation to each other occur together. For example,
+% how often does a pixel with intensity 0.12 have a neighbor 2 pixels to
 % the right with intensity 0.15? The current implementation in CellProfiler
-% uses a shift of 1 pixel to the right for calculating the co-occurence 
-% matrix. A different set of measurements is obtained for larger shifts, 
-% measuring texture on a larger scale. The original reference for the 
+% uses a shift of 1 pixel to the right for calculating the co-occurence
+% matrix. A different set of measurements is obtained for larger shifts,
+% measuring texture on a larger scale. The original reference for the
 % Haralick features is Haralick et al. (1973) Textural Features for Image
 % Classification. IEEE Transaction on Systems Man, Cybernetics,
 % SMC-3(6):610-621, where 14 features are described:
@@ -132,9 +132,9 @@ function handles = MeasureTexture(handles,varargin)
 % (3) Feature scale (ScaleOfTexture)
 % We should reword this to be "What scale of texture do you want to measure?"
 %
-% (i) A button should be added that lets the user add/subtract images for (1) and objects 
+% (i) A button should be added that lets the user add/subtract images for (1) and objects
 % for (2)
-% (ii) The feature scale should let the user specify a range of texture 
+% (ii) The feature scale should let the user specify a range of texture
 % scales, so a module doesn't have to be added for each one. (not sure
 % whether we want a "range of textures" (not sure how that would be
 % entered) or instead add/subtract buttons to type in individual scales of texture.)
@@ -195,7 +195,7 @@ ScaleOfTexture = char(handles.Settings.VariableValues{CurrentModuleNum,8});
 %%% FEATURES %%%
 %%%%%%%%%%%%%%%%
 
-if nargin > 1 
+if nargin > 1
     switch varargin{1}
 %feature:categories
         case 'categories'
@@ -594,7 +594,7 @@ m2 = mask(:,ScaleOfTexture+1:end); m2 = m2(:);
 index = (sum([m1 m2],2) == 2);
 if isempty(index)
     H = [0 0 0 0 0 0 0 0 0 0 0 0 0];
-    return
+    return;
 end
 im1 = im1(index);
 im2 = im2(index);
@@ -609,10 +609,10 @@ im2 = im2(index);
 %         P(k,:) = zeros(1,Levels);
 %     end
 % end
-% 
+%
 % The line below is a fast 2D-histogram in matlab, and is equivalent to the
 % loop above.  Ray & Kyungnam, 2007-07-18.
-P = full(sparse(im1,im2,1,Levels,Levels)); 
+P = full(sparse(im1,im2,1,Levels,Levels));
 P = P/length(im1);
 
 %%% Calculate features from the co-occurence matrix
