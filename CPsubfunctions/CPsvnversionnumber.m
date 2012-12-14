@@ -20,8 +20,8 @@ try
             [status,info] = dos('svn info');
         end
 
-        if status == 0 %% if successful
-            %% Parse out svn Revision Number
+        if status == 0
+            %% if successful, parse out svn Revision Number
             pos = findstr(info,str_to_find);
             if length(pos) == 1
                 first = pos+length(str_to_find);
