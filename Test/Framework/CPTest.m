@@ -162,7 +162,7 @@ while handles.Current.SetBeingAnalyzed <= handles.Current.NumberOfImageSets
                     'ModuleNumber',SlotNumber,...
                     'ModuleName',ModuleName,...
                     'SetBeingAnalyzed',handles.Current.SetBeingAnalyzed);
-                return
+                return;
             end
         end
         SlotNumber = SlotNumber+1;

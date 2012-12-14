@@ -144,12 +144,10 @@ if exist(PathAndFileName,'file') == 2
     button = CPquestdlg('Batch_data.mat already exists in the output directory.  Are you sure you want to overwrite Batch_data.mat?',...
         'Overwrite Batch_data');
     if ~strcmp(button,'Yes')
-
         set(handles.timertexthandle,'string','Canceling after current module')
         CPmsgbox(['Image processing was canceled in the ', ModuleName, ' module at your request.'])
         CPclosefigure(handles,CurrentModule)
         return;
-
     end
 end
 

@@ -20,7 +20,7 @@ function handles = MeasureRadialDistribution(handles,varargin)
 % Three features are measured for each object:
 % - Fraction of total stain in an object at a given radius.
 % - Mean fractional intensity at a given radius (Fraction of total
-%    intenstiy normalized by fraction of pixels at a given radius).
+%    intensity normalized by fraction of pixels at a given radius).
 % - Coefficient of variation of intensity within a ring, calculated
 %   over 8 slices.
 %
