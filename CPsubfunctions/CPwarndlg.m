@@ -5,7 +5,7 @@ function varargout = CPwarndlg(varargin)
 
 % $Revision$
 
-if nargout > 0,
+if nargout > 0
     varargout = {warndlg(varargin{:})};
     h = varargout{1};
 else

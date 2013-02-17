@@ -1,7 +1,7 @@
 function out = CPlineintegration(im, EXP, EXPD, DIRECTION)
 % $Revision$
-	im = CPjustify(double(im));
-	[H, W] = size(im);
+    im = CPjustify(double(im));
+    [H, W] = size(im);
     L = max(H,W);
 
     pexp = cumprod(ones(L, 1)*EXP);

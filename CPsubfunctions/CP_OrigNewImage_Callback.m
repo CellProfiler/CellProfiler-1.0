@@ -19,11 +19,11 @@ string = lower(get(hObject,'string'));
 UserData = get(hObject,'UserData');
 h_image = findobj(gcbf,'type','image');
 
-switch string,
-    case 'off',
+switch string
+    case 'off'
         set(h_image,'cdata',UserData{1});
         set(hObject,'string','on');
-    case 'on',
+    case 'on'
         set(h_image,'cdata',UserData{2});
         set(hObject,'string','off');
     otherwise

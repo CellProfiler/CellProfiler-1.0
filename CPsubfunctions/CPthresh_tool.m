@@ -143,7 +143,7 @@ setappdata(h_fig,'h_ax2',h_ax2)
 h_hist = axes('unit','norm','pos',[0.05 0.1 0.9 0.2]);
 n = hist(double(im(:)),bin_ctrs);
 bar(bin_ctrs,n)
-if length(n) > 4,
+if length(n) > 4
     axis([color_range limits(n(2:end-1))]); %ignore saturated end scaling
 else
     axis([color_range limits(n)]);

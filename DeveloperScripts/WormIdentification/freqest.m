@@ -76,27 +76,27 @@ function freqim =  freqest(im, orientim, windsze, minWaveLength, maxWaveLength)
     % peaks are detected, or the wavelength is outside the allowed bounds,
     % the frequency image is set to 0
     if length(maxind) < 2
-	freqim = zeros(size(im));
+    freqim = zeros(size(im));
     else
-	NoOfPeaks = length(maxind);
-	waveLength = (maxind(end)-maxind(1))/(NoOfPeaks-1);
-	if waveLength > minWaveLength & waveLength < maxWaveLength
-	    freqim = 1/waveLength * ones(size(im));
-	else
-	    freqim = zeros(size(im));
-	end
+    NoOfPeaks = length(maxind);
+    waveLength = (maxind(end)-maxind(1))/(NoOfPeaks-1);
+    if waveLength > minWaveLength & waveLength < maxWaveLength
+        freqim = 1/waveLength * ones(size(im));
+    else
+        freqim = zeros(size(im));
+    end
     end
 
 
     if debug
-	show(im,1)
-	show(rotim,2);
-	figure(3),    plot(proj), hold on
-	meanproj = mean(proj)
-	if length(maxind) < 2
-	    fprintf('No peaks found\n');
-	else
-	    plot(maxind,dilation(maxind),'r*'), hold off
-	    waveLength = (maxind(end)-maxind(1))/(NoOfPeaks-1);
-	end
+    show(im,1)
+    show(rotim,2);
+    figure(3),    plot(proj), hold on
+    meanproj = mean(proj)
+    if length(maxind) < 2
+        fprintf('No peaks found\n');
+    else
+        plot(maxind,dilation(maxind),'r*'), hold off
+        waveLength = (maxind(end)-maxind(1))/(NoOfPeaks-1);
+    end
     end

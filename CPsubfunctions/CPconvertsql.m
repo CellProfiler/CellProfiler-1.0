@@ -44,18 +44,18 @@ else
 end
 ObjectsToOmitFromPerImageTable = [];
 
-for ObjectCell = ObjectsToBeExported,
+for ObjectCell = ObjectsToBeExported
     % why matlab, why?
     ObjectName = ObjectCell{1};
 
     %%% Some objects are not exported
-    if any(strcmp(ObjectName, ObjectsNotToBeExported)),
+    if any(strcmp(ObjectName, ObjectsNotToBeExported))
         continue;
     end
 
     %%% Find the features for this object
     Features = fieldnames(handles.Measurements.(ObjectName))';
-    for FeatureCell = Features,
+    for FeatureCell = Features
         FeatureName = FeatureCell{1};
 
         %%% Certain features are not exported
@@ -84,9 +84,9 @@ end %end of loop over object names
 % set a reasonable minimum
 FileNameWidth = 128;
 prefix = 'FileList';
-for fld = fieldnames(handles.Pipeline)',
-    if strncmp(fld{1},prefix,length(prefix)),
-        for str = handles.Pipeline.(fld{1}),
+for fld = fieldnames(handles.Pipeline)'
+    if strncmp(fld{1},prefix,length(prefix))
+        for str = handles.Pipeline.(fld{1})
             FileNameWidth = max(FileNameWidth, length(str{1}));
         end
     end
@@ -98,8 +98,8 @@ FileNameWidth = FileNameWidth + PadLength;
 % set a reasonable minimum
 PathNameWidth = 128;
 prefix = 'Pathname';
-for fld = fieldnames(handles.Pipeline)',
-    if strncmp(fld{1},prefix,length(prefix)),
+for fld = fieldnames(handles.Pipeline)'
+    if strncmp(fld{1},prefix,length(prefix))
         PathNameWidth = max(PathNameWidth, length(handles.Pipeline.(fld{1})));
     end
 end
@@ -120,12 +120,12 @@ if (FirstSet == 1)
 
         fprintf(fmain, 'CREATE TABLE %sPer_Image (ImageNumber INTEGER PRIMARY KEY',TablePrefix);
 
-        for i = per_image_names,
+        for i = per_image_names
             if strfind(i{1}, 'FileName')
                 fprintf(fmain, ',\n%s VARCHAR(%d)', i{1}, FileNameWidth);
-            elseif  strfind(i{1}, 'Path'),
+            elseif  strfind(i{1}, 'Path')
                 fprintf(fmain, ',\n%s VARCHAR(%d)', i{1}, PathNameWidth);
-            elseif  strfind(i{1}, 'Metadata_'),
+            elseif  strfind(i{1}, 'Metadata_')
                 fprintf(fmain, ',\n%s VARCHAR(%d)', i{1}, MetadataNameWidth);
             else
                 fprintf(fmain, ',\n%s FLOAT NOT NULL', i{1});
@@ -134,7 +134,7 @@ if (FirstSet == 1)
 
         %add columns for mean, median and stddev for per_object_names
         if wantMeanCalculated
-            for j = 1:length(per_object_names),
+            for j = 1:length(per_object_names)
                 if ~ObjectsToOmitFromPerImageTable(j)
                     fullfeaturename = CPtruncatefeaturename(['Mean_', per_object_names{j}]);
                     fprintf(fmain, ',\n%s FLOAT NOT NULL', fullfeaturename);
@@ -152,7 +152,7 @@ if (FirstSet == 1)
         end
 
         if wantMedianCalculated
-            for k = 1:length(per_object_names),
+            for k = 1:length(per_object_names)
                 if ~ObjectsToOmitFromPerImageTable(k)
                     fullfeaturename = CPtruncatefeaturename(['Median_', per_object_names{k}]);
                     fprintf(fmain, ',\n%s FLOAT NOT NULL', fullfeaturename);
@@ -170,7 +170,7 @@ if (FirstSet == 1)
         end
 
         if wantStdDevCalculated
-            for l = 1:length(per_object_names),
+            for l = 1:length(per_object_names)
                 if ~ObjectsToOmitFromPerImageTable(l)
                     fullfeaturename = CPtruncatefeaturename(['StDev_', per_object_names{l}]);
                     fprintf(fmain, ',\n%s FLOAT NOT NULL', fullfeaturename);
@@ -189,7 +189,7 @@ if (FirstSet == 1)
 
         fprintf(fmain, ');\n\n');
 
-        if ~isempty(per_object_names),
+        if ~isempty(per_object_names)
             fprintf(fmain, 'CREATE TABLE %sPer_Object(ImageNumber INTEGER,ObjectNumber INTEGER',TablePrefix);
             for i = per_object_names
                 fprintf(fmain, ',\n%s FLOAT NOT NULL', i{1});
@@ -243,7 +243,7 @@ if (FirstSet == 1)
                 end
 
                 if wantMeanCalculated
-                    for j = 1:length(per_object_names),
+                    for j = 1:length(per_object_names)
                         if ~ObjectsToOmitFromPerImageTable(j)
                             fullfeaturename = CPtruncatefeaturename(['Mean_', per_object_names{j}]);
                             fprintf(fmain, ',\navg(%s)', fullfeaturename);
@@ -260,7 +260,7 @@ if (FirstSet == 1)
                     end
                 end
 
-                for k = 1:length(per_object_names),
+                for k = 1:length(per_object_names)
                     if ~ObjectsToOmitFromPerImageTable(k)
                         fullfeaturename = CPtruncatefeaturename(['Mean_', per_object_names{k}]);
                         fprintf(fmain, ',\nsum(%s)', fullfeaturename);
@@ -277,7 +277,7 @@ if (FirstSet == 1)
                 end
 
                 if wantStdDevCalculated
-                    for l = 1:length(per_object_names),
+                    for l = 1:length(per_object_names)
                         if ~ObjectsToOmitFromPerImageTable(l)
                             fullfeaturename = CPtruncatefeaturename(['Mean_', per_object_names{l}]);
                             fprintf(fmain, ',\nstddev(%s)', fullfeaturename);
@@ -314,11 +314,11 @@ if (FirstSet == 1)
         fprintf(fsetup, 'CREATE TABLE %sPer_Image (col1 NUMBER',TablePrefix);
 
         p=1;
-        for i = per_image_names,
+        for i = per_image_names
             p = p+1;
             if strfind(i{1}, 'Filename')
                 fprintf(fsetup, ',\n%s VARCHAR2(%d)', ['col',num2str(p)], FileNameWidth);
-            elseif  strfind(i{1}, 'Path'),
+            elseif  strfind(i{1}, 'Path')
                 fprintf(fsetup, ',\n%s VARCHAR2(%d)', ['col',num2str(p)], PathNameWidth);
             else
                 fprintf(fsetup, ',\n%s FLOAT', ['col',num2str(p)]);
@@ -327,7 +327,7 @@ if (FirstSet == 1)
 
         %add columns for mean, median and stddev for per_object_names
         if wantMeanCalculated
-            for j = per_object_names,
+            for j = per_object_names
                 if ~any(strmatch(j{1},ObjectFeaturesNotToBeAveraged))
                     p = p+1;
                     fprintf(fsetup, ',\n%s FLOAT', ['col',num2str(p)]);
@@ -336,7 +336,7 @@ if (FirstSet == 1)
         end
 
         if wantMedianCalculated
-            for k = per_object_names,
+            for k = per_object_names
                 if ~any(strmatch(k{1},ObjectFeaturesNotToBeAveraged))
                     p = p+1;
                     fprintf(fsetup, ',\n%s FLOAT', ['col',num2str(p)]);
@@ -345,7 +345,7 @@ if (FirstSet == 1)
         end
 
         if wantStdDevCalculated
-            for l = per_object_names,
+            for l = per_object_names
                 if ~any(strmatch(l{1},ObjectFeaturesNotToBeAveraged))
                     p = p+1;
                     fprintf(fsetup, ',\n%s FLOAT', ['col',num2str(p)]);
@@ -506,12 +506,12 @@ end
 %start to write data file
 
 [fimage,msg] = fopen(fullfile(OutDir, [basename '_image.CSV']), 'W');
-if fimage == -1,
+if fimage == -1
     error(msg);
 end
 if ~isempty(per_object_names)
     [fobject,msg]= fopen(fullfile(OutDir, [basename '_object.CSV']), 'W');
-    if fobject == -1,
+    if fobject == -1
         error(msg);
     end
 end
@@ -533,18 +533,18 @@ for img_idx = FirstSet:LastSet
 
     feature_idx = 1;
 
-    for ObjectCell = ObjectsToBeExported,
+    for ObjectCell = ObjectsToBeExported
         % why matlab, why?
         ObjectName = ObjectCell{1};
 
         %%% Some objects are not exported
-        if any(strcmp(ObjectName, ObjectsNotToBeExported)),
+        if any(strcmp(ObjectName, ObjectsNotToBeExported))
             continue;
         end
 
         %%% Find the features for this object
         Features = fieldnames(handles.Measurements.(ObjectName))';
-        for FeatureCell = Features,
+        for FeatureCell = Features
             FeatureName = FeatureCell{1};
 
             %%% Certain features are not exported
@@ -562,7 +562,7 @@ for img_idx = FirstSet:LastSet
             end
 
             %%% write image data, gather object data for later writing
-            if strcmp(ObjectName, 'Image'),
+            if strcmp(ObjectName, 'Image')
                 if ischar(vals)
                     if isempty(findstr(vals,','))
                         fprintf(fimage, ',%s', vals);
@@ -570,13 +570,13 @@ for img_idx = FirstSet:LastSet
                         fprintf(fimage, ',"%s"', vals); % Since commas are the delimiter, enclose in quotes
                     end
                 elseif isnumeric(vals)
-                    if (~isscalar(vals)),
+                    if (~isscalar(vals))
                         error(['Attempt to write non-scalar numeric value in per_image data, feature handles.Measurements.' ObjectName '.' FeatureName ', value ', num2str(vals)]);
                     end
                     vals(~isfinite(vals)) = 0;
                     fprintf(fimage, ',%g', vals);
                     %%% Test that counts are integers
-                    if strcmp(FeatureName(max(findstr(FeatureName, 'Count')):end), 'Count') && (floor(vals) ~= vals),
+                    if strcmp(FeatureName(max(findstr(FeatureName, 'Count')):end), 'Count') && (floor(vals) ~= vals)
                         warning(['Attempt to write non-integer "Count" feature in per_image data, feature handles.Measurements.', ObjectName, '.', FeatureName ', value ', num2str(vals)]);
                         CPwarndlg(['Attempt to write non-integer "Count" feature in per_image data, feature handles.Measurements.' ObjectName '.' FeatureName ', value ', num2str(vals)]);
                     end
@@ -586,7 +586,7 @@ for img_idx = FirstSet:LastSet
                 end
             else
                 %%% Sanity check
-                if ~ strcmp(per_object_names{feature_idx}, cleanup(CPtruncatefeaturename(CPjoinstrings(ObjectName, FeatureName)))),
+                if ~ strcmp(per_object_names{feature_idx}, cleanup(CPtruncatefeaturename(CPjoinstrings(ObjectName, FeatureName))))
                     error(['Mismatched feature names #', int2str(feature_idx), ' ', per_object_names{feature_idx}, '!=', cleanup(CPtruncatefeaturename(CPjoinstrings(ObjectName, FeatureName)))])
                 end
                 feature_idx = feature_idx + 1;
@@ -610,14 +610,14 @@ for img_idx = FirstSet:LastSet
 
                 %%% Add the values into the per-object output and shift
                 %%% right
-                if numobj > 0,
+                if numobj > 0
                     perobjectvals((objectbaserow+1):(objectbaserow+numobj), (objectbasecol+1)) = vals;
                 end
                 objectbasecol = objectbasecol + 1;
 
                 %%% Add the values into the per-image output and shift
                 %%% right
-                if ~any(strmatch(FeatureName,ObjectFeaturesNotToBeAveraged)),
+                if ~any(strmatch(FeatureName,ObjectFeaturesNotToBeAveraged))
                     perobjectvals_aggregate(1:numobj, (objectbasemeancol-2+1)) = vals;
                     perobjectvals_aggregate_isobj(1:numobj, (objectbasemeancol-2+1)) = true;
                     objectbasemeancol = objectbasemeancol + 1;
@@ -648,11 +648,11 @@ for img_idx = FirstSet:LastSet
                 fprintf(fimage,formatstr,perobjectvals_aggregate); % ignore NaN
             end
             if wantStdDevCalculated
-                for i = 1:size(perobjectvals_aggregate,2),
+                for i = 1:size(perobjectvals_aggregate,2)
                     fprintf(fimage,',0'); %ignore NaN
                 end
             end
-        elseif size(perobjectvals_aggregate, 1) > 0,
+        elseif size(perobjectvals_aggregate, 1) > 0
             % Ignore NaNs in aggregate measurements
             warning('off','MATLAB:divideByZero');
             perobjectvals_aggregate(perobjectvals_aggregate_isobj == 0) = NaN;
@@ -699,7 +699,7 @@ end
 % column headers + 2 (since the ImageNumber and ObjectNumber headers
 % aren't included). If this is not the case, such as when the last column(s)
 % of measurements are empty, pad with zeros
-if ~isempty(perobjectvals) && size(perobjectvals,2) < length(per_object_names) + 2,
+if ~isempty(perobjectvals) && size(perobjectvals,2) < length(per_object_names) + 2
     perobjectvals(end,length(per_object_names)+2) = 0;
 end
 

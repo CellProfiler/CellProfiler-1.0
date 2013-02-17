@@ -74,11 +74,11 @@ ExportInfo.Entries.image_transfer_protocol = 'http';                            
 ExportInfo.Entries.image_size_info = '';                                                    % Image Format Information
 ExportInfo.Entries.red_image_path = ['Image_',names{idx_path(1)}];                          % Image Pathways and Filenames
 ExportInfo.Entries.red_image_col = ['Image_',names{idx_file(1)}];
-if length(idx_path) > 1,
+if length(idx_path) > 1
     ExportInfo.Entries.green_image_path = ['Image_',names{idx_path(2)}];
     ExportInfo.Entries.green_image_col = ['Image_',names{idx_file(2)}];
 end
-if length(idx_path) > 2,
+if length(idx_path) > 2
     ExportInfo.Entries.blue_image_path = ['Image_',names{idx_path(3)}];
     ExportInfo.Entries.blue_image_col = ['Image_',names{idx_file(3)}];
 end
@@ -104,7 +104,7 @@ end
 % Check whether have write permission in current dir
 PropertiesFilename = [DatabaseName '_v' num2str(version) '.properties'];
 fid = fopen(fullfile(DataPath,PropertiesFilename), 'wt');
-if fid == -1,
+if fid == -1
     % I'm using a warning here instead of an error because I can imagine a
     % case where in batch processing where multiple batches attempt to
     % write to the same file. In that case, the first to open the file
@@ -565,7 +565,7 @@ PanelHeight = PanelPosition(4);
 NumberOfEntriesThatFit = floor(PanelHeight/uitextheight);
 
 % Determine if a slider is needed
-if NumberOfEntriesThatFit < NumberOfEntries,
+if NumberOfEntriesThatFit < NumberOfEntries
     SliderRequired = 1;
 else
     SliderRequired = 0;
@@ -590,7 +590,7 @@ end
 %Arrange fields in a two column display, keep track of the y position of the last object created
 % Create uicontrols
 h = zeros(NumberOfEntries,1);
-for i = 1:NumberOfEntries,
+for i = 1:NumberOfEntries
     uicontrol('parent',PropertiesDisplayPanel,'units','pixels','style','text','string',uitext{i},...
         'position',[borderwidth ypos uitextwidth uitextheight],...
         'fontname','helvetica','fontsize',ExportInfo.FontSize,'fontweight','bold','horizontalalignment','left','backgroundcolor',get(PropertiesDisplayFig,'color'));
@@ -599,7 +599,7 @@ for i = 1:NumberOfEntries,
         'position',[uitextwidth+borderwidth ypos+(uitextheight-uicontrolheight) uicontrolwidth uicontrolheight],...
         'fontname','helvetica','fontsize',ExportInfo.FontSize,'fontweight','bold','horizontalalignment','left','units','pixels');
 
-    switch get(h(i),'style'),
+    switch get(h(i),'style')
         case 'popupmenu',   set(h(i),'string',uistring{i},'backgroundcolor','w','value',find(strcmpi(uistring{i},uichoice{i})));
         case 'edit',        set(h(i),'backgroundcolor','w','string',uistring{i});
     end
@@ -648,8 +648,8 @@ uicontrol(PropertiesDisplayFig,...
 uiwait(PropertiesDisplayFig);
 
 if ishandle(PropertiesDisplayPanel)
-    for i = 1:NumberOfEntries,
-        switch get(h(i),'style'),
+    for i = 1:NumberOfEntries
+        switch get(h(i),'style')
             case 'popupmenu',   str = get(h(i),'string'); ExportInfo.Entries.(uitag{i}) = str{get(h(i),'value')};
             case 'edit',        ExportInfo.Entries.(uitag{i}) = get(h(i),'string');
             case 'pushbutton',  ExportInfo.Entries.(uitag{i}) = get(h(i),'value');
@@ -703,15 +703,15 @@ fid = fopen(fullfile(pathname,filename),'r');
 txt = textscan(fid,'%s', 'delimiter', '\n','whitespace', ''); txt = txt{1};
 fclose(fid);
 
-for i = 1:length(txt),
+for i = 1:length(txt)
     idx = findstr(txt{i},'='); idx = idx(1);
     ExportInfo.Entries.(strtrim(txt{i}(1:idx-1))) = strtrim(txt{i}(idx+1:end));
 end
 
 h = cat(1,findobj(findobj(gcbf,'type','uipanel'),'type','edit'),...
     findobj(findobj(gcbf,'type','uipanel'),'type','popupmenu'));
-for i = 1:length(h),
-    switch get(h(i),'style'),
+for i = 1:length(h)
+    switch get(h(i),'style')
         case 'popupmenu',   set(h(i),'value',find(strcmpi(get(h(i),'string'),ExportInfo.Entries.(get(h(i),'tag')))));
         case 'edit',        set(h(i),'string',ExportInfo.Entries.(get(h(i),'tag')));
     end

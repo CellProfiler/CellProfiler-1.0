@@ -248,7 +248,7 @@ end
 if strcmpi(UserInput.Logical,'None') ~= 1
     [object_name, feature_name] = CPgetfeature(handles, 1);
     if isempty(object_name)
-	return % User clicked cancel.
+    return % User clicked cancel.
     end
     MeasurementToThresholdValueOn = handles.Measurements.(ObjectTypename).(FeatureName);
     MeasurementToThresholdValueOnName = FeatureName;

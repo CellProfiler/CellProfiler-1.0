@@ -10,7 +10,7 @@
 % $Revision$
 
 function [filename, pathname, filterindex] = CPuigetfile(filterspec, title, ...
-						path)
+                        path)
 
 origFilterspec = filterspec;
 if nargin == 3 && ~iscell(path) && exist(path, 'dir')

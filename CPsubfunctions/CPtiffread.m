@@ -275,7 +275,7 @@ for i = 1:TIF.num_strips
     colIndx = colIndx + stripCols;
 end
 % Extract valid part of data
-if ~all(size(data) == [width height]),
+if ~all(size(data) == [width height])
     data = data(1:width, 1:height);
     disp('extracting data');
 end

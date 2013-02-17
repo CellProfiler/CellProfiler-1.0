@@ -55,7 +55,7 @@ end
 
 %On recursive calls get all necessary handles and data.
 if ~strcmp(action,'start')
-    if nargin == 2,
+    if nargin == 2
         flag = y;
     end
 
@@ -342,7 +342,7 @@ switch action
 
         % Finished with plot startup function.
 
-    case 'motion',
+    case 'motion'
         p = get(nlin_fig,'CurrentPoint');
         k = floor(1+n*(p(1)-0.18)/.80);
         if k < 1 || k > n
@@ -352,9 +352,9 @@ switch action
         maxx = xrange(k,2);
         minx = xrange(k,1);
 
-        if flag == 0,
+        if flag == 0
             % Check for data consistency in each axis
-            if n > 1,
+            if n > 1
                 yn = zeros(n,1);
                 for idx = 1:n
                     y = get(reference_line(idx,2),'Ydata');
@@ -371,14 +371,14 @@ switch action
             cx = cp(1,1);
             fuzz = 0.02 * (maxx - minx);
             online = cx > newx(k) - fuzz & cx < newx(k) + fuzz;
-            if online && strcmp(cursorstate,'arrow'),
+            if online && strcmp(cursorstate,'arrow')
                 cursorstate = 'crosshair';
-            elseif ~online && strcmp(cursorstate,'crosshair'),
+            elseif ~online && strcmp(cursorstate,'crosshair')
                 cursorstate = 'arrow';
             end
             set(nlin_fig,'Pointer',cursorstate);
             return;
-        elseif flag == 1,
+        elseif flag == 1
             if last_axes(k) == 0
                 return;
             end
@@ -407,7 +407,7 @@ switch action
 
         end  % End of code for dragging reference lines
 
-    case 'down',
+    case 'down'
         p = get(nlin_fig,'CurrentPoint');
         k = floor(1+n*(p(1)-0.18)/.80);
         if k < 1 || k > n || p(2) > 0.90 || p(2) < 0.22
@@ -444,7 +444,7 @@ switch action
 
         set(nlin_fig,'WindowButtonUpFcn','nlintool(''up'')');
 
-    case 'up',
+    case 'up'
         p = get(nlin_fig,'CurrentPoint');
         k = floor(1+n*(p(1)-0.18)/.80);
         lk = find(last_axes == 1);
@@ -461,7 +461,7 @@ switch action
 
         updateplot(nlin_fig, ud);
 
-    case 'edittext',
+    case 'edittext'
         cx    = str2double(get(x_field(flag),'String'));
 
         if isempty(cx)
@@ -485,7 +485,7 @@ switch action
         ud.last_axes = last_axes;
         set(nlin_fig,'Userdata',ud);
 
-    case 'output',
+    case 'output'
         bmf = get(nlin_fig,'WindowButtonMotionFcn');
         bdf = get(nlin_fig,'WindowButtonDownFcn');
         set(nlin_fig,'WindowButtonMotionFcn','');
@@ -510,7 +510,7 @@ switch action
         set(nlin_fig,'WindowButtonMotionFcn',bmf);
         set(nlin_fig,'WindowButtonDownFcn',bdf);
 
-    case 'conf',
+    case 'conf'
         if (nargin > 1), conf = flag; end
         switch(conf)
             case 1, ud.simflag = 1;             % simultaneous

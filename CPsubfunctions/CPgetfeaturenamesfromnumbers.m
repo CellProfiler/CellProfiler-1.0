@@ -12,9 +12,9 @@ function FeatureName = CPgetfeaturenamesfromnumbers(handles,ObjectName,Category,
 %          Image can be can be a string (Image) or Numeric (Texture)
 %
 % where we are finding FeatureName from
-%	handles.Measurements.ObjectName.Category_FeatureName (for Non-image/non-texture) OR
-%	handles.Measurements.ObjectName.Category_FeatureName_Image (for Image) OR
-%	handles.Measurements.ObjectName.Category_FeatureName_Image_SizeScale (for Texture, RadialDistribution and ImageQuality)
+%    handles.Measurements.ObjectName.Category_FeatureName (for Non-image/non-texture) OR
+%    handles.Measurements.ObjectName.Category_FeatureName_Image (for Image) OR
+%    handles.Measurements.ObjectName.Category_FeatureName_Image_SizeScale (for Texture, RadialDistribution and ImageQuality)
 %   handles.Measurements.ObjectName.Category_FeatureName_Objectname/Image_SizeScale (for Relate)
 
 % $Revision$
@@ -95,7 +95,7 @@ if isnumeric(FeatureNumberOrName)
 else
     CurrentMeasure = CPjoinstrings(Category,'_',FeatureNumberOrName);
     if ~ isempty(Image)
-    	CurrentMeasure = CPjoinstrings(CurrentMeasure,'_',Image);
+        CurrentMeasure = CPjoinstrings(CurrentMeasure,'_',Image);
     end
     if ~ isempty(SizeScale)
         CurrentMeasure = CPjoinstrings(CurrentMeasure,'_',num2str(SizeScale));

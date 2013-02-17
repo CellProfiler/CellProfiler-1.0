@@ -14,7 +14,7 @@ function parse_filenames(varargin)
 
 error(nargchk(0, 1, nargin, 'string'))
 if nargin < 1
-	image_dir = CPuigetdir('HOME', 'Choose the directory where your *_image.CSV files are located');
+    image_dir = CPuigetdir('HOME', 'Choose the directory where your *_image.CSV files are located');
     if image_dir == 0
         return;
     end

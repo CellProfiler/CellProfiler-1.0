@@ -4,7 +4,7 @@ function twodigit = CPtwodigitstring(val)
 
 % $Revision$
 
-if ((val > 99) || (val < 0)),
+if ((val > 99) || (val < 0))
     error(['TwoDigitString: Can''t convert ' num2str(val) ' to a 2 digit number']);
 end
 twodigit = sprintf('%02d', val);

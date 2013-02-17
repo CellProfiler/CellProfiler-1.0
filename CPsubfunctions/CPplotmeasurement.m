@@ -36,14 +36,14 @@ if PlotType <= 3
     % Thresholds the data if user chose other than "None".  Reassigns
     % Measurements.
     if ~strcmp(UserAnswers.Logical,'None')
-	msgfig=CPmsgbox('In the following dialog, please select the measurements that the original measurements will be thresholded on.');
-	uiwait(msgfig);
-	[object_name, feature_name] = CPgetfeature(handles, 1);
-	if isempty(object_name)
-	    return;
-	end
-	[Thresholdstr, Measurements, object_name, feature_name] = ...
-	    Threshold(handles, Measurements, UserAnswers, object_name, feature_name);
+    msgfig=CPmsgbox('In the following dialog, please select the measurements that the original measurements will be thresholded on.');
+    uiwait(msgfig);
+    [object_name, feature_name] = CPgetfeature(handles, 1);
+    if isempty(object_name)
+        return;
+    end
+    [Thresholdstr, Measurements, object_name, feature_name] = ...
+        Threshold(handles, Measurements, UserAnswers, object_name, feature_name);
     end
 
     image_numbers = UserAnswers.FirstSample:UserAnswers.LastSample;
@@ -70,11 +70,11 @@ if PlotType <= 2
     stds = zeros(nimages, 1);
 
     for i = 1:nimages
-	image_number = image_numbers(i);
-	if ~isempty(Measurements{image_number})
-	    means(i) = mean(Measurements{image_number});
-	    stds(i) = std(Measurements{image_number});
-	end
+    image_number = image_numbers(i);
+    if ~isempty(Measurements{image_number})
+        means(i) = mean(Measurements{image_number});
+        stds(i) = std(Measurements{image_number});
+    end
     end
 end
 
@@ -175,14 +175,14 @@ elseif PlotType == 4
         %%% Thresholds the data if user chose other than "None"
         %%% Reassigns Measurements
         if ~strcmp(UserAnswers.Logical,'None')
-	    msgfig=CPmsgbox('In the following dialog, please select the measurements that the original measurements will be thresholded on.');
-	    uiwait(msgfig);
-	    [object_name, feature_name] = CPgetfeature(handles, 1);
-	    if isempty(object_name)
-		return;
-	    end
-	    [Thresholdstr2,Measurements2,object_name,feature_name] = Threshold(handles,Measurements2,UserAnswers,object_name,feature_name);
-	    [Thresholdstr1,Measurements1,object_name,feature_name] = Threshold(handles,Measurements1,UserAnswers,object_name,feature_name);
+        msgfig=CPmsgbox('In the following dialog, please select the measurements that the original measurements will be thresholded on.');
+        uiwait(msgfig);
+        [object_name, feature_name] = CPgetfeature(handles, 1);
+        if isempty(object_name)
+        return;
+        end
+        [Thresholdstr2,Measurements2,object_name,feature_name] = Threshold(handles,Measurements2,UserAnswers,object_name,feature_name);
+        [Thresholdstr1,Measurements1,object_name,feature_name] = Threshold(handles,Measurements1,UserAnswers,object_name,feature_name);
         end
 
         if isempty(FigHandle)
@@ -440,20 +440,20 @@ for ImageNumber = 1:NumberOfImages
     %%% array as output.
     operators = { @gt, @ge, @lt, @le, @eq };
     operator = operators{find(strcmp(UserAnswers.Logical, ...
-				     { '>', '>=', '<', '<=' }))};
+                     { '>', '>=', '<', '<=' }))};
     newmat=[];
     boolcol = operator(ListOfMeasurements{CompressedImageNumber,2}, ...
-		       UserAnswers.ThresholdVal);
+               UserAnswers.ThresholdVal);
     for col=1:NumFeatures
-	datacol=ListOfMeasurements{CompressedImageNumber,1}(:,col);
-	newcol=[];
-	for row=1:length(boolcol)
-	    if boolcol(row) == 1
-		newcol=[newcol; datacol(row)];
-	    end
-	end
+    datacol=ListOfMeasurements{CompressedImageNumber,1}(:,col);
+    newcol=[];
+    for row=1:length(boolcol)
+        if boolcol(row) == 1
+        newcol=[newcol; datacol(row)];
+        end
+    end
 
-	newmat=[newmat newcol];
+    newmat=[newmat newcol];
     end
     OutputMeasurements{CompressedImageNumber,1} = newmat;
 

@@ -76,7 +76,7 @@ if length(UniqueDirectories) == 1 && isempty(UniqueDirectories{1})
     return;
 end
 
-for i = 1:length(UniqueDirectories),
+for i = 1:length(UniqueDirectories)
     p = textscan(UniqueDirectories{i},'%s','delimiter',fileseparator);
     prefix = [];
     while (~isempty(p)) && isempty(p{:}{1})
@@ -155,7 +155,7 @@ LevelToRemove = DirectoryLevel(idx);
 idxToRemove = false(size(handles.Pipeline.(fn)));
 for i = 1:length(DirectoriesToRemove)
     idxOfFilesep = regexp(DirectoriesToRemove{i},fileseparator);
-    if LevelToRemove(i) <= length(idxOfFilesep),
+    if LevelToRemove(i) <= length(idxOfFilesep)
         idxOfFilesep = idxOfFilesep(LevelToRemove(i));
     else
         idxOfFilesep = length(DirectoriesToRemove{i});
@@ -170,7 +170,7 @@ fn = fieldnames(handles.Pipeline);
 prefix = 'filelist';
 fn = fn(strncmpi(fn,prefix,length(prefix)));
 if ischar(fn), fn = {fn}; end
-for i = 1:length(fn),
+for i = 1:length(fn)
     handles.Pipeline.(fn{i})(idxToRemove) = [];
 end
 if isfield(handles.Current,'NumberOfImageSets')
@@ -237,7 +237,7 @@ function SelectModules_InvertSelection(hObject,eventdata)
 
 appdata = guidata(hObject);
 hdl = appdata.directoryhandles;
-if iscell(get(hdl,'value')),
+if iscell(get(hdl,'value'))
     set(hdl,{'value'},num2cell(cellfun(@not,get(hdl,'value'))));
 else
     set(hdl,'value',~get(hdl,'value'));

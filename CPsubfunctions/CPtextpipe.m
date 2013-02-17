@@ -52,12 +52,12 @@ else
     %Prompt what to save file as, and where to save it.
     filename = '*.txt';
     SavePathname = handles.Current.DefaultOutputDirectory;
-    if isfield(handles.Current,'SavedPipeline'),
-        if ~isempty(handles.Current.SavedPipeline.Info.Filename),
+    if isfield(handles.Current,'SavedPipeline')
+        if ~isempty(handles.Current.SavedPipeline.Info.Filename)
             [junk,filename] = fileparts(handles.Current.SavedPipeline.Info.Filename);
             filename = [filename '.txt'];
         end
-        if ~isempty(handles.Current.SavedPipeline.Info.Pathname) && exist(handles.Current.SavedPipeline.Info.Pathname,'dir'),
+        if ~isempty(handles.Current.SavedPipeline.Info.Pathname) && exist(handles.Current.SavedPipeline.Info.Pathname,'dir')
             SavePathname = handles.Current.SavedPipeline.Info.Pathname;
         end
     end
@@ -91,7 +91,7 @@ else
     fprintf(fid,'Number of processed image sets: %d\n',NbrOfProcessedSets);
 end
 
-if isfield(handles.Settings, 'CurrentSVNVersion'),
+if isfield(handles.Settings, 'CurrentSVNVersion')
     fprintf(fid,['\nSVN version number: ' handles.Settings.CurrentSVNVersion]);
 end
 fprintf(fid,['\nPixel Size: ' handles.Settings.PixelSize '\n']);

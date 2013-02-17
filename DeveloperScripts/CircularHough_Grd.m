@@ -297,9 +297,9 @@ if nargin > (1 + vap_fltr4accum),
     end
 else
     % Default filter (5-by-5)
-	fltr4accum = ones(5,5);
-	fltr4accum(2:4,2:4) = 2;
-	fltr4accum(3,3) = 6;
+    fltr4accum = ones(5,5);
+    fltr4accum(2:4,2:4) = 2;
+    fltr4accum(3,3) = 6;
 end
 
 func_compu_cen = ( nargout > 1 );
@@ -345,18 +345,18 @@ linaccum_dr = [ (-rr_4linaccum(2) + 0.5) : -rr_4linaccum(1) , ...
     (rr_4linaccum(1) + 0.5) : rr_4linaccum(2) ];
 
 lin2accum_aJ = floor( ...
-	double(grdx(grdmasklin)./grdmag(grdmasklin)) * linaccum_dr + ...
-	repmat( double(grdmask_IdxJ)+0.5 , [1,length(linaccum_dr)] ) ...
+    double(grdx(grdmasklin)./grdmag(grdmasklin)) * linaccum_dr + ...
+    repmat( double(grdmask_IdxJ)+0.5 , [1,length(linaccum_dr)] ) ...
 );
 lin2accum_aI = floor( ...
-	double(grdy(grdmasklin)./grdmag(grdmasklin)) * linaccum_dr + ...
-	repmat( double(grdmask_IdxI)+0.5 , [1,length(linaccum_dr)] ) ...
+    double(grdy(grdmasklin)./grdmag(grdmasklin)) * linaccum_dr + ...
+    repmat( double(grdmask_IdxI)+0.5 , [1,length(linaccum_dr)] ) ...
 );
 
 % Clip the votings that are out of the accumulation array
 mask_valid_aJaI = ...
-	lin2accum_aJ > 0 & lin2accum_aJ < (size(grdmag,2) + 1) & ...
-	lin2accum_aI > 0 & lin2accum_aI < (size(grdmag,1) + 1);
+    lin2accum_aJ > 0 & lin2accum_aJ < (size(grdmag,2) + 1) & ...
+    lin2accum_aI > 0 & lin2accum_aI < (size(grdmag,1) + 1);
 
 mask_valid_aJaI_reverse = ~ mask_valid_aJaI;
 lin2accum_aJ = lin2accum_aJ .* mask_valid_aJaI + mask_valid_aJaI_reverse;
@@ -452,14 +452,14 @@ fltr4LM = zeros(2 * prm_fltrLM_R + 1);
 [mesh4fLM_x, mesh4fLM_y] = meshgrid(-prm_fltrLM_R : prm_fltrLM_R);
 mesh4fLM_r = sqrt( mesh4fLM_x.^2 + mesh4fLM_y.^2 );
 fltr4LM_mask = ...
-	( mesh4fLM_r > prm_fltrLM_r & mesh4fLM_r <= prm_fltrLM_R );
+    ( mesh4fLM_r > prm_fltrLM_r & mesh4fLM_r <= prm_fltrLM_R );
 fltr4LM = fltr4LM - ...
-	fltr4LM_mask * (prm_fltrLM_s / sum(fltr4LM_mask(:)));
+    fltr4LM_mask * (prm_fltrLM_s / sum(fltr4LM_mask(:)));
 
 if prm_fltrLM_R >= 4,
-	fltr4LM_mask = ( mesh4fLM_r < (prm_fltrLM_r - 1) );
+    fltr4LM_mask = ( mesh4fLM_r < (prm_fltrLM_r - 1) );
 else
-	fltr4LM_mask = ( mesh4fLM_r < prm_fltrLM_r );
+    fltr4LM_mask = ( mesh4fLM_r < prm_fltrLM_r );
 end
 fltr4LM = fltr4LM + fltr4LM_mask / sum(fltr4LM_mask(:));
 

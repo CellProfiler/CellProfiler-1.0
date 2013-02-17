@@ -55,7 +55,7 @@ elseif strncmpi(RescaleOption,'E',1) == 1
     HighestPixelOrigPinnedValue = MethodSpecificArguments{6};
     ImageName = MethodSpecificArguments{7};
     % Case 1: Either of the arguments are AA
-    if any([strcmpi(LowestPixelOrig, 'AA') strcmpi(HighestPixelOrig, 'AA')]),
+    if any([strcmpi(LowestPixelOrig, 'AA') strcmpi(HighestPixelOrig, 'AA')])
         FindLowestIntensity =   strcmpi(LowestPixelOrig, 'AA');
         FindHighestIntensity =  strcmpi(HighestPixelOrig,'AA');
 
@@ -104,20 +104,20 @@ elseif strncmpi(RescaleOption,'E',1) == 1
             end
             HighestPixelOrig = double(maxPixelValue);
             LowestPixelOrig = double(minPixelValue);
-            if FindHighestIntensity,
+            if FindHighestIntensity
                 fieldname = ['MaxPixelValue', ImageName];
                 handles = CPaddimages(handles,fieldname,HighestPixelOrig);
             end
-            if FindLowestIntensity,
+            if FindLowestIntensity
                 fieldname = ['MinPixelValue', ImageName];
                 handles = CPaddimages(handles,fieldname,LowestPixelOrig);
             end
         else
-            if FindHighestIntensity,
+            if FindHighestIntensity
                 fieldname = ['MaxPixelValue', ImageName];
                 HighestPixelOrig = CPretrieveimages(handles,fieldname,ModuleName);
             end
-            if FindLowestIntensity,
+            if FindLowestIntensity
                 fieldname = ['MinPixelValue',ImageName];
                 LowestPixelOrig = CPretrieveimages(handles,fieldname,ModuleName);
             end
@@ -125,10 +125,10 @@ elseif strncmpi(RescaleOption,'E',1) == 1
     end
 
     % Case 2: Either of the arguments are AE
-    if strcmpi(LowestPixelOrig, 'AE'),
+    if strcmpi(LowestPixelOrig, 'AE')
         LowestPixelOrig = min(min(InputImage));
     end
-    if strcmpi(HighestPixelOrig, 'AE'),
+    if strcmpi(HighestPixelOrig, 'AE')
         HighestPixelOrig = max(max(InputImage));
     end
 

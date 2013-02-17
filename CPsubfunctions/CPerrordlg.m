@@ -21,7 +21,7 @@ function varargout = CPerrordlg(ErrorString,DlgName,Replace)
 % $Revision$
 
 NumArgIn = nargin;
-if NumArgIn==0,
+if NumArgIn==0
    ErrorString = {'This is the default error string.'};
 end
 
@@ -29,7 +29,7 @@ if NumArgIn<2,  DlgName='Error Dialog'; end
 if NumArgIn<3,  Replace='non-modal'     ; end
 
 errorinfo = lasterror;
-if isfield(errorinfo, 'stack'),
+if isfield(errorinfo, 'stack')
     try
         stack = errorinfo.stack;
     catch
@@ -42,10 +42,10 @@ end
 
 if ~iscell(ErrorString), ErrorCells = {ErrorString}; else ErrorCells = ErrorString; end
 
-if size(stack, 1) > 0,
+if size(stack, 1) > 0
     ErrorCells{end+1} = '';
     ErrorCells{end+1} = 'Stack:';
-    for index = 1:size(stack, 1),
+    for index = 1:size(stack, 1)
         stackinfo = stack(index, 1);
         ErrorCells{end+1} = [stackinfo.name, ' in ', stackinfo.file, ' (', num2str(stackinfo.line) ')'];
     end

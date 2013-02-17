@@ -30,13 +30,13 @@ error(nargchk(2, Inf, nargin, 'struct'));
 sepchar = '_';
 string = varargin{1};
 
-for i=2:nargin,
+for i=2:nargin
    part = varargin{i};
    if isempty(string) || isempty(part)
       string = [string part];
    else
       % Handle the three possible cases
-      if (string(end)==sepchar) && (part(1)==sepchar),
+      if (string(end)==sepchar) && (part(1)==sepchar)
          string = [string part(2:end)];
       elseif (string(end)==sepchar) || (part(1)==sepchar )
          string = [string part];

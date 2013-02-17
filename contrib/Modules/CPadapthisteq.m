@@ -161,7 +161,7 @@ FinalImage = OrigImage;
 switch(index)
     case 0
         FinalImage = adapthisteq(FinalImage);
-	case 1
+    case 1
         FinalImage = adapthisteq(FinalImage,functions{1,1},value{1,1});
     case 2
         FinalImage = adapthisteq(FinalImage,functions{1,1},value{1,1},functions{1,2},value{1,2});

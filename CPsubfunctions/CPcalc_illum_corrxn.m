@@ -37,7 +37,7 @@ IlluminationField = repmat(zeros(ImageSize), [1, 1, NumberOfChannels]);
 %%% make an initial guess for the class means (for lack of anything
 %%% better, space them by quantile in each channel)
 SortedSamples = sort(Samples);
-for class = 1:NumberOfComponents,
+for class = 1:NumberOfComponents
     offset = round(NumberOfSamples * class / (NumberOfComponents + 1));
     ClassMeans(class, :) = SortedSamples(offset, :);
 end
@@ -49,9 +49,9 @@ ClassCovariances = repmat(cov(Samples), [1, 1, NumberOfComponents]);
 ClassPriors = ones(NumberOfComponents, 1) / NumberOfComponents;
 
 %%% Fit the data
-for loopcount = 1:40,
+for loopcount = 1:40
 
-    if ShowComputation,
+    if ShowComputation
         title(sprintf('%d loop of %d', loopcount, 20));
         drawnow;
     end
@@ -61,13 +61,13 @@ for loopcount = 1:40,
     %%%%%%%%%%%%%%%%%%%%
 
     %%% Correct data by bias field
-    for i = 1:NumberOfChannels,
+    for i = 1:NumberOfChannels
         Correction = IlluminationField(:, :, i);
         CorrectedSamples(:, i) = Samples(:, i) - Correction(sub2ind(ImageSize, Locations(:, 1), Locations(:, 2)));
     end
 
     %%% Compute weights
-    for i = 1:NumberOfComponents,
+    for i = 1:NumberOfComponents
         Weights(:, i) = ClassPriors(i) * Gaussian(ClassMeans(i, :), ClassCovariances(:, :, i), CorrectedSamples);
     end
     %%% Normalize
@@ -90,7 +90,7 @@ for loopcount = 1:40,
 
 
     %%% Recompute means and covariances
-    for i = 1:NumberOfComponents,
+    for i = 1:NumberOfComponents
         ClassMeans(i, :) = sum(CorrectedSamples .* repmat(Weights(:, i), 1, NumberOfChannels)) / sum(Weights(:, i));
         % (yes, this next line should use the just updated class means...)
         WeightedDeltas = (CorrectedSamples - repmat(ClassMeans(i, :), NumberOfSamples, 1)) .* repmat(Weights(:, i), 1, NumberOfChannels);
@@ -102,13 +102,13 @@ for loopcount = 1:40,
     %%%%%%%%%%%%%%%%%%%%
 
     %%% Correct data by bias field
-    for i = 1:NumberOfChannels,
+    for i = 1:NumberOfChannels
         Correction = IlluminationField(:, :, i);
         CorrectedSamples(:,i) = Samples(:, i) - Correction(sub2ind(ImageSize, Locations(:, 1), Locations(:, 2)));
     end
 
     %%% Compute weights
-    for i = 1:NumberOfComponents,
+    for i = 1:NumberOfComponents
         Weights(:, i) = ClassPriors(i) * Gaussian(ClassMeans(i, :), ClassCovariances(:, :, i), CorrectedSamples);
     end
     %%% Normalize
@@ -132,14 +132,14 @@ for loopcount = 1:40,
 
     %%% Find the weighted residuals.
     WeightedResiduals = zeros(size(CorrectedSamples));
-    for i = 1:NumberOfComponents,
+    for i = 1:NumberOfComponents
         WeightedDeltas = (CorrectedSamples - repmat(ClassMeans(i, :), NumberOfSamples, 1)) .* repmat(Weights(:, i), 1, NumberOfChannels);
         WeightedResiduals = WeightedResiduals + (inv(ClassCovariances(:, :, i)) * WeightedDeltas')';
     end
 
     Normalizers = zeros(size(CorrectedSamples));
     %%% Find the normalizers.
-    for i = 1:NumberOfChannels,
+    for i = 1:NumberOfChannels
         FixedDeltas = zeros(size(CorrectedSamples));
         FixedDeltas(:, i) = 1;
         WeightedFixedResiduals = zeros(size(CorrectedSamples));
@@ -162,7 +162,7 @@ for loopcount = 1:40,
     %%% value.
     IlluminationField = IlluminationField + SmoothResiduals ./ SmoothNormalizers;
 
-    if ShowComputation,
+    if ShowComputation
         imagesc(IlluminationField(:,:,1));
         drawnow
     end
@@ -185,7 +185,7 @@ SmoothWeights(SmoothWeights == 0) = 1;
 
 %%% Compute smoothed data from samples
 SmoothImage = zeros([ImageSize NumberOfChannels]);
-for i = 1:NumberOfChannels,
+for i = 1:NumberOfChannels
     SingleChannel = full(sparse(Locations(:, 1), Locations(:, 2), Samples(:, i), ImageSize(1), ImageSize(2)));
     SmoothImage(:, :, i) = Smoother(SingleChannel, SmoothingRadius) ./ SmoothWeights;
 end

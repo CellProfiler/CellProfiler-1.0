@@ -40,10 +40,10 @@ if strcmp('LoadImages',CurrentModuleName)
     end
 
     if (SavedVarRevNum == 3)    % File text exclusion added
-        for i = Settings.NumbersOfVariables(ModuleNum-Skipped):-1:12,
+        for i = Settings.NumbersOfVariables(ModuleNum-Skipped):-1:12
             Settings.VariableValues{ModuleNum-Skipped,i} = Settings.VariableValues{ModuleNum-Skipped,i-1};
         end
-        for i = length(Settings.VariableInfoTypes(ModuleNum-Skipped,:)):-1:12,
+        for i = length(Settings.VariableInfoTypes(ModuleNum-Skipped,:)):-1:12
             Settings.VariableInfoTypes{ModuleNum-Skipped,i} = Settings.VariableInfoTypes{ModuleNum-Skipped,i-1};
         end
 
@@ -263,7 +263,7 @@ end
 % Standardization of non-used parameter text placeholders
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 idx = ismember(cellstr(lower(char(Settings.VariableValues{ModuleNum-Skipped,:}))),lower({'NO FILE LOADED','Leave this blank','Leave this black','None','Do not load','Do not save','/'}));
-if any(idx),
+if any(idx)
     [Settings.VariableValues{ModuleNum-Skipped,idx}] = deal('Do not use');
     NeedsPlaceholderUpdateMsg = true;
 end
@@ -561,7 +561,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if strcmp(CurrentModuleName, 'FlagImageForQC')
     if SavedVarRevNum == 1      % Adding setting 4 (size scale)
-		Settings.VariableValues(ModuleNum-Skipped,5:end) = Settings.VariableValues(ModuleNum-Skipped,4:end-1);
+        Settings.VariableValues(ModuleNum-Skipped,5:end) = Settings.VariableValues(ModuleNum-Skipped,4:end-1);
         Settings.VariableValues{ModuleNum-Skipped,4} = '1';
         Settings.VariableInfoTypes(ModuleNum-Skipped,5:end) = Settings.VariableInfoTypes(ModuleNum-Skipped,4:end-1);
         Settings.NumbersOfVariables(ModuleNum-Skipped) = Settings.NumbersOfVariables(ModuleNum-Skipped) + 1;

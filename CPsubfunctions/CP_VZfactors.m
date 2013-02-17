@@ -49,7 +49,7 @@ exp2_vals = ymatr(xcol == xs(end),:);
 sort_avers = sort([avers(1,:); avers(length(xs),:)],1,'ascend');
 stds = zeros(2,size(sort_avers,2));
 warning('off','MATLAB:divideByZero');
-for i = 1:size(sort_avers,2),
+for i = 1:size(sort_avers,2)
     % Here the std must be calculated using the full formula
     vals1 = exp1_vals(exp1_vals >= sort_avers(1,i) & exp1_vals <= sort_avers(2,i));
     vals2 = exp2_vals(exp2_vals >= sort_avers(1,i) & exp2_vals <= sort_avers(2,i));

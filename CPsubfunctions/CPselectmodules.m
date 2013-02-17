@@ -163,7 +163,7 @@ function SelectModules_InvertSelection(hObject,eventdata)
 
 appdata = guidata(hObject);
 hdl = appdata.modulehandles;
-if iscell(get(hdl,'value')),
+if iscell(get(hdl,'value'))
     set(hdl,{'value'},num2cell(cellfun(@not,get(hdl,'value'))));
 else
     set(hdl,'value',~get(hdl,'value'));

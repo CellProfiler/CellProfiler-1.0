@@ -125,7 +125,7 @@ for i = 1:length(Measure1)
     end
 
     if ~strcmp(Power,'Do not use')
-    	FinalMeasurements = FinalMeasurements .^ str2double(Power);
+        FinalMeasurements = FinalMeasurements .^ str2double(Power);
     end
 
     % Record the new measure in the handles structure.

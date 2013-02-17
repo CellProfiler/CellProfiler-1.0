@@ -81,15 +81,15 @@ function hText=uitext(h,text, position)
 end
 
 function hEdit=uiedit(h,default_text,position,varargin)
-	if nargin > 3, tag = varargin{1}; else tag = ''; end
+    if nargin > 3, tag = varargin{1}; else tag = ''; end
     GUIhandles = guidata(gcbo);
     FontSize = GUIhandles.Preferences.FontSize;
     hEdit=uicontrol(h,'Style','edit','units','pixels','position',position,...
         'backgroundcolor',[1 1 1],'String',default_text,'FontSize',FontSize,'tag',tag);
-	if any(strcmpi(tag,{'LocalPath','RemotePath'}))
-		callback = @(hObject,eventdata) checkslashinpaths(hEdit);
-		set(hEdit,'callback',callback);
-	end
+    if any(strcmpi(tag,{'LocalPath','RemotePath'}))
+        callback = @(hObject,eventdata) checkslashinpaths(hEdit);
+        set(hEdit,'callback',callback);
+    end
 end
 
 function hButton=uipushbutton(h,text,position,callback)
@@ -128,20 +128,20 @@ RemotePathUIBoxStr = strtrim(get(RemotePathUIBox,'string'));
 isLocalSlash = any(strcmp(LocalPathUIBoxStr(end),{'\','/'}));
 isRemoteSlash = any(strcmp(RemotePathUIBoxStr(end),{'\','/'}));
 if xor(isLocalSlash,isRemoteSlash)
-	if hObject == LocalPathUIBox
-		if isLocalSlash,
-			LocalPathUIBoxStr(end) = filesep;
-			RemotePathUIBoxStr = [RemotePathUIBoxStr, '/'];
-		else
-			RemotePathUIBoxStr = RemotePathUIBoxStr(1:end-1);
-		end
-	elseif hObject == RemotePathUIBox
-		if isRemoteSlash,
-			LocalPathUIBoxStr = [LocalPathUIBoxStr, filesep];
-		else
-			LocalPathUIBoxStr = LocalPathUIBoxStr(1:end-1);
-		end
-	end
+    if hObject == LocalPathUIBox
+        if isLocalSlash,
+            LocalPathUIBoxStr(end) = filesep;
+            RemotePathUIBoxStr = [RemotePathUIBoxStr, '/'];
+        else
+            RemotePathUIBoxStr = RemotePathUIBoxStr(1:end-1);
+        end
+    elseif hObject == RemotePathUIBox
+        if isRemoteSlash,
+            LocalPathUIBoxStr = [LocalPathUIBoxStr, filesep];
+        else
+            LocalPathUIBoxStr = LocalPathUIBoxStr(1:end-1);
+        end
+    end
 end
 set(LocalPathUIBox,'string',LocalPathUIBoxStr);
 set(RemotePathUIBox,'string',RemotePathUIBoxStr);

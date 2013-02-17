@@ -409,13 +409,13 @@ WellRowFieldname      = handles.Metadata.WellRowMeasurement;
 WellColumnFieldname   = handles.Metadata.WellColumnMeasurement;
 WellNames = unique(arrayfun(@(x) WellName(handles,x),ImageIndices,'UniformOutput',0));
 AggregateOperation  = GetSelectedPopupValue(handles.AggregateOperation);
-if all(cellfun(@iscell,handles.handles.Measurements.Image.(PlateNameFieldname))),
+if all(cellfun(@iscell,handles.handles.Measurements.Image.(PlateNameFieldname)))
     handles.handles.Measurements.Image.(PlateNameFieldname) = cat(2,handles.handles.Measurements.Image.(PlateNameFieldname){:});
 end
-if all(cellfun(@iscell,handles.handles.Measurements.Image.(WellRowFieldname))),
+if all(cellfun(@iscell,handles.handles.Measurements.Image.(WellRowFieldname)))
     handles.handles.Measurements.Image.(WellRowFieldname) = cat(2,handles.handles.Measurements.Image.(WellRowFieldname){:});
 end
-if all(cellfun(@iscell,handles.handles.Measurements.Image.(WellColumnFieldname))),
+if all(cellfun(@iscell,handles.handles.Measurements.Image.(WellColumnFieldname)))
     handles.handles.Measurements.Image.(WellColumnFieldname) = cat(2,handles.handles.Measurements.Image.(WellColumnFieldname){:});
 end
 for WellNameIndex=1:length(WellNames)

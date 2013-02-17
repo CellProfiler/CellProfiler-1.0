@@ -35,7 +35,7 @@ for i = 1:length(ObjectFields)
 
     for j = 1:length(MeasureFields)
         MeasureFeatureName = MeasureFields{j};
-        if (length(MeasureFeatureName) > 7) && (strcmpi(MeasureFeatureName(end-7:end),'Features')),
+        if (length(MeasureFeatureName) > 7) && (strcmpi(MeasureFeatureName(end-7:end),'Features'))
             CPwarndlg(['CP programming weirdness: feature ending in ''Feature'': Measurements.' ObjectName '.' MeasureFeatureName]);
             continue;
         end
@@ -44,7 +44,7 @@ for i = 1:length(ObjectFields)
                 any(findstr(MeasureFeatureName, 'FileName')) ||...
                 any(findstr(MeasureFeatureName, 'PathName')) ||...
                 any(findstr(MeasureFeatureName, 'LoadedText')) ||...
-                any(findstr(MeasureFeatureName, 'ModuleError')),
+                any(findstr(MeasureFeatureName, 'ModuleError'))
             continue;
         end
 

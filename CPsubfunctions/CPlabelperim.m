@@ -26,7 +26,7 @@ function LabelBoundaryImage = CPlabelperim(LabelMatrixImage, conn)
 %
 % $Revision$
 
-if nargin == 1,
+if nargin == 1
     conn = 4;
 end
 
@@ -42,7 +42,7 @@ ShiftDown(2:end,:) = LabelMatrixImage(1:end-1,:);
 EdgeMask = LabelMatrixImage;
 EdgeMask(2:end-1,2:end-1)=0;
 EdgeMask(EdgeMask>0)=1;
-if conn == 4,
+if conn == 4
     InnerOuterBoundaryImage = ((ShiftLeft~=LabelMatrixImage) | (ShiftRight~=LabelMatrixImage) | ...
         (ShiftUp~=LabelMatrixImage) | (ShiftDown~=LabelMatrixImage));
 else

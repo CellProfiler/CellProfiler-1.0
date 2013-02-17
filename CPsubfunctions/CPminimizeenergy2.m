@@ -1,8 +1,8 @@
 function out = CPminimizeenergy2(I, L1, L2, ITERATIONS, EPS, inMethod, DIRECTION, inK)
 % $Revision$
-	global b K method sqrFilter smoothFilter integrableFilter frame
-	im = CPjustify(double(I));
-	method = inMethod;
+    global b K method sqrFilter smoothFilter integrableFilter frame
+    im = CPjustify(double(I));
+    method = inMethod;
 
     if strcmp(method,'abs2') || strcmp(method,'sin')
         K = inK;
@@ -11,11 +11,11 @@ function out = CPminimizeenergy2(I, L1, L2, ITERATIONS, EPS, inMethod, DIRECTION
         return;
     end
 
-	[H, W] = size(im);
+    [H, W] = size(im);
 
     if strcmpi(DIRECTION,'diagonal')
-    	sx = 1 / sqrt(2);
-    	sy = 1 / sqrt(2);
+        sx = 1 / sqrt(2);
+        sy = 1 / sqrt(2);
     elseif strcmpi(DIRECTION,'vertical')
         sx = 1;
         sy = 0;
@@ -42,12 +42,12 @@ function out = CPminimizeenergy2(I, L1, L2, ITERATIONS, EPS, inMethod, DIRECTION
     smoothFilter = L1*[sx*sy,-2*sy^2,-sx*sy;-2*sx^2,4*(sx^2+sy^2),-2*sx^2;-sx*sy,-2*sy^2,sx*sy];
     integrableFilter = L2*[0,sx,0;sy,0,-sy;0,-sx,0];
 
-	out = zeros(H,W);
-	for itr = 1:ITERATIONS
+    out = zeros(H,W);
+    for itr = 1:ITERATIONS
         out = out - EPS*grad(out);
-	end
+    end
 
-	out = CPjustify(out);
+    out = CPjustify(out);
 end
 
 function out = grad(f)

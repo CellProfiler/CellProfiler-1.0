@@ -19,16 +19,16 @@ function handles = CPaddmeasurements(handles, ObjectName, FeatureName, Data, Ima
 % $Revision$
 
 
-if nargin < 5,
+if nargin < 5
     ImageSetNumber = handles.Current.SetBeingAnalyzed;
 end
 
 % Check that either this is a new measurement being added in the first
 % set, or an old measurement being appended to in a later set.
 if isscalar(ImageSetNumber)
-	FirstSet = ImageSetNumber == 1;
+    FirstSet = ImageSetNumber == 1;
 elseif isvector(ImageSetNumber)
-	FirstSet = ImageSetNumber(1) == 1;
+    FirstSet = ImageSetNumber(1) == 1;
 end
 OldMeasurement = ...
     isfield(handles.Measurements, ObjectName) && ...
@@ -38,32 +38,32 @@ BatchProcessing = isfield(handles.Current, 'BatchInfo');
 CPvalidfieldname(FeatureName)
 
 %%% Don't allow overwriting of measurements, *except* in batch processing.
-if (FirstSet && OldMeasurement && ~BatchProcessing),
+if (FirstSet && OldMeasurement && ~BatchProcessing)
     error(['Image processing was canceled because you are attempting to recreate the same measurements, please remove redundant module (#', handles.Current.CurrentModuleNumber, ').']);
 end
 
-if (~FirstSet) && (~OldMeasurement) && (~ strcmp(ObjectName, 'Experiment')),
+if (~FirstSet) && (~OldMeasurement) && (~ strcmp(ObjectName, 'Experiment'))
     error(['This should not happen.  CellProfiler Coding Error.  Attempting to add new measurement ', ObjectName, '.',  FeatureName, ' in set ', int2str(ImageSetNumber) ' that was not added in first set.']);
 end
 
 %%% Verify we can add this type of Measurement to this type of object
-if ischar(Data) && (~ strcmp(ObjectName, 'Image')),
+if ischar(Data) && (~ strcmp(ObjectName, 'Image'))
     error(['This should not happen.  CellProfiler Coding Error.  Attempting to add string measurement to non-image ', ObjectName, '.', FeatureName]);
 elseif ~strcmp(ObjectName, 'Image') && ~isvector(Data) && ~isempty(Data)
     error(['This should not happen.  CellProfiler Coding Error.  Attempting to add multidimensional (', int2str(size(Data)), ') measurement ', ObjectName, '.', FeatureName]);
-elseif strcmp(ObjectName, 'Image') && isnumeric(Data) && ~isscalar(Data),
+elseif strcmp(ObjectName, 'Image') && isnumeric(Data) && ~isscalar(Data)
     error(['This should not happen.  CellProfiler Coding Error.  Attempting to add non-scalar (', int2str(size(Data)), ') measurement to ', ObjectName, '.', FeatureName]);
 end
 
 
 %%% Checks have passed, add the data.
-if strcmp(ObjectName, 'Experiment'),
+if strcmp(ObjectName, 'Experiment')
     handles.Measurements.(ObjectName).(FeatureName) = Data;
 else
-	if isscalar(ImageSetNumber)
-		handles.Measurements.(ObjectName).(FeatureName){ImageSetNumber} = Data;
-	elseif isvector(ImageSetNumber)
-		ImageSetNumber = ImageSetNumber(:)';
-		handles.Measurements.(ObjectName).(FeatureName)(ImageSetNumber) = reshape(Data,size(ImageSetNumber));
-	end
+    if isscalar(ImageSetNumber)
+        handles.Measurements.(ObjectName).(FeatureName){ImageSetNumber} = Data;
+    elseif isvector(ImageSetNumber)
+        ImageSetNumber = ImageSetNumber(:)';
+        handles.Measurements.(ObjectName).(FeatureName)(ImageSetNumber) = reshape(Data,size(ImageSetNumber));
+    end
 end

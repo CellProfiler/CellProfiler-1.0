@@ -37,15 +37,15 @@ if strcmpi(Mode,'DoNow')
     %%% handles structure.
     fieldname = ['Pathname', ImageName];
     try
-		Pathname = handles.Pipeline.(fieldname);
-	catch
-		error('Image processing was canceled because the CPaverageimages subfunction (which is used by Make Projection and Correct Illumination modules) uses all the images in a set in its calculations. Therefore, the entire image set to be averaged must exist prior to processing the first image set through the pipeline. In other words, the module using CPaverageimages must be run straight from a LoadImages module rather than following an image analysis module. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this module onward.')
+        Pathname = handles.Pipeline.(fieldname);
+    catch
+        error('Image processing was canceled because the CPaverageimages subfunction (which is used by Make Projection and Correct Illumination modules) uses all the images in a set in its calculations. Therefore, the entire image set to be averaged must exist prior to processing the first image set through the pipeline. In other words, the module using CPaverageimages must be run straight from a LoadImages module rather than following an image analysis module. One solution is to process the entire batch of images using the image analysis modules preceding this module and save the resulting images to the hard drive, then start a new stage of processing from this module onward.')
     end
     %%% Retrieves the list of filenames where the images are stored
     %%% from the handles structure.
     fieldname = ['FileList', ImageName];
     try
-        if ~isImageGroups,
+        if ~isImageGroups
             FileList = handles.Pipeline.(fieldname);
         else
             FileList = handles.Pipeline.GroupFileList{handles.Pipeline.CurrentImageGroupID}.(fieldname);
@@ -55,7 +55,7 @@ if strcmpi(Mode,'DoNow')
         error(['Image processing was canceled because the CPaverageimages subfunction (which is used by Make Projection and Correct Illumination modules) could not find the input image. CellProfiler expected to find an image named "', ImageName, '" but that image has not been created by the pipeline. Please adjust your pipeline to produce the image "', ImageName, '" prior to the use of the CPaverageimages subfunction.'])
     end
     %%% Calculates the mean image. Initializes the variable
-	TotalImage = ImageLoader(handles,ImageName,Pathname,FileList,1);
+    TotalImage = ImageLoader(handles,ImageName,Pathname,FileList,1);
     %%% Waitbar shows the percentage of image sets remaining.
     delete(findobj(allchild(0),'tag',mfilename));
     WaitbarHandle = CPwaitbar(0,'','tag',mfilename);
@@ -115,7 +115,7 @@ elseif strcmpi(Mode,'Accumulate')
     if SetBeingAnalyzed == StartingImageSet
         %%% Checks whether the image to be analyzed exists in the
         %%% handles structure.
-        if ~CPisimageinpipeline(handles, ImageName),
+        if ~CPisimageinpipeline(handles, ImageName)
             %%% If the image is not there, an error message is
             %%% produced.  The error is not displayed: The error
             %%% function halts the current function and returns
@@ -187,16 +187,16 @@ end
 function LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,idx)
 
 if ~isfield(handles.Pipeline,['FileFormat',ImageName])
-	LoadedImage = CPimread(fullfile(Pathname,char(FileList(idx))));
+    LoadedImage = CPimread(fullfile(Pathname,char(FileList(idx))));
 else
-	FileFormat = handles.Pipeline.(['FileFormat',ImageName]);
-	CurrentFileName = FileList(:,idx);
-	if findstr(FileFormat,'stk')
-		warning('off','CPtiffread:IgnoredTiffEntryWithTag');
-		LoadedRawImage = CPtiffread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
-		warning('on','CPtiffread:IgnoredTiffEntryWithTag');
-		LoadedImage = im2double(LoadedRawImage.data);
-	elseif any(strcmpi(FileFormat,{'tif','tiff','flex'}))
-		LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));
-	end
+    FileFormat = handles.Pipeline.(['FileFormat',ImageName]);
+    CurrentFileName = FileList(:,idx);
+    if findstr(FileFormat,'stk')
+        warning('off','CPtiffread:IgnoredTiffEntryWithTag');
+        LoadedRawImage = CPtiffread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
+        warning('on','CPtiffread:IgnoredTiffEntryWithTag');
+        LoadedImage = im2double(LoadedRawImage.data);
+    elseif any(strcmpi(FileFormat,{'tif','tiff','flex'}))
+        LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));
+    end
 end

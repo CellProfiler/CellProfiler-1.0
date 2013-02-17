@@ -66,7 +66,7 @@ while dlgno < 4
         case 2
             % Get feature prefixes for this object
             FeatureTypes = get_prefixes(fieldnames(handles.Measurements.(ObjectTypename)));
-            if (AllowObjectNumbers),
+            if (AllowObjectNumbers)
                 FeatureTypes{end + 1} = 'Object Number';
             end
             [Selection, ok] = CPlistdlg('ListString',FeatureTypes, 'ListSize', [300 400],...
@@ -78,7 +78,7 @@ while dlgno < 4
                 dlgno = 1;                  % Back button pressed, go back one step in the menu system
             else
                 FeatureType = FeatureTypes{Selection};
-                if strcmp(FeatureType, 'Object Number'),
+                if strcmp(FeatureType, 'Object Number')
                     %%% exit
                     FeatureName = 'Object Number';
                     dlgno = 4;

@@ -9,7 +9,7 @@ if ~ischar(toolboxstr) || ~ischar(verstr)
     error('MATLAB:verLessThan:invalidInput', 'Inputs must be strings.')
 end
 
-if ~isdeployed,
+if ~isdeployed
     toolboxver = ver(toolboxstr);
     if isempty(toolboxver)
         error('MATLAB:verLessThan:missingToolbox', 'Toolbox ''%s'' not found.', toolboxstr)

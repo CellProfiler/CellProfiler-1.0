@@ -136,7 +136,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
       indices = find(PrelimPrimaryLabelMatrixImage > 0);
       [FinalLabelMatrixImage, SegmentationProbabilities] = ...
           CPrandomwalker(OrigImage, indices, ...
-                    	 PrelimPrimaryLabelMatrixImage(indices), Beta);
+                         PrelimPrimaryLabelMatrixImage(indices), Beta);
     elseif strcmp(IdentChoice, 'Ljosa and Singh')
         nseeds = max(max(PrelimPrimaryLabelMatrixImage));
         SegmentationProbabilities = zeros(size(OrigImage,1), size(OrigImage,2), nseeds);

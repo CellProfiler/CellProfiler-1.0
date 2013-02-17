@@ -9,8 +9,8 @@ drawnow;
 %% This allows message boxes to be closed with 'Windows -> Close All'
 userData.Application = 'CellProfiler';
 tempstring = varargin{1};
-if iscell(tempstring),
-    for i=1:length(tempstring),
+if iscell(tempstring)
+    for i=1:length(tempstring)
         % add a newline to each line of the input
         tempstring{i} = [tempstring{i} 10];
     end

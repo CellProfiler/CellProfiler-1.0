@@ -170,7 +170,7 @@ for m = 1:length(uniquePaths)
     % Combine all the filename prefixes to find what the "master list"
     % should look like
     AllFileNamesForChannelN = [];
-    for n = 1:length(ImageName),
+    for n = 1:length(ImageName)
         cellFileNamesForChannelN = cellstr(FileNamesForChannelN{n});
         AllFileNamesForChannelN = union(cellFileNamesForChannelN,AllFileNamesForChannelN);
 
@@ -188,7 +188,7 @@ for m = 1:length(uniquePaths)
     % files....
     NewFileList{m} = cell(length(ImageName),length(AllFileNamesForChannelN));
     [NewFileList{m}{:}] = deal('');
-    for n = 1:length(ImageName),
+    for n = 1:length(ImageName)
         [idxFileList,locFileList] = ismember(AllFileNamesForChannelN,cellstr(FileNamesForChannelN{n}));
         idxPathlist = idxIndivPaths{n} == m;
         FullFilenames = cellfun(@fullfile,IndivPathnames{n}(idxPathlist),...
@@ -207,14 +207,14 @@ for m = 1:length(uniquePaths)
     end
 
     % ... check whether the unmatched images are corrupt...
-    if ~isempty(UnmatchedFilenames{m}),
+    if ~isempty(UnmatchedFilenames{m})
         NewFileList{m} = FindAndReplaceCorruptFilesInFilelist(handles,NewFileList{m},UnmatchedFilenames{m},m,FileNamesForChannelN,idxIndivPaths,IndivPathnames,IndivFileNames,IndivFileExtensions,fn,prefix);
     end
 
     % ... and removing duplicate files, also by checking integrity.
     % ASSUMPTION: A duplicate file means that one of them is corrupted,
     % which seems to be the case on HCS systems
-    if ~isempty(DuplicateFilenames{m}),
+    if ~isempty(DuplicateFilenames{m})
         [NewFileList{m},idxDuplicateFiles{m}] = FindAndReplaceCorruptFilesInFilelist(handles,NewFileList{m},DuplicateFilenames{m},m,FileNamesForChannelN,idxIndivPaths,IndivPathnames,IndivFileNames,IndivFileExtensions,fn,prefix);
     else
         idxDuplicateFiles{m} = zeros(1,size(NewFileList{m},2));
@@ -222,16 +222,16 @@ for m = 1:length(uniquePaths)
 end
 
 % Save the new filelist to the handles structure
-for m = 1:length(ImageName),
+for m = 1:length(ImageName)
     handles.Pipeline.(fn{m}) = [];
-    for n = 1:length(uniquePaths),
+    for n = 1:length(uniquePaths)
         handles.Pipeline.(fn{m}) = cat(2,handles.Pipeline.(fn{m}), NewFileList{n}(m,:));
     end
 end
 
 % Save the results to the handles structure
 [handles.Pipeline.idxUnmatchedFiles,handles.Pipeline.idxDuplicateFiles] = deal([]);
-for m = 1:length(uniquePaths),
+for m = 1:length(uniquePaths)
     handles.Pipeline.idxUnmatchedFiles = cat(2,handles.Pipeline.idxUnmatchedFiles, num2cell(idxUnmatchedFiles{m}));
     handles.Pipeline.idxDuplicateFiles = cat(2,handles.Pipeline.idxDuplicateFiles, num2cell(idxDuplicateFiles{m}));
 end
@@ -256,8 +256,8 @@ if all(cellfun(@isempty,UnmatchedDirectories))
 else
     isWarningNeeded = true;
     for n = 1:length(UnmatchedDirectories)
-        if ~isempty(UnmatchedDirectories{n}),
-            for m = 1:size(UnmatchedDirectories{n},1),
+        if ~isempty(UnmatchedDirectories{n})
+            for m = 1:size(UnmatchedDirectories{n},1)
                 TextString{end+1} = ['    ',UnmatchedDirectories{n}{m,:}];
                 warningLength = warningLength + 1;
             end
@@ -275,12 +275,12 @@ else
     isWarningNeeded = true;
     TextString{end} = [TextString{end},' (File prefix, followed by duplicated channel)'];
     for n = 1:length(DuplicateFilenames)
-        if ~isempty(DuplicateFilenames{n}),
+        if ~isempty(DuplicateFilenames{n})
             if ~isempty(uniquePaths{n})
                 TextString{end+1} = ['  Subdirectory: ',uniquePaths{n}];
                 warningLength = warningLength + 1;
             end
-            for m = 1:size(DuplicateFilenames{n},1),
+            for m = 1:size(DuplicateFilenames{n},1)
                 TextString{end+1} = ['    ',DuplicateFilenames{n}{m,1},':  ',num2str(DuplicateFilenames{n}{m,2})];
                 warningLength = warningLength + 1;
             end
@@ -298,12 +298,12 @@ else
     isWarningNeeded = true;
     TextString{end} = [TextString{end},' (File prefix, followed by channel found)'];
     for n = 1:length(UnmatchedFilenames)
-        if ~isempty(UnmatchedFilenames{n}),
+        if ~isempty(UnmatchedFilenames{n})
             if ~isempty(uniquePaths{n})
                 TextString{end+1} = ['  Subdirectory: ',uniquePaths{n}];
                 warningLength = warningLength + 1;
             end
-            for m = 1:size(UnmatchedFilenames{n},1),
+            for m = 1:size(UnmatchedFilenames{n},1)
                 TextString{end+1} = ['    ',UnmatchedFilenames{n}{m,1},':  ',num2str(UnmatchedFilenames{n}{m,2})];
                 warningLength = warningLength + 1;
             end
@@ -343,13 +343,13 @@ else
 end
 
 % Output file if desired
-if strncmpi(SaveOutputFile,'y',1),
+if strncmpi(SaveOutputFile,'y',1)
     OutputPathname = handles.Current.DefaultOutputDirectory;
     OutputFilename = [mfilename,'_output'];
     OutputExtension = '.txt';
 
     fid = fopen(fullfile(OutputPathname,[OutputFilename OutputExtension]),'wt+');
-    if fid > 0,
+    if fid > 0
         for i = 1:length(TextString)
             fprintf(fid,'%s\n',TextString{i});
         end
@@ -378,7 +378,7 @@ for n = 1:size(FlaggedFilenames,1)
 
     % Check whether the mismatch is corrupt by attempting an imread
     isImageCorrupt = false(1,length(FlaggedFileList));
-    for k = 1:length(FlaggedFileList),
+    for k = 1:length(FlaggedFileList)
         try
             CPimread(fullfile(handles.Pipeline.(['Pathname',FileListFieldnames{channel}(length(FileListPrefix)+1:end)]),FlaggedFileList{k}));
         catch

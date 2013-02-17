@@ -24,17 +24,17 @@ for i = 1:length(ObjectFields)
     end
 
     % Are there any old-style measurements?
-    if ~ any(cell2mat(regexp(MeasureFields, 'Features$'))),
+    if ~ any(cell2mat(regexp(MeasureFields, 'Features$')))
         continue;
     end
 
     for j = 1:length(MeasureFields)
         Offset = 0;
 
-        if regexp(MeasureFields{j}, 'Features$'),
+        if regexp(MeasureFields{j}, 'Features$')
             Offset = 8;
         end
-        if regexp(MeasureFields{j}, 'Text$'),
+        if regexp(MeasureFields{j}, 'Text$')
             Offset = 4;
         end
 
@@ -43,10 +43,10 @@ for i = 1:length(ObjectFields)
             continue;
         end
 
-        if ~ HaveQueried,
+        if ~ HaveQueried
             HaveQueried = true;
             Proceed = CPquestdlg('Measurements from a previous version of CellProfiler detected.  Processing of this data may require using the same version of CellProfiler that created them.  Should an attempt be made to read them anyway?', 'Out-of-date Measurements Detected', 'Yes', 'No', 'Yes');
-            if strcmp(Proceed, 'No'),
+            if strcmp(Proceed, 'No')
                 return;
             end
         end
@@ -61,7 +61,7 @@ for i = 1:length(ObjectFields)
         handles.Measurements.(ObjectName) = rmfield(handles.Measurements.(ObjectName), BaseFeatureName);
 
         % Write them back with new names
-        for k = 1:length(SubFeatureNames),
+        for k = 1:length(SubFeatureNames)
             NewName = CPjoinstrings(BaseFeatureName, SubFeatureNames{k});
             NewName(findstr(NewName, ' ')) = '_';
             handles.Measurements.(ObjectName).(NewName) = ...

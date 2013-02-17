@@ -57,14 +57,14 @@ if PlotType == 4
     uiwait(msg);
     [Object,Feature] = CPgetfeature(handles, 1);
     if isempty(Object) || isempty(Object2)
-	return;
+    return;
     end
     CPplotmeasurement(handles,PlotType,[],0,Object,Feature,Object2,Feature2)
 else
     %%% Get the feature type
     [Object,Feature] = CPgetfeature(handles, 1);
     if isempty(Object)
-	return;
+    return;
     end
     CPplotmeasurement(handles,PlotType,[],0,Object,Feature)
 end

@@ -22,7 +22,7 @@ handles = CP_convert_old_measurements(handles);
 
 %%% Do we need to compute means/medians/stddevs?
 ExcludedObjectNames = {'Image', 'Experiment', 'Neighbors'};
-if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataParameter, {'mean', 'std', 'median'})),
+if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataParameter, {'mean', 'std', 'median'}))
     CompositeValues = {};
     CompositeNames = {};
     if ~isBatchRun, CPwaitbar(0,waitbarhandle,['Export Status - computing ', ExportInfo.DataParameter, 's']); end
@@ -32,7 +32,7 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
     AllFields = fieldnames(handles.Measurements);
     for i = 1:length(AllFields)
         ObjectName = AllFields{i};
-        if any(strcmp(ObjectName,ExcludedObjectNames)),
+        if any(strcmp(ObjectName,ExcludedObjectNames))
             continue;
         end
         FieldCount = FieldCount + length(fieldnames(handles.Measurements.(ObjectName)));
@@ -40,7 +40,7 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
 
     % find the function to reduce values with
     if ExportInfo.IgnoreNaN == 1
-        switch ExportInfo.DataParameter,
+        switch ExportInfo.DataParameter
             case 'mean'
                 reducer = @CPnanmean;
             case 'std'
@@ -49,7 +49,7 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
                 reducer = @CPnanmedian;
         end
     else
-        switch ExportInfo.DataParameter,
+        switch ExportInfo.DataParameter
             case 'mean'
                 reducer = @mean;
             case 'std'
@@ -63,7 +63,7 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
     FieldsCompleted = 0;
     for i = 1:length(AllFields)
         ObjectName = AllFields{i};
-        if any(strcmp(ObjectName, ExcludedObjectNames)),
+        if any(strcmp(ObjectName, ExcludedObjectNames))
             continue;
         end
 
@@ -83,7 +83,7 @@ if any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataPar
 
             Values = handles.Measurements.(ObjectName).(fieldname);
             % loop over images
-            for v = 1:length(Values),
+            for v = 1:length(Values)
                 CompositeValues{v, FieldsCompleted} = reducer(Values{v});
             end
         end
@@ -124,14 +124,14 @@ for Object = 1:length(ExportInfo.ObjectNames)
     fprintf(fid,'%s\n\n', ObjectName);
 
     %%% Special case: Experiments
-    if strcmp(ObjectName, 'Experiment'),
+    if strcmp(ObjectName, 'Experiment')
         fields = fieldnames(handles.Measurements.(ObjectName));
         for k = 1:length(fields)
             fieldname = fields{k};
             val = handles.Measurements.(ObjectName).(fieldname);
-            if isnumeric(val),
+            if isnumeric(val)
                 fprintf(fid, '%s\t%f\n', fieldname, val);
-            elseif ischar(val),
+            elseif ischar(val)
                 fprintf(fid, '%s\t%s\n', fieldname, val);
             else
                 error(['Don''t know how to export Experiment measurement ' fieldname '.']);
@@ -148,7 +148,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
     end
 
     %%% Find number of objects for each image
-    if strcmp(ObjectName, 'Image'),
+    if strcmp(ObjectName, 'Image')
         fields = fieldnames(handles.Measurements.Image);
         NumObjects = ones(length(handles.Measurements.Image.(fields{1})), 1);
     else
@@ -156,10 +156,10 @@ for Object = 1:length(ExportInfo.ObjectNames)
         for k = 1:length(fields)
             fieldname = fields{k};
             FieldValues = handles.Measurements.(ObjectName).(fieldname);
-            for l = 1:length(FieldValues),
+            for l = 1:length(FieldValues)
                 Lengths(l) = length(FieldValues{l});
             end
-            if k == 1,
+            if k == 1
                 NumObjects = Lengths;
             else
                 NumObjects = max(Lengths, NumObjects);
@@ -184,8 +184,8 @@ for Object = 1:length(ExportInfo.ObjectNames)
         ValueNames{k} = fieldname;
 
         %%% Some measurements might not exist for all objects, so we need to bring them to full size
-        if length(FieldValues) > length(ImageOffsets),
-            if strncmp(fieldname, 'LoadedText', length('LoadedText')),
+        if length(FieldValues) > length(ImageOffsets)
+            if strncmp(fieldname, 'LoadedText', length('LoadedText'))
                 append = '  The AddData data tool can be used to reload the data if necessary.  Also note that there are exceptions to this, such as DisplayGridInfo, in which case you do not expect there to be a one-to-one cycle-to-LoadText entry mapping.  In these cases, please ignore this warning.';
             else
                 append = '';
@@ -195,23 +195,23 @@ for Object = 1:length(ExportInfo.ObjectNames)
         end
 
 
-        if length(FieldValues) < length(ImageOffsets) && strncmp(fieldname, 'LoadedText', length('LoadedText')),
+        if length(FieldValues) < length(ImageOffsets) && strncmp(fieldname, 'LoadedText', length('LoadedText'))
             CPwarndlg(['The ' ObjectName '.' fieldname ' feature contained too few measurements relative to number of images, and has been extended with empty values.  The AddData data tool can be used to reload the data if necessary.']);
         end
 
-        for l = 1:length(FieldValues),
-            if ischar(FieldValues{l}),
+        for l = 1:length(FieldValues)
+            if ischar(FieldValues{l})
                 Values{ImageOffsets(l), k} = FieldValues{l};
             elseif iscell(FieldValues{l})
                 numvals = length(FieldValues{l});
                 destination = ImageOffsets(l):(ImageOffsets(l)+numvals-1);
-                for d = 1:numvals,
+                for d = 1:numvals
                     Values{destination(d), k} = FieldValues{l}{d};
                 end
             else
                 numvals = length(FieldValues{l});
                 destination = ImageOffsets(l):(ImageOffsets(l)+numvals-1);
-                for d = 1:numvals,
+                for d = 1:numvals
                     Values{destination(d), k} = FieldValues{l}(d);
                 end
             end
@@ -219,7 +219,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
     end
 
     %%% If Image data, and computing composite data, join the two for export
-    if strcmp(ObjectName, 'Image') && any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataParameter, {'mean', 'std', 'median'})),
+    if strcmp(ObjectName, 'Image') && any(strcmp('Image', ExportInfo.ObjectNames)) && any(strcmp(ExportInfo.DataParameter, {'mean', 'std', 'median'}))
         Values = [Values CompositeValues];
         ValueNames = [ValueNames CompositeNames];
     end
@@ -230,7 +230,7 @@ for Object = 1:length(ExportInfo.ObjectNames)
     ImageFilenameFields = AllImageFields(strmatch('FileName', AllImageFields));
     FirstFilename = ImageFilenameFields{1};
     imageidx = 1;
-    for k = ImageOffsets(:)',
+    for k = ImageOffsets(:)'
         Prefix{k, 1} = sprintf('Set #%d, %s',imageidx,handles.Measurements.Image.(FirstFilename){imageidx});
         imageidx = imageidx + 1;
     end
@@ -251,22 +251,22 @@ for Object = 1:length(ExportInfo.ObjectNames)
 
     %%% Write tab-separated file that can be imported into Excel
     %%% row or columns major?
-    if strcmp(ExportInfo.SwapRowsColumnInfo,'No'),
+    if strcmp(ExportInfo.SwapRowsColumnInfo,'No')
         %%% Write feature names
         % lead with an extra tab to offset from image set info, which was prefixed into Values
         fprintf(fid, '\t%s', ValueNames{:});
         fprintf(fid, '\n');
 
         % loop over rows of the data
-        for row = 1:size(Values, 1),
-            for col = 1:size(Values, 2),
-                if col ~= 1,
+        for row = 1:size(Values, 1)
+            for col = 1:size(Values, 2)
+                if col ~= 1
                     fprintf(fid, '\t');
                 end
                 val = Values{row, col};
-                if isempty(val) || (isnumeric(val) && isnan(val)),
+                if isempty(val) || (isnumeric(val) && isnan(val))
                     fprintf(fid, '');
-                elseif ischar(val),
+                elseif ischar(val)
                     fprintf(fid, '%s', val);
                 else
                     fprintf(fid, '%d', val);
@@ -279,16 +279,16 @@ for Object = 1:length(ExportInfo.ObjectNames)
         ValueNames = {'', ValueNames{:}};
 
         %%% loop over columns
-        for col = 1:size(Values, 2),
+        for col = 1:size(Values, 2)
             %%% Feature name
             fprintf(fid, '%s', ValueNames{col});
 
             % loop over rows of the data
-            for row = 1:size(Values, 1),
+            for row = 1:size(Values, 1)
                 val = Values{row, col};
-                if isempty(val) || (isnumeric(val) && isnan(val)),
+                if isempty(val) || (isnumeric(val) && isnan(val))
                     fprintf(fid, '\t');
-                elseif ischar(val),
+                elseif ischar(val)
                     fprintf(fid, '\t%s', val);
                 else
                     fprintf(fid, '\t%d', val);

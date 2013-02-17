@@ -26,13 +26,13 @@ function m = CPnanstd(x)
 
 assert(length(size(x)) <= 2, 'CPnanstd can only operate on vectors and 2D matrices.');
 
-if isempty(x(:)),
+if isempty(x(:))
     m = NaN;
-elseif ~any(isnan(x(:))),
+elseif ~any(isnan(x(:)))
     m = std(x);
 else
     % If it's a row vector, just return the std of that vector
-    if size(x, 1) == 1,
+    if size(x, 1) == 1
         m = std(x(~isnan(x)));
     else
         % 2D matrix
@@ -41,7 +41,7 @@ else
         m = zeros(1, size(x, 2));
 
         % work by columns
-        for i = 1:size(x, 2),
+        for i = 1:size(x, 2)
             col = x(:, i);
             m(i) = std(col(~isnan(col)));
         end

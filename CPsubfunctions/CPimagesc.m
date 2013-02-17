@@ -49,9 +49,9 @@ if exist('linkaxes','file'),    % Make sure linkaxes exists (available in > R13)
     %%% Make sure the axis limits are the same in all axes, otherwise
     %%% linkaxes will adjust them all to the same value (which would be bad)
     AllAxesLimits = [get(AllAxesHandles,'xlim') get(AllAxesHandles,'ylim')];
-    if size(AllAxesLimits,1) > 1,
+    if size(AllAxesLimits,1) > 1
         AllAxesLimits = cell2mat(AllAxesLimits);
-        if size(unique(AllAxesLimits,'rows'),1) == 1,
+        if size(unique(AllAxesLimits,'rows'),1) == 1
             linkaxes(AllAxesHandles,'xy');
         end
     end
@@ -72,7 +72,7 @@ FigUserData = get(CurrentFig,'Userdata');
 
 Font = handles.Preferences.FontSize;
 
-if isempty(findobj(CurrentFig,'tag','ToggleColorR')),
+if isempty(findobj(CurrentFig,'tag','ToggleColorR'))
     uicontrol('Style', 'checkbox', ...
         'Units','normalized',...
         'Position', [.93 .6 .06 .04], ...
@@ -81,7 +81,7 @@ if isempty(findobj(CurrentFig,'tag','ToggleColorR')),
         'max',1,'value',1,'tag','ToggleColorR','string','R');
 end
 
-if isempty(findobj(CurrentFig,'tag','ToggleColorG')),
+if isempty(findobj(CurrentFig,'tag','ToggleColorG'))
     uicontrol('Style', 'checkbox', ...
         'Units','normalized',...
         'Position', [.93 .55 .06 .04], ...
@@ -90,7 +90,7 @@ if isempty(findobj(CurrentFig,'tag','ToggleColorG')),
         'max',1,'value',1,'tag','ToggleColorG','string','G');
 end
 
-if isempty(findobj(CurrentFig,'tag','ToggleColorB')),
+if isempty(findobj(CurrentFig,'tag','ToggleColorB'))
     uicontrol('Style', 'checkbox', ...
         'Units','normalized',...
         'Position', [.93 .50 .06 .04], ...
@@ -99,7 +99,7 @@ if isempty(findobj(CurrentFig,'tag','ToggleColorB')),
         'max',1,'value',1,'tag','ToggleColorB','string','B');
 end
 
-%%% The RBG buttons default to being drawn for each individual axes object,
+%%% The RBG buttons default to being drawn for each individual axes object
 %%% but we delete RGB buttons if there are no color images in the figure
 if isfield(FigUserData,'MyHandles')
     for i = length(ImageHandles):-1:1
@@ -123,35 +123,35 @@ ImageHandles = findobj(gcbf,'Type','Image');
 str = get(gcbo,'tag');
 ToggleColor = lower(str(end));
 
-switch ToggleColor,
+switch ToggleColor
     case 'r', index = 1;
     case 'g', index = 2;
     case 'b', index = 3;
 end
 
-for i = length(ImageHandles):-1:1,
-    if size(size(get(ImageHandles(i),'CData')),2)~=3,
+for i = length(ImageHandles):-1:1
+    if size(size(get(ImageHandles(i),'CData')),2)~=3
         ImageHandles(i) = [];
     end
 end
-if ~isempty(ImageHandles),
+if ~isempty(ImageHandles)
     AllData = get(ImageHandles,'CData');
     ImageHandles = num2cell(ImageHandles);
-    if ~iscell(AllData),
+    if ~iscell(AllData)
         AllData = {AllData};
     end
-    for i = 1:length(AllData),
+    for i = 1:length(AllData)
         tempdata{i} = AllData{i}(:,:,index);
     end
     for i = 1:length(AllData)
         data = AllData{i};
-        if get(hObject,'value') == 0,
+        if get(hObject,'value') == 0
             set(hObject,'UserData',tempdata);
             data(:,:,index) = 0;
             set(ImageHandles{i},'CData',data);
         else
             tempdata = get(hObject,'UserData');
-            if ~iscell(tempdata),
+            if ~iscell(tempdata)
                 tempdata = {tempdata};
             end
             data(:,:,index) = tempdata{i};
