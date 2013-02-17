@@ -232,16 +232,16 @@ function handles = LoadImages(handles)
 % 1. File > New Project
 % 2. File > Import (select the movie)
 % 3. File > Share
-% 	Choose the QuickTime tab
-% 	Compress movie for Expert Settings, click Share
-% 	Name the file, choose Export: Movie to Avi
-% 	Click Options...
-% 	Click Settings...
-% 		Compression = None
-% 		Depth = Millions of Colors (NOT "+")
-% 		Quality = best
-% 		Frames per second = doesn't matter.
-% 	OK, OK, Save
+%    Choose the QuickTime tab
+%    Compress movie for Expert Settings, click Share
+%    Name the file, choose Export: Movie to Avi
+%    Click Options...
+%    Click Settings...
+%        Compression = None
+%        Depth = Millions of Colors (NOT "+")
+%        Quality = best
+%        Frames per second = doesn't matter.
+%    OK, OK, Save
 %
 % 4. To check/troubleshoot the conversion, you can use the following
 % commands in Matlab:
@@ -439,7 +439,7 @@ if SetBeingAnalyzed == 1
         if length(Pathname) == 1
             Pathname = handles.Current.DefaultImageDirectory;
         else
-	    % If the pathname start with '.', interpret it relative to
+        % If the pathname start with '.', interpret it relative to
         % the default image dir.
             Pathname = fullfile(handles.Current.DefaultImageDirectory,strrep(strrep(Pathname(2:end),'/',filesep),'\',filesep),'');
         end
@@ -447,7 +447,7 @@ if SetBeingAnalyzed == 1
         if length(Pathname) == 1
             Pathname = handles.Current.DefaultOutputDirectory;
         else
-	    % If the pathname start with '&', interpret it relative to
+        % If the pathname start with '&', interpret it relative to
         % the default output dir.
             Pathname = fullfile(handles.Current.DefaultOutputDirectory,strrep(strrep(Pathname(2:end),'/',filesep),'\',filesep),'');
         end
@@ -457,7 +457,6 @@ if SetBeingAnalyzed == 1
     end
 
     if strcmp(LoadChoice,'Order')
-
         if strcmp(ImageOrMovie,'Image')
             % Get all filenames in the specified directory wich contains the specified extension (e.g., .tif, .jpg, .DIB).
             % Note that there is no check that the extensions actually is the last part of the filename.
@@ -531,8 +530,8 @@ if SetBeingAnalyzed == 1
                         try
                             %%% Reads metamorph or NIH ImageJ movie stacks of tiffs.
                             warning('off','CPtiffread:IgnoredTiffEntryWithTag');
-							[S, NumFrames] = CPtiffread(fullfile(Pathname, CurrentMovieFileName),1);
-							warning('on','CPtiffread:IgnoredTiffEntryWithTag');
+                            [S, NumFrames] = CPtiffread(fullfile(Pathname, CurrentMovieFileName),1);
+                            warning('on','CPtiffread:IgnoredTiffEntryWithTag');
 
                             for FrameNumber = 1:NumFrames
                                 %%% Puts the file name into the FrameByFrameFileList in the first row.
@@ -680,9 +679,9 @@ if SetBeingAnalyzed == 1
                     elseif strcmpi(FileFormat,'stk movies') == 1
                         %%% Reads metamorph or NIH ImageJ movie stacks of tiffs.
                         warning('off','CPtiffread:IgnoredTiffEntryWithTag');
-						[S, NumFrames] = CPtiffread(fullfile(Pathname, CurrentMovieFileName),1);
+                        [S, NumFrames] = CPtiffread(fullfile(Pathname, CurrentMovieFileName),1);
                         warning('on','CPtiffread:IgnoredTiffEntryWithTag');
-						for FrameNumber = 1:NumFrames
+                        for FrameNumber = 1:NumFrames
                             %%% Puts the file name into the FrameByFrameFileList in the first row.
                             FrameByFrameFileList{n}(1,StartingPositionForThisMovie + FrameNumber) = {CurrentMovieFileName};
                             %%% Puts the frame number into the FrameByFrameFileList in the second row.
@@ -859,7 +858,7 @@ for n = 1:length(ImageName)
                 %%%If you do not subtract 1 from the index, as specified
                 %%%in aviread.m, the  movie will fail to load.  However,
                 %%%the first frame will fail if the index=0.
-            	IndexLocation=(cell2mat(CurrentFileName(2)));
+                IndexLocation=(cell2mat(CurrentFileName(2)));
                 NumberOfImageSets = handles.Current.NumberOfImageSets;
                 if (cell2mat(CurrentFileName(2)) ~= NumberOfImageSets)
                 LoadedRawImage = aviread(fullfile(Pathname, char(CurrentFileName(1))), (IndexLocation));
@@ -870,9 +869,9 @@ for n = 1:length(ImageName)
                 end
             elseif strcmpi(FileFormat,'stk movies') == 1
                 warning('off','CPtiffread:IgnoredTiffEntryWithTag');
-				LoadedRawImage = CPtiffread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
+                LoadedRawImage = CPtiffread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
                 warning('on','CPtiffread:IgnoredTiffEntryWithTag');
-				LoadedImage = im2double(LoadedRawImage.data);
+                LoadedImage = im2double(LoadedRawImage.data);
             elseif (strcmpi(FileFormat,'tif,tiff,flex movies') == 1)
                 LoadedRawImage = CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
                 LoadedImage = im2double(LoadedRawImage);
