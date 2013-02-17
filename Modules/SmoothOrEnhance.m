@@ -228,28 +228,28 @@ if ~strcmp(SizeOfSmoothingFilter,'Do not use')
 else
     if ~isempty(regexp(ObjectWidth,'\d+','once'))
         ObjectWidth = str2double(regexp(ObjectWidth,'\d+','match'));
-		if length(ObjectWidth) == 1  % Single number,
-			if isnan(ObjectWidth) || ObjectWidth < 0
-				if isempty(findobj('Tag',['Msgbox_' ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Object width invalid']))
-					CPwarndlg(['The object width you specified  in the ', ModuleName, ' module is invalid, it is being reset to Automatic.'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Object width invalid'],'replace');
-				end
-				SizeOfSmoothingFilter = 'A';
-				WidthFlg = 0;
-			else
-				SizeOfSmoothingFilter = 2*floor(ObjectWidth/2);
-				WidthFlg = 1;
-			end
-		else % Range of numbers
-			if isempty(strfind(SmoothingMethod,'Dark Holes'))
-				CPwarndlg(['The object width you specified  in the ', ModuleName, ' module is not appropriate for Enhance Dark Holes, it is being reset to Automatic.'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Object width invalid'],'replace');
-				SizeOfSmoothingFilter = 'A';
-				WidthFlg = 0;
-			else
-				SizeOfSmoothingFilter = 2*floor(ObjectWidth/2);
-				WidthFlg = 1;
-			end
-		end
-	else
+        if length(ObjectWidth) == 1  % Single number,
+            if isnan(ObjectWidth) || ObjectWidth < 0
+                if isempty(findobj('Tag',['Msgbox_' ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Object width invalid']))
+                    CPwarndlg(['The object width you specified  in the ', ModuleName, ' module is invalid, it is being reset to Automatic.'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Object width invalid'],'replace');
+                end
+                SizeOfSmoothingFilter = 'A';
+                WidthFlg = 0;
+            else
+                SizeOfSmoothingFilter = 2*floor(ObjectWidth/2);
+                WidthFlg = 1;
+            end
+        else % Range of numbers
+            if isempty(strfind(SmoothingMethod,'Dark Holes'))
+                CPwarndlg(['The object width you specified  in the ', ModuleName, ' module is not appropriate for Enhance Dark Holes, it is being reset to Automatic.'],[ModuleName ', ModuleNumber ' num2str(CurrentModuleNum) ': Object width invalid'],'replace');
+                SizeOfSmoothingFilter = 'A';
+                WidthFlg = 0;
+            else
+                SizeOfSmoothingFilter = 2*floor(ObjectWidth/2);
+                WidthFlg = 1;
+            end
+        end
+    else
         SizeOfSmoothingFilter = 'A';
         WidthFlg = 0;
     end

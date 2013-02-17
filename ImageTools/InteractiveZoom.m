@@ -171,7 +171,7 @@ msgstr = sprintf('x = %3.0f;  y = %3.0f',0,0);
 
 zoomparams.dispbox2 = uicontrol('style','text',...
     'backgroundcolor','k','foregroundcolor',[0.7 0.7 0.7],...
-	'Position',PointsPerPixel*[FigurePosition(3)-158 3 159 22],...
+    'Position',PointsPerPixel*[FigurePosition(3)-158 3 159 22],...
     'string',msgstr,...
     'horizontalalignment','center');
 setappdata(gcf,'zoomparams',zoomparams);
@@ -260,13 +260,13 @@ end
 
 switch get(FigHandle,'selectiontype')
 case 'normal'
-	zoomparams.pct = max(0.01,zoomparams.pct*0.9);
+    zoomparams.pct = max(0.01,zoomparams.pct*0.9);
 case 'alt'
-	zoomparams.pct = min(1,zoomparams.pct*1.1);
+    zoomparams.pct = min(1,zoomparams.pct*1.1);
 case 'extend'
-	set(zoomparams.currax,'xlim',zoomparams.oldxlim,'ylim',zoomparams.oldylim,'zlim',zoomparams.oldzlim);
+    set(zoomparams.currax,'xlim',zoomparams.oldxlim,'ylim',zoomparams.oldylim,'zlim',zoomparams.oldzlim);
 case 'open'
-	zoomparams.pct = 1;
+    zoomparams.pct = 1;
 end
 
 zoomparams.xdist = zoomparams.pct*zoomparams.xrange;

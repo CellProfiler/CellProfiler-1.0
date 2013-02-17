@@ -146,24 +146,24 @@ end
 if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
     %%% Parse text file %%%
     fid = fopen(fullfile(PathName,TextFileName),'r');
-	if fid == -1
-		error(['Image processing was canceled in the ', ModuleName, ' module because the file could not be opened.  It might not exist or you might not have given its valid location. You specified this: ',fullfile(PathName,TextFileName)]);
-	end
+    if fid == -1
+        error(['Image processing was canceled in the ', ModuleName, ' module because the file could not be opened.  It might not exist or you might not have given its valid location. You specified this: ',fullfile(PathName,TextFileName)]);
+    end
 
-	s = textscan(fid,'%s','Delimiter','\n'); s = s{:};
-	%%% Get description
-	if ~regexp(s{1},'^DESCRIPTION')
+    s = textscan(fid,'%s','Delimiter','\n'); s = s{:};
+    %%% Get description
+    if ~regexp(s{1},'^DESCRIPTION')
         error(['Image processing was canceled in the ', ModuleName, ' module because the first line in the text information file is ', s, '. The first line of the file must start with DESCRIPTION.'])
-	end
-	Description = regexp(s{1},'^DESCRIPTION(\s*)(?<Description>.*)','tokens','once');
-	Description = Description{2};
-	s = s(2:end);	% Skip to next line
+    end
+    Description = regexp(s{1},'^DESCRIPTION(\s*)(?<Description>.*)','tokens','once');
+    Description = Description{2};
+    s = s(2:end);    % Skip to next line
 
-	Text = cellfun(@strrep,s,repmat({sprintf('\t')},size(s)),repmat({' '},size(s)),'UniformOutput',false);
-	fclose(fid);
+    Text = cellfun(@strrep,s,repmat({sprintf('\t')},size(s)),repmat({' '},size(s)),'UniformOutput',false);
+    fclose(fid);
 
     %%% Add the data
-	handles = CPaddmeasurements(handles,'Image',CPjoinstrings('LoadedText',FieldName),Text,1:length(Text));
+    handles = CPaddmeasurements(handles,'Image',CPjoinstrings('LoadedText',FieldName),Text,1:length(Text));
 
     %%%%%%%%%%%%%%%%%%%%%%%
     %%% DISPLAY RESULTS %%%

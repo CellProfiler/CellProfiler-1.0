@@ -66,19 +66,19 @@ else
 end
 
 if any(strcmp(SkipChoice,{'Skip','Pause'}))
-	ButtonName = CPquestdlg({['Continue processing' SkipTxt '?'];'';'Note: Press Ctrl+C to interact with CellProfiler windows while paused.'},...
-		'PauseCellProfiler',...
-		'Continue','Cancel',...
-		'Continue');
+    ButtonName = CPquestdlg({['Continue processing' SkipTxt '?'];'';'Note: Press Ctrl+C to interact with CellProfiler windows while paused.'},...
+        'PauseCellProfiler',...
+        'Continue','Cancel',...
+        'Continue');
 
-	switch ButtonName
-		case 'Continue'
+    switch ButtonName
+        case 'Continue'
 
-		case 'Cancel'
+        case 'Cancel'
 
-			%%% This should cause a cancel so no further processing is done
-			%%% on this machine.
-			set(handles.timertexthandle,'string','Canceling after current module')
-	end
+            %%% This should cause a cancel so no further processing is done
+            %%% on this machine.
+            set(handles.timertexthandle,'string','Canceling after current module')
+    end
 end
 

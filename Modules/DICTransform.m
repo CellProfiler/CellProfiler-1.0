@@ -172,14 +172,14 @@ end
 
 %%% Transforms the image.
 if strcmpi(Method, 'Line integration')
-	TransformedImage = CPlineintegration(AlignedImage, DecayRate, PerpDecayRate, Direction);
+    TransformedImage = CPlineintegration(AlignedImage, DecayRate, PerpDecayRate, Direction);
 elseif strcmpi(Method, 'Variance filter')
-	TransformedImage = CPvariancefilter(AlignedImage, FilterSize, FilterStdev);
+    TransformedImage = CPvariancefilter(AlignedImage, FilterSize, FilterStdev);
 elseif strcmpi(Method, 'Hilbert transform')
-	TransformedImage = CPhilberttransform(AlignedImage, HTIterations, Alpha, FreqSuppress, Direction);
+    TransformedImage = CPhilberttransform(AlignedImage, HTIterations, Alpha, FreqSuppress, Direction);
 elseif strcmpi(Method, 'Energy minimization')
     if strcmpi(ErrorFunction, 'Square')
-    	TransformedImage = CPminimizeenergy(AlignedImage, SmoothFactor, FlatFactor, MEIterations, Direction);
+        TransformedImage = CPminimizeenergy(AlignedImage, SmoothFactor, FlatFactor, MEIterations, Direction);
     elseif strcmpi(ErrorFunction, 'Absolute value')
         SmoothFactor = SmoothFactor * 200;
         FlatFactor = FlatFactor * 20;

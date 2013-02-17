@@ -125,7 +125,7 @@ if strcmp(ImageMode,'Binary (black & white)')
 elseif strcmp(ImageMode,'Grayscale')
     warning off Matlab:DivideByZero
     Image = double(LabelMatrixImage / max(max(LabelMatrixImage)));
-	warning on Matlab:DivideByZero
+    warning on Matlab:DivideByZero
 elseif strcmp(ImageMode,'Color')
     if strcmpi(ColorMap,'Default')
         Image = CPlabel2rgb(handles,LabelMatrixImage);

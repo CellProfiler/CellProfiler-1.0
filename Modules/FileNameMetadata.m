@@ -176,7 +176,7 @@ if find(strcmp(handles.Settings.ModuleNames,'LoadImages'),1,'last') > find(strcm
 end
 
 if ~isfield(handles.Pipeline,['FileList',ImageName])
-	error([ 'Image processing was canceled in the ', ModuleName, ' module. ',ImageName,' has no filename structure. The image used must be loaded with the LoadImages module.'])
+    error([ 'Image processing was canceled in the ', ModuleName, ' module. ',ImageName,' has no filename structure. The image used must be loaded with the LoadImages module.'])
 end
 
 SetBeingAnalyzed = handles.Current.SetBeingAnalyzed;
@@ -196,18 +196,18 @@ if ~isempty(PathFieldNames)
         RegularExpressionPathname = strrep(RegularExpressionPathname,'|',filesep);
     end
     Metadata = cat(1,Metadata, regexp(PathName,RegularExpressionPathname,'names'));
-	if isempty(Metadata),	% Assign to the fieldnames, 'cause later code acts funny if you don't
-		f = fieldnames(Metadata);
-		for i = 1:length(f)
-			Metadata(1).(f{i}) = {};
-		end
-	end
+    if isempty(Metadata),    % Assign to the fieldnames, 'cause later code acts funny if you don't
+        f = fieldnames(Metadata);
+        for i = 1:length(f)
+            Metadata(1).(f{i}) = {};
+        end
+    end
 end
 
 if (isempty(Metadata) && ~isempty(PathFieldNames)) || (~isempty(Metadata) && all(structfun(@isempty,Metadata)))
-	if ~isempty(FileName)
-		error([ 'Image processing was canceled in the ', ModuleName, ' module. The path "',PathName,'" doesn''t match the regular expression "',RegularExpressionPathname,'"']);
-	end
+    if ~isempty(FileName)
+        error([ 'Image processing was canceled in the ', ModuleName, ' module. The path "',PathName,'" doesn''t match the regular expression "',RegularExpressionPathname,'"']);
+    end
 end
 
 if ~isempty(FileFieldNames)
@@ -287,9 +287,9 @@ if ~isempty(FieldsToGroupBy)
             % Construct full path/filename so we can properly split it
             % apart
             f = handles.Pipeline.(['FileList',AllImageNames{i}]);
-			if isfield(handles.Pipeline,['FileFormat',ImageName])
-				f = f(1,:);
-			end
+            if isfield(handles.Pipeline,['FileFormat',ImageName])
+                f = f(1,:);
+            end
             p = repmat({[handles.Pipeline.(['Pathname',AllImageNames{i}]),filesep]},[1 length(f)]); % Append slash to take care of cases where file is empty
             [IndivPathnames{i},IndivFileNames{i}] = cellfun(@fileparts,cellfun(@fullfile,p,f,'UniformOutput',false),'UniformOutput',false);
             IndivPathnames{i}(cellfun(@isempty,f)) = {''};
@@ -365,7 +365,7 @@ if ~isempty(FieldsToGroupBy)
             idx = all(ismember([path_idstr file_idstr],PathFileIDs(i,:)),2);
             for j = 1:length(AllImageNames),
                 % (:,idx) takes care of images and movies
-				handles.Pipeline.GroupFileList{i}.(['FileList',AllImageNames{j}]) = handles.Pipeline.(['FileList',AllImageNames{j}])(:,idx);
+                handles.Pipeline.GroupFileList{i}.(['FileList',AllImageNames{j}]) = handles.Pipeline.(['FileList',AllImageNames{j}])(:,idx);
                 handles.Pipeline.GroupFileList{i}.(['Pathname',AllImageNames{j}]) = handles.Pipeline.(['Pathname',AllImageNames{j}]);
             end
             handles.Pipeline.GroupFileList{i}.Fields = PathFileIDs(i,~all(cellfun(@isempty,PathFileIDs),1));
@@ -407,7 +407,7 @@ if ~isempty(FieldsToGroupBy)
             sortedidx = sortedidx(idx);
         end
         for i = 1:length(AllImageNames)
-			% (:,sortedidx) takes care of images and movies
+            % (:,sortedidx) takes care of images and movies
             handles.Pipeline.(['FileList',AllImageNames{i}]) = handles.Pipeline.(['FileList',AllImageNames{i}])(:,sortedidx);
         end
         handles.Pipeline.GroupFileListIDs = newIDlist;
@@ -454,19 +454,19 @@ if ~isempty(FieldsToGroupBy)
             % but to be safe I'm going to check the filenames
             idx = handles.Pipeline.CurrentImageGroupID;
             if ~isempty(handles.Pipeline.(['Filename',ImageName]){end})
-				% Filenames must be handled differently for images vs. movies
-				if ~isfield(handles.Pipeline,['FileFormat',ImageName])
-					currentFilelist = handles.Pipeline.GroupFileList{idx}.(['FileList',ImageName]);
-				else
-					[pathstr,name,ext] = cellfun(@fileparts,handles.Pipeline.GroupFileList{idx}.(['FileList',ImageName])(1,:),'UniformOutput',false);
-					cell_dim = cell(size(name));
-					cell_str = cell_dim;
-					[cell_dim{:}] = deal(2);
-					[cell_str{:}] = deal('_');
-					index = cellfun(@num2str,handles.Pipeline.GroupFileList{idx}.(['FileList',ImageName])(2,:),'UniformOutput',false);
-					currentFilelist = cellfun(@cat,cell_dim,name, cell_str, index, ext,'UniformOutput',false);
-					currentFilelist = cellfun(@fullfile,pathstr,currentFilelist,'UniformOutput',false);
-				end
+                % Filenames must be handled differently for images vs. movies
+                if ~isfield(handles.Pipeline,['FileFormat',ImageName])
+                    currentFilelist = handles.Pipeline.GroupFileList{idx}.(['FileList',ImageName]);
+                else
+                    [pathstr,name,ext] = cellfun(@fileparts,handles.Pipeline.GroupFileList{idx}.(['FileList',ImageName])(1,:),'UniformOutput',false);
+                    cell_dim = cell(size(name));
+                    cell_str = cell_dim;
+                    [cell_dim{:}] = deal(2);
+                    [cell_str{:}] = deal('_');
+                    index = cellfun(@num2str,handles.Pipeline.GroupFileList{idx}.(['FileList',ImageName])(2,:),'UniformOutput',false);
+                    currentFilelist = cellfun(@cat,cell_dim,name, cell_str, index, ext,'UniformOutput',false);
+                    currentFilelist = cellfun(@fullfile,pathstr,currentFilelist,'UniformOutput',false);
+                end
                 handles.Pipeline.GroupFileList{idx}.SetBeingAnalyzed = ...
                     find(ismember(currentFilelist,handles.Pipeline.(['Filename',ImageName])(end)));
             else    % Unless the filename is empty. Then just increment

@@ -156,7 +156,7 @@ if strcmp(ShrinkOrExpand,'Shrink') == 1
     %%% "shrink" option is used; otherwise, the "thin" option is used.
     if strcmp(ShrinkingNumber,'Inf') == 1
         if strcmp(ObjectChoice,'Primary')
-	    ShrunkenUneditedSegmentedImage = bwmorph(UneditedSegmentedImage, 'shrink', Inf);
+        ShrunkenUneditedSegmentedImage = bwmorph(UneditedSegmentedImage, 'shrink', Inf);
             ShrunkenSmallRemovedSegmentedImage = bwmorph(SmallRemovedSegmentedImage, 'shrink', Inf);
         end
         ShrunkenSegmentedImage = bwmorph(SegmentedImage, 'shrink', Inf);
@@ -164,7 +164,7 @@ if strcmp(ShrinkOrExpand,'Shrink') == 1
         try
             ShrinkingNumber = str2double(ShrinkingNumber);
             if strcmp(ObjectChoice,'Primary')
-	        ShrunkenUneditedSegmentedImage = bwmorph(UneditedSegmentedImage, 'thin', ShrinkingNumber);
+            ShrunkenUneditedSegmentedImage = bwmorph(UneditedSegmentedImage, 'thin', ShrinkingNumber);
                 ShrunkenSmallRemovedSegmentedImage = bwmorph(SmallRemovedSegmentedImage, 'thin', ShrinkingNumber);
             end
             ShrunkenSegmentedImage = bwmorph(SegmentedImage, 'thin', ShrinkingNumber);
@@ -201,13 +201,13 @@ if strcmp(ShrinkOrExpand,'Shrink')
 elseif strcmp(ShrinkOrExpand,'Expand')
     if strcmp(ObjectChoice,'Primary')
         [L,num] = bwlabel(ShrunkenUneditedSegmentedImage);     % Generate new temporal labeling of the expanded objects
-	FinalShrunkenUneditedSegmentedImage = zeros(size(ShrunkenUneditedSegmentedImage));
-	for k = 1:num                                          % Loop over the objects to give them a new label
-	  index = find(L==k);                                % Get index for expanded object temporarily numbered k
-	  OriginalLabel = UneditedSegmentedImage(index);       % In the original labeled image, index indexes either zeros or the original label
-	  fooindex = find(OriginalLabel);                    % Find index to a nonzero element, i.e. to the original label number
-	  FinalShrunkenUneditedSegmentedImage(index) = OriginalLabel(fooindex(1)); % Put new label on expanded object
-	end
+    FinalShrunkenUneditedSegmentedImage = zeros(size(ShrunkenUneditedSegmentedImage));
+    for k = 1:num                                          % Loop over the objects to give them a new label
+      index = find(L==k);                                % Get index for expanded object temporarily numbered k
+      OriginalLabel = UneditedSegmentedImage(index);       % In the original labeled image, index indexes either zeros or the original label
+      fooindex = find(OriginalLabel);                    % Find index to a nonzero element, i.e. to the original label number
+      FinalShrunkenUneditedSegmentedImage(index) = OriginalLabel(fooindex(1)); % Put new label on expanded object
+    end
 
         [L,num] = bwlabel(ShrunkenSmallRemovedSegmentedImage);
         FinalShrunkenSmallRemovedSegmentedImage = zeros(size(ShrunkenSmallRemovedSegmentedImage));

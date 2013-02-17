@@ -360,7 +360,7 @@ HasMask = CPisimageinpipeline(handles,MaskFieldname);
 if HasMask
     MaskImage = CPretrieveimage(handles,MaskFieldname,ModuleName);
 else
-	MaskImage = ones(size(OrigImage));
+    MaskImage = ones(size(OrigImage));
 end
 
 if isProcessingAll
@@ -403,11 +403,11 @@ if isProcessingAll
                     end
                     FileList(cellfun(@isempty,FileList)) = [];   % Get rid of empty names
 
-					LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,1);
+                    LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,1);
 
                     SumMiniIlluminationImage = blkproc(padarray(LoadedImage,[RowsToAdd ColumnsToAdd],'replicate','post'),BestBlockSize,@minnotzero);
                     for i = 2:length(FileList)
-						LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,i);
+                        LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,i);
                         SumMiniIlluminationImage = SumMiniIlluminationImage + ...
                             blkproc(padarray(LoadedImage,[RowsToAdd ColumnsToAdd],'replicate','post'),BestBlockSize,@minnotzero);
                     end
@@ -576,22 +576,22 @@ if ReadyFlag || isCreatingBatchFile
         % subfunction because it is not needed.
         %[ignore,FinalIlluminationFunction] = CPrescale('',FinalIlluminationFunction,'G',[]); %#ok
         if strcmp(RescaleOption,'Yes')
-			% Add robust factor -- Rescale not to minimum pixel, but to the X-th percentage minimum pixel
+            % Add robust factor -- Rescale not to minimum pixel, but to the X-th percentage minimum pixel
             % This guards against a few very dark pixels throwing off the rescaling
             % NB!  This will *not* ensure that the applied values will
             % be > 1!  We need to check this...
-			robust_factor = 0.02;
-			if HasMask,
-				s = sort(FinalIlluminationFunction(MaskImage ~= 0));
-			else
-				s = sort(FinalIlluminationFunction(FinalIlluminationFunction > 0));
-			end
-			if numel(s) > 0
-				rescale = s(floor(length(s).*robust_factor)+1);
-				FinalIlluminationFunction(FinalIlluminationFunction < rescale) = rescale;
-			else
-				rescale = 1;
-			end
+            robust_factor = 0.02;
+            if HasMask,
+                s = sort(FinalIlluminationFunction(MaskImage ~= 0));
+            else
+                s = sort(FinalIlluminationFunction(FinalIlluminationFunction > 0));
+            end
+            if numel(s) > 0
+                rescale = s(floor(length(s).*robust_factor)+1);
+                FinalIlluminationFunction(FinalIlluminationFunction < rescale) = rescale;
+            else
+                rescale = 1;
+            end
         elseif strcmp(RescaleOption,'Median') == 1
             if HasMask
                 rescale = median(FinalIlluminationFunction(MaskImage ~= 0));
@@ -880,21 +880,21 @@ function lowest = minnotzero(x)
     lowest=min(x(x>0));
     if isempty(lowest)
         lowest=.0001;
-	end
+    end
 
 function LoadedImage = ImageLoader(handles,ImageName,Pathname,FileList,idx)
 
 if ~isfield(handles.Pipeline,['FileFormat',ImageName])
-	LoadedImage = CPimread(fullfile(Pathname,char(FileList(idx))));
+    LoadedImage = CPimread(fullfile(Pathname,char(FileList(idx))));
 else
-	FileFormat = handles.Pipeline.(['FileFormat',ImageName]);
-	CurrentFileName = FileList(:,idx);
-	if findstr(FileFormat,'stk')
-		warning('off','CPtiffread:IgnoredTiffEntryWithTag');
-		LoadedRawImage = CPtiffread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
-		warning('on','CPtiffread:IgnoredTiffEntryWithTag');
-		LoadedImage = im2double(LoadedRawImage.data);
-	elseif any(strcmpi(FileFormat,{'tif','tiff','flex'}))
-		LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));
-	end
+    FileFormat = handles.Pipeline.(['FileFormat',ImageName]);
+    CurrentFileName = FileList(:,idx);
+    if findstr(FileFormat,'stk')
+        warning('off','CPtiffread:IgnoredTiffEntryWithTag');
+        LoadedRawImage = CPtiffread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2)));
+        warning('on','CPtiffread:IgnoredTiffEntryWithTag');
+        LoadedImage = im2double(LoadedRawImage.data);
+    elseif any(strcmpi(FileFormat,{'tif','tiff','flex'}))
+        LoadedImage = im2double(CPimread(fullfile(Pathname, char(CurrentFileName(1))), cell2mat(CurrentFileName(2))));
+    end
 end

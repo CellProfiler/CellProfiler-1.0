@@ -223,8 +223,8 @@ end
 
 for i = 1:GranularSpectrumLength
     handles = CPaddmeasurements ...
-	      (handles, 'Image', ...
-	       CPjoinstrings('Granularity', num2str(i), ImageName), gs(:,i));
+          (handles, 'Image', ...
+           CPjoinstrings('Granularity', num2str(i), ImageName), gs(:,i));
 end
 
 %%%%%%%%%%%%%%%%%%%%

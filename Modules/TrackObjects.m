@@ -303,8 +303,8 @@ if SetBeingAnalyzed == StartingImageSet
     InitialNumObjs = size(TrackObjInfo.Current.Locations{SetBeingAnalyzed},1);
     CurrentLabels = (1:InitialNumObjs)';
     PreviousLabels = CurrentLabels;
-	CurrHeaders = cell(size(CurrentLabels));
-	[CurrHeaders{:}] = deal('');
+    CurrHeaders = cell(size(CurrentLabels));
+    [CurrHeaders{:}] = deal('');
 
     % (4) Colormap
     TrackObjInfo.Colormap = [];
@@ -571,33 +571,33 @@ if CollectStatistics
     if SetBeingAnalyzed ~= NumberOfImageSets,
         [Lifetime,Linearity,IntegratedDistance] = deal(NaN(size(PreviousLabels)));
         [AbsentObjectsLabel,idx] = setdiff(PreviousLabels,CurrentLabels);
-		% Count old objects that have dissappeared
-		handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'LostObjectCount',ObjectName,num2str(PixelRadius)), ...
+        % Count old objects that have dissappeared
+        handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'LostObjectCount',ObjectName,num2str(PixelRadius)), ...
                     length(AbsentObjectsLabel));
         Lifetime(idx) = AgeOfObjects(AbsentObjectsLabel);
         IntegratedDistance(idx) = SumDistance(AbsentObjectsLabel);
         % Linearity: In range of [0,1]. Defined as abs[(x,y)_final - (x,y)_initial]/(IntegratedDistance).
         warning('off','MATLAB:divideByZero');
         if ~isempty(idx)
-			mag =  sqrt(sum((InitialObjectLocation(AbsentObjectsLabel,:) - PreviousLocations(idx,:)).^2,2));
-			Linearity(idx) = mag./reshape(SumDistance(AbsentObjectsLabel),size(mag));
-		end
+            mag =  sqrt(sum((InitialObjectLocation(AbsentObjectsLabel,:) - PreviousLocations(idx,:)).^2,2));
+            Linearity(idx) = mag./reshape(SumDistance(AbsentObjectsLabel),size(mag));
+        end
         warning('on','MATLAB:divideByZero');
 
-		% Count new objects that have appeared
-		NewObjectsLabel = setdiff(CurrentLabels,PreviousLabels);
-		handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'NewObjectCount',ObjectName,num2str(PixelRadius)), ...
+        % Count new objects that have appeared
+        NewObjectsLabel = setdiff(CurrentLabels,PreviousLabels);
+        handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'NewObjectCount',ObjectName,num2str(PixelRadius)), ...
                     length(NewObjectsLabel));
     else %... or we reach the end of the analysis
         Lifetime = AgeOfObjects(CurrentLabels);
         IntegratedDistance = SumDistance(CurrentLabels);
         warning('off','MATLAB:divideByZero');
-		mag = sqrt(sum((InitialObjectLocation(CurrentLabels,:) - CurrentLocations).^2,2));
+        mag = sqrt(sum((InitialObjectLocation(CurrentLabels,:) - CurrentLocations).^2,2));
         Linearity = mag./reshape(SumDistance(CurrentLabels),size(mag));
         warning('on','MATLAB:divideByZero');
-		handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'LostObjectCount',ObjectName,num2str(PixelRadius)), ...
+        handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'LostObjectCount',ObjectName,num2str(PixelRadius)), ...
                     0);
-		handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'NewObjectCount',ObjectName,num2str(PixelRadius)), ...
+        handles = CPaddmeasurements(handles, 'Image', CPjoinstrings(TrackingMeasurementPrefix,'NewObjectCount',ObjectName,num2str(PixelRadius)), ...
                     0);
     end
 
@@ -666,25 +666,25 @@ if any(CurrentPreviousLabelHistogram(:)),
     % Handle the case of a zero overlap -> no current obj
     CurrentObjList(OverlapCounts(end, :) == 0) = 0;
 
-	% If two children have the same parent - then choose the one with the
-	% largest intersection and set the other to zero.
-	[sortedVals, indsOfVals] = sort(CurrentObjList);
-	identicalVals = find(diff(sortedVals) == 0);
-	maxIntersection = OverlapCounts(end, :);
-	i = 1;
-	while i <= length(identicalVals)
-		curVal = sortedVals(identicalVals(i));
-		inds = identicalVals(i);
-		while (i < length(identicalVals) && sortedVals(identicalVals(i+1)) == curVal)
-			i = i + 1;
-			inds = [inds, identicalVals(i)];
-		end
-		inds = [inds, inds(end)+1];
-		sameParentChildrenIndices = indsOfVals(inds);
-		[sortedMaxInterVals, sortedMaxInterInds] = sort(maxIntersection(sameParentChildrenIndices));
-		CurrentObjList(sameParentChildrenIndices(sortedMaxInterInds(1:end-1))) = 0;
-		i = i + 1;
-	end
+    % If two children have the same parent - then choose the one with the
+    % largest intersection and set the other to zero.
+    [sortedVals, indsOfVals] = sort(CurrentObjList);
+    identicalVals = find(diff(sortedVals) == 0);
+    maxIntersection = OverlapCounts(end, :);
+    i = 1;
+    while i <= length(identicalVals)
+        curVal = sortedVals(identicalVals(i));
+        inds = identicalVals(i);
+        while (i < length(identicalVals) && sortedVals(identicalVals(i+1)) == curVal)
+            i = i + 1;
+            inds = [inds, identicalVals(i)];
+        end
+        inds = [inds, inds(end)+1];
+        sameParentChildrenIndices = indsOfVals(inds);
+        [sortedMaxInterVals, sortedMaxInterInds] = sort(maxIntersection(sameParentChildrenIndices));
+        CurrentObjList(sameParentChildrenIndices(sortedMaxInterInds(1:end-1))) = 0;
+        i = i + 1;
+    end
 
     % Transpose to a column vector
     CurrentObjList = CurrentObjList';
@@ -703,9 +703,9 @@ CurrentLabels(CurrentObjList(CurrentObjList > 0)) = PreviousLabels(CurrentObjLis
 % Newly appeared: Missing index in CurrentObjList, so add new label to list
 idx = setdiff((1:NumberOfCurrentObj)',CurrentObjList);
 if ~isempty(PreviousLabels)
-	maxPreviousLabels = max(PreviousLabels);
+    maxPreviousLabels = max(PreviousLabels);
 else
-	maxPreviousLabels = 0;
+    maxPreviousLabels = 0;
 end
 CurrentLabels(idx) = maxPreviousLabels + reshape(1:length(idx),size(CurrentLabels(idx)));
 

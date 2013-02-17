@@ -108,12 +108,12 @@ for i = 1:length(ImageName)
     %%% Removes the image from the pipeline to save memory if requested.
     if strncmpi(DeletePipeline,'Y',1) == 1
         isImageGroups = isfield(handles.Pipeline,'ImageGroupFields');
-		if ~isImageGroups
-			handles.Pipeline = rmfield(handles.Pipeline,ImageName{i});
-		else
-			idx = handles.Pipeline.CurrentImageGroupID;
-			handles.Pipeline.GroupFileList{idx} = rmfield(handles.Pipeline.GroupFileList{idx},ImageName{i});
-		end
+        if ~isImageGroups
+            handles.Pipeline = rmfield(handles.Pipeline,ImageName{i});
+        else
+            idx = handles.Pipeline.CurrentImageGroupID;
+            handles.Pipeline.GroupFileList{idx} = rmfield(handles.Pipeline.GroupFileList{idx},ImageName{i});
+        end
     end
 end
 
