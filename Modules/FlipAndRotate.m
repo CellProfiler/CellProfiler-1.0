@@ -398,7 +398,5 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%
 %%% ADD MEASUREMENTS %%%
 %%%%%%%%%%%%%%%%%%%%%%%%
-handles = CPaddmeasurements(handles, 'Image', ['Rotation_', ImageName], ...
-			    AngleToRotateDegrees);
-
+handles = CPaddmeasurements(handles, 'Image', ['Rotation_', ImageName], AngleToRotateDegrees);
 handles = CPaddimages(handles,OutputName,RotatedImage);
