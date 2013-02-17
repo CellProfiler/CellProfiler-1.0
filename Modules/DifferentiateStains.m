@@ -116,6 +116,8 @@ if length(BackgroundColor) ~= 3
     error('The color of stain 2 must have three values')
 end
 
+%%%VariableRevisionNumber = 1
+
 %%%%%%%%%%%%%%%%%%%%%
 %%% Picking cells %%%
 %%%%%%%%%%%%%%%%%%%%%
