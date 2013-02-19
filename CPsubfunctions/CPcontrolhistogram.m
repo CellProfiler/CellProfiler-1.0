@@ -1,4 +1,4 @@
-function CPcumhistogram(h_Parent,tempData,Flip)
+function CPcontrolhistogram(h_Parent,tempData,Flip)
 
 % CellProfiler is distributed under the GNU General Public License.
 % See the accompanying file LICENSE for details.

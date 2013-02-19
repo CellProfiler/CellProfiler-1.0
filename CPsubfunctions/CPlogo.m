@@ -1,4 +1,4 @@
-function Logo = CPlogo
+function Logo = CPlogo()
 
 % $Revision$
 

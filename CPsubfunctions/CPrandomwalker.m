@@ -1,4 +1,4 @@
-function [mask,probabilities] = random_walker(img,seeds,labels,beta)
+function [mask,probabilities] = CPrandomwalker(img,seeds,labels,beta)
 %
 % Leo Grady's random walker segmentation algorithm.
 % From http://cns.bu.edu/~lgrady/

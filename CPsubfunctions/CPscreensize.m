@@ -1,4 +1,4 @@
-function [ScreenWidth,ScreenHeight] = CPscreensize
+function [ScreenWidth,ScreenHeight] = CPscreensize()
 % CPSCREENSIZE Calculate screen dimensions of primary display
 
 % $Revision$

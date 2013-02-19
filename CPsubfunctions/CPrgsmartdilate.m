@@ -1,4 +1,4 @@
-function rgOut = RgSmartDilate(rgIn,n)
+function rgOut = CPrgsmartdilate(rgIn,n)
 % Accepts labelled regions and dilates them with radius 1 diamond, disallowing region overlap.
 % rgIn is a labelled region image, n is number of iterations.
 %

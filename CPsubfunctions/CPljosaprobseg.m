@@ -1,4 +1,4 @@
-function pmask = ljosaprobseg(image, restartprobability, nwalks, seed)
+function pmask = CPljosaprobseg(image, restartprobability, nwalks, seed)
 %LJOSAPROBSEG Perform probabilistic segmentation.
 % LJOSAPROBSEG(IMAGE, RESTARTPROBABILITY, NWALKS, SEED) segments the
 % object identified by SEED in IMAGE using Ljosa and Singh's algorithm
