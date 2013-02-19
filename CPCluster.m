@@ -57,14 +57,14 @@ end
 handles.Current.BatchInfo.Start = StartingSet;
 handles.Current.BatchInfo.End = EndingSet;
 
-for BatchSetBeingAnalyzed = StartingSet:EndingSet,
+for BatchSetBeingAnalyzed = StartingSet:EndingSet
     t_set_start = toc;
     disp(sprintf('Analyzing set %d.', BatchSetBeingAnalyzed));
     handles.Current.SetBeingAnalyzed = BatchSetBeingAnalyzed;
 
-    if (BatchSetBeingAnalyzed == StartingSet),
+    if (BatchSetBeingAnalyzed == StartingSet)
         disp('Pipeline:')
-        for SlotNumber = 1:handles.Current.NumberOfModules,
+        for SlotNumber = 1:handles.Current.NumberOfModules
             ModuleNumberAsString = sprintf('%02d', SlotNumber);
             ModuleName = char(handles.Settings.ModuleNames(SlotNumber));
             disp(sprintf('     module %d - %s', SlotNumber, ModuleName));
@@ -72,7 +72,7 @@ for BatchSetBeingAnalyzed = StartingSet:EndingSet,
     end
 
 
-    for SlotNumber = 1:handles.Current.NumberOfModules,
+    for SlotNumber = 1:handles.Current.NumberOfModules
         % Signal that we're alive
         system(KeepAlive);
 
@@ -102,7 +102,7 @@ if isfield(handles.Pipeline,'ImageGroupFields')
     [StartingSet,EndingSet] = deal(OriginalStartingSet,OriginalEndingSet);
 end
 
-if strcmp(WriteMatFiles, 'yes'),
+if strcmp(WriteMatFiles, 'yes')
     handles.Pipeline = [];
     OutputFileName = sprintf('%s/%s%d_to_%d_OUT.mat',OutputFolder,BatchFilePrefix,StartingSet,EndingSet);
     save(OutputFileName,'handles');
@@ -116,7 +116,7 @@ end
 
 function reportBatchError(errorstring)
 errorinfo = lasterror;
-if isfield(errorinfo, 'stack'),
+if isfield(errorinfo, 'stack')
     try
         stackinfo = errorinfo.stack(1,1);
         ExtraInfo = [' (file: ', stackinfo.file, ' function: ', stackinfo.name, ' line: ', num2str(stackinfo.line), ')'];

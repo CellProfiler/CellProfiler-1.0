@@ -102,11 +102,11 @@ function HelpDeveloperInfo
 % %infotypeVAR01 = imagegroup indep
 % BlaBla = char(handles.Settings.VariableValues{CurrentModuleNum,1});
 % %inputtypeVAR01 = popupmenu
-%   For cases in which the variable input is optional or your module should
+%    For cases in which the variable input is optional or your module should
 % ignore the contents of the variable box, the standard placeholder text is
 % "Do not use." Please follow this naming convention whenever new modules
 % are created or modified.
-%	In particular, when the input type is "popupmenu custom", the
+%    In particular, when the input type is "popupmenu custom", the
 % choiceVAR01 line should be after textVAR01. This order is necessary
 % because the textVAR01 creates a VariableBox associated with a variable
 % number. Also, the defaultVAR01 value will inadvertently overwrite saved

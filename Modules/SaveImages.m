@@ -262,7 +262,6 @@ if ~isempty(TileModuleNum)      %if Tile Module is loaded
                     CPwarndlg(['In the ', ModuleName, ' module, CellProfiler has detected that you are trying to save the tiled image "', ImageName, '" on "', handles.Settings.VariableValues{CurrentModuleNum,8}, '". Because the full tiled image is made only after the final cycle, such a setting will result in an error. To prevent an error from occurring, CellProfiler has saved "', ImageName, '" after the last cycle.'], 'Warning')
                 end
             end
-
         end
     end
 end
@@ -304,9 +303,9 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             % If the user has selected an image name that is not
             % straight from a load %% images module, the filenames will
             % not be found in the handles structure.
-	    err = lasterror();
+            err = lasterror();
             err.message = ['Image processing was canceled in the ', ModuleName, ' module because in answer to the question "Which images'' original filenames do you want to use as a base" you have entered improper text. You must choose N, text preceded with =, or an image name that was loaded directly from a LoadImages module.  Matlab says that the error is: ', err.message];
-	    rethrow(err);
+            rethrow(err);
         end
     end
 
@@ -395,11 +394,11 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             end
         end
         Image = CPretrieveimage(handles,ImageName,ModuleName);
-	% Mario Emmenlauer, 2011-08-19
-	% The following code originally checked for all images, if the min/max
-	% values are in [0,1] range. This is not ideal for segmentations, which
-	% are integer images.
-	if isa(Image, 'float')
+        % Mario Emmenlauer, 2011-08-19
+        % The following code originally checked for all images, if the min/max
+        % values are in [0,1] range. This is not ideal for segmentations, which
+        % are integer images.
+        if isa(Image, 'float')
             ImageMax=max(Image(:));
             ImageMin=min(Image(:));
             if (ImageMax > 1 || ImageMin < 0)

@@ -22,7 +22,7 @@ if nargin == 0 %returns the vaild image extensions
     formats = imformats;
     LoadedImage = [cat(2, formats.ext) {'dib'} {'mat'} {'fig'} {'zvi'} {'raw'},{'flex'},{'c01'}]; %LoadedImage is not a image here, but rather a set
     return;
-elseif nargin == 1,
+elseif nargin == 1
     % The following lines make sure that all directory separation
     % characters follow the platform format
     CurrentFileName = char(CurrentFileName);
@@ -33,21 +33,21 @@ elseif nargin == 1,
 
 
 
-    if strcmpi('.DIB', ext),
+    if strcmpi('.DIB', ext)
         %%% Opens this non-Matlab readable file format.  Compare to
         %%% Matlab Central file id 11096, which does the same thing.
-	%%% The DIB (Device Independent Bitmap) format is a format %%
+        %%% The DIB (Device Independent Bitmap) format is a format %%
         %%% used (mostly internally) by MS Windows.  Cellomics has
         %%% adopted it for their instruments.
         fid = fopen(CurrentFileName, 'r');
-        if (fid == -1),
+        if (fid == -1)
             error(['The file ', CurrentFileName, ' could not be opened. CellProfiler attempted to open it in DIB file format.']);
         end
         A = fread(fid, 52, 'uint8=>uint8');
-	HeaderLength = from_little_endian(A(1:4));
-	if HeaderLength ~= 40
-	  error(sprintf('The file %s could not be opened because CellProfiler does not understand DIB files with header length %d', CurrentFileName, HeaderLength));
-	end
+        HeaderLength = from_little_endian(A(1:4));
+        if HeaderLength ~= 40
+          error(sprintf('The file %s could not be opened because CellProfiler does not understand DIB files with header length %d', CurrentFileName, HeaderLength));
+        end
         Width = from_little_endian(A(5:8));
         Height = from_little_endian(A(9:12));
         % All Cellomics DIB files we have seen have had a bit depth of
@@ -55,37 +55,37 @@ elseif nargin == 1,
         % format have 12-bit cameras, so we hard-code 12-bits.  This
         % may change in the future if we encounter images of a
         % different bit depth.
-	BitDepth = from_little_endian(A(15:16));
-	if BitDepth == 16
-	  BitDepth = 12;
-	else
-	  error(sprintf('The file %s could not be opened because CellProfiler does not understand DIB files with bit depth %d', CurrentFileName, BitDepth));
-	end
+        BitDepth = from_little_endian(A(15:16));
+        if BitDepth == 16
+          BitDepth = 12;
+        else
+          error(sprintf('The file %s could not be opened because CellProfiler does not understand DIB files with bit depth %d', CurrentFileName, BitDepth));
+        end
 
         Channels = from_little_endian(A(13:14));
-	Compression = from_little_endian(A(17:20));
-	% Commenting this line out 03/05/09, since images with Compression ~= 0
-	% seem to be OK
-%     if Compression ~= 0
-% 	  error(sprintf('The file %s could not be opened because CellProfiler does not understand DIB compression of type %d', CurrentFileName, Compression));
-% 	end
-	% We have never seen a DIB file with more than one channel.
-    % It seems reasonable to assume that the second channel would
-    % follow the first, but this needs to be verified.
-    LoadedImage = zeros(Height,Width,Channels);
-	for c=1:Channels,
-	  % The 'l' causes convertion from little-endian byte order.
-	  [Data, Count] = fread(fid, Width * Height, 'uint16', 0, 'l');
-	  if Count < (Width * Height),
-	    fclose(fid);
-	    error(['End-of-file encountered while reading ', CurrentFileName, '. Have you entered the proper size and number of channels for these images?']);
-	  end
-	  LoadedImage(:,:,c) = reshape(Data, [Width Height])' / (2^BitDepth - 1);
-	end
+        Compression = from_little_endian(A(17:20));
+        % Commenting this line out 03/05/09, since images with Compression ~= 0
+        % seem to be OK
+%       if Compression ~= 0
+%           error(sprintf('The file %s could not be opened because CellProfiler does not understand DIB compression of type %d', CurrentFileName, Compression));
+%       end
+        % We have never seen a DIB file with more than one channel.
+        % It seems reasonable to assume that the second channel would
+        % follow the first, but this needs to be verified.
+        LoadedImage = zeros(Height,Width,Channels);
+        for c=1:Channels
+          % The 'l' causes convertion from little-endian byte order.
+          [Data, Count] = fread(fid, Width * Height, 'uint16', 0, 'l');
+          if Count < (Width * Height)
+            fclose(fid);
+            error(['End-of-file encountered while reading ', CurrentFileName, '. Have you entered the proper size and number of channels for these images?']);
+          end
+          LoadedImage(:,:,c) = reshape(Data, [Width Height])' / (2^BitDepth - 1);
+        end
         fclose(fid);
-    elseif strcmpi('.RAW',ext),
+    elseif strcmpi('.RAW',ext)
         fid = fopen(CurrentFileName,'r');
-        if (fid == -1),
+        if (fid == -1)
             error(['The file ', CurrentFileName, ' could not be opened. CellProfiler attempted to open it in RAW file format.']);
         end
         A = fread(fid,52,'uint8=>uint8');
@@ -99,13 +99,13 @@ elseif nargin == 1,
         %
         [Data, Count] = fread(fid, HeaderLength-52,'uint8',0,'l');
 
-	  % The 'l' causes convertion from little-endian byte order.
-	  [Data, Count] = fread(fid, Width * Height, 'uint16', 0, 'l');
-	  if Count < (Width * Height),
-	    fclose(fid);
-	    error(['End-of-file encountered while reading ', CurrentFileName, '. Have you entered the proper size and number of channels for these images?']);
-	  end
-	  LoadedImage(:,:,1) = reshape(Data, [Width Height])' / (2^BitDepth - 1);
+        % The 'l' causes convertion from little-endian byte order.
+        [Data, Count] = fread(fid, Width * Height, 'uint16', 0, 'l');
+        if Count < (Width * Height)
+            fclose(fid);
+            error(['End-of-file encountered while reading ', CurrentFileName, '. Have you entered the proper size and number of channels for these images?']);
+        end
+        LoadedImage(:,:,1) = reshape(Data, [Width Height])' / (2^BitDepth - 1);
     fclose(fid);
 
     elseif strcmpi('.MAT',ext)
@@ -180,7 +180,7 @@ function ImageArray = CPimreadZVI(CurrentFileName)
 
 % Open .zvi file
 fid = fopen(CurrentFileName, 'r');
-if (fid == -1),
+if (fid == -1)
     error(['The file ', CurrentFileName, ' could not be opened. CellProfiler attempted to open it in ZVI file format.']);
 end
 
@@ -352,7 +352,7 @@ try
     factor_locations = findstr('Factor="', ArrayString);
 
     % determine maximum factor value, as it decides the number of bits to convert to, below.
-    for i = 1:length(factor_locations),
+    for i = 1:length(factor_locations)
         % get the ith factor string, and extract the value
         IdxFactorStringStart = ArrayString(factor_locations(i) + length('Factor="'):end);
         strend = findstr(IdxFactorStringStart, '"') - 1;
@@ -363,7 +363,7 @@ try
     %%% The logic here mirrors that in FlexReader.java, part of the LOCI Bio-Formats package
     %%% Note: We had special considerations for 8- vs. 16-bit images, but
     %%% this was deemed unnecessary
-    if max(ScalingFactors) > 256,
+    if max(ScalingFactors) > 256
         % upgrade to 32 bits
         ScaledImage = uint32(RawImage) * ScalingFactors(flex_idx);
     else

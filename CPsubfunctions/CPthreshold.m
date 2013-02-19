@@ -54,7 +54,7 @@ if ~strcmpi('Histogram Data tool',ModuleName)
             error(['The Maximum bound on the threshold in the ', ModuleName, ' module is invalid.'])
         end
 
-        if MinimumThreshold > MaximumThreshold,
+        if MinimumThreshold > MaximumThreshold
             error(['Min bound on the threshold larger than the Max bound on the threshold in the ', ModuleName, ' module.'])
         end
     end
@@ -92,7 +92,7 @@ else
         %%% numerical value rather than a method name like 'Otsu', etc. So
         %%% from this point forward, in this case, the threshold is as if
         %%% entered manually.
-        if (~any(RetrievedBinaryCropMask)),
+        if (~any(RetrievedBinaryCropMask))
             Threshold = 1;
         end
         %%% Checks whether the size of the RetrievedBinaryCropMask matches
@@ -288,7 +288,7 @@ if ~isempty(strfind(Threshold,'Global')) || ~isempty(strfind(Threshold,'Adaptive
     end
 
 elseif strcmp(Threshold,'All')
-    if SetBeingAnalyzed == handles.Current.StartingImageSet,
+    if SetBeingAnalyzed == handles.Current.StartingImageSet
         try
             %%% Notifies the user that the first image set will take much
             %%% longer than subsequent sets. Obtains the screen size.
@@ -379,18 +379,18 @@ end
 Threshold = ThresholdCorrection*Threshold;
 Threshold = max(Threshold,MinimumThreshold);
 Threshold = min(Threshold,MaximumThreshold);
-if ~isempty(ObjectVar),
+if ~isempty(ObjectVar)
     handles = CPaddmeasurements(handles, 'Image', CPjoinstrings('Threshold','OrigThreshold', ObjectVar), mean(mean(Threshold)));
 end
 
-if (nargout >= 3),
+if (nargout >= 3)
     if ~ exist('BinaryCropMask', 'var')
         varargout(1) = {WeightedVariance(OrigImage, true(size(OrigImage)), Threshold)};
     else
         varargout(1) = {WeightedVariance(OrigImage, BinaryCropMask~=0, Threshold)};
     end
 end
-if (nargout >= 4),
+if (nargout >= 4)
     if ~ exist('BinaryCropMask', 'var')
         varargout(2) = {SumOfEntropies(OrigImage, true(size(OrigImage)), Threshold)};
     else
@@ -510,7 +510,7 @@ else
     % im = im(:);
     if length(im) > 512^2
         is2008b_or_greater = ~CPverLessThan('matlab','7.7');
-        if is2008b_or_greater,
+        if is2008b_or_greater
             defaultStream = RandStream.getDefaultStream;
             savedState = defaultStream.State;
             RandStream.setDefaultStream(RandStream('mt19937ar','seed',0));
@@ -866,7 +866,7 @@ N(drop) = [];
 X(drop) = [];
 
 % check for corner cases
-if length(X) == 1,
+if length(X) == 1
     thresh = X(1);
     return;
 end
@@ -897,7 +897,7 @@ thresh = 2^((X(entry) + X(entry+1)) / 2);
 function Q = smooth_log_histogram(R, bits)
 %%% seed random state
 is2008b_or_greater = ~CPverLessThan('matlab','7.7');
-if is2008b_or_greater,
+if is2008b_or_greater
     defaultStream = RandStream.getDefaultStream;
     savedState = defaultStream.State;
     RandStream.setDefaultStream(RandStream('mt19937ar','seed',sum(100*clock)));
@@ -912,14 +912,14 @@ if is2008b_or_greater, defaultStream.State = savedState; end
 
 %%% Weighted variances of the foreground and background.
 function  wv = WeightedVariance(Image, CropMask, Threshold)
-if isempty(Image(CropMask)),
+if isempty(Image(CropMask))
     wv = 0;
     return;
 end
 
 %%% clamp dynamic range
 minval = max(Image(CropMask))/256;
-if minval == 0.0,
+if minval == 0.0
     wv = 0;
     return;
 end
@@ -928,7 +928,7 @@ Image(Image < minval) = minval;
 %%% Compute the weighted variance
 FG = log2(Image((Image >= Threshold) & CropMask));
 BG = log2(Image((Image < Threshold) & CropMask));
-if isempty(FG),
+if isempty(FG)
     wv = var(BG);
 elseif isempty(BG);
     wv = var(FG);
@@ -940,14 +940,14 @@ end
 
 %%% Sum of entropies of foreground and background as separate distributions.
 function  soe = SumOfEntropies(Image, CropMask, Threshold)
-if isempty(Image(CropMask)),
+if isempty(Image(CropMask))
     soe = 0;
     return;
 end
 
 %%% clamp dynamic range
 minval = max(Image(CropMask))/256;
-if minval == 0.0,
+if minval == 0.0
     soe = 0;
     return;
 end

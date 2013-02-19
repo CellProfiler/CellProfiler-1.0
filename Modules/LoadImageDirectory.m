@@ -176,7 +176,7 @@ if handles.Current.SetBeingAnalyzed == handles.Current.StartingImageSet
         if length(Pathname) == 1
             Pathname = handles.Current.DefaultImageDirectory;
         else
-	    % If the pathname start with '.', interpret it relative to
+            % If the pathname start with '.', interpret it relative to
             % the default image dir.
             Pathname = fullfile(handles.Current.DefaultImageDirectory,Pathname(2:end));
         end
@@ -310,7 +310,7 @@ drawnow
 %%% subsequent modules.
 handles = CPaddimages(handles,ImageName,ProjectionImage);
 handles = CPaddmeasurements(handles, 'Image', ...
-				['FileName_', ImageName], DirPath);
+                ['FileName_', ImageName], DirPath);
 handles = CPaddmeasurements(handles, 'Image', ...
-				['PathName_', ImageName], ...
-				handles.Pipeline.(path_fieldname));
+                ['PathName_', ImageName], ...
+                handles.Pipeline.(path_fieldname));

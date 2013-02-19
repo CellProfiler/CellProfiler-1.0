@@ -43,7 +43,7 @@
 %
 % After logging into barra, make a folder for the project somewhere on gobo
 % that is accessible to the cluster, and give write permission to
-% ÔeveryoneÕ for the new folder (so each cluster computer is allowed to
+% everyone for the new folder (so each cluster computer is allowed to
 % write there). It may be necessary to make the folder from the command
 % line in Terminal or X windows, logged in as your username rather than
 % just making a folder using your local computer, because your local
@@ -61,29 +61,29 @@
 %
 % CreateBatchScripts module:
 %
-% What prefix ahould be added to the batch file names?	Batch_
+% What prefix ahould be added to the batch file names? Batch_
 % What is the path to the CellProfiler folder on the cluster machines?
 % /home/youraccount/CellProfiler
-% What is the path to the image folder on the cluster machines?	.
+% What is the path to the image folder on the cluster machines? .
 % What is the path to the folder where batch output should be written on
-% the cluster machines?	.
+% the cluster machines? .
 % What is the path to the folder where you want to save the batch files? .
 % What is the path to the folder where the batch data file will be saved on
-% the cluster machines?	.
+% the cluster machines? .
 % If pathnames are specified differently between the local and cluster
-% machines, enter that part of the pathname from the local machineÕs
-% perspective	Volumes/tap6
+% machines, enter that part of the pathname from the local machines
+% perspective Volumes/tap6
 % If pathnames are specified differently between the local and cluster
-% machines, enter that part of the pathname from the cluster machinesÕ
-% perspective	nfs/sabatini2_ata
+% machines, enter that part of the pathname from the cluster machines
+% perspective nfs/sabatini2_ata
 %
 % SaveImages module:
 %
 % Enter the pathname to the folder where you want to save the images:
 % /nfs/sabatini2_ata/PROJECTNAME
 %
-% Default image folder	/Volumes/tap6/IMAGEFOLDER
-% Default output folder	/Volumes/tap6/PROJECTNAME (or LOCAL folder)
+% Default image folder /Volumes/tap6/IMAGEFOLDER
+% Default output folder /Volumes/tap6/PROJECTNAME (or LOCAL folder)
 %
 % 7. Create batch files
 %
@@ -129,7 +129,7 @@
 %
 % chmod a+w batchrun.sh
 %
-% If the batchrun.sh script doesnÕt exist save the following as batchrun.sh
+% If the batchrun.sh script doesnï¿½t exist save the following as batchrun.sh
 % (using any text editor):
 %
 % #!/bin/sh
@@ -217,7 +217,7 @@
 % requirement the lp queues have more machines available but at a lower run
 % priority. Of course this is a limited resource available to all so when
 % the cluster is busy everything will take bit longer. When writing to
-% sabatini2_ata, use sq32hp - other computers donÕt have write permission
+% sabatini2_ata, use sq32hp - other computers donï¿½t have write permission
 % sometimes.
 %
 % 10. Transfer data files to Oracle/SQL database
@@ -262,7 +262,7 @@
 %   ls | grep *OUT.mat | wc -l
 %
 % To list jobs that Exited without completing by searching the log files
-% for the word ÔExitedÕ:
+% for the word ï¿½Exitedï¿½:
 %   less /Volumes/tap5/Fly200_40x_sl03Results/*.m.txt | grep Exited
 %
 % Other notes:
@@ -270,7 +270,7 @@
 %
 % Example 1: drag and drop to gobo/carpente or gobo/sabatini1_ata
 % For some locations, it may not be permitted to create a folder using
-% MacÕs functions. In these cases, it should be possible to mkdir from the
+% Macï¿½s functions. In these cases, it should be possible to mkdir from the
 % command line when logged into barra, or chmod a+w DIRNAME when logged
 % into barra as carpente.
 %
@@ -286,27 +286,27 @@
 %
 % 2. SERVER NAMING:
 %
-% The cluster calls gobo ÒnfsÓ, so all instances where you might normally
+% The cluster calls gobo ï¿½nfsï¿½, so all instances where you might normally
 % use gobo should be replaced with nfs. e.g. gobo/imaging becomes
-% /nfs/imaging from the clusterÕs perspective.
+% /nfs/imaging from the clusterï¿½s perspective.
 % The local computer uses the actual address of servers to use in place of
-% ÒgoboÓ. Connect to the server using cifs://gobo/DIRNAME, then in Terminal
+% ï¿½goboï¿½. Connect to the server using cifs://gobo/DIRNAME, then in Terminal
 % ssh to barra, then cd /nfs then df. This will list the actual address,
 % something like: tap2.wi.mit.edu:/imaging The name tap2 is then used in
 % CellProfiler. e.g. gobo/imaging becomes /Volumes/tap2 from the local
-% computerÕs perspective. sabatini_dbw01 is /Volumes/tap5.
+% computerï¿½s perspective. sabatini_dbw01 is /Volumes/tap5.
 %
 % 3. CHECKING WHY JOBS FAILED:
 %
 % We now use the script batchrun.sh to re-run failed jobs automatically,
 % but these commands may help diagnose problems:
-% If you are having license problems you can try using CSAILÕs licenses in
-% batchrun.sh: LICENSE_SERVER=Ó7182@pink-panther.csail.mit.eduÓ.
+% If you are having license problems you can try using CSAILï¿½s licenses in
+% batchrun.sh: LICENSE_SERVER=ï¿½7182@pink-panther.csail.mit.eduï¿½.
 % Alternately, the following steps will look through all the text log files
-% in a directory, look for the text Òexit codeÓ within those log files to
+% in a directory, look for the text ï¿½exit codeï¿½ within those log files to
 % find the batches that did not successfully complete, and move the
 % corresponding .m-file to a subdirectory. You can then run batchrun.sh on
-% the subdirectory (donÕt forget to copy or move Batch_data.mat into the
+% the subdirectory (donï¿½t forget to copy or move Batch_data.mat into the
 % subdirectory as well, or point to the parent directory which contains the
 % file.)
 % Make the subdirectory BatchesToRerun and change permissions so you can
