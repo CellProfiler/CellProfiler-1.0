@@ -57,13 +57,19 @@ for i = 1:length(directory_str),
 end
 
 % temporarily move away the preferences directory
-RandStream.setDefaultStream(RandStream('mt19937ar','seed',sum(100*clock)));
-tmpprefdir=[prefdir '.' char(round(23*rand(1,8))+'A')];
-if exist(tmpprefdir,'file')~=0
-    rmdir(tmpprefdir,'s');
+% This nice trick sadly doesnt work on Windows, but its
+% not as important there because we dont intend to run the
+% compiled CellProfiler on a cluster
+if not(ispc)
+    RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
+    tmpprefdir=[prefdir '.' char(round(23*rand(1,8))+'A')];
+    if exist(tmpprefdir,'file')~=0
+        rmdir(tmpprefdir,'s');
+    end
+    movefile(prefdir,tmpprefdir);
+    mkdir(prefdir);
 end
-movefile(prefdir,tmpprefdir);
-mkdir(prefdir);
+
 
 % all the following code is in a try-catch-block that restores the
 % preferences directory in case of errors
@@ -71,7 +77,7 @@ try
 
 % Get svn version number
 current_search_path = pathdef;
-addpath Modules CPsubfunctions DataTools ImageTools Help
+addpath('Modules','CPsubfunctions','DataTools','ImageTools','Help');
 svn_ver = CPsvnversionnumber;
 % Restore pre-existing paths
 path(current_search_path);
@@ -105,16 +111,15 @@ switch lower(usage),
         %  -C: generate separate CTF archive
         %  -a: Needed to add non-matlab .jpg file
         version_info = ver('matlab');
-        if str2double(version_info.Version(3:end)) >= 6, %Must include -C to produce separate CTF file
-            if ispc  % Add icon to argument list
-               mcc -m -C CellProfiler -I ./Modules -I ./DataTools -I ./ImageTools ...
-                 -I ./CPsubfunctions -I ./Help -a './CPsubfunctions/CPsplash.jpg' -a './CPsubfunctions/CPcellomicsdata.class' -M './IconForWindows.res';
-           else
-               mcc -m -C CellProfiler -I ./Modules -I ./DataTools -I ./ImageTools ...
-                 -I ./CPsubfunctions -I ./Help -a './CPsubfunctions/CPsplash.jpg' -a './CPsubfunctions/CPcellomicsdata.class';
-           end
-        else
+        if (str2double(version_info.Version(1)) <= 7 && str2double(version_info.Version(3:end)) < 6)
             error('You need to have MATLAB version 7.6 (2008a) or above to run this command.');
+        end
+        if ispc  % Add icon to argument list
+            mcc -m -C CellProfiler -I ./Modules -I ./DataTools -I ./ImageTools ...
+              -I ./CPsubfunctions -I ./Help -a './CPsubfunctions/CPsplash.jpg' -a './CPsubfunctions/CPcellomicsdata.class' -M './IconForWindows.res';
+        else
+            mcc -m -C CellProfiler -I ./Modules -I ./DataTools -I ./ImageTools ...
+              -I ./CPsubfunctions -I ./Help -a './CPsubfunctions/CPsplash.jpg' -a './CPsubfunctions/CPcellomicsdata.class';
         end
 
         if ~exist(['../' output_dir '/Modules'],'dir')
@@ -122,45 +127,56 @@ switch lower(usage),
         end
 
         movefile('CellProfiler*.*',['../' output_dir]);
-		% Move the preferences file back if exists in the output dir
-		if exist(['../' output_dir '/CellProfilerPreferences.mat'],'file')
-			movefile(['../' output_dir '/CellProfilerPreferences.mat'],'./');
-		end
+        % Move the preferences file back if exists in the output dir
+        if exist(['../' output_dir '/CellProfilerPreferences.mat'],'file')
+            movefile(['../' output_dir '/CellProfilerPreferences.mat'],'./');
+        end
         movefile('./Modules/*.txt', ['../' output_dir '/Modules']);
         movefile('readme.txt',['../' output_dir]);
         copyfile('version.txt',['../' output_dir]);
         movefile('Old_CellProfiler.m', 'CellProfiler.m');
         movefile('mccExcludedFiles.log',['../' output_dir]);
-        if ~ ispc
+        if ~ispc
             movefile('run_CellProfiler.sh',['../' output_dir]);
         end
 
         % Copy some useful scripts and files back into the CP root folder
         % that are in the SVN repository
-        copyfile(['../' output_dir '/CellProfilerManual.pdf'],'.');
         copyfile(['../' output_dir '/CellProfiler*.command'],'.');
 
         % Delete unneccesary files
-        delete(['../' output_dir '/CellProfiler_main.c']);
-        delete(['../' output_dir '/CellProfiler_mcc_component_data.c']);
-        delete(['../' output_dir '/mccExcludedFiles.log']);
-        delete(['../' output_dir '/CellProfiler.prj']);
+        if exist(['../' output_dir '/CellProfiler_main.c'], 'file') ,               delete(['../' output_dir '/CellProfiler_main.c']);               end
+        if exist(['../' output_dir '/CellProfiler_mcc_component_data.c'], 'file') , delete(['../' output_dir '/CellProfiler_mcc_component_data.c']); end
+        if exist(['../' output_dir '/mccExcludedFiles.log'], 'file') ,              delete(['../' output_dir '/mccExcludedFiles.log']);              end
+        if exist(['../' output_dir '/CellProfiler.prj'], 'file') ,                  delete(['../' output_dir '/CellProfiler.prj']);                  end
 
         % Extract the CTF archive (without running the executable)
-        disp('Extracting the CTF archive....');
-        [success,msg,msgid] = rmdir(['../' output_dir '/CellProfiler_mcr'],'s');    % Remove pre-existing MCR directory
-        if ~success && ~strcmpi(msgid,'MATLAB:RMDIR:NotADirectory'), warning([mfilename,': Unable to remove previous MCR directory']); end
-        if ispc,    % Need quotes for PC
-            [status,result] = unix(['"',matlabroot,'/toolbox/compiler/deploy/',computer('arch'),'/extractCTF" ../' output_dir '/CellProfiler.ctf']);
-        elseif ismac || isunix,
-            [status,result] = unix([matlabroot,'/toolbox/compiler/deploy/',computer('arch'),'/extractCTF ../' output_dir '/CellProfiler.ctf']);
+        if ispc , exesuffix='.exe' ; else exesuffix='' ; end
+        vExtractCTFPath=[matlabroot '/toolbox/compiler/deploy/' computer('arch') '/extractCTF' exesuffix];
+        if ~exist(vExtractCTFPath,'file')
+            vExtractCTFPath=[matlabroot '/bin/' computer('arch') '/extractCTF' exesuffix];
+            if ~exist(vExtractCTFPath,'file')
+                error('Could not find the matlab command "extractCTF"');
+            end
         end
-        if status,  % If status isn't zero, something went wrong
+
+        disp('Extracting the CTF archive....');
+        % Remove pre-existing MCR directory
+        [success, msg, msgid] = rmdir(['../' output_dir '/CellProfiler_mcr'],'s');
+        if ~success && ~strcmpi(msgid,'MATLAB:RMDIR:NotADirectory'), warning([mfilename,': Unable to remove previous MCR directory']); end
+        if ispc
+            % Need quotes for PC
+            [status, result] = unix(['"' vExtractCTFPath '" ../' output_dir '/CellProfiler.ctf']);
+        elseif (ismac || isunix)
+            [status, result] = unix([vExtractCTFPath ' ../' output_dir '/CellProfiler.ctf']);
+        end
+        if status
+            % If status isn't zero, something went wrong
             error(result);
         else
             disp('Expansion successful');
         end
-        mkdir(['../' output_dir '/CellProfiler_mcr/.matlab']);
+        if ~exist(['../' output_dir '/CellProfiler_mcr/.matlab'], 'dir') , mkdir(['../' output_dir '/CellProfiler_mcr/.matlab']); end
 
         % Set permissions on scripts (on unix and Mac systems)
         disp('Setting permissions...');
@@ -172,8 +188,7 @@ switch lower(usage),
         % Restore pre-existing paths
         path(current_search_path);
 
-    case 'cluster',
-
+    case 'cluster'
         output_dir = svn_ver;
 
         % Move files and cleanup
@@ -230,26 +245,35 @@ switch lower(usage),
         disp('Finished building');
 
         % Extract the CTF archive (without running the executable)
+        if ispc , exesuffix='.exe' ; else exesuffix='' ; end
+        vExtractCTFPath=[matlabroot '/toolbox/compiler/deploy/' computer('arch') '/extractCTF' exesuffix];
+        if ~exist(vExtractCTFPath,'file')
+            vExtractCTFPath=[matlabroot '/bin/' computer('arch') '/extractCTF' exesuffix];
+            if ~exist(vExtractCTFPath,'file')
+                error('Could not find the matlab command "extractCTF"');
+            end
+        end
+
         disp('Extracting the CTF archive....');
         [success,msg,msgid] = rmdir('CPCluster_mcr','s');    % Remove pre-existing MCR directory
         if ~success && ~strcmpi(msgid,'MATLAB:RMDIR:NotADirectory'), warning([mfilename,': Unable to remove previous MCR directory']); end
         if strfind(matlabroot,' '),
-            [status,result] = unix(['"',matlabroot,'/toolbox/compiler/deploy/',computer('arch'),'/extractCTF" CPCluster.ctf']);
+            [status,result] = unix(['"' vExtractCTFPath '" CPCluster.ctf']);
         else
-            [status,result] = unix([matlabroot,'/toolbox/compiler/deploy/',computer('arch'),'/extractCTF CPCluster.ctf']);
+            [status,result] = unix([vExtractCTFPath ' CPCluster.ctf']);
         end
         if status,  % If status isn't zero, something went wrong
             error(result);
         else
             disp('Expansion successful');
         end
-        mkdir(['CPCluster_mcr/.matlab']);
+        if ~exist(['CPCluster_mcr/.matlab'], 'dir') , mkdir(['CPCluster_mcr/.matlab']); end
 
         % Delete unneccesary files
-        delete('CPCluster_main.c');
-        delete('CPCluster_mcc_component_data.c');
-%         delete('mccExcludedFiles.log');
-        delete('CPCluster.prj');
+        if exist(['CPCluster_main.c'], 'file') ,               delete(['CPCluster_main.c']);               end
+        if exist(['CPCluster_mcc_component_data.c'], 'file') , delete(['CPCluster_mcc_component_data.c']); end
+        if exist(['mccExcludedFiles.log'], 'file') ,           delete(['mccExcludedFiles.log']);           end
+        if exist(['CPCluster.prj'], 'file') ,                  delete(['CPCluster.prj']);                  end
 
         % Replace original CPCluster.m
         movefile('Old_CPCluster.m','CPCluster.m');
@@ -269,6 +293,7 @@ switch lower(usage),
         disp('Setting permissions...');
         [status,result] = unix('chmod -R 775 *');
         disp('Done');
+
     otherwise
         error('Unrecognized arguments. Please use either ''cluster'' or ''single''.');
 end
@@ -277,9 +302,13 @@ end
 % the preferences directory in case of errors (and also
 % restores it in case of no errors).
 catch ME
-    rmdir(prefdir,'s');
-    movefile(tmpprefdir,prefdir);
+    if not(ispc)
+        rmdir(prefdir,'s');
+        movefile(tmpprefdir,prefdir);
+    end
     rethrow(ME);
 end
-rmdir(prefdir,'s');
-movefile(tmpprefdir,prefdir);
+if not(ispc)
+    rmdir(prefdir,'s');
+    movefile(tmpprefdir,prefdir);
+end
