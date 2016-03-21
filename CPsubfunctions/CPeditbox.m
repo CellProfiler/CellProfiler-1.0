@@ -18,7 +18,6 @@ function [text, ok]=CPeditbox(text, varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 hFig = figure('WindowStyle','modal',...
               'ResizeFcn',@Resize_Callback,...

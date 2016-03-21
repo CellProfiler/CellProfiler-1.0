@@ -63,7 +63,6 @@ function handles = RenameOrRenumberFiles(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

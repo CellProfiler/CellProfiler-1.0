@@ -148,7 +148,6 @@ function handles = ExportToDatabase(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % MBray 2009_04_17: Comments on variables for pyCP upgrade
 % (1a) What type of database do you want to use? (DatabaseType)

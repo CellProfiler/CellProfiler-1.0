@@ -26,7 +26,6 @@ function FlagImageByMeasurement(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision: 5776 $
 
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 

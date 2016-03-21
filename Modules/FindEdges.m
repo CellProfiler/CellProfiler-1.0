@@ -87,7 +87,6 @@ function handles = FindEdges(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

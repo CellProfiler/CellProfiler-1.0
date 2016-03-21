@@ -12,7 +12,6 @@ function handles = CPselectdirectoriestoprocess(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% FIRST CYCLE FILE HANDLING %%%

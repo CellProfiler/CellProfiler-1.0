@@ -10,7 +10,6 @@ function [handles,FileNames] = CPretrievemediafilenames(handles, Pathname, TextT
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if strncmpi(recurse,'S',1) && ~isfield(handles.Pipeline,'PathNameSubFolders')
     SelectDirType = CPquestdlg('Do you want to select directories using a dialog box, or entering a text list of directories from a string or a file?','Choose Image Subfolder','Dialog','Text','Cancel','Dialog');

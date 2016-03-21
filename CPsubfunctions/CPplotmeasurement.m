@@ -10,7 +10,6 @@ function CPplotmeasurement(handles,PlotType,FigHandle,ModuleFlag,Object,Feature,
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% IF YOU CHANGE THIS SUBFUNCTION, BE SURE TO CONFIRM FUNCTIONALITY WITH
 %%% ALL MODULES THAT CALL IT!

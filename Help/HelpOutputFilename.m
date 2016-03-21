@@ -18,7 +18,6 @@ function HelpOutputFilename
 % would produce a file with 12 measurements: the new 4 followed by 8 old
 % measurements.
 
-% $Revision$
 
 helpdlg(help('HelpOutputFilename'))
 

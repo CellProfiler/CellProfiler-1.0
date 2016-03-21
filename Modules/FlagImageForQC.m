@@ -37,7 +37,6 @@ function handles = FlagImageForQC(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision: 6876 $
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

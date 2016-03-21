@@ -2,7 +2,6 @@
 % original stack trace.
 function CPerrorImread(ModuleName, n)
 
-% $Revision$
 
 ErrorNumber = {'first','second','third','fourth'};
 err = lasterror();

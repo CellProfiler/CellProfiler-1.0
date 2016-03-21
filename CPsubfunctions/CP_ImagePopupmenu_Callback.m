@@ -11,7 +11,6 @@ function CP_ImagePopupmenu_Callback(hObject,eventdata)
 %
 % See IdentifySecondary.m for an example of usage.
 
-% $Revision$
 
 UserData = get(hObject,'userdata');
 h_image = findobj(gcbf,'type','image');

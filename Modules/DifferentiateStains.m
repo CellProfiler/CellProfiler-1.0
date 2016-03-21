@@ -49,7 +49,6 @@ function handles = DifferentiateStains(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

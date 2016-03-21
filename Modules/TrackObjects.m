@@ -138,7 +138,6 @@ function handles = TrackObjects(handles,varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % MBray 2009_03_25: Comments on variables for pyCP upgrade
 %

@@ -17,7 +17,6 @@ function handles = CPsaveObjectCount(handles, objectName, labels)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 handles = CPaddmeasurements(handles, 'Image', ...
                             CPjoinstrings('Count', objectName), ...
                             max(labels(:)));

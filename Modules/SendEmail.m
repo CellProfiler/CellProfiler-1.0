@@ -35,7 +35,6 @@ function handles = SendEmail(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Variable settings for PyCP
 % I don't really understand why there is a 'to' and a 'from' for the email

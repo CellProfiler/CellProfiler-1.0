@@ -12,7 +12,6 @@ function CPclosefigure(handles,CurrentModule)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% The figure window display is unnecessary for the calling module, so it is
 %%% closed during the starting image cycle.

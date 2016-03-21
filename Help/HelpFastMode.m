@@ -10,7 +10,6 @@ function HelpFastMode
 %
 % See also the SpeedUpCellProfiler module.
 
-% $Revision$
 
 helpdlg(help('HelpFastMode'))
 

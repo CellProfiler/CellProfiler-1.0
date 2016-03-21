@@ -10,7 +10,6 @@ function CPcontrolhistogram(h_Parent,tempData,Flip)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 Logical = tempData.Logical;
 ThresholdVal = tempData.ThresholdVal;

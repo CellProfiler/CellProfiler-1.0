@@ -44,7 +44,6 @@ function handles = Tile(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Comments for PyCP:
 % For Vars01 & 02, it is unclear if we are allowing them to tile images

@@ -1,5 +1,4 @@
 function CPCluster(batchfile,StartingSet,EndingSet,OutputFolder,BatchFilePrefix,WriteMatFiles,KeepAlive)
-% $Revision$
 
 %%% Must list all CellProfiler modules here
 % DO NOT CHANGE THE LINE BELOW

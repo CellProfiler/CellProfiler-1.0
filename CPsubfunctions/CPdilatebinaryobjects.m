@@ -15,7 +15,6 @@ function OutputImage = CPdilatebinaryobjects(InputImage, NumericalObjectDilation
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if  NumericalObjectDilationRadius ~= 0
     StructuringElement = fspecial('gaussian',3*NumericalObjectDilationRadius,NumericalObjectDilationRadius);

@@ -19,7 +19,6 @@ function m = CPnanmean(x)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 

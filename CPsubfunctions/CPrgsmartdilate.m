@@ -12,7 +12,6 @@ function rgOut = CPrgsmartdilate(rgIn,n)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 global rg4trans
 

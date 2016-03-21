@@ -28,7 +28,6 @@ function handles = MaskImage(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

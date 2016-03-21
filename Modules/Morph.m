@@ -30,7 +30,6 @@ function handles = Morph(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % New Settings for PyCP
 % Klmadden 2009_03_20 Did we decide to standardize 'What do you want to call

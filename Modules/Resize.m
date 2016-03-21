@@ -22,7 +22,6 @@ function handles = Resize(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

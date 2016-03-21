@@ -102,7 +102,6 @@ function handles = DefineGrid(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Variable Settings for PyCP
 % Vars 03 & 04 can be combined into

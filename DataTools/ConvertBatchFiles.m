@@ -41,7 +41,6 @@ function ConvertBatchFiles(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Let the user select one output file to indicate the directory
 [ExampleFile, Pathname] = CPuigetfile('*.mat', 'Select one Batch output file',handles.Current.DefaultOutputDirectory);

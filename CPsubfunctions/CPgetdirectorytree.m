@@ -12,7 +12,6 @@ function Directories = CPgetdirectorytree(RootDirectory)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 Listing = sort(CPgetdirectories(RootDirectory));
 % Delete any hidden directories (and "." and "..")

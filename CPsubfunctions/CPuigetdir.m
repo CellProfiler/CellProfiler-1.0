@@ -5,7 +5,6 @@ function Dirname = CPuigetdir(start_path,txt)
 % in the title bar.
 % See documentation for uigetdir for more information.
 
-% $Revision$
 
 if ismac
     [ScreenWidth,ScreenHeight] = CPscreensize;

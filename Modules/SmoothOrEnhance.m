@@ -67,7 +67,6 @@ function handles = SmoothOrEnhance(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Variable Settings for PyCP
 %

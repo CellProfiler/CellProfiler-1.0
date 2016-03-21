@@ -16,7 +16,6 @@ function handles = CPaddmeasurements(handles, ObjectName, FeatureName, Data, Ima
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 if nargin < 5

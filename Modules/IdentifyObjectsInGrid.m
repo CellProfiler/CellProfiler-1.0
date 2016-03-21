@@ -58,7 +58,6 @@ function handles = IdentifyObjectsInGrid(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 % MBray 2009_04_17: Comments on variables for pyCP upgrade

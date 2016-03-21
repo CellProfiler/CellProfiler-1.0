@@ -19,7 +19,6 @@ function [ObjectTypename,FeatureName] = CPgetfeature(handles,ExcludeImageMeasure
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if nargin < 2
     ExcludeImageMeasurements = false;

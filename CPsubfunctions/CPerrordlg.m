@@ -18,7 +18,6 @@ function varargout = CPerrordlg(ErrorString,DlgName,Replace)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 NumArgIn = nargin;
 if NumArgIn==0

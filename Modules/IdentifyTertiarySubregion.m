@@ -36,7 +36,6 @@ function handles = IdentifyTertiarySubregion(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

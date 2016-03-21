@@ -7,7 +7,6 @@
 %    directory and exists.  (The PATH argument is ignored if
 %    FILTERSPEC is a cell array.)
 
-% $Revision$
 
 function [filename, pathname, filterindex] = CPuigetfile(filterspec, title, ...
                         path)

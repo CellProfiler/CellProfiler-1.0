@@ -72,7 +72,6 @@ function InteractiveZoom(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Note, handles are not used in this function but are fed as an argument
 %%% to be consistent with other image tools.

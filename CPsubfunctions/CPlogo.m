@@ -1,6 +1,5 @@
 function Logo = CPlogo()
 
-% $Revision$
 
 % This is how I obtained the logo:
 % Logo2 = imread('2004_12_05LogoCellOnlySmall.tif');

@@ -19,7 +19,6 @@ function CPimagetool(varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Check that the input argument is an action in the form of a string
 

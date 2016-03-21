@@ -46,7 +46,6 @@ function handles = ExpandOrShrink(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Variable settings for PyCP
 % For Var05, I think the choices should be:

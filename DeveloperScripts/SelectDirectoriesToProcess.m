@@ -28,7 +28,6 @@ function handles = SelectDirectoriesToProcess(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

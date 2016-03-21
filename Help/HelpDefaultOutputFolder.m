@@ -12,7 +12,6 @@ function HelpDefaultOutputFolder
 % to override the default output folder by entering the pathname in the
 % settings.
 
-% $Revision$
 
 helpdlg(help('HelpDefaultOutputFolder'))
 

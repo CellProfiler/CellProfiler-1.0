@@ -1,5 +1,4 @@
 function CPimagesc_test(Image, titletext)
-% $Revision$
 
 figure
 imagesc(Image);

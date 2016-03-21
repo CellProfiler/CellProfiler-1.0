@@ -54,7 +54,6 @@ function orig_handles = ShowDataOnImage(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 %%% This tool shouldn't change anything in the handles.

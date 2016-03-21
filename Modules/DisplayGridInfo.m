@@ -26,7 +26,6 @@ function handles = DisplayGridInfo(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Variable Settings for PyCP
 % It seems a little unneccesary that Vars03,04 &05 all be displayed if the

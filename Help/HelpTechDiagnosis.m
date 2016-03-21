@@ -8,7 +8,6 @@ function HelpTechDiagnosis
 %
 % Type "return" at the command line of MATLAB to exit this mode.
 
-% $Revision$
 
 helpdlg(help('HelpTechDiagnosis'))
 

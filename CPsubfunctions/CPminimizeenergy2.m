@@ -1,5 +1,4 @@
 function out = CPminimizeenergy2(I, L1, L2, ITERATIONS, EPS, inMethod, DIRECTION, inK)
-% $Revision$
     global b K method sqrFilter smoothFilter integrableFilter frame
     im = CPjustify(double(I));
     method = inMethod;

@@ -14,7 +14,6 @@ function [handles,Threshold,varargout] = CPthreshold(handles,Threshold,pObject,M
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if nargin == 9
     ObjectVar = [];

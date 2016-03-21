@@ -10,7 +10,6 @@ function [h,CurrentAxes,CurrentFig] = CPimagesc(Image,handles,varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if nargin < 3
     warning('CPimagesc:NoAxisHandle','Deprecated use of CPimagesc - proper use is CPimagesc(Image,handles,hAxis)');

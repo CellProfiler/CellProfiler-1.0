@@ -122,7 +122,6 @@ function handles = MeasureObjectAreaShape(handles, varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 % MBray 2009_03_20: Comments on variables for pyCP upgrade

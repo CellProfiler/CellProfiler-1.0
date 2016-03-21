@@ -4,7 +4,6 @@ function visualization = CPvisualizeProbabilisticSegmentation(ColoredLabelMatrix
 % Compute a version of the ColoredLabelMatrixImage that attempts to
 % visualize each pixel's probability of having its most likely label.
 %
-% $Revision$
 
 visualization = im2double(ColoredLabelMatrixImage);
 r = visualization(:,:,1);

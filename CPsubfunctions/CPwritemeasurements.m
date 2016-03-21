@@ -11,7 +11,6 @@ function CPwritemeasurements(handles,ExportInfo,RawPathname)
 %
 % Website: http://www.cellprofiler.org
 
-% $Revision$
 
 %%% Get the handle to the waitbar and update the text in the waitbar
 isBatchRun = ExportInfo.isBatchRun;

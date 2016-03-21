@@ -52,7 +52,6 @@ function img = CPimcapture( h, opt, dpi, opt2, opt3)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 hFig = [];      hAxes = [];
 if (nargin == 0 || isempty(h)),     h = get(0,'CurrentFigure');    end

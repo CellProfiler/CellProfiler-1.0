@@ -370,7 +370,6 @@ function handles = IdentifyPrimAutomatic(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

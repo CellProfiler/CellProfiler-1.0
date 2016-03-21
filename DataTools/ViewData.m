@@ -24,7 +24,6 @@ function ViewData(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Ask the user to choose the file from which to extract measurements.
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);

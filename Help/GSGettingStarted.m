@@ -101,7 +101,6 @@ function GSGettingStarted
 % will load/save these: the image analysis modules, their settings, and the
 % pixel size. It will not save the default image or output folder.
 
-% $Revision$
 
 helpdlg(help('GSGettingStarted'))
 

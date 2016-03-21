@@ -28,7 +28,6 @@ function ExportData(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 %%% Ask the user to choose the file from which to extract measurements.

@@ -22,7 +22,6 @@ function [SmoothedImage RealFilterLength SizeOfSmoothingFilterUsed] = CPsmooth(O
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% If SizeOfSmoothingFilter(S) >= LARGESIZE_OF_SMOOTHINGFILTER (L),
 %%% then rescale the original image by L/S, and rescale S to L.

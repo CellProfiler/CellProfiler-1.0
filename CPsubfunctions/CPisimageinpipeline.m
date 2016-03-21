@@ -11,7 +11,6 @@ function ispresent = CPisimageinpipeline(handles, fieldname)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if ~isfield(handles.Pipeline,'ImageGroupFields')
     ispresent = isfield(handles.Pipeline,fieldname);

@@ -122,7 +122,6 @@ function Histogram(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 [RawFileName, RawPathname] = CPuigetfile('*.mat', 'Select the raw measurements file', handles.Current.DefaultOutputDirectory);
 if RawFileName == 0

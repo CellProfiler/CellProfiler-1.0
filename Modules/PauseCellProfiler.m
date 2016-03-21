@@ -16,7 +16,6 @@ function handles = PauseCellProfiler(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % MBray 2009_03_20: Comments on variables for pyCP upgrade
 % If debugging/history is implemented in pyCP, this module will probably be

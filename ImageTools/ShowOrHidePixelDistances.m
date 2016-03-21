@@ -26,7 +26,6 @@ function ShowOrHidePixelDistances(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if verLessThan('matlab', '7.8');
     warning off Images:pixval:obsoleteFunction

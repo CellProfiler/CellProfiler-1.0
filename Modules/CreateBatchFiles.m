@@ -59,7 +59,6 @@ function handles = CreateBatchFiles(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Notes for pyCP:
 % The First setting stays the same, except that perhaps the "Use . to specify

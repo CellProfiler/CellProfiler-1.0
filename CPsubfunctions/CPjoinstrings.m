@@ -23,7 +23,6 @@ function string = CPjoinstrings(varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 error(nargchk(2, Inf, nargin, 'struct'));
 

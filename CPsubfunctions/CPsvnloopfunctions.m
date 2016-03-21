@@ -1,7 +1,6 @@
 function svn_ver_char = CPsvnloopfunctions
 % Loops appropriate .m files and parses out svn Revision #
 
-% $Revision$
 
 str_to_find = '% $Revision:';
 max_svn_ver_num = 0;

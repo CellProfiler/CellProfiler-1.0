@@ -10,7 +10,6 @@ function CPconvertsql(handles,OutDir,OutfilePrefix,DBname,TablePrefix,FirstSet,L
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Some objects are not exported
 ObjectsNotToBeExported = {'Experiment', 'Neighbors'};

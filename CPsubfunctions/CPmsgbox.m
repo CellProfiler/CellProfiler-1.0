@@ -1,6 +1,5 @@
 function h = CPmsgbox(varargin)
 
-% $Revision$
 
 h = msgbox(varargin{:});
 %%% I think we need to render for the following code to work.

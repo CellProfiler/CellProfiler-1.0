@@ -44,7 +44,6 @@ function handles = SpeedUpCellProfiler(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 % MBray 2009_03_27: Comments on variables for pyCP upgrade

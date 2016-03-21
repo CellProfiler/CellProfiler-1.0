@@ -28,7 +28,6 @@ function orig_handles = ShowPlateMapData(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 %%% This tool shouldn't change anything in the handles.

@@ -22,7 +22,6 @@ function OpenNewImageFile(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Opens a user interface window which retrieves a file name and path
 %%% name for the image to be shown.

@@ -1,5 +1,4 @@
 function out = CPhilberttransform(im, ITERATIONS, ALPHA, EXP, DIRECTION)
-% $Revision$
     global H W A E DIAG
     DIAG = strcmpi(DIRECTION,'diagonal');
     A = ALPHA;

@@ -18,7 +18,6 @@ function handles = CPsaveObjectLocations(handles, objectName, labels)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 tmp = regionprops(labels, 'Centroid');
 centroids = cat(1,tmp.Centroid);
 if isempty(centroids)

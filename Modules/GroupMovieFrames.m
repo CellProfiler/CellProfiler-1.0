@@ -22,7 +22,6 @@ function handles = GroupMovieFrames(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 % VARIABLES %%%

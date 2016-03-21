@@ -19,7 +19,6 @@ function handles = CPconfirmallimagespresent(handles,TextToFind,ImageName,ExactO
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% PRELIMINARY CALCULATIONS & FILE HANDLING %%%

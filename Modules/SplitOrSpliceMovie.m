@@ -49,7 +49,6 @@ function handles = SplitOrSpliceMovie(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

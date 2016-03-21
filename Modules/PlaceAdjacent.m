@@ -23,7 +23,6 @@ function handles = PlaceAdjacent(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%
 %%% VARIABLES %%

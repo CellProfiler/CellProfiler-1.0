@@ -25,7 +25,6 @@ function handles = ExtractHeaderInfo(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

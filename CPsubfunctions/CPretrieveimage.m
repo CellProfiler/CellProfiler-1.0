@@ -10,7 +10,6 @@ function Image = CPretrieveimage(handles,ImageName,ModuleName,ColorFlag,ScaleFla
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Fills in missing arguments, if necessary.
 if nargin == 5

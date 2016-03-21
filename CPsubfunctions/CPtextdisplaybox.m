@@ -13,7 +13,6 @@ function helpFig = CPtextdisplaybox(Text,title)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 helpFig = CPfigure;
 set(helpFig,'Resize','off');

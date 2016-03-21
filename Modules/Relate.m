@@ -49,7 +49,6 @@ function handles = Relate(handles,varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % MBray 2009_04_17: Comments on variables for pyCP upgrade
 % (1) Which objects do you want as the children (i.e, sub-objects)?

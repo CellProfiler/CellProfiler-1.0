@@ -19,7 +19,6 @@ function varargout = CellProfiler(varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Do not remove the following line.  It is used by CompileWizard.m.
 %%% Compiler: INSERT FUNCTIONS HERE

@@ -5,7 +5,6 @@ function FilledLabelMatrix = CPfill_holes(LabelMatrix)
 %%% 4-connected region.  Holes are filled only if surrounded by a
 %%% single value.
 
-% $Revision$
 
 MaximaImage = ordfilt2(LabelMatrix, 5, [0 1 0; 1 1 1 ; 0 1 0]);
 ZerosMaxima = MaximaImage .* (LabelMatrix == 0);

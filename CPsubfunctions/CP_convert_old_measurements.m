@@ -1,6 +1,5 @@
 function handles = CP_convert_old_measurements(handles)
 
-% $Revision$
 
 %%% Get all fieldnames in Measurements
 ObjectFields = fieldnames(handles.Measurements);

@@ -4,7 +4,6 @@ function fout = CPwaitbar(varargin)
 % waitbar if necessary, and also to change colors and fonts to match
 % CP's preferences.  See documentation for waitbar for usage.
 
-% $Revision$
 
 is2008b_or_greater = ~CPverLessThan('matlab','7.7');
 if is2008b_or_greater && nargin > 2 && ~(ischar(varargin{2}) || iscellstr(varargin{2})),  % Updating previously created waitbar

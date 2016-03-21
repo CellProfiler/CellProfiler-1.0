@@ -46,7 +46,6 @@ function handles=SubmitBatch(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
     info=ObjectsToSubmit(handles);
     if info.Userdata == 1
         write_data='N';

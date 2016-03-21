@@ -4,7 +4,6 @@ function [Settings,SavedVarRevNum,IsModuleModified,NeedsPlaceholderUpdateMsg,Cur
 % ones, basically by reordering VariableValues, VariableInfoTypes, and
 % updating NumbersOfVariables and SavedVarRevNum
 
-% $Revision$
 
 IsModuleModified = false;
 NeedsPlaceholderUpdateMsg = false;

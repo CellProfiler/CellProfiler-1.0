@@ -12,7 +12,6 @@ function handles = CPaddimages(handles, varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Parse out varargin. The added data can be numeric, logical or a structure
 % (e.g, movie)

@@ -15,7 +15,6 @@
 %
 % Please see the AUTHORS file for credits.
 %
-% $Revision$
 
 %%% Ask the user to choose the file from which to extract
 %%% measurements. The window opens in the default output directory.

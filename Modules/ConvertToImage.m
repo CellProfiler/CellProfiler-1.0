@@ -38,7 +38,6 @@ function handles = ConvertToImage(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Variable settings for PyCp
 % Var4 should be context-dependent and only appear if the user selects

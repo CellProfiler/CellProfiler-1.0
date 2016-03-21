@@ -65,7 +65,6 @@ function handles = CreateWebPage(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % MBray 2009_04_17: Comments on variables for pyCP upgrade
 % (1) What did you call the full-size images that you want to include on the

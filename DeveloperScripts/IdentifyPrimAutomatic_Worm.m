@@ -348,7 +348,6 @@ function handles = IdentifyPrimAutomatic_Worm(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

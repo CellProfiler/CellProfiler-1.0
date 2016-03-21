@@ -16,7 +16,6 @@ function LoadedImage = CPimread(CurrentFileName, flex_idx)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if nargin == 0 %returns the vaild image extensions
     formats = imformats;

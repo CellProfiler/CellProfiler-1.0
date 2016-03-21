@@ -12,7 +12,6 @@ function [handles,OutputImage] = CPrescale(handles,InputImage,RescaleOption,Meth
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);
 

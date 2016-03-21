@@ -19,7 +19,6 @@ function m = CPnanmedian(x)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 
 assert(length(size(x)) <= 2, 'CPnanmedian can only operate on vectors and 2D matrices.');

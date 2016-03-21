@@ -13,7 +13,6 @@ function CP_OrigNewImage_Callback(hObject,eventdata)
 %%        'UserData',{OrigImage NewImage},'backgroundcolor',[.7 .7 .9],...
 %%        'Callback',@CP_OrigNewImage_Callback);
 
-% $Revision$
 
 string = lower(get(hObject,'string'));
 UserData = get(hObject,'UserData');

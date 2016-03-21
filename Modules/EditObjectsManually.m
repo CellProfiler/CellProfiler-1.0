@@ -33,7 +33,6 @@ function handles = EditObjectsManually(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % Variable Settings for PyCP
 % It seems a litte odd that it's called 'Edit Objects Manually' but we

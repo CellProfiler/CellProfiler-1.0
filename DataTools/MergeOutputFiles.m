@@ -42,7 +42,6 @@ function MergeOutputFiles(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Let the user select one output file to indicate the directory
 [BatchFile, BatchPath] = CPuigetfile('*.mat', 'Select the first batch CellProfiler output file, which ends in data.mat', handles.Current.DefaultOutputDirectory);

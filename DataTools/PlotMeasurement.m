@@ -26,7 +26,6 @@ function PlotMeasurement(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 [FileName, Pathname] = CPuigetfile('*.mat', 'Select the raw measurements file',handles.Current.DefaultOutputDirectory);
 if FileName == 0

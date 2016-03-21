@@ -45,7 +45,6 @@ function ExportDatabase(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % This function is not called from ExportToDatabase ModuleCall but from the Data tool menu
 ModuleCall = 0;

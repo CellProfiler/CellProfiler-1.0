@@ -15,7 +15,6 @@ function categories=CPgetpriorcategories(handles, CurrentModuleNum, ObjectOrImag
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 categories=[];
 for i = 1:(CurrentModuleNum-1)
     SupportsCategories=false;

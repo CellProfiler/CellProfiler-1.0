@@ -57,7 +57,6 @@ function AddData(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Select file with text information to be added
 [filename, pathname] = CPuigetfile('*.*', 'Choose the file containing the data',handles.Current.DefaultOutputDirectory);

@@ -10,7 +10,6 @@ function [im, handles]=CPlabel2rgb(handles, image)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Note that the label2rgb function doesn't work when there are no objects
 %%% in the label matrix image, so there is an "if".

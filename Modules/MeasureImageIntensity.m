@@ -50,7 +50,6 @@ function handles = MeasureImageIntensity(handles,varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 % MBray 2009_03_20 (and Anne 4-17-09): Comments on variables for pyCP upgrade
 %

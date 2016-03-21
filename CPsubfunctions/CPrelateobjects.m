@@ -18,7 +18,6 @@ function [handles,ChildCounts,ParentList] = CPrelateobjects(handles,ChildName,Pa
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% First, we need to make sure the two matrices are the same size.
 if size(ChildLabelMatrix) ~= size(ParentLabelMatrix),

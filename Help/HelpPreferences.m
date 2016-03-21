@@ -11,7 +11,6 @@ function HelpPreferences
 %%% NOTE: THE TEXT IS VERY WIDE HERE SO THAT IT FITS INTO THE SET
 %%% PREFERENCES WINDOW.
 
-% $Revision$
 
 helpdlg(help('HelpPreferences'))
 

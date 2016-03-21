@@ -10,7 +10,6 @@ function FigHandle=CPfigure(varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 drawnow
 %    Note about the "drawnow" before the figure command:

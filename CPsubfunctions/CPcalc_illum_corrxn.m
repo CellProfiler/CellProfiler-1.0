@@ -25,7 +25,6 @@ function IlluminationField = CPcalc_illum_corrxn(Samples, Locations, SmoothingRa
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% find the number of channels in the pixels, and the number of samples
 NumberOfSamples = size(Samples, 1);

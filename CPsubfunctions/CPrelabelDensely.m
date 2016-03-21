@@ -1,7 +1,6 @@
 % Renumbers the objects in a label matrix so that they are numbered
 % consecutively.
 
-% $Revision$
 
 function labels = CPrelabelDensely(labels)
 props = regionprops(labels, {'Area', 'PixelIdxList'});

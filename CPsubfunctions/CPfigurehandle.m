@@ -3,7 +3,6 @@ function FigureHandle = CPfigurehandle(handles)
 %%% the figures that are already allocated (but may or may not be open at
 %%% the current time).
 
-% $Revision$
 
 NumberOfModules = handles.Current.NumberOfModules;
 for ModuleNumber = 1:NumberOfModules

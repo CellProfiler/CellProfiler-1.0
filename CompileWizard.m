@@ -4,7 +4,6 @@ function CompileWizard
 % file with help information stored in variables to be used in the compiled
 % version of CellProfiler.  It should be called from BuildCellProfiler.m,
 % which manages file handling and the Matlab path.
-% $Revision$
 
 
 

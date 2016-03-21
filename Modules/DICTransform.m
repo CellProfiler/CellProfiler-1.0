@@ -37,7 +37,6 @@ function handles = DICTransform(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision: 5025$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

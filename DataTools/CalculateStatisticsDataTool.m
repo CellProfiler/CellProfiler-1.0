@@ -22,7 +22,6 @@ function CalculateStatisticsDataTool(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%
 % VARIABLES %

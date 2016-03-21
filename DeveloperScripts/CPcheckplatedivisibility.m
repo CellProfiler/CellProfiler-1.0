@@ -10,7 +10,6 @@ function CPcheckplatedivisibility(NumberOfImageSets,NumberOfCyclesPerPlate,Modul
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Checks whether the total number of image cycles to be processed is
 %%% evenly divisible by the number of image cycles per plate. Issues a

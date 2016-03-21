@@ -27,7 +27,6 @@ function handles = ClearData(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% Get the pathname and let user select the files he wants
 [Pathname, SelectedFiles] = CPselectoutputfiles(handles);

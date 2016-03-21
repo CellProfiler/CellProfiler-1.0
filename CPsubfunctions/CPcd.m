@@ -13,7 +13,6 @@ function CurrentDir = CPcd(NewDir)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if nargin == 0
     if isdir(cd)

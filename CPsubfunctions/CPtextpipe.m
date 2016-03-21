@@ -10,7 +10,6 @@ function CPtextpipe(handles,ExportInfo,RawFilename,RawPathname)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if ~isfield(handles.Settings,'VariableValues') || ~isfield(handles.Settings,'VariableInfoTypes') || ~isfield(handles.Settings,'ModuleNames')
     CPmsgbox('You do not have a pipeline loaded!');

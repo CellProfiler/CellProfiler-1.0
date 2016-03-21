@@ -46,7 +46,6 @@ function handles = RelabelObjects(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%% VARIABLES
 

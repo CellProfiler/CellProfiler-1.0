@@ -62,7 +62,6 @@ function ImageToolWindow(handles)
 %
 % Website: http://www.cellprofiler.org
 
-% $Revision$
 
 % Notes for pyCP:
 % David 2009_04_17: All of these fnctions (as with all ImageTools)

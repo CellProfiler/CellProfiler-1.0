@@ -24,7 +24,6 @@ function LabelBoundaryImage = CPlabelperim(LabelMatrixImage, conn)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 if nargin == 1
     conn = 4;

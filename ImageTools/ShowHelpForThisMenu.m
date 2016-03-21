@@ -20,7 +20,6 @@ function ShowHelpForThisMenu(varargin)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 global toolsChoice;
 global ImageToolHelp;

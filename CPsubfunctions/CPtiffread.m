@@ -24,7 +24,6 @@ function [S, stack_cnt] = CPtiffread(filename, img_first, img_last)
 %
 % Used with permission by CellProfiler.
 
-% $Revision$
 
 if (nargin == 0)
     [filename, pathname] = uigetfile('*.tif;*.stk', 'select image file');

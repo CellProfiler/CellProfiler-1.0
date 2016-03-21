@@ -7,7 +7,6 @@ function HelpSaveCurrentCellProfilerCode
 % CPsubfunctions at the current revision as a ZIP file. This file is then
 % placed in the default output directory.
 
-% $Revision$
 
 helpdlg(help('HelpSaveCurrentCellProfilerCode'))
 

@@ -37,7 +37,6 @@ function handles = IdentifyPrimBasedOnOutlines(handles)
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

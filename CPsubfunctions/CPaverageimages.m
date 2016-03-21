@@ -14,7 +14,6 @@ function [handles, OutputImage, ReadyFlag, MaskImage] = CPaverageimages(handles,
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 ReadyFlag = 0;
 [CurrentModule, CurrentModuleNum, ModuleName] = CPwhichmodule(handles);

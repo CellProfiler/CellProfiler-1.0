@@ -8,7 +8,6 @@
 %
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 mex IdentifySecPropagateSubfunction.cpp
 

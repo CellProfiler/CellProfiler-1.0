@@ -49,7 +49,6 @@ function handles = ProbabilisticSegmentation(handles)
 % Copyright 2007
 % Website: http://www.cellprofiler.org
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%

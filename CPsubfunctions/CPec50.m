@@ -16,7 +16,6 @@ function [FigureIncrement, results] = CPec50(conc,responses,Logarithmic,PartialF
 %         results[m,3]=ec50
 %         results[m,4]=Hill coefficient
 
-% $Revision$
 
 % Copyright 2004 Carlos Evangelista
 % send comments to CCEvangelista@aol.com

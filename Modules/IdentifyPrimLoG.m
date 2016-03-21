@@ -58,7 +58,6 @@ function handles = IdentifyPrimLoG(handles)
 % IdentifyPrimAutomatic, so that its options for maxima suppression
 % and finding edges between clumps can be used.
 %
-% $Revision$
 
 %%%%%%%%%%%%%%%%%
 %%% VARIABLES %%%
