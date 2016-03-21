@@ -163,14 +163,14 @@ SubmitInfo.Project = [];
 SubmitInfo.Server = 'imageweb.broadinstitute.org';
 try
     if isdeployed
-        svn_ver_char = handles.Settings.CurrentSVNVersion;
+        svngit_ver_char = handles.Settings.CurrentSVNVersion;
     else
-        svn_ver_char = CPsvnversionnumber([handles.Preferences.DefaultModuleDirectory filesep '..']);
+        svngit_ver_char = CPversionnumber([handles.Preferences.DefaultModuleDirectory filesep '..']);
     end
 catch
-    svn_ver_char = '0';
+    svngit_ver_char = '0';
 end
-SubmitInfo.CPCluster = num2str(svn_ver_char);
+SubmitInfo.CPCluster = num2str(svngit_ver_char);
 
 isImageGroups = isfield(handles.Pipeline,'ImageGroupFields');
 if isImageGroups

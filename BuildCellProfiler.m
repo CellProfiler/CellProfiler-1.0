@@ -41,7 +41,6 @@ function BuildCellProfiler(usage)
 %   'single' or 'cluster', and <CellProfiler trunk directory> is (you
 %   guessed it) the CellProfiler trunk directory
 %
-% $Revision$
 
 % Check number of input arguments
 if nargin < 1,
@@ -78,17 +77,16 @@ try
 % Get svn version number
 current_search_path = pathdef;
 addpath('Modules','CPsubfunctions','DataTools','ImageTools','Help');
-svn_ver = CPsvnversionnumber;
+svngit_ver_char = CPversionnumber();
 % Restore pre-existing paths
 path(current_search_path);
 
-switch lower(usage),
-    case 'single',
-
-        output_dir = ['CompiledCellProfiler_' svn_ver];
+switch lower(usage)
+    case 'single'
+        output_dir = ['CompiledCellProfiler_' svngit_ver_char];
 
         % Move files and cleanup
-        if ~exist(['../' output_dir],'dir')
+        if ~exist(['../' output_dir], 'dir')
             mkdir('..', output_dir);
         end
 
@@ -189,7 +187,7 @@ switch lower(usage),
         path(current_search_path);
 
     case 'cluster'
-        output_dir = svn_ver;
+        output_dir = svngit_ver_char;
 
         % Move files and cleanup
         if ~exist(['../' output_dir],'dir')

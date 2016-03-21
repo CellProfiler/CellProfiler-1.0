@@ -5000,15 +5000,15 @@ elseif strcmp(ImageDataOrHelp,'Data Tools')
 elseif strcmp(ImageDataOrHelp,'Help')
     set(ToolsHelpWindowHandle,'name','General Help');
 
-    [svn_ver_char, CompiledOrNot] = get_svn_info(handles);
+    [svngit_ver_char, CompiledOrNot] = get_svn_info(handles);
 
-    TextString = sprintf(['CellProfiler version 1.0.' svn_ver_char  '\n' CompiledOrNot '\n\nPlease choose specific help below:']);
+    TextString = sprintf(['CellProfiler version 1.0.' svngit_ver_char  '\n' CompiledOrNot '\n\nPlease choose specific help below:']);
 elseif strcmp(ImageDataOrHelp,'Getting Started')
     set(ToolsHelpWindowHandle,'name','Getting Started');
 
-    [svn_ver_char, CompiledOrNot] = get_svn_info(handles);
+    [svngit_ver_char, CompiledOrNot] = get_svn_info(handles);
 
-    TextString = sprintf(['CellProfiler version 1.0.' svn_ver_char ' \n' CompiledOrNot '\n\nPlease choose specific help below:']);
+    TextString = sprintf(['CellProfiler version 1.0.' svngit_ver_char ' \n' CompiledOrNot '\n\nPlease choose specific help below:']);
 end
 
 FontSize = handles.Preferences.FontSize;
@@ -6526,15 +6526,15 @@ function u = memusage(h)
 m = whos;
 u = m.bytes;
 
-function [svn_ver_char, CompiledOrNot] = get_svn_info(handles)
+function [svngit_ver_char, CompiledOrNot] = get_svn_info(handles)
 try
     if isdeployed
         CompiledOrNot = 'Compiled';
-        svn_ver_char = handles.Current.svn_version_number;
+        svngit_ver_char = handles.Current.svn_version_number;
     else
         CompiledOrNot = 'Developer''s Version';
-        svn_ver_char = CPsvnversionnumber([handles.Preferences.DefaultModuleDirectory filesep '..']);
+        svngit_ver_char = CPversionnumber([handles.Preferences.DefaultModuleDirectory filesep '..']);
     end
 catch
-    svn_ver_char = '';
+    svngit_ver_char = '';
 end
