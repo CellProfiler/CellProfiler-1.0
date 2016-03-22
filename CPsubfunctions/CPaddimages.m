@@ -23,12 +23,24 @@ CPvalidfieldname(ImageName);
 if ~isfield(handles.Pipeline,'ImageGroupFields')
     % If no image groups, add to the handles.Pipeline structure
     for i = 1:length(ImageName)
-        handles.Pipeline.(ImageName{i}) = ImageData{i};
+        % Here it would be possible to convert images to single
+        % precision to reduce RAM storage space:
+        %if isa(ImageData{i},'double')
+        %    handles.Pipeline.(ImageName{i}) = single(ImageData{i});
+        %else
+            handles.Pipeline.(ImageName{i}) = ImageData{i};
+        %end
     end
 else
     % If no image groups, add to the appropriate
     % handles.Pipeline.GroupFileList structure
     for i = 1:length(ImageName)
-        handles.Pipeline.GroupFileList{handles.Pipeline.CurrentImageGroupID}.(ImageName{i}) = ImageData{i};
+        % Here it would be possible to convert images to single
+        % precision to reduce RAM storage space:
+        %if isa(ImageData{i},'double')
+        %    handles.Pipeline.GroupFileList{handles.Pipeline.CurrentImageGroupID}.(ImageName{i}) = single(ImageData{i});
+        %else
+            handles.Pipeline.GroupFileList{handles.Pipeline.CurrentImageGroupID}.(ImageName{i}) = ImageData{i};
+        %end
     end
 end
