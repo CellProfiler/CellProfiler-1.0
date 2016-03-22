@@ -232,7 +232,7 @@ switch UserInput.Color
     case 'White'
         GraphColor='w';
     otherwise
-        GraphColor=[.7 .7 .9];
+        GraphColor=CPBackgroundColor();
 end
 
 
@@ -675,7 +675,7 @@ if ~strcmpi(UserInput.Style,'Heatmap') && strcmpi(UserInput.Display,'Yes')
 elseif strcmpi(UserInput.Style,'Heatmap') == 1 && strcmpi(UserInput.Display,'Yes') == 1
     FinalHistogramData = FinalHistogramData';
     FigureHandle = CPfigure;
-    set(FigureHandle,'Name', [UserInput.Style,' for ',MeasurementToExtract],'Color',[.7 .7 .9])
+    set(FigureHandle,'Name', [UserInput.Style,' for ',MeasurementToExtract],'Color',CPBackgroundColor())
     heatmp=subplot(1,1,1);
     pos=get(heatmp, 'Position');
     set(heatmp, 'Position', [pos(1) pos(2) pos(3) pos(4)-.1]);

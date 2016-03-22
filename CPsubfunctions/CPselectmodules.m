@@ -7,7 +7,7 @@ function Selection = CPselectmodules(ModuleNames)
 NumberOfModules = length(ModuleNames);
 
 %%% Create Select Display window
-SelectDisplay = CPfigure('Units','Inches','Resize','Off','Menubar','None','Toolbar','None','NumberTitle','Off','Name','Select Display Window','Color',[.7 .7 .9],'UserData',0);
+SelectDisplay = CPfigure('Units','Inches','Resize','Off','Menubar','None','Toolbar','None','NumberTitle','Off','Name','Select Display Window','Color',CPBackgroundColor(),'UserData',0);
 
 %%% Set window location and size
 % Get current position

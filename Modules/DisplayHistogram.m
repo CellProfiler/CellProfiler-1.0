@@ -322,7 +322,7 @@ switch Color
     case 'White'
         HistColor='w';
     otherwise
-        HistColor=[.7 .7 .9];
+        HistColor=CPBackgroundColor();
 end
 
 ThisModuleFigureNumber = handles.Current.(['FigureNumberForModule',CurrentModule]);

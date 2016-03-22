@@ -137,7 +137,7 @@ if handles.Current.SetBeingAnalyzed == 1
         NumberOfImages = length(FileList);
         WaitbarText = 'Preliminary background calculations underway... ';
         WaitbarHandle = waitbar(1/NumberOfImages, WaitbarText);
-        set(WaitbarHandle,'Position', PositionMsgBox,'color',[.7 .7 .9])
+        set(WaitbarHandle,'Position', PositionMsgBox,'color',CPBackgroundColor())
         for i = 1:NumberOfImages
             Image = CPimread(fullfile(Pathname,char(FileList(i))));
             SortedColumnImage = sort(reshape(Image, [],1));

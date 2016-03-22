@@ -84,7 +84,7 @@ switch UserAnswers.Color
         LineColor='w';
     otherwise
         LineTag='CellProfiler background';
-        LineColor=[.7 .7 .9];
+        LineColor=CPBackgroundColor();
 end
 
 
@@ -190,7 +190,7 @@ FontSize = handles.Preferences.FontSize;
 
 % Create UserWindow window
 UserWindow = figure;
-set(UserWindow,'units','inches','resize','on','menubar','none','toolbar','none','numbertitle','off','Name','Choose control histogram settings','Color',[.7 .7 .9]);
+set(UserWindow,'units','inches','resize','on','menubar','none','toolbar','none','numbertitle','off','Name','Choose control histogram settings','Color',CPBackgroundColor());
 % Some variables controling the sizes of uicontrols
 uiheight = 0.3;
 % Set window size in inches, depends on the number of prompts

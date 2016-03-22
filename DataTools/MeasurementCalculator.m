@@ -108,7 +108,7 @@ uiheight = 0.3;
 FontSize = handles.Preferences.FontSize;
 
 set(Window,'units','inches','resize','off','menubar','none','toolbar','none','numbertitle','off',...
-    'Name','Measurement Calculator','Color',[.7 .7 .9],'Position',[4 3 Width Height]);
+    'Name','Measurement Calculator','Color',CPBackgroundColor(),'Position',[4 3 Width Height]);
 
 BaseY = 3.5;
 uicontrol(Window,'style','text','String','Calculate','Fontweight','bold',...
