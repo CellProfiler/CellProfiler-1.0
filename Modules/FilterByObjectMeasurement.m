@@ -197,7 +197,7 @@ else
             ', possibly specific to image ''' ImageName ''' and/or ' ...
             'Texture Scale = ' num2str(SizeScale) '.']);
     end
-    MeasureInfo = handles.Measurements.(ObjectName).(FeatureName){SetBeingAnalyzed};
+    MeasureInfo = double(handles.Measurements.(ObjectName).(FeatureName){SetBeingAnalyzed});
 
     if strcmpi(MinValue1, 'No minimum')
         MinValue1 = -Inf;
