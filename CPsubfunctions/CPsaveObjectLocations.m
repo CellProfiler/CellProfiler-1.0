@@ -8,13 +8,6 @@ function handles = CPsaveObjectLocations(handles, objectName, labels)
 %      creates handles.Measurements.Cells{1}.Location_Center_X and
 %      handles.Measurements.Cells{1}.Location_Center_Y.
 %
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2008.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

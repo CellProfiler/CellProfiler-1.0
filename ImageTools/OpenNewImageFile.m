@@ -12,13 +12,6 @@ function OpenNewImageFile(handles)
 % The display is contrast stretched so that the brightest pixel in the
 % image is white and the darkest is black for easier viewing.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

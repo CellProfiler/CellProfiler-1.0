@@ -8,13 +8,6 @@ function [text, ok]=CPeditbox(text, varargin)
 %            ok - true if OK pressed, false if user exited box in
 %            some other way.
 %
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

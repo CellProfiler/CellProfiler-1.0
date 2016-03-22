@@ -7,13 +7,6 @@
 %
 % See also HISTOGRAM.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 
 %%% Ask the user to choose the file from which to extract
