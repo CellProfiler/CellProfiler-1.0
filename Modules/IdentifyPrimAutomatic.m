@@ -759,9 +759,9 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     %%% First set seed to 0, so that it is reproducible
                     is2008b_or_greater = ~CPverLessThan('matlab','7.7');
                     if is2008b_or_greater,
-                        defaultStream = RandStream.getDefaultStream;
+                        defaultStream = RandStream.getGlobalStream;
                         savedState = defaultStream.State;
-                        RandStream.setDefaultStream(RandStream('mt19937ar','seed',0));
+                        RandStream.setGlobalStream(RandStream('mt19937ar','seed',0));
                     else
                         rand('seed',0);
                     end

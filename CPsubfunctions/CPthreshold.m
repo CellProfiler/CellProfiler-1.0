@@ -503,9 +503,9 @@ else
     if length(im) > 512^2
         is2008b_or_greater = ~CPverLessThan('matlab','7.7');
         if is2008b_or_greater
-            defaultStream = RandStream.getDefaultStream;
+            defaultStream = RandStream.getGlobalStream;
             savedState = defaultStream.State;
-            RandStream.setDefaultStream(RandStream('mt19937ar','seed',0));
+            RandStream.setGlobalStream(RandStream('mt19937ar','seed',0));
         else
             rand('seed',0);
         end
@@ -890,9 +890,9 @@ function Q = smooth_log_histogram(R, bits)
 %%% seed random state
 is2008b_or_greater = ~CPverLessThan('matlab','7.7');
 if is2008b_or_greater
-    defaultStream = RandStream.getDefaultStream;
+    defaultStream = RandStream.getGlobalStream;
     savedState = defaultStream.State;
-    RandStream.setDefaultStream(RandStream('mt19937ar','seed',sum(100*clock)));
+    RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
 else
     rand('seed',0);
 end
