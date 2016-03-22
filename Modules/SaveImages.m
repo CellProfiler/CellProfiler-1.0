@@ -109,6 +109,7 @@ Appendage = char(handles.Settings.VariableValues{CurrentModuleNum,3});
 %choiceVAR04 = bmp
 %choiceVAR04 = gif
 %choiceVAR04 = hdf
+%choiceVAR04 = jp2
 %choiceVAR04 = jpg
 %choiceVAR04 = jpeg
 %choiceVAR04 = pbm
@@ -258,7 +259,7 @@ if ~isempty(TileModuleNum)      %if Tile Module is loaded
     end
 end
 
-if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBeingAnalyzed == 1) || (strcmpi(SaveWhen,'Last cycle') && SetBeingAnalyzed == NumberOfImageSets)
+if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && (SetBeingAnalyzed == handles.Current.StartingImageSet)) || (strcmpi(SaveWhen,'Last cycle') && SetBeingAnalyzed == NumberOfImageSets)
     %%% If the user has selected sequential numbers for the file names.
     if strcmpi(ImageFileName,'N')
         FileName = DigitString(NumberOfImageSets,SetBeingAnalyzed);
@@ -426,7 +427,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             handles = CPaddmeasurements(handles, 'Image', ...
                         ['PathName_', ImageName], PathName);
         else
-            if strcmp(handles.Settings.ModuleNames{end},'CreateBatchFiles') && (SetBeingAnalyzed == 1)  && ~isfield(handles.Current, 'BatchInfo')
+            if strcmp(handles.Settings.ModuleNames{end},'CreateBatchFiles') && (SetBeingAnalyzed == handles.Current.StartingImageSet)  && ~isfield(handles.Current, 'BatchInfo')
                 CPwarndlg('To save the image to the pipeline, you must select "Every cycle" for "At what point in the pipeline do you want to save the image?". To prevent an error from occurring, this setting will be ignored.', ['Warning in ',ModuleName],'replace');
             else
                 warning('To save the image to the pipeline, you must select "Every cycle" for "At what point in the pipeline do you want to save the image?". To prevent an error from occurring, this setting will be ignored.');
@@ -445,7 +446,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
         %%% If setting up for a batch run, some filenames may be
         %%% overwritten. Warn the user this could occur and urge them to
         %%% check their settings
-        if strcmp(handles.Settings.ModuleNames{end},'CreateBatchFiles') && (SetBeingAnalyzed == 1)  && ~isfield(handles.Current, 'BatchInfo'),
+        if strcmp(handles.Settings.ModuleNames{end},'CreateBatchFiles') && (SetBeingAnalyzed == handles.Current.StartingImageSet)  && ~isfield(handles.Current, 'BatchInfo'),
             CPwarndlg(['You are setting up for a batch run but you have selected that any existing images with the same name should not be overwritten without confirming. When running on the cluster, there is no way to confirm overwriting since no dialog boxes are allowed. Check your overwriting settings in ',ModuleName,'.']);
         %%% If during a batch run we run into a file that could be
         %%% overwritten, terminate unconditionally with an error (since we
@@ -486,6 +487,8 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
         if strcmpi(FileFormat,'jpg') || strcmpi(FileFormat,'jpeg')
             FileSavingParameters = [FileSavingParameters, ',''mode'', ''lossless'''];
         end
+    elseif strcmp(BitDepth, '12') && (strcmp(FileFormat,'tif') || strcmp(FileFormat,'tiff'))
+        Image = uint16((2^12).*double(Image));
     elseif strcmp(BitDepth, '16') && (strcmp(FileFormat,'tif') || strcmp(FileFormat,'tiff'))
         Image = im2uint16(Image);
     end
@@ -517,7 +520,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             end
         end
     elseif strcmpi(FileFormat,'avi')
-        if SetBeingAnalyzed == 1 &&  strcmpi(CheckOverwrite,'Y')
+        if ((SetBeingAnalyzed == handles.Current.StartingImageSet) && strcmpi(CheckOverwrite,'Y'))
             %%% Checks whether the new image name is going to overwrite
             %%% the original file, but only on the first cycle,
             %%% because otherwise the check would be done on each frame
@@ -538,7 +541,7 @@ if strcmpi(SaveWhen,'Every cycle') || (strcmpi(SaveWhen,'First cycle') && SetBei
             end
         end
         fieldname = ['Movie', ImageName];
-        if SetBeingAnalyzed == 1
+        if (SetBeingAnalyzed == handles.Current.StartingImageSet)
             %%% Preallocates the variable which signficantly speeds processing
             %%% time.
             Movie(NumberOfImageSets) = struct('colormap',[],'cdata',[]);
