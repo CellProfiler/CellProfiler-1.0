@@ -135,13 +135,7 @@ function HelpDeveloperInfo
 % %%%VariableRevisionNumber = 1
 %    If the module does not have this line, the VariableRevisionNumber is
 % assumed to be 0.  This number need only be incremented when a change made
-% to the modules will affect a user's previously saved settings. There is a
-% revision number at the end of the license info at the top of the m-file
-% for our source-control revisions - this revision number does not affect
-% the user's previously saved settings files and you can ignore it.
-% However, a line with "% $Revision$" should be added to any new
-% function, so that the version-control system will find and update the
-% number upon new commits.
+% to the modules will affect a user's previously saved settings.
 %
 % *** STORING AND RETRIEVING DATA: THE HANDLES STRUCTURE ***
 %

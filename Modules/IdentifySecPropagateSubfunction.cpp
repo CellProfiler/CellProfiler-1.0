@@ -12,7 +12,6 @@
  *   In Han Kang    <inthek@mit.edu>                                
  *   Kyungnam Kim   <kkim@broad.mit.edu>
  *
- * $Revision$
  */
 
 #include <math.h>
