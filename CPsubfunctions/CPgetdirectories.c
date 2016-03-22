@@ -11,7 +11,6 @@
  *
  * Website: http://www.cellprofiler.org
  *
- * $Revision$
  */
 #if defined(WIN32) || defined(_WIN32)
 #include <windows.h>
