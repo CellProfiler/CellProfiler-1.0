@@ -15,4 +15,3 @@ end
 if isempty(regexp(fieldname,'^[A-Za-z][A-Za-z0-9_]{0,62}$', 'once' ))
     error(['The field name, "',fieldname,'", contains characters other than alphanumerics and "_"']);
 end
-end
