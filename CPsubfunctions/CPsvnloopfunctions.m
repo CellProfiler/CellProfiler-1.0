@@ -1,10 +1,10 @@
-function svn_ver_char = CPsvnloopfunctions
+function svn_ver_char = CPsvnloopfunctions()
 % Loops appropriate .m files and parses out svn Revision #
 
 
 str_to_find = '% $Revision:';
 max_svn_ver_num = 0;
-dirs_to_loop = {'.','./Modules','./CPsubfunctions','DataTools','ImageTools','Help'};
+dirs_to_loop = {'.','Modules','CPsubfunctions','DataTools','ImageTools','Help'};
 
 %% Outputs list of files that are missing the svn Revision keyword.
 %% Run DEBUG = 1 as a standalone function.
@@ -21,29 +21,27 @@ for current_dir = dirs_to_loop
         current_file = files(idx).name;
         fid = fopen(current_file);
 
-        %% Find first line like this: "% $Revision$"
-        while feof(fid) == 0
+        %% Find first line like this: "% $Revision: 6842 $"
+        while (feof(fid) == 0)
             current_line = fgetl(fid);
             if strncmp(current_line,str_to_find,length(str_to_find))
-
                 %% Grab the number
-                first = length(str_to_find)+1;
-                last = first+4;
-                try
-                    current_svn_ver_num = str2double(current_line(first:last));
-                catch
+                current_number = regexpi(current_line, ' [0-9][0-9][0-9]* ', 'match', 'once');
+                if (length(current_number) > 4)
+                    current_svn_ver_num = str2double(current_number(2:end-1));
+                else
                     %% In case there is a blank or non-numeric Revision #
-                    break
+                    break;
                 end
                 max_svn_ver_num = max([max_svn_ver_num; current_svn_ver_num]);
                 if DEBUG, found = 1; end
-                break
+                break;
             end
         end
         fclose(fid);
         % DEBUG
         if DEBUG && ~found
-            disp(['Could not find a Revision # for ' current_file])
+            disp(['Could not find a Revision # for ' current_file]);
         end
     end
 end
