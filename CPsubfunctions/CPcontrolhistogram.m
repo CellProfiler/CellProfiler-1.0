@@ -239,9 +239,9 @@ Color = uicontrol(UserWindow,'style','popupmenu','String',{'Red','Blue','Green',
 %%% OK AND CANCEL BUTTONS
 posx = (Width - 1.7)/2;               % Centers buttons horizontally
 okbutton = uicontrol(UserWindow,'style','pushbutton','String','OK','Fontweight','bold','FontSize',FontSize,'units','inches',...
-    'position',[posx 0.1 0.75 0.3],'BackgroundColor',[.7 .7 .9],'Callback','[cobj,cfig] = gcbo;set(cobj,''UserData'',1);uiresume(cfig);clear cobj cfig;','BackgroundColor',[.7 .7 .9]);
+    'position',[posx 0.1 0.75 0.3],'BackgroundColor',CPBackgroundColor(),'Callback','[cobj,cfig] = gcbo;set(cobj,''UserData'',1);uiresume(cfig);clear cobj cfig;','BackgroundColor',CPBackgroundColor());
 cancelbutton = uicontrol(UserWindow,'style','pushbutton','String','Cancel','Fontweight','bold','FontSize',FontSize,'units','inches',...
-    'position',[posx+0.95 0.1 0.75 0.3],'Callback','close(gcf)','BackgroundColor',[.7 .7 .9]);
+    'position',[posx+0.95 0.1 0.75 0.3],'Callback','close(gcf)','BackgroundColor',CPBackgroundColor());
 
 
 % Repeat until valid input has been entered or the window is destroyed

@@ -180,7 +180,7 @@ if any(findobj == ThisModuleFigureNumber)
     CPimagesc(ThresholdedOrigImage,handles,hAx);
     title(hAx,'Thresholded Image');
     if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl'))
-        displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text', 'position', [0 0 200 60],'fontname','helvetica','backgroundcolor',[.7 .7 .9],'FontSize',handles.Preferences.FontSize);
+        displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text', 'position', [0 0 200 60],'fontname','helvetica','backgroundcolor',CPBackgroundColor(),'FontSize',handles.Preferences.FontSize);
     else
         displaytexthandle = findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl');
     end

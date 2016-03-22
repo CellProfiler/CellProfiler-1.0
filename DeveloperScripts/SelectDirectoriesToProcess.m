@@ -83,6 +83,6 @@ if any(findobj == ThisModuleFigureNumber)
     end
     currentfig = CPfigure(handles,'Text',ThisModuleFigureNumber);
     for i = 1:length(TextString),
-        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString{i},'position',[.05 .9-(i-1)*.04 .95 .04],'BackgroundColor',[.7 .7 .9]);
+        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString{i},'position',[.05 .9-(i-1)*.04 .95 .04],'BackgroundColor',CPBackgroundColor());
     end
 end

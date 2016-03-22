@@ -477,7 +477,7 @@ if any(findobj == ThisModuleFigureNumber)
     end
 
     if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl'))
-        displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text','units','normalized','position', [0.1 0.1 0.8 0.8],'fontname','helvetica','backgroundcolor',[.7 .7 .9],'horizontalalignment','left','FontSize',handles.Preferences.FontSize);
+        displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text','units','normalized','position', [0.1 0.1 0.8 0.8],'fontname','helvetica','backgroundcolor',CPBackgroundColor(),'horizontalalignment','left','FontSize',handles.Preferences.FontSize);
     else
         displaytexthandle = findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl');
     end

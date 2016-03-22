@@ -240,7 +240,7 @@ if doFirstCycleOnly || doTokensExist,
             else
                 TextString = [ImageName,': ',FileNames];
             end
-            uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString,'position',[.05 .85-(n-1)*.15 .95 .1],'BackgroundColor',[.7 .7 .9],'tag','TextUIControl')
+            uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString,'position',[.05 .85-(n-1)*.15 .95 .1],'BackgroundColor',CPBackgroundColor(),'tag','TextUIControl')
         end
     end
 

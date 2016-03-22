@@ -88,7 +88,7 @@ function hButton=uipushbutton(h,text,position,callback)
     GUIhandles = guidata(gcbo);
     FontSize = GUIhandles.Preferences.FontSize;
     hButton=uicontrol(h,'style','pushbutton','String',text,'FontName','helvetica','FontSize',FontSize,'FontWeight', 'bold','units','pixels',...
-    'position',position,'Callback',callback,'BackgroundColor',[.7 .7 .9]);
+    'position',position,'Callback',callback,'BackgroundColor',CPBackgroundColor());
 end
 
 function hBrowseButton = uibrowsedir(h,textctl, dlgcaption, position)

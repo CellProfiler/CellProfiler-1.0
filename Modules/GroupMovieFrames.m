@@ -198,7 +198,7 @@ if any(findobj == ThisModuleFigureNumber);
         else
             TextString = [ImageName,': ',FileNames];
         end
-        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString,'position',[.05 .85-(n-1)*.15 .95 .1],'BackgroundColor',[.7 .7 .9])
+        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString,'position',[.05 .85-(n-1)*.15 .95 .1],'BackgroundColor',CPBackgroundColor())
     end
     drawnow
 end

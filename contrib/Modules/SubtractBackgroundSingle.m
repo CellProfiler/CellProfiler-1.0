@@ -98,7 +98,7 @@ if TenthMinimumPixelValue ~= 0
         title('Corrected Image');
         %%% Displays the text.
         if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','DisplayText'))
-            displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','DisplayText','style','text', 'position', [0 0 200 20],'fontname','helvetica','backgroundcolor',[0.7 0.7 0.9],'FontSize',handles.Preferences.FontSize);
+            displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','DisplayText','style','text', 'position', [0 0 200 20],'fontname','helvetica','backgroundcolor',CPBackgroundColor(),'FontSize',handles.Preferences.FontSize);
         else
             displaytexthandle = findobj('Parent',ThisModuleFigureNumber,'tag','DisplayText');
         end
