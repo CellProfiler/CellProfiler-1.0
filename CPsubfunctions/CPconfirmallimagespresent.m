@@ -9,13 +9,6 @@ function handles = CPconfirmallimagespresent(handles,TextToFind,ImageName,ExactO
 % SaveOutputFile can be 'y' or 'n' depending on whether you want to produce
 % an output file.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

@@ -24,13 +24,6 @@ function handles = MeasureCorrelation(handles,varargin)
 %
 % See also MeasureObjectIntensity, MeasureImageIntensity.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -361,7 +354,7 @@ if any(findobj == ThisModuleFigureNumber)
 
     %%% Displays the results.
     Displaytexthandle = uicontrol(ThisModuleFigureNumber,'style','text', 'position', [0 Height-40 Width 20],'tag','TextUIControl',...
-        'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',[.7 .7 .9],'horizontalalignment','center','fontweight','bold');
+        'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',CPBackgroundColor(),'horizontalalignment','center','fontweight','bold');
     TextToDisplay = ['Average correlations in cycle # ',num2str(handles.Current.SetBeingAnalyzed)];
     set(Displaytexthandle,'string',TextToDisplay)
 
@@ -371,7 +364,7 @@ if any(findobj == ThisModuleFigureNumber)
         %%% Don't write any object type name in the first colum
         if ObjectNameNbr > 0
             h = uicontrol(ThisModuleFigureNumber,'style','text','position',[110+60*ObjectNameNbr Height-110 70 25],'tag','TextUIControl',...
-                'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',[.7 .7 .9],'horizontalalignment','center',...
+                'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',CPBackgroundColor(),'horizontalalignment','center',...
                 'fontweight','bold');
             set(h,'string',ObjectName{ObjectNameNbr});
         end
@@ -382,7 +375,7 @@ if any(findobj == ThisModuleFigureNumber)
                 %%% First column, write image names
                 if ObjectNameNbr == 0
                     h = uicontrol(ThisModuleFigureNumber,'style','text','position',[20 Height-120-40*row 120 40],'tag','TextUIControl',...
-                        'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',[.7 .7 .9],'horizontalalignment','left',...
+                        'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',CPBackgroundColor(),'horizontalalignment','left',...
                         'fontweight','bold');
                     TextToDisplay = sprintf('%s and \n%s',ImageName{i},ImageName{j});
                     set(h,'string',TextToDisplay);
@@ -390,7 +383,7 @@ if any(findobj == ThisModuleFigureNumber)
                     %%% Calculate the average correlation over the objects
                     c = mean(correlations{ObjectNameNbr}(:,FeatureNbr));
                     uicontrol(ThisModuleFigureNumber,'style','text','position',[110+60*ObjectNameNbr Height-125-40*row 70 40],'tag','TextUIControl',...
-                        'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',[.7 .7 .9],'horizontalalignment','center',...
+                        'fontname','Helvetica','FontSize',handles.Preferences.FontSize,'backgroundcolor',CPBackgroundColor(),'horizontalalignment','center',...
                         'string',sprintf('%0.2f',c));
                     FeatureNbr = FeatureNbr + 1;
                 end

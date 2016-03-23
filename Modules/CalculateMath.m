@@ -40,13 +40,6 @@ function handles = CalculateMath(handles)
 %
 % See also CalculateRatios, all Measure modules.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -230,7 +223,7 @@ for idx = 1:2
         FeatureName{idx} = CPgetfeaturenamesfromnumbers(handles, ObjectName{idx}, ...
             Category{idx}, FeatureNumber{idx}, ImageName{idx},SizeScale{idx});
 
-        Measurements{idx} = handles.Measurements.(ObjectName{idx}).(FeatureName{idx}){SetBeingAnalyzed};
+        Measurements{idx} = double(handles.Measurements.(ObjectName{idx}).(FeatureName{idx}){SetBeingAnalyzed});
     catch
         error([lasterr '  Image processing was canceled in the ', ModuleName, ...
             ' module (#' num2str(CurrentModuleNum) ...
@@ -346,6 +339,6 @@ if any(findobj == ThisModuleFigureNumber);
         'HorizontalAlignment','left',...
         'string',TextString,...
         'position',[.05 .85 .95 .1],...
-        'BackgroundColor',[.7 .7 .9],...
+        'BackgroundColor',CPBackgroundColor(),...
         'tag','TextUIControl');
 end

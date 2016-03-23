@@ -53,13 +53,6 @@ function handles = RenameOrRenumberFiles(handles)
 % at the beginning, enter "DP" as text to place between, and leave
 % numerical digits as is).
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

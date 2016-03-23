@@ -338,13 +338,6 @@ function handles = IdentifyPrimAutomatic_Worm(handles)
 %
 % See also IdentifyPrimManual, IdentifySecondary.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -1184,7 +1177,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                 if isempty(SegmentedFigures)
                     Segmented_h = CPfigure;
                     set(Segmented_h,'Tag','SegmentedFigure');
-                    uicontrol('style','text','units','normalized','string','IDENTIFIED OBJECTS: Choosing None for either option will result in the same image, therefore only the Intensity and None option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',[.7 .7 .9])
+                    uicontrol('style','text','units','normalized','string','IDENTIFIED OBJECTS: Choosing None for either option will result in the same image, therefore only the Intensity and None option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',CPBackgroundColor())
                 else
                     CPfigure(SegmentedFigures(1));
                 end
@@ -1197,7 +1190,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                 if isempty(OutlinedFigures)
                     Outlined_h = CPfigure;
                     set(Outlined_h,'Tag','OutlinedFigure');
-                    uicontrol('style','text','units','normalized','string','Outlined Objects: Choosing None for either option will result in the same image, therefore only the Intensity and None option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',[.7 .7 .9]);
+                    uicontrol('style','text','units','normalized','string','Outlined Objects: Choosing None for either option will result in the same image, therefore only the Intensity and None option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',CPBackgroundColor());
                 else
                     CPfigure(OutlinedFigures(1));
                 end

@@ -44,13 +44,6 @@ function handles = DistinguishPixelLabels(handles)
 %
 % See also IdentifyPrimAutomatic, IdentifySecondary
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -475,7 +468,7 @@ if any(findobj == ThisModuleFigureNumber)
     title('Output');
     %%% A 'subplot' of the figure window is set to display the
     %%% user-selected or input intensity peaks
-    displaytexthandle = uicontrol(ThisModuleFigureNumber,'style','text','fontname','helvetica','units','normalized','position',[0.5 0 0.5 0.4],'backgroundcolor',[0.7 0.7 0.9],'FontSize',handles.Preferences.FontSize+4);
+    displaytexthandle = uicontrol(ThisModuleFigureNumber,'style','text','fontname','helvetica','units','normalized','position',[0.5 0 0.5 0.4],'backgroundcolor',CPBackgroundColor(),'FontSize',handles.Preferences.FontSize+4);
     set(displaytexthandle,'string',sprintf(['Peak Intensity Values as (DNA-X,Actin-Y)\n\nNuclei: (%.1f, %.1f)',...
         '\nCells: (%.1f, %.1f)\nBackground: (%.1f, %.1f)'],handles.Pipeline.NucleiPeak,handles.Pipeline.CellsPeak,handles.Pipeline.BackgroundPeak));
 end

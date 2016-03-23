@@ -4,13 +4,6 @@ function [handles,Threshold,varargout] = CPthreshold(handles,Threshold,pObject,M
 % varargout, the Otsu and Kapur measures of thresholding quality
 % (weighted variance and sum of entropies, resp.).
 %
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -510,9 +503,9 @@ else
     if length(im) > 512^2
         is2008b_or_greater = ~CPverLessThan('matlab','7.7');
         if is2008b_or_greater
-            defaultStream = RandStream.getDefaultStream;
+            defaultStream = RandStream.getGlobalStream;
             savedState = defaultStream.State;
-            RandStream.setDefaultStream(RandStream('mt19937ar','seed',0));
+            RandStream.setGlobalStream(RandStream('mt19937ar','seed',0));
         else
             rand('seed',0);
         end
@@ -897,9 +890,9 @@ function Q = smooth_log_histogram(R, bits)
 %%% seed random state
 is2008b_or_greater = ~CPverLessThan('matlab','7.7');
 if is2008b_or_greater
-    defaultStream = RandStream.getDefaultStream;
+    defaultStream = RandStream.getGlobalStream;
     savedState = defaultStream.State;
-    RandStream.setDefaultStream(RandStream('mt19937ar','seed',sum(100*clock)));
+    RandStream.setGlobalStream(RandStream('mt19937ar','seed',sum(100*clock)));
 else
     rand('seed',0);
 end

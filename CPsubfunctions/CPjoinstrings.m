@@ -13,13 +13,6 @@ function string = CPjoinstrings(varargin)
 %   Examples
 %   See also FILESEP, PATHSEP, FILEPARTS.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2008.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

@@ -12,13 +12,6 @@ function handles = Resize(handles)
 % pixel size for the resized image. You can also select which interpolation
 % method to use. This module uses the MATLAB built-in function imresize.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

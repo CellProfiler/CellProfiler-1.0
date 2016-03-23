@@ -1,12 +1,5 @@
 function Selection = CPselectmodules(ModuleNames)
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -14,7 +7,7 @@ function Selection = CPselectmodules(ModuleNames)
 NumberOfModules = length(ModuleNames);
 
 %%% Create Select Display window
-SelectDisplay = CPfigure('Units','Inches','Resize','Off','Menubar','None','Toolbar','None','NumberTitle','Off','Name','Select Display Window','Color',[.7 .7 .9],'UserData',0);
+SelectDisplay = CPfigure('Units','Inches','Resize','Off','Menubar','None','Toolbar','None','NumberTitle','Off','Name','Select Display Window','Color',CPBackgroundColor(),'UserData',0);
 
 %%% Set window location and size
 % Get current position
@@ -41,12 +34,12 @@ Width = 4.2;
 set(SelectDisplay,'Position',[Pos(1)+1 YDist Width Height]);
 
 %%% Create text and special checkboxes
-uicontrol(SelectDisplay,'Style','Text','String','Select which module windows to display: ','HorizontalAlignment','Left','Units','Inches','Position',[0.2 Height-0.25 3.5 0.2],'BackgroundColor',[.7 .7 .9]);
+uicontrol(SelectDisplay,'Style','Text','String','Select which module windows to display: ','HorizontalAlignment','Left','Units','Inches','Position',[0.2 Height-0.25 3.5 0.2],'BackgroundColor',CPBackgroundColor());
 
 %%% Create panel and slider, if needed
 if ReqSlid
     % Panel Stuff
-    SelectDisplayPanel = uipanel(SelectDisplay,'units','inches','position',[0 .8 4 Height-4*uiheight],'bordertype','none','BackgroundColor',[.7 .7 .9]);
+    SelectDisplayPanel = uipanel(SelectDisplay,'units','inches','position',[0 .8 4 Height-4*uiheight],'bordertype','none','BackgroundColor',CPBackgroundColor());
     PanelPosition = get(SelectDisplayPanel,'Position');
     PanelHeight = PanelPosition(4);
     Fits = floor(PanelHeight/uiheight);
@@ -65,7 +58,7 @@ end
 h = [];
 for k = 1:NumberOfModules
     h(k) = uicontrol(SelectDisplayPanel,'Style','checkbox','String',ModuleNames{k},'units','inches','position',[0.2 ypos 3.2 .18],...
-        'BackgroundColor',[.7 .7 .9],'Value',1);
+        'BackgroundColor',CPBackgroundColor(),'Value',1);
     ypos=ypos-uiheight;
 end
 
@@ -75,8 +68,8 @@ if ReqSlid
 end
 
 %%% Create special features
-uicontrol(SelectDisplay,'Style','pushbutton',   'Value',0,'String','Select All/None',   'Units','Inches','BackgroundColor',[.7 .7 .9], 'Position',[0.2 0.5 1.7 .2],'Callback',@SelectModules_SelectAllNone);
-uicontrol(SelectDisplay,'Style','pushbutton',   'Value',0,'String','Invert Selection',  'Units','Inches','BackgroundColor',[.7 .7 .9], 'Position',[2.2 0.5 1.7 .2],'Callback',@SelectModules_InvertSelection);
+uicontrol(SelectDisplay,'Style','pushbutton',   'Value',0,'String','Select All/None',   'Units','Inches','BackgroundColor',CPBackgroundColor(), 'Position',[0.2 0.5 1.7 .2],'Callback',@SelectModules_SelectAllNone);
+uicontrol(SelectDisplay,'Style','pushbutton',   'Value',0,'String','Invert Selection',  'Units','Inches','BackgroundColor',CPBackgroundColor(), 'Position',[2.2 0.5 1.7 .2],'Callback',@SelectModules_InvertSelection);
 appdata.modulehandles = h;
 appdata.selectallnone = 1;
 guidata(SelectDisplay,appdata);
@@ -91,14 +84,14 @@ okbutton = uicontrol(SelectDisplay,...
     'KeyPressFcn', @doFigureKeyPress,...
     'position',[posx 0.1 ButtonWidth 0.3],...
     'Callback','[foo,fig] = gcbo;set(fig,''UserData'',1);uiresume(fig);clear fig foo',...
-    'BackgroundColor',[.7 .7 .9]);
+    'BackgroundColor',CPBackgroundColor());
 cancelbutton = uicontrol(SelectDisplay,...
     'style','pushbutton',...
     'String','Cancel',...
     'units','inches',...
     'position',[Width-posx-ButtonWidth 0.1 ButtonWidth 0.3],...
     'Callback','delete(gcf)',...
-    'BackgroundColor',[.7 .7 .9]); %#ok Ignore MLint
+    'BackgroundColor',CPBackgroundColor()); %#ok Ignore MLint
 
 uicontrol(okbutton)
 uiwait(SelectDisplay)

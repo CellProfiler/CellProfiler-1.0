@@ -55,13 +55,6 @@ function handles = SubtractBackground(handles)
 %
 % See also ApplyThreshold.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -144,7 +137,7 @@ if handles.Current.SetBeingAnalyzed == 1
         NumberOfImages = length(FileList);
         WaitbarText = 'Preliminary background calculations underway... ';
         WaitbarHandle = waitbar(1/NumberOfImages, WaitbarText);
-        set(WaitbarHandle,'Position', PositionMsgBox,'color',[.7 .7 .9])
+        set(WaitbarHandle,'Position', PositionMsgBox,'color',CPBackgroundColor())
         for i = 1:NumberOfImages
             Image = CPimread(fullfile(Pathname,char(FileList(i))));
             SortedColumnImage = sort(reshape(Image, [],1));
@@ -217,7 +210,7 @@ if MinimumTenthMinimumPixelValue ~= 0
         title(hAx,'Corrected Image');
         % Displays the text.
         if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','DisplayText'))
-            displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','DisplayText','style','text', 'position', [0 0 200 20],'fontname','helvetica','backgroundcolor',[0.7 0.7 0.9],'FontSize',handles.Preferences.FontSize);
+            displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','DisplayText','style','text', 'position', [0 0 200 20],'fontname','helvetica','backgroundcolor',CPBackgroundColor(),'FontSize',handles.Preferences.FontSize);
         else
             displaytexthandle = findobj('Parent',ThisModuleFigureNumber,'tag','DisplayText');
         end

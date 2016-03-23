@@ -25,13 +25,6 @@ function handles = OverlayOutlines(handles)
 %
 % See also identify modules.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -188,7 +181,7 @@ if any(findobj == ThisModuleFigureNumber)
     CPimagesc(NewImage,handles,hAx);
     title(hAx,['Original Image with Outline Overlay, cycle # ',num2str(handles.Current.SetBeingAnalyzed)]);
     uicontrol(FigHandle,'units','normalized','position',[.01 .5 .06 .04],'string','off',...
-        'UserData',{OrigImage NewImage},'backgroundcolor',[.7 .7 .9],...
+        'UserData',{OrigImage NewImage},'backgroundcolor',CPBackgroundColor(),...
         'Callback',@CP_OrigNewImage_Callback);
 end
 

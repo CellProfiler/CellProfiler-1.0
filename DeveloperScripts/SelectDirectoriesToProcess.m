@@ -18,13 +18,6 @@ function handles = SelectDirectoriesToProcess(handles)
 %
 % See also LoadImages.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -90,6 +83,6 @@ if any(findobj == ThisModuleFigureNumber)
     end
     currentfig = CPfigure(handles,'Text',ThisModuleFigureNumber);
     for i = 1:length(TextString),
-        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString{i},'position',[.05 .9-(i-1)*.04 .95 .04],'BackgroundColor',[.7 .7 .9]);
+        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString{i},'position',[.05 .9-(i-1)*.04 .95 .04],'BackgroundColor',CPBackgroundColor());
     end
 end

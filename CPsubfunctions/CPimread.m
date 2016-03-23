@@ -1,7 +1,4 @@
 function LoadedImage = CPimread(CurrentFileName, flex_idx)
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
 % CPimread by itself returns the vaild image extensions
 % CPimread(CurrentFileName) is used for most filetypes
 % CPimread(CurrentFileName, flex_idx) is used for 'tif,tiff,flex movies'
@@ -9,10 +6,6 @@ function LoadedImage = CPimread(CurrentFileName, flex_idx)
 %       in LoadImages, where flex_idx is index of a particular image within the
 %       file
 %
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

@@ -95,13 +95,6 @@ function handles = MeasureImageQuality(handles,varargin)
 % Note: This module replaces the outdated "MeasureImageSaturationBlur".
 %
 %
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003--2008.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -484,7 +477,7 @@ if any(findobj == ThisModuleFigureNumber)
     end
 
     if isempty(findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl'))
-        displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text','units','normalized','position', [0.1 0.1 0.8 0.8],'fontname','helvetica','backgroundcolor',[.7 .7 .9],'horizontalalignment','left','FontSize',handles.Preferences.FontSize);
+        displaytexthandle = uicontrol(ThisModuleFigureNumber,'tag','TextUIControl','style','text','units','normalized','position', [0.1 0.1 0.8 0.8],'fontname','helvetica','backgroundcolor',CPBackgroundColor(),'horizontalalignment','left','FontSize',handles.Preferences.FontSize);
     else
         displaytexthandle = findobj('Parent',ThisModuleFigureNumber,'tag','TextUIControl');
     end

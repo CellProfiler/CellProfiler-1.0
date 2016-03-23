@@ -12,13 +12,6 @@ function handles = HoughTransformCircular(handles)
 % Adapted from code on the Matlab File Exchange, contributed by Tao Peng at
 % http://www.mathworks.com/matlabcentral/fileexchange/loadFile.do?objectId=9168&objectType=file
 %
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

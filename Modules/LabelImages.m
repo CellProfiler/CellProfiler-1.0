@@ -34,13 +34,6 @@ function handles = LabelImages(handles)
 %
 % See also DefineGrid, for labeling a grid within each image.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -165,7 +158,7 @@ if any(findobj == ThisModuleFigureNumber);
         'units','normalized',...
         'position', [0 0.95 1 0.04],...
         'HorizontalAlignment','center',...
-        'Backgroundcolor',[.7 .7 .9],...
+        'Backgroundcolor',CPBackgroundColor(),...
         'fontname','Helvetica',...
         'fontsize',handles.Preferences.FontSize,'fontweight','bold','string',[LabelName, ' for cycle #',num2str(handles.Current.SetBeingAnalyzed)],'UserData',handles.Current.SetBeingAnalyzed);
     %%% There are the features to be displayed in the window.
@@ -178,7 +171,7 @@ if any(findobj == ThisModuleFigureNumber);
             'HorizontalAlignment','left',...
             'string',[FeatureName,': ', FeatureValue],...
             'position',[.05 .85-(idxData-1)*.05 .95 .1],...
-            'BackgroundColor',[.7 .7 .9])
+            'BackgroundColor',CPBackgroundColor())
     end
 end
 

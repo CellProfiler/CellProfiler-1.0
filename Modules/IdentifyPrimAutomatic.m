@@ -360,13 +360,6 @@ function handles = IdentifyPrimAutomatic(handles)
 %
 % See also IdentifyPrimManual, IdentifySecondary.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -766,9 +759,9 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     %%% First set seed to 0, so that it is reproducible
                     is2008b_or_greater = ~CPverLessThan('matlab','7.7');
                     if is2008b_or_greater,
-                        defaultStream = RandStream.getDefaultStream;
+                        defaultStream = RandStream.getGlobalStream;
                         savedState = defaultStream.State;
-                        RandStream.setDefaultStream(RandStream('mt19937ar','seed',0));
+                        RandStream.setGlobalStream(RandStream('mt19937ar','seed',0));
                     else
                         rand('seed',0);
                     end
@@ -1256,7 +1249,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     CPfigure(handles,'Image',IdPrimTestModeSegmentedFigureNumber);
                     set(IdPrimTestModeSegmentedFigureNumber,'Tag','IdPrimTestModeSegmentedFigure',...
                         'name','IdentifyPrimAutomatic Test Objects Display, cycle # ');
-                    uicontrol(IdPrimTestModeSegmentedFigureNumber,'style','text','units','normalized','string','Identified objects are shown here. Note: Choosing "Do not use" for either option will result in the same image, therefore only the Intensity and "Do not use" option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',[.7 .7 .9])
+                    uicontrol(IdPrimTestModeSegmentedFigureNumber,'style','text','units','normalized','string','Identified objects are shown here. Note: Choosing "Do not use" for either option will result in the same image, therefore only the Intensity and "Do not use" option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',CPBackgroundColor())
                 end
                 %%% If the figure window DOES exist now, then calculate and display items
                 %%% in it.
@@ -1280,7 +1273,7 @@ for LocalMaximaTypeNumber = 1:length(LocalMaximaTypeList)
                     CPfigure(handles,'Image',IdPrimTestModeOutlinedFigureNumber);
                     set(IdPrimTestModeOutlinedFigureNumber,'Tag','IdPrimTestModeOutlinedFigure',...
                         'name','IdentifyPrimAutomatic Test Outlines Display, cycle # ');
-                    uicontrol(IdPrimTestModeOutlinedFigureNumber,'style','text','units','normalized','string','Outlined objects are shown here. Note: Choosing "Do not use" for either option will result in the same image, therefore only the Intensity and "Do not use" option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',[.7 .7 .9]);
+                    uicontrol(IdPrimTestModeOutlinedFigureNumber,'style','text','units','normalized','string','Outlined objects are shown here. Note: Choosing "Do not use" for either option will result in the same image, therefore only the Intensity and "Do not use" option has been shown.','position',[.65 .1 .3 .4],'BackgroundColor',CPBackgroundColor());
                 end
 
                 if ~isempty(IdPrimTestModeOutlinedFigureNumber)

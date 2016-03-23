@@ -1,12 +1,5 @@
 function Image = CPretrieveimage(handles,ImageName,ModuleName,ColorFlag,ScaleFlag,SizeFlag)
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -67,8 +60,16 @@ else
     Image = handles.Pipeline.GroupFileList{handles.Pipeline.CurrentImageGroupID}.(ImageName);
 end
 
+
+% Here it would be possible to convert images from single
+% back to double precision (reduce RAM storage space):
+%if isa(Image,'single')
+%    Image = double(Image);
+%end
+
+
 if ScaleFlag == 1
-    if max(Image(:)) > 1 || min(Image(:)) < 0
+    if (min(Image(:)) < 0 || max(Image(:)) > 1)
         CPwarndlg(['The image loaded in the ', ModuleName, ' module is outside the 0-1 range, and you may be losing data.'],'Outside 0-1 Range','replace');
     end
 end

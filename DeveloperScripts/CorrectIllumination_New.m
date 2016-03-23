@@ -11,13 +11,6 @@ function handles = CorrectIllumination_New(handles)
 %
 % See also CorrectIllumination_Apply, Smooth
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -213,8 +206,6 @@ function [X, fX, i] = minimize(X, f, length, varargin);
 %
 % See also: checkgrad
 %
-% Copyright (C) 2001 - 2006 by Carl Edward Rasmussen (2006-02-23).
-
 INT = 0.1;    % don't reevaluate within 0.1 of the limit of the current bracket
 EXT = 3.0;                  % extrapolate maximum 3 times the current step-size
 MAX = 20;                         % max 20 function evaluations per line search

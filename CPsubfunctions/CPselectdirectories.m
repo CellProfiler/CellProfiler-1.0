@@ -2,13 +2,6 @@ function handles = CPselectdirectories(handles)
 % Allows the user to interactively select which directories below the image
 % directory to process.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -247,7 +240,7 @@ end
 function SelectDirectoryFig = CreateSelectDirectoryWindow(DirectoryNames,DirectoryLevel,ListingTag,NumberOfDirectoryEntries,RootDirectoryName)
 
 % Create Select Directory window
-SelectDirectoryFig = CPfigure('Units','Inches','Resize','Off','Menubar','None','Toolbar','None','NumberTitle','Off','Name','Select Directories','Color',[.7 .7 .9],'UserData',0);
+SelectDirectoryFig = CPfigure('Units','Inches','Resize','Off','Menubar','None','Toolbar','None','NumberTitle','Off','Name','Select Directories','Color',CPBackgroundColor(),'UserData',0);
 
 % Set window location and size
 % Get current position
@@ -275,12 +268,12 @@ set(SelectDirectoryFig,'Position',[Pos(1)+1 YDist Width Height]);
 
 % Create text and special checkboxes
 uicontrol(SelectDirectoryFig,'Style','Text','String',['Select which directories in ',RootDirectoryName,' to process: '],...
-    'HorizontalAlignment','Left','Units','Inches','Position',[0.1 Height-0.5 3.5 0.4],'BackgroundColor',[.7 .7 .9]);
+    'HorizontalAlignment','Left','Units','Inches','Position',[0.1 Height-0.5 3.5 0.4],'BackgroundColor',CPBackgroundColor());
 
 % Create panel and slider, if needed
 if ReqSlid
     % Panel Stuff
-    SelectDirectoryPanel = uipanel(SelectDirectoryFig,'units','inches','position',[0 .8 4 Height-5*uiheight],'bordertype','none','BackgroundColor',[.7 .7 .9]);
+    SelectDirectoryPanel = uipanel(SelectDirectoryFig,'units','inches','position',[0 .8 4 Height-5*uiheight],'bordertype','none','BackgroundColor',CPBackgroundColor());
     PanelPosition = get(SelectDirectoryPanel,'Position');
     PanelHeight = PanelPosition(4);
     Fits = floor(PanelHeight/uiheight);
@@ -303,7 +296,7 @@ h = zeros(NumberOfDirectoryEntries,1);
 for i = 1:NumberOfDirectoryEntries
     space_offset = 0.2*(DirectoryLevel(i)-1);   % Indent by directory level
     h(i) = uicontrol('parent',SelectDirectoryPanel,'style','checkbox','string',DirectoryNames{i},'units','inches','position',[0.2+space_offset ypos 3.2 0.18],...
-        'backgroundcolor',[.7 .7 .9],'Value',1,'tag',ListingTag{i},'callback', @SelectDirectories_Callback);
+        'backgroundcolor',CPBackgroundColor(),'Value',1,'tag',ListingTag{i},'callback', @SelectDirectories_Callback);
     ypos = ypos-uiheight;
 end
 
@@ -313,8 +306,8 @@ if ReqSlid
 end
 
 % Create special features
-uicontrol(SelectDirectoryFig,'Style','pushbutton',   'Value',0,'String','Select All/None',   'Units','Inches','BackgroundColor',[.7 .7 .9], 'Position',[0.2 0.5 1.7 .2],'Callback',@SelectModules_SelectAllNone);
-uicontrol(SelectDirectoryFig,'Style','pushbutton',   'Value',0,'String','Invert Selection',  'Units','Inches','BackgroundColor',[.7 .7 .9], 'Position',[2.2 0.5 1.7 .2],'Callback',@SelectModules_InvertSelection);
+uicontrol(SelectDirectoryFig,'Style','pushbutton',   'Value',0,'String','Select All/None',   'Units','Inches','BackgroundColor',CPBackgroundColor(), 'Position',[0.2 0.5 1.7 .2],'Callback',@SelectModules_SelectAllNone);
+uicontrol(SelectDirectoryFig,'Style','pushbutton',   'Value',0,'String','Invert Selection',  'Units','Inches','BackgroundColor',CPBackgroundColor(), 'Position',[2.2 0.5 1.7 .2],'Callback',@SelectModules_InvertSelection);
 appdata.directoryhandles = h;
 appdata.selectallnone = 1;
 guidata(SelectDirectoryFig,appdata);
@@ -329,7 +322,7 @@ uicontrol(SelectDirectoryFig,...
     'KeyPressFcn', @doFigureKeyPress,...
     'position',[posx 0.1 ButtonWidth 0.25],...
     'Callback','[foo,fig] = gcbo;set(fig,''UserData'',1);uiresume(fig);clear fig foo',...
-    'BackgroundColor',[.7 .7 .9],...
+    'BackgroundColor',CPBackgroundColor(),...
     'tag',[mfilename,'_OKButton']);
 uicontrol(SelectDirectoryFig,...
     'style','pushbutton',...
@@ -337,5 +330,5 @@ uicontrol(SelectDirectoryFig,...
     'units','inches',...
     'position',[Width-posx-ButtonWidth 0.1 ButtonWidth 0.25],...
     'Callback','delete(gcbf)',...
-    'BackgroundColor',[.7 .7 .9],...
+    'BackgroundColor',CPBackgroundColor(),...
     'tag',[mfilename,'_CancelButton']); %#ok Ignore MLint

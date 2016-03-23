@@ -13,13 +13,6 @@ function DataLayout(handles)
 % same spatial layout to look for patterns (e.g. edge effects). The mean
 % measurement for each image is shown in the plot that is produced.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %

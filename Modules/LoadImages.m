@@ -269,13 +269,6 @@ function handles = LoadImages(handles)
 %
 % See also LoadSingleImage.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -947,7 +940,7 @@ if any(findobj == ThisModuleFigureNumber);
         else
             TextString = [ImageName,': ',FileNames];
         end
-        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString,'position',[.05 .85-(n-1)*.15 .95 .1],'BackgroundColor',[.7 .7 .9],'tag','TextUIControl');
+        uicontrol(currentfig,'style','text','units','normalized','fontsize',handles.Preferences.FontSize,'HorizontalAlignment','left','string',TextString,'position',[.05 .85-(n-1)*.15 .95 .1],'BackgroundColor',CPBackgroundColor(),'tag','TextUIControl');
     end
 end
 

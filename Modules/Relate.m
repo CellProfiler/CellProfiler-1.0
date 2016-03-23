@@ -39,13 +39,6 @@ function handles = Relate(handles,varargin)
 % Measurement Categories (each with only one Feature):
 % Parent, Children, SubObjectFlag, Distance, NormDistance
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003,2004,2005.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -371,7 +364,7 @@ if any(findobj == ThisModuleFigureNumber)
         'UserData',ud,...
         'units','normalized',...
         'position',[.1 .95 .25 .04],...
-        'backgroundcolor',[.7 .7 .9],...
+        'backgroundcolor',CPBackgroundColor(),...
         'Callback', @CP_ImagePopupmenu_Callback);
 
 end

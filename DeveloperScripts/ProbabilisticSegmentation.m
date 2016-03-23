@@ -42,12 +42,7 @@ function handles = ProbabilisticSegmentation(handles)
 % stage because they are more likely to be artifactual, and so they
 % therefore should not "claim" any secondary object pixels.
 %
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
 % Developed by the Broad Institute
-% Copyright 2007
-% Website: http://www.cellprofiler.org
 %
 
 %%%%%%%%%%%%%%%%%

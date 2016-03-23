@@ -142,13 +142,6 @@ function handles = IdentifySecondary(handles)
 %
 % See also Identify primary modules.
 
-% CellProfiler is distributed under the GNU General Public License.
-% See the accompanying file LICENSE for details.
-%
-% Developed by the Whitehead Institute for Biomedical Research.
-% Copyright 2003--2008.
-%
-% Please see the AUTHORS file for credits.
 %
 % Website: http://www.cellprofiler.org
 %
@@ -720,7 +713,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
             %%% Text display of Threshold
             ObjectCoverage = 100*sum(sum(FinalLabelMatrixImage > 0))/numel(FinalLabelMatrixImage);
             uicontrol(ThisModuleFigureNumber,'Style','Text','Units','Normalized','Position',[0.05 0.01 .8 0.04],...
-                'BackgroundColor',[.7 .7 .9],'HorizontalAlignment','Left','String',sprintf('Threshold:  %0.3f               %0.1f%% of image consists of objects',Threshold,ObjectCoverage),'FontSize',handles.Preferences.FontSize);
+                'BackgroundColor',CPBackgroundColor(),'HorizontalAlignment','Left','String',sprintf('Threshold:  %0.3f               %0.1f%% of image consists of objects',Threshold,ObjectCoverage),'FontSize',handles.Preferences.FontSize);
 
             %%% Calculates the ColoredLabelMatrixImage for display
             ColoredLabelMatrixImage = CPlabel2rgb(handles,FinalLabelMatrixImage);
@@ -746,7 +739,7 @@ for IdentChoiceNumber = 1:length(IdentChoiceList)
                     'UserData',ud,...
                     'units','normalized',...
                     'position',[.01 .95 .25 .04],...
-                    'backgroundcolor',[.7 .7 .9],...
+                    'backgroundcolor',CPBackgroundColor(),...
                     'tag','PopupImage',...
                     'Callback', @CP_ImagePopupmenu_Callback);
             end
